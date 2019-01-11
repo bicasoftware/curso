@@ -1,9 +1,31 @@
+import 'package:curso/MainState.dart';
+import 'package:curso/bloc/bloc_main/BlocMain.dart';
+import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Intl.defaultLocale = 'pt_BR';
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  MyAppState createState() {
+    return new MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  BlocMain _bloc = BlocMain();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,36 +36,22 @@ class MyApp extends StatelessWidget {
         fontFamily: "FiraSans",
         brightness: Brightness.dark,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BlocProvider<BlocMain>(
+        bloc: _bloc,
+        child: MyHomePage(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int pos;
-
-  @override
-  initState(){
-    super.initState();
-    pos = 1;
-  }
-
-  setPos(int p) => setState(() => pos = p);
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final b = BlocProvider.of<BlocMain>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("iCurso"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -63,23 +71,28 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text("Exemplo"),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: pos,
-        onTap: (p) => setPos(p),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_view_day),
-            title: Text("Periodos"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.date_range),
-            title: Text("Hoje"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_bulleted),
-            title: Text("Curso"),
-          ),
-        ],
+      bottomNavigationBar: BlocBuilder<MainEvents, MainState>(
+        bloc: b,
+        builder: (context, state) {
+          return BottomNavigationBar(
+            currentIndex: state.navPos,
+            onTap: (p) => b.dispatch(SetPosition(p)),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_view_day),
+                title: Text("Periodos"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.date_range),
+                title: Text("Hoje"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.format_list_bulleted),
+                title: Text("Curso"),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
