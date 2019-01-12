@@ -5,14 +5,22 @@ import 'package:curso/view/view_periodos/view_periodos.dart';
 import 'package:flutter/material.dart';
 
 class ViewHomeBuilder {
-  static AppBar get appBar {
+  static AppBar appBar({Function(int) onOptionSelected}) {
     return AppBar(
       title: Text("iCurso"),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => print("Teste"),
-        ),
+        PopupMenuButton<int>(
+          icon: Icon(Icons.more_vert),
+          onSelected: onOptionSelected,
+          itemBuilder: (c) {
+            return Arrays.opcoes.map((String s) {
+              return PopupMenuItem<int>(
+                child: Text(s),
+                value: 0,
+              );
+            }).toList();
+          },
+        )
       ],
     );
   }

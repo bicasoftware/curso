@@ -1,7 +1,9 @@
-import 'package:curso/main_state.dart';
 import 'package:curso/bloc/bloc_main/BlocMain.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
+import 'package:curso/main_state.dart';
 import 'package:curso/view/view_home_builder.dart';
+import 'package:curso/view/view_options/ViewOptionsResult.dart';
+import 'package:curso/view/view_options/view_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +29,25 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
         );
 
         return Scaffold(
-          appBar: ViewHomeBuilder.appBar,
+          appBar: ViewHomeBuilder.appBar(onOptionSelected: (i) async {
+            final ViewOptionsResult result = await Navigator.of(context).push(
+              MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (c) {
+                  return ViewOptions(
+                    brightness: state.brightness,
+                    notify: state.notify,
+                  );
+                },
+              ),
+            );
+
+            if (result != null && result is ViewOptionsResult) {
+              b.dispatch(SetBrightness(result.brightness));
+              b.dispatch(SetNotify(result.notify));
+            }
+          }),
+
           body: ViewHomeBuilder.body(nav),
           bottomNavigationBar: ViewHomeBuilder.bottomBar(
             state.navPos,
