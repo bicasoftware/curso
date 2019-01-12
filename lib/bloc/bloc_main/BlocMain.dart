@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:curso/MainState.dart';
+import 'package:curso/main_state.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 
