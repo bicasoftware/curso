@@ -1,12 +1,26 @@
-import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/bloc/bloc_main/BlocMain.dart';
+import 'package:curso/events/events_main/MainEvents.dart';
+import 'package:curso/main_state.dart';
+import 'package:curso/view/view_periodos/view_periodos_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ViewPeriodos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Center(child: Text(Strings.periodos)),
+    final b = BlocProvider.of<BlocMain>(context);
+
+    return BlocBuilder<MainEvents, MainState>(
+      bloc: b,
+      builder: (c, state) {
+        return Container(
+          child: ViewPeriodosBuilder.listPeriodos(
+            context,
+            state.periodos,
+            (i) => print("$i"),
+          ),
+        );
+      },
     );
   }
 }

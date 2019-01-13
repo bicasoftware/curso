@@ -3,6 +3,7 @@ class Strings {
   static const String opcoes = 'Opções';
   static const String informacoes = 'Informações';
   static const String periodos = 'Períodos';
+  static const String periodo = 'Período';
   static const String calendario = 'Calendário';
   static const String notificar = 'Notificar';
   static const String tema = 'Tema';
