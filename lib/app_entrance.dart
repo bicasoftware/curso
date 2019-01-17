@@ -15,6 +15,7 @@ class AppEntrance extends StatefulWidget {
 }
 
 class AppEntranceState extends State<AppEntrance> {
+
   BlocMain _bloc = BlocMain();
 
   @override

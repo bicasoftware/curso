@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:curso/container/aulas.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
-import 'package:curso/main_state.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
+import 'package:curso/main_state.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
 
 class BlocMain extends Bloc<MainEvents, MainState> {
@@ -55,6 +56,32 @@ class BlocMain extends Bloc<MainEvents, MainState> {
                   nota: 8,
                   data: DateTime(2019, 04, 12),
                 )
+              ],
+              aulas: [
+                Aulas(
+                  id: 1,
+                  idMateria: 1,
+                  ordem: 0,
+                  weekDay: 0,
+                ),
+                Aulas(
+                  id: 2,
+                  idMateria: 1,
+                  ordem: 1,
+                  weekDay: 0,
+                ),
+                Aulas(
+                  id: 1,
+                  idMateria: 1,
+                  ordem: 2,
+                  weekDay: 0,
+                ),
+                Aulas(
+                  id: 1,
+                  idMateria: 1,
+                  ordem: 3,
+                  weekDay: 0,
+                ),
               ],
             ),
           ],

@@ -1,32 +1,47 @@
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/Cronograma.dart';
+import 'package:curso/widgets/WeekDayHeader.dart';
 import 'package:flutter/material.dart';
-import 'package:curso/utils.dart/Formatting.dart';
 
 class ViewPeriodosBuilder {
   static Widget listPeriodos(BuildContext context, List<Periodos> periodos, Function(int) onTap) {
-    return ListView.separated(
+    return ListView.builder(
       shrinkWrap: true,
       itemCount: periodos.length,
       itemBuilder: (c, i) {
-        return _periodoListItem(c, periodos[i], onTap);
-      },
-      separatorBuilder: (c, i) {
-        return Divider(height: 1);
+        return _expandedTile(c, periodos[i], onTap);
       },
     );
   }
 
-  static Widget _periodoListItem(BuildContext context, Periodos p, Function(int) onTap) {
-    return ListTile(
-      onTap: () => onTap,
+  static Widget _expandedTile(BuildContext c, Periodos p, Function(int) onTap) {
+    return ExpansionTile(
       leading: CircleAvatar(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(c).accentColor,
         child: Icon(Icons.date_range),
       ),
       title: Text("${p.id}º ${Strings.periodo}"),
-      subtitle:
-          Text("De ${Formatting.formatDate(p.inicio)} até ${Formatting.formatDate(p.termino)}"),
+      children: <Widget>[
+        Text(Strings.cronograma),
+        SizedBox(height: 8),
+        WeekDayHeader(),
+        Cronograma(periodo: p),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FlatButton(
+              child: Text(Strings.materias),
+              onPressed: () {},
+            ),
+            FlatButton(
+              child: Text(Strings.provas),
+              onPressed: () {},
+            )
+          ],
+        )
+      ],
     );
   }
 }

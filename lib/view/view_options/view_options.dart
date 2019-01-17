@@ -8,9 +8,9 @@ class ViewOptions extends StatefulWidget {
   final bool notify;
 
   const ViewOptions({
+    this.notify,
+    this.brightness,
     Key key,
-    @required this.brightness,
-    @required this.notify,
   }) : super(key: key);
 
   @override

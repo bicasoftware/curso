@@ -1,7 +1,10 @@
+import 'package:curso/container/aulas.dart';
 import 'package:curso/database/base_table.dart';
 
 import 'faltas.dart';
 import 'notas.dart';
+
+//adicionar array com ordem de aulas durante a semana
 
 class Materias implements BaseTable {
   final int id, idPeriodo;
@@ -10,6 +13,7 @@ class Materias implements BaseTable {
   final double medAprov;
   final List<Faltas> faltas;
   final List<Notas> notas;
+  final List<Aulas> aulas;
 
   Materias({
     this.id,
@@ -20,6 +24,7 @@ class Materias implements BaseTable {
     this.medAprov,
     this.faltas,
     this.notas,
+    this.aulas,
   });
 
   static const String ID = "id";
@@ -38,6 +43,7 @@ class Materias implements BaseTable {
     double medAprov,
     List<Notas> notas,
     List<Faltas> faltas,
+    List<Aulas> aulas,
   ) {
     return Materias(
       id: id ?? this.id,
@@ -48,6 +54,7 @@ class Materias implements BaseTable {
       medAprov: medAprov ?? this.medAprov,
       faltas: faltas ?? this.faltas,
       notas: notas ?? this.notas,
+      aulas: aulas ?? this.aulas,
     );
   }
 

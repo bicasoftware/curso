@@ -49,6 +49,7 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
           }),
 
           body: ViewHomeBuilder.body(nav),
+          floatingActionButton: ViewHomeBuilder.fab(state.showFab, (){}),
           bottomNavigationBar: ViewHomeBuilder.bottomBar(
             state.navPos,
             (i) {

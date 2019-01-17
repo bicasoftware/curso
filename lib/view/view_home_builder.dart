@@ -60,4 +60,13 @@ class ViewHomeBuilder {
       ),
     );
   }
+
+  static Widget fab(bool isShown, VoidCallback onTap) {
+    return isShown
+        ? FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: onTap,
+          )
+        : null;
+  }
 }

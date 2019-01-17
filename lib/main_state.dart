@@ -14,6 +14,8 @@ class MainState {
     this.notify,
   });
 
+  bool get showFab => navPos == 0;
+
   MainState copyWith({int navPos, AppBrightness brightness, bool notify, List<Periodos> periodos}) {
     return MainState(
       navPos: navPos ?? this.navPos,

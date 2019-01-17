@@ -10,10 +10,13 @@ class ViewPeriodos extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
+    //todo - Gerar tela de inclusão de periodos. Limitar o id do periodo conforme o Combobox
+
     return BlocBuilder<MainEvents, MainState>(
       bloc: b,
       builder: (c, state) {
         return Container(
+          padding: EdgeInsets.all(0),
           child: ViewPeriodosBuilder.listPeriodos(
             context,
             state.periodos,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:curso/container/aulas.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -34,6 +35,7 @@ class DBManager {
     await _createNotas(db);
     await _createFaltas(db);
     await _createMaterias(db);
+    await _createAulas(db);
     await _createPeriodos(db);
     await _createConf(db);
   }
@@ -58,6 +60,10 @@ class DBManager {
 
   Future _createConf(Database db) async {
     return await db.execute(Conf.getCreateSQL());
+  }
+
+  Future _createAulas(Database db) async {
+    return await db.execute(Aulas.getCreateSQL());
   }
 
   //todo - gerar inserts, updates e deletes
@@ -86,6 +92,7 @@ class DBManager {
     for (var m in materias) {
       m.faltas.addAll(await fetchFaltasByMateria(m.id));
       m.notas.addAll(await fetchNotasByMateria(m.id));
+      m.aulas.addAll(await fetchAulasByMateria(m.id));
     }
 
     return materias;
@@ -111,6 +118,17 @@ class DBManager {
     );
 
     return result.map((it) => Notas.fromMap(it));
+  }
+
+  Future<List<Aulas>> fetchAulasByMateria(int idMateria) async {
+    final r = await _db.query(
+      Aulas.tableName,
+      columns: Aulas.provideColumns,
+      where: "${Aulas.IDMATERIA} = ?",
+      whereArgs: [idMateria]
+    );
+
+    return r.map((it) => Aulas.fromMap(it));
   }
 
   ///insere emprego e porcentagens diferenciais
