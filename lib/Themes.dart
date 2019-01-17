@@ -13,9 +13,9 @@ class Themes {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      primarySwatch: Colors.orange,
-      primaryColor: Colors.orange,
-      accentColor: Colors.orange,
+      primarySwatch: Colors.deepPurple,
+      primaryColor: Colors.deepPurple,
+      accentColor: Colors.deepPurple,
       fontFamily: "FiraSans",
       brightness: Brightness.dark,
     );

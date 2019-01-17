@@ -1,8 +1,7 @@
-import 'package:curso/container/CronogramaContainer.dart';
+import 'package:curso/container/CronogramaListContainer.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/widgets/CronogramaItem.dart';
-import 'package:curso/widgets/WeekDayHeader.dart';
 import 'package:flutter/material.dart';
+import 'CronogramaRow.dart';
 
 class Cronograma extends StatelessWidget {
   final Periodos periodo;
@@ -11,27 +10,34 @@ class Cronograma extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final length = periodo.aulasDia * 7;
-
-    return GridView.count(
-      physics: NeverScrollableScrollPhysics(),
+    return ListView.builder(
       shrinkWrap: true,
-      crossAxisCount: 7,
-      childAspectRatio: 1,
-      children: List.generate(length, (i) {
-        return CronogramaItem(
-          container: CronogramaContainer(
-            ordemAula: 0, corMateria: Colors.red, sigla: "TRT"
-          ),
-        );
-      }),
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: periodo.aulasDia,
+      itemBuilder: (BuildContext c, int i) {
+        return CronogramaRow(rowPos: i, container: _getRowContainer(i));
+      },
     );
   }
 
-  List<CronogramaContainer> getList(int gridLength, Periodos p){
+  List<CronogramaListContainer> _getRowContainer(int ordemAula) {
+    final container = List.generate(7, (i) {
+      return CronogramaListContainer(weekDay: i, corMateria: null, sigla: null);
+    });
 
+    for (var i = 0; i < 7; i++) {
+      for (final materia in periodo.materias) {
+        final aula = materia.aulas.where((a) => a.ordem == ordemAula && a.weekDay == i).toList();
+        if (aula.length > 0) {
+          container[i] = CronogramaListContainer(
+            corMateria: Color(materia.cor),
+            weekDay: i,
+            sigla: materia.sigla,
+          );
+        }
+      }
+    }
 
-
-    return List<CronogramaContainer>();
+    return container;
   }
 }

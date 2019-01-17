@@ -11,6 +11,7 @@ class Materias implements BaseTable {
   final String nome, sigla;
   final bool freq;
   final double medAprov;
+  final int cor;
   final List<Faltas> faltas;
   final List<Notas> notas;
   final List<Aulas> aulas;
@@ -22,6 +23,7 @@ class Materias implements BaseTable {
     this.sigla,
     this.freq,
     this.medAprov,
+    this.cor,
     this.faltas,
     this.notas,
     this.aulas,
@@ -33,6 +35,7 @@ class Materias implements BaseTable {
   static const String SIGLA = "sigla";
   static const String FREQ = "freq";
   static const String MEDAPROV = "med_aprov";
+  static const String COR = "cor";
 
   Materias copyWith(
     int id,
@@ -41,6 +44,7 @@ class Materias implements BaseTable {
     String sigla,
     bool freq,
     double medAprov,
+    int cor,
     List<Notas> notas,
     List<Faltas> faltas,
     List<Aulas> aulas,
@@ -52,6 +56,7 @@ class Materias implements BaseTable {
       sigla: sigla ?? this.sigla,
       freq: freq ?? this.freq,
       medAprov: medAprov ?? this.medAprov,
+      cor: cor ?? this.cor,
       faltas: faltas ?? this.faltas,
       notas: notas ?? this.notas,
       aulas: aulas ?? this.aulas,
@@ -65,6 +70,7 @@ class Materias implements BaseTable {
     SIGLA,
     FREQ,
     MEDAPROV,
+    COR,
   ];
 
   static String tableName = "materias";
@@ -76,7 +82,8 @@ class Materias implements BaseTable {
       $NOME text NOT NULL DEFAULT "",
       $SIGLA text NOT NULL DEFAULT "",
       $FREQ INTEGER NOT NULL DEFAULT 1,
-      $MEDAPROV REAL NOT NULL DEFAULT 5.0
+      $MEDAPROV REAL NOT NULL DEFAULT 5.0,
+      $COR INTEGER
     );""";
   }
 
@@ -88,6 +95,7 @@ class Materias implements BaseTable {
       SIGLA: sigla,
       FREQ: freq,
       MEDAPROV: medAprov,
+      COR: cor,
     };
 
     if (id != null) m[ID] = id;
@@ -103,6 +111,7 @@ class Materias implements BaseTable {
       sigla: m[SIGLA],
       medAprov: m[MEDAPROV],
       freq: m[FREQ],
+      cor: m[COR],
     );
   }
 }

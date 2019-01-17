@@ -1,7 +1,7 @@
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/Cronograma.dart';
-import 'package:curso/widgets/WeekDayHeader.dart';
+import 'package:curso/widgets/DiaSemanaHeader.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodosBuilder {
@@ -23,9 +23,8 @@ class ViewPeriodosBuilder {
       ),
       title: Text("${p.id}º ${Strings.periodo}"),
       children: <Widget>[
-        Text(Strings.cronograma),
-        SizedBox(height: 8),
         WeekDayHeader(),
+        SizedBox(height: 0.5),
         Cronograma(periodo: p),
         SizedBox(height: 16),
         Row(
