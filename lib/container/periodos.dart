@@ -25,14 +25,27 @@ class Periodos implements BaseTable {
   static const String MEDAPROV = "med_aprov";
   static const String AULASDIA = "aulas_dia";
 
-  Periodos copyWith(
+  static Periodos newInstance() {
+    final now = DateTime.now();
+    final end = now.add(Duration(days: 6 * 30));
+    return Periodos(
+      inicio: now,
+      termino: end,
+      presObrig: 75,
+      aulasDia: 4,
+      medAprov: 7.0,
+      materias: [],
+    );
+  }
+
+  Periodos copyWith({
     DateTime inicio,
     DateTime termino,
     int presObrig,
     double medAprov,
     int aulasDia,
     List<Materias> materias,
-  ) {
+  }) {
     return Periodos(
       id: id ?? this.id,
       inicio: inicio ?? this.inicio,

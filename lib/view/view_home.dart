@@ -1,9 +1,11 @@
 import 'package:curso/bloc/bloc_main/BlocMain.dart';
+import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
 import 'package:curso/view/view_home_builder.dart';
 import 'package:curso/view/view_options/ViewOptionsResult.dart';
 import 'package:curso/view/view_options/view_options.dart';
+import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,9 +49,18 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
               b.dispatch(SetNotify(result.notify));
             }
           }),
-
           body: ViewHomeBuilder.body(nav),
-          floatingActionButton: ViewHomeBuilder.fab(state.showFab, (){}),
+          floatingActionButton: ViewHomeBuilder.fab(state.showFab, () {
+            // todo - capiturar retorno e inserir no banco de dados e no state;
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (BuildContext c) {
+                  return ViewPeriodosInsert(periodo: Periodos.newInstance());
+                },
+              ),
+            );
+          }),
           bottomNavigationBar: ViewHomeBuilder.bottomBar(
             state.navPos,
             (i) {
