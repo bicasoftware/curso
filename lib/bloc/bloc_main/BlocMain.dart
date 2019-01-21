@@ -137,6 +137,13 @@ class BlocMain extends Bloc<MainEvents, MainState> {
       yield currentState.copyWith(notify: event.notify);
     } else if (event is SetBrightness) {
       yield currentState.copyWith(brightness: event.brightness);
+    } else if (event is UpdatePeriodo) {
+      final periodos = currentState.periodos;
+      final index = periodos.indexWhere((it) => it.id == event.periodo.id);
+      periodos[index] = periodos[index].copyWith(oldPeriodo: event.periodo);
+      yield currentState.copyWith(periodos: periodos);
+    } else if (event is InsertPeriodo) {
+      yield currentState.copyWith(periodos: currentState.periodos..add(event.periodo));
     }
   }
 }

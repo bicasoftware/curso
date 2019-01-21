@@ -1,3 +1,4 @@
+import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
 
 abstract class MainEvents {}
@@ -18,4 +19,15 @@ class SetNotify extends MainEvents{
   final bool notify;
 
   SetNotify(this.notify);
+}
+
+class UpdatePeriodo extends MainEvents{
+  final Periodos periodo;
+  UpdatePeriodo(this.periodo);
+}
+
+class InsertPeriodo extends MainEvents {
+  final Periodos periodo;
+
+  InsertPeriodo(this.periodo);
 }

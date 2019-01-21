@@ -39,6 +39,8 @@ class Periodos implements BaseTable {
   }
 
   Periodos copyWith({
+    Periodos oldPeriodo,
+    int id,
     DateTime inicio,
     DateTime termino,
     int presObrig,
@@ -46,15 +48,27 @@ class Periodos implements BaseTable {
     int aulasDia,
     List<Materias> materias,
   }) {
-    return Periodos(
-      id: id ?? this.id,
-      inicio: inicio ?? this.inicio,
-      termino: termino ?? this.termino,
-      presObrig: presObrig ?? this.presObrig,
-      medAprov: medAprov ?? this.medAprov,
-      aulasDia: aulasDia ?? this.aulasDia,
-      materias: materias ?? this.materias,
-    );
+    if (oldPeriodo != null) {
+      return Periodos(
+        id: oldPeriodo.id ?? this.id,
+        inicio: oldPeriodo.inicio ?? this.inicio,
+        termino: oldPeriodo.termino ?? this.termino,
+        presObrig: oldPeriodo.presObrig ?? this.presObrig,
+        medAprov: oldPeriodo.medAprov ?? this.medAprov,
+        aulasDia: oldPeriodo.aulasDia ?? this.aulasDia,
+        materias: oldPeriodo.materias ?? this.materias,
+      );
+    } else {
+      return Periodos(
+        id: id ?? this.id,
+        inicio: inicio ?? this.inicio,
+        termino: termino ?? this.termino,
+        presObrig: presObrig ?? this.presObrig,
+        medAprov: medAprov ?? this.medAprov,
+        aulasDia: aulasDia ?? this.aulasDia,
+        materias: materias ?? this.materias,
+      );
+    }
   }
 
   static List<String> provideColumns = [
@@ -103,5 +117,10 @@ class Periodos implements BaseTable {
       medAprov: m[MEDAPROV],
       aulasDia: m[AULASDIA],
     );
+  }
+
+  @override
+  String toString() {
+    return "${this.id},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
   }
 }

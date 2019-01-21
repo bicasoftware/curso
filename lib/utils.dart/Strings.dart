@@ -18,6 +18,7 @@ class Strings {
   static const String aulasDia = 'Aulas por Dia';
   static const String notaAprovacao = 'Nota de Aprovação';
   static const String presencaObrigatoria = 'Presença obrigatória';
+  static const String editar = 'Alterar';
 }
 
 class Arrays {

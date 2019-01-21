@@ -50,16 +50,17 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       appBar: AppBar(
         title: Text(Strings.novoPeriodo),
         actions: [
-          ViewPeriodosInsertBuilder.saveButton(_formKey, (){
-            final result = widget.periodo.copyWith(
-              inicio: _ini,
-              termino: _end,
-              aulasDia: _aulasDia,
-              medAprov: _nota,
-              presObrig: _presObrig,
+          ViewPeriodosInsertBuilder.saveButton(_formKey, () {
+            Navigator.of(context).pop(
+              widget.periodo.copyWith(
+                id: widget.periodo.id,
+                inicio: _ini,
+                termino: _end,
+                aulasDia: _aulasDia,
+                medAprov: _nota,
+                presObrig: _presObrig,
+              ),
             );
-
-            Navigator.of(context).pop(result);
           }),
         ],
       ),
