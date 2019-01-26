@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Strings {
   static const String appName = 'iCurso';
   static const String opcoes = 'Opções';
@@ -5,6 +7,10 @@ class Strings {
   static const String periodos = 'Períodos';
   static const String periodo = 'Período';
   static const String materias = 'Matérias';
+  static const String materia = 'Matéria';
+  static const String sigla = 'Sigla';
+  static const String corMateria = 'Cor da Materia';
+  static const String cor = 'Cor';
   static const String provas = 'Provas';
   static const String cronograma = 'Cronograma';
   static const String calendario = 'Calendário';
@@ -19,6 +25,8 @@ class Strings {
   static const String notaAprovacao = 'Nota de Aprovação';
   static const String presencaObrigatoria = 'Presença obrigatória';
   static const String editar = 'Alterar';
+  static const String excluir = 'Excluír';
+  static const String removerMateria = 'Excluír Materia';
 }
 
 class Arrays {
@@ -28,4 +36,30 @@ class Arrays {
 
   static const opcoes = [Strings.opcoes];
   static const temas = [Strings.claro, Strings.escuro];
+  static const List<MaterialColor> materialColors = const <MaterialColor>[
+    Colors.red,
+    Colors.pink,
+    Colors.purple,
+    Colors.deepPurple,
+    Colors.indigo,
+    Colors.blue,
+    Colors.lightBlue,
+    Colors.cyan,
+    Colors.teal,
+    Colors.green,
+    Colors.lightGreen,
+    Colors.lime,
+    Colors.yellow,
+    Colors.amber,
+    Colors.orange,
+    Colors.deepOrange,
+    Colors.brown,
+    Colors.grey,
+    Colors.blueGrey
+  ];
+}
+
+class Errors {
+  static const errNomeMateria = "Indique um nome com mais de 3 letras";
+  static const errSigla = "Sigla não pode estar vazia";
 }

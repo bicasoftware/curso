@@ -1,5 +1,6 @@
 import 'package:curso/container/CronogramaListContainer.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class CronogramaRow extends StatelessWidget {
   final int rowPos;
@@ -30,8 +31,10 @@ class CronogramaRow extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 1),
         color: cor ?? Theme.of(c).dividerColor,
         child: Center(
-          child: Text(
+          ///Autosized, pois a sigla pode ser enorme
+          child: AutoSizeText(            
             sigla ?? "${rowPos + 1}ª Aula",
+            maxLines: 2,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 10),
           ),

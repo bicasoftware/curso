@@ -2,7 +2,6 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert_builder.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class ViewPeriodosInsert extends StatefulWidget {
   final Periodos periodo;

@@ -37,7 +37,7 @@ class Materias implements BaseTable {
   static const String MEDAPROV = "med_aprov";
   static const String COR = "cor";
 
-  Materias copyWith(
+  Materias copyWith({
     int id,
     int idPeriodo,
     String nome,
@@ -48,7 +48,7 @@ class Materias implements BaseTable {
     List<Notas> notas,
     List<Faltas> faltas,
     List<Aulas> aulas,
-  ) {
+  }) {
     return Materias(
       id: id ?? this.id,
       idPeriodo: idPeriodo ?? this.idPeriodo,
@@ -113,5 +113,10 @@ class Materias implements BaseTable {
       freq: m[FREQ],
       cor: m[COR],
     );
+  }
+
+  @override
+  String toString() {
+    return "id: $id, idPeriodo: $idPeriodo, nome: $nome, sigla: $sigla,freq: $freq,medAprov: $medAprov,cor: $cor";
   }
 }

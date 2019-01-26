@@ -1,3 +1,4 @@
+import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/Cronograma.dart';
@@ -10,12 +11,13 @@ class ViewPeriodosBuilder {
     List<Periodos> periodos,
     Function(Periodos) onUpdateTap,
     Function(int) onDelete,
+    Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
   }) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: periodos.length,
       itemBuilder: (c, i) {
-        return _expandedTile(c, periodos[i], onUpdateTap, onDelete);
+        return _expandedTile(c, periodos[i], onUpdateTap, onDelete, onMateriasTap);
       },
     );
   }
@@ -25,6 +27,7 @@ class ViewPeriodosBuilder {
     Periodos p,
     Function(Periodos) onUpdateTap,
     Function(int) onDelete,
+    Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
   ) {
     return GestureDetector(
       onLongPress: () {
@@ -55,7 +58,9 @@ class ViewPeriodosBuilder {
                   children: <Widget>[
                     FlatButton(
                       child: Text(Strings.materias),
-                      onPressed: () {},
+                      onPressed: () {
+                        onMateriasTap(p.materias, p.id, p.medAprov);
+                      },
                     ),
                     FlatButton(
                       child: Text(Strings.provas),

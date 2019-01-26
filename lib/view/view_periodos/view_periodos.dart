@@ -1,7 +1,9 @@
 import 'package:curso/bloc/bloc_main/BlocMain.dart';
+import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
+import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_builder.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:flutter/material.dart';
@@ -12,29 +14,44 @@ class ViewPeriodos extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    //todo - Limitar o id do periodo conforme o Combobox
-
     return BlocBuilder<MainEvents, MainState>(
       bloc: b,
       builder: (c, state) {
         return Container(
           padding: EdgeInsets.all(0),
           child: ViewPeriodosBuilder.listPeriodos(
-            context: context,
-            periodos: state.periodos,
-            onUpdateTap: (p) async {
-              final Periodos result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (c) => ViewPeriodosInsert(periodo: p),
-                ),
-              );
+              context: context,
+              periodos: state.periodos,
+              onUpdateTap: (p) async {
+                final Periodos result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (c) => ViewPeriodosInsert(periodo: p),
+                  ),
+                );
 
-              if (result != null) {
-                b.dispatch(UpdatePeriodo(result));
-              }
-            },
-            onDelete: (int idPeriodo) => print(idPeriodo),
-          ),
+                if (result != null) {
+                  b.dispatch(UpdatePeriodo(result));
+                }
+              },
+              onDelete: (int idPeriodo) => print(idPeriodo),
+              onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
+                final resultMaterias = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (c) {
+                      return ViewMaterias(
+                        idPeriodo: idPeriodo,
+                        materias: materias,
+                        medAprov: medAprov,
+                      );
+                    },
+                  ),
+                );
+
+                if (resultMaterias != materias) {
+                  //todo - alterar lista de materias aqui
+                }
+              }),
         );
       },
     );
