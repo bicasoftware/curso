@@ -20,38 +20,39 @@ class ViewPeriodos extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(0),
           child: ViewPeriodosBuilder.listPeriodos(
-              context: context,
-              periodos: state.periodos,
-              onUpdateTap: (p) async {
-                final Periodos result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (c) => ViewPeriodosInsert(periodo: p),
-                  ),
-                );
+            context: context,
+            periodos: state.periodos,
+            onUpdateTap: (p) async {
+              final Periodos result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (c) => ViewPeriodosInsert(periodo: p),
+                ),
+              );
 
-                if (result != null) {
-                  b.dispatch(UpdatePeriodo(result));
-                }
-              },
-              onDelete: (int idPeriodo) => print(idPeriodo),
-              onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
-                final resultMaterias = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (c) {
-                      return ViewMaterias(
-                        idPeriodo: idPeriodo,
-                        materias: materias,
-                        medAprov: medAprov,
-                      );
-                    },
-                  ),
-                );
+              if (result != null) {
+                b.dispatch(UpdatePeriodo(result));
+              }
+            },
+            onDelete: (int idPeriodo) => print(idPeriodo),
+            onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
+              final List<Materias> resultMaterias = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (c) {
+                    return ViewMaterias(
+                      idPeriodo: idPeriodo,
+                      materias: materias,
+                      medAprov: medAprov,
+                    );
+                  },
+                ),
+              );
 
-                if (resultMaterias != materias) {
-                  //todo - alterar lista de materias aqui
-                }
-              }),
+              if (resultMaterias != materias) {
+                b.dispatch(RefreshMaterias(materias: resultMaterias, idPeriodo: idPeriodo));
+              }
+            },
+          ),
         );
       },
     );

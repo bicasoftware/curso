@@ -14,7 +14,7 @@ class Periodos implements BaseTable {
     this.termino,
     this.presObrig,
     this.medAprov,
-    this.materias,
+    this.materias: const [],
     this.aulasDia,
   });
 

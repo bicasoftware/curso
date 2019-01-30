@@ -24,9 +24,9 @@ class Materias implements BaseTable {
     this.freq,
     this.medAprov,
     this.cor,
-    this.faltas,
-    this.notas,
-    this.aulas,
+    this.faltas: const [],
+    this.notas: const [],
+    this.aulas: const [],
   });
 
   static const String ID = "id";
@@ -110,7 +110,7 @@ class Materias implements BaseTable {
       nome: m[NOME],
       sigla: m[SIGLA],
       medAprov: m[MEDAPROV],
-      freq: m[FREQ],
+      freq: m[FREQ] == 1 ? true : false,
       cor: m[COR],
     );
   }

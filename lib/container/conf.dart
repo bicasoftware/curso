@@ -26,9 +26,9 @@ class Conf implements BaseTable {
   ];
 
   static String getCreateSQL() {
-    return """create table conf(
+    return """create table $tableName(
       $NOTIFY INTEGER NOT NULL DEFAULT 0,
-      $BRIGHTNESS INTEGER NOT NULL DEFAULT 0,
+      $BRIGHTNESS INTEGER NOT NULL DEFAULT 0
     );""";
   }
 
@@ -36,7 +36,7 @@ class Conf implements BaseTable {
   Map toMap() {
     Map<String, dynamic> m = {
       NOTIFY: notify,
-      BRIGHTNESS: brightness,
+      BRIGHTNESS: brightness == AppBrightness.DARK ? 0 : 1,
     };
 
     return m;
@@ -44,10 +44,15 @@ class Conf implements BaseTable {
 
   static Conf fromMap(Map m) {
     return Conf(
-      brightness: m[BRIGHTNESS],
-      notify: m[NOTIFY],
+      brightness: m[BRIGHTNESS] == 0 ? AppBrightness.DARK : AppBrightness.LIGHT,
+      notify: m[NOTIFY] == 1 ? true : false,
     );
   }
 
   static String tableName = "conf";
+
+  @override
+  String toString(){
+    return "$notify $brightness";
+  }
 }

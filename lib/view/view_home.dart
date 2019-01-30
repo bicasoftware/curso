@@ -50,8 +50,8 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
             }
           }),
           body: ViewHomeBuilder.body(nav),
+          
           floatingActionButton: ViewHomeBuilder.fab(state.showFab, () async {
-
             final result = await Navigator.of(context).push(
               MaterialPageRoute(
                 fullscreenDialog: true,

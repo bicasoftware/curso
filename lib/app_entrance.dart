@@ -1,5 +1,7 @@
 import 'package:curso/Themes.dart';
 import 'package:curso/bloc/bloc_main/BlocMain.dart';
+import 'package:curso/container/conf.dart';
+import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
@@ -8,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppEntrance extends StatefulWidget {
+  final List<Periodos> periodos;
+  final Conf conf;
+
+  const AppEntrance({Key key, this.periodos, this.conf}) : super(key: key);
+
   @override
   AppEntranceState createState() {
     return new AppEntranceState();
@@ -15,8 +22,16 @@ class AppEntrance extends StatefulWidget {
 }
 
 class AppEntranceState extends State<AppEntrance> {
+  BlocMain _bloc;
 
-  BlocMain _bloc = BlocMain();
+  @override
+  void initState() {
+    super.initState();
+    _bloc = BlocMain(
+      periodos: widget.periodos,
+      conf: widget.conf,
+    );
+  }
 
   @override
   void dispose() {

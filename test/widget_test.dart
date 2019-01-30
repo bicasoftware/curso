@@ -21,7 +21,7 @@ void main() {
 //    expect(find.text('1'), findsOneWidget);
 //  });
 
-    group('Datas', () {
+  group('Datas', () {
     test('parseDate', () {
       Intl.defaultLocale = 'pt_BR';
       final d = Formatting.parseDate("2018-02-03");

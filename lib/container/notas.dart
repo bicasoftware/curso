@@ -18,7 +18,7 @@ class Notas implements BaseTable {
   static const String DATA = "dt_prova";
   static const String NOTA = "nota";
 
-  Notas copyWith(int id, int idMateria, DateTime data, int ordemAula) {
+  Notas copyWith({int id, int idMateria, DateTime data, int ordemAula}) {
     return Notas(
       id: id ?? this.id,
       idMateria: idMateria ?? this.idMateria,

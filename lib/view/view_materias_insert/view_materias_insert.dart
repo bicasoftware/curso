@@ -1,14 +1,16 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
 import 'package:curso/widgets/default_list_tile.dart';
 import 'package:curso/widgets/default_text_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasInsert extends StatefulWidget {
   final Materias materia;
+  final int pos;
 
-  const ViewMateriasInsert({Key key, this.materia}) : super(key: key);
+  const ViewMateriasInsert({Key key, this.materia, this.pos}) : super(key: key);
 
   @override
   _ViewMateriasInsertState createState() => _ViewMateriasInsertState();
@@ -49,7 +51,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
                   sigla: _sigla,
                   nome: _materia,
                 );
-                Navigator.of(context).pop(m);
+                Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, m));
               }
             },
           )
@@ -101,6 +103,4 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
       );
     }).toList();
   }
-
-  
 }

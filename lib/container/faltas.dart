@@ -19,7 +19,7 @@ class Faltas implements BaseTable {
   static const String DATA = "dt";
   static const String NUMAULA = "num_aula";
 
-  Faltas copyWith(int id, int idMateria, DateTime data, int numAula) {
+  Faltas copyWith({int id, int idMateria, DateTime data, int numAula}) {
     return Faltas(
       id: id ?? this.id,
       idMateria: idMateria ?? this.idMateria,
