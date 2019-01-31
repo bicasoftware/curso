@@ -34,10 +34,7 @@ class ViewPeriodosBuilder {
         onDelete(p.id);
       },
       child: ExpansionTile(
-        leading: CircleAvatar(
-          backgroundColor: Theme.of(c).accentColor,
-          child: Icon(Icons.date_range),
-        ),
+        leading: Icon(Icons.date_range),
         title: Text("${p.id}º ${Strings.periodo}"),
         children: <Widget>[
           WeekDayHeader(),

@@ -1,4 +1,5 @@
 import 'package:curso/container/materias.dart';
+import 'package:curso/widgets/circle.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasBuilder {
@@ -34,7 +35,10 @@ class ViewMateriasBuilder {
       leading: Icon(Icons.school, color: Theme.of(context).accentColor),
       title: Text(m.nome),
       subtitle: Text(m.sigla),
-      trailing: CircleAvatar(backgroundColor: Color(m.cor)),
+      trailing: Hero(
+        tag: ObjectKey(m),
+        child: Circle(color: m.cor, size: 35),
+      ),
     );
   }
 

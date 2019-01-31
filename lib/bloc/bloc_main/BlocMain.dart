@@ -4,9 +4,7 @@ import 'package:curso/container/conf.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
-import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
-import 'BlocMainMapper.dart' as mapper;
 
 class BlocMain extends Bloc<MainEvents, MainState> {
   final List<Periodos> periodos;

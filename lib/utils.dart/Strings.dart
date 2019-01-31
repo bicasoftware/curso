@@ -26,8 +26,10 @@ class Strings {
   static const String presencaObrigatoria = 'Presença obrigatória';
   static const String editar = 'Alterar';
   static const String excluir = 'Excluír';
+  static const String salvar = 'Salvar';
   static const String removerMateria = 'Excluír Materia';
   static const String removerPeriodo = 'Excluír Período?';
+  static const String selectCor = 'Selecione uma Cor';
 }
 
 class Arrays {

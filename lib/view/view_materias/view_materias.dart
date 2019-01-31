@@ -90,7 +90,7 @@ class _Body extends StatelessWidget {
             onLongTap: (materia) async {
               final result = await Dialogs.showRemoveDialog(
                 context: context,
-                title: materia.nome,
+                title: Strings.opcoes,
               );
               if (result != null) {                
                 b.dispatch(DeleteMateria(materia: materia));

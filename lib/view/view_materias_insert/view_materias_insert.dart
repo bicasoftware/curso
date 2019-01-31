@@ -1,7 +1,9 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
+import 'package:curso/widgets/circle.dart';
 import 'package:curso/widgets/default_list_tile.dart';
 import 'package:curso/widgets/default_text_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -37,26 +39,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Strings.materia),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              final state = _formKey.currentState;
-              if (state.validate()) {
-                state.save();
-                final m = widget.materia.copyWith(
-                  cor: _cor,
-                  sigla: _sigla,
-                  nome: _materia,
-                );
-                Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, m));
-              }
-            },
-          )
-        ],
-      ),
+      appBar: AppBar(title: Text(Strings.materia)),
       body: Container(
         child: Form(
           key: _formKey,
@@ -77,30 +60,40 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
               DefaultListTile(
                 icon: Icons.color_lens,
                 leading: Text(Strings.corMateria),
-                trailing: DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
-                    onChanged: _setCor,
-                    value: _cor,
-                    items: _colorList,
-                  ),
+                trailing: Hero(
+                  tag: ObjectKey(widget.materia),
+                  child: Circle(color: _cor),
                 ),
-              )
+                onTap: () async {
+                  final cor = await Dialogs.showColorDialog(
+                    context: context,
+                    initialColor: _cor,
+                  );
+
+                  if (cor != null) _setCor(cor);
+                },
+              ),
             ],
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.save),
+        label: Text(Strings.salvar),
+        onPressed: () {
+          final state = _formKey.currentState;
+          if (state.validate()) {
+            state.save();
+            final m = widget.materia.copyWith(
+              cor: _cor,
+              sigla: _sigla,
+              nome: _materia,
+            );
+            Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, m));
+          }
+        },
+      ),
     );
-  }
-
-  List<DropdownMenuItem> get _colorList {
-    return Arrays.materialColors.map((color) {
-      return DropdownMenuItem<int>(
-        child: CircleAvatar(
-          backgroundColor: Color(color.value),
-          maxRadius: 10,
-        ),
-        value: color.value,
-      );
-    }).toList();
   }
 }

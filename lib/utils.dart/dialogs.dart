@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/color_dialog.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -21,6 +22,23 @@ class Dialogs {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  static Future<int> showColorDialog({
+    BuildContext context,
+    int initialColor,
+  }) async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (c) {
+        return Dialog(
+          child: ColorDialog(
+            onTap: (int cor) => Navigator.of(context).pop(cor),
+          ),
         );
       },
     );
