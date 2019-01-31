@@ -17,7 +17,6 @@ class BlocMaterias extends Bloc<EventsMaterias, List<Materias>> {
     if (event is InsertMateria) {
       final m = await ProviderMaterias.insertMateria(event.materia);
       final List<Materias> materias = []..addAll(currentState)..add(m);
-      print(materias.length);
       yield materias;
     } else if (event is UpdateMateria) {
       final m = await ProviderMaterias.updateMateria(event.materia);

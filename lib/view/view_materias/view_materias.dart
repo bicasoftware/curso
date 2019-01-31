@@ -2,6 +2,7 @@ import 'package:curso/bloc/bloc_materias.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/events/EventsMaterias.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias/view_materias_builder.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
@@ -87,22 +88,11 @@ class _Body extends StatelessWidget {
               }
             },
             onLongTap: (materia) async {
-              final bool result = await showDialog(
+              final result = await Dialogs.showRemoveDialog(
                 context: context,
-                builder: (BuildContext c) {
-                  return SimpleDialog(
-                    title: Text(materia.nome),
-                    children: <Widget>[
-                      SimpleDialogOption(
-                        child: Text(Strings.excluir),
-                        onPressed: () => Navigator.of(context).pop(true),
-                      ),
-                    ],
-                  );
-                },
+                title: materia.nome,
               );
-
-              if (result != null) {
+              if (result != null) {                
                 b.dispatch(DeleteMateria(materia: materia));
               }
             },

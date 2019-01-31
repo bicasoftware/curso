@@ -25,15 +25,10 @@ class ProviderMaterias {
     );
 
     final materias = result.map((m) => Materias.fromMap(m)).toList();
-    print("Materias: ${materias.length}");
     materias.forEach((m) async {
       final faltas = await ProviderFaltas.fetchFaltasByMateria(m.id);
       final notas = await ProviderNotas.fetchNotasByMateria(m.id);
       final aulas = await ProviderAulas.fetchAulasByMateria(m.id);
-
-      print("Faltas: ${faltas.length}");
-      print("Notas: ${notas.length}");
-      print("Aulas: ${aulas.length}");
 
       return m.copyWith(
         faltas: []..addAll(faltas),
@@ -86,7 +81,12 @@ class ProviderMaterias {
   static Future<Materias> updateMateria(Materias materia) async {
     final db = await DBProvider.instance;
     final batch = db.batch();
-    batch.update(Materias.tableName, materia.toMap());
+    batch.update(
+      Materias.tableName,
+      materia.toMap(),
+      where: "${Materias.ID} = ?",
+      whereArgs: [materia.id],
+    );
     batch.delete(Faltas.tableName, where: "${Faltas.IDMATERIA} = ?", whereArgs: [materia.id]);
     batch.delete(Notas.tableName, where: "${Notas.IDMATERIA} = ?", whereArgs: [materia.id]);
     batch.delete(Aulas.tableName, where: "${Aulas.IDMATERIA} = ?", whereArgs: [materia.id]);

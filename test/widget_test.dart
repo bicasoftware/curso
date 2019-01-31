@@ -26,13 +26,6 @@ void main() {
       Intl.defaultLocale = 'pt_BR';
       final d = Formatting.parseDate("2018-02-03");
       assert(d == DateTime(2018, 02, 03));
-      print(d);
-    });
-
-    test("formatDate", () {
-      final date = DateTime.now();
-      print(Formatting.formatDate(date));
-      print(Formatting.formatDbDate(date));
     });
   });
 
