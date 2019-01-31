@@ -39,4 +39,10 @@ class ProviderPeriodos {
 
     return periodo;
   }
+
+  static Future deletePeriodo(int idPeriodo) async {
+    final db = await DBProvider.instance;        
+    await ProviderMaterias.deleteMateriasByIdPeriodo(idPeriodo);
+    await db.delete(Periodos.tableName, where: "${Periodos.ID} = ?", whereArgs: [idPeriodo]);
+  }
 }

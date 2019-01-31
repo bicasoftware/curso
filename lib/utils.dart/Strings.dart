@@ -27,6 +27,7 @@ class Strings {
   static const String editar = 'Alterar';
   static const String excluir = 'Excluír';
   static const String removerMateria = 'Excluír Materia';
+  static const String removerPeriodo = 'Excluír Período?';
 }
 
 class Arrays {

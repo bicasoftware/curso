@@ -24,7 +24,7 @@ class ViewMaterias extends StatefulWidget {
 
   @override
   ViewMateriasState createState() {
-    return new ViewMateriasState();
+    return ViewMateriasState();
   }
 }
 
@@ -125,105 +125,3 @@ class _Body extends StatelessWidget {
     );
   }
 }
-
-/* class ViewMaterias extends StatefulWidget {
-  final List<Materias> materias;
-  final int idPeriodo;
-  final double medAprov;
-
-  const ViewMaterias({
-    Key key,
-    @required this.materias,
-    @required this.idPeriodo,
-    @required this.medAprov,
-  }) : super(key: key);
-
-  @override
-  _ViewMateriasState createState() => _ViewMateriasState();
-}
-//APLICAR BLOCMATERIAS!!!
-
-class _ViewMateriasState extends State<ViewMaterias> {
-  List<Materias> _materias;
-
-  @override
-  void initState() {
-    super.initState();
-    _materias = []..addAll(widget.materias);
-  }
-
-  void _addMateria(Materias m) => setState(() => _materias.add(m));
-
-  void _updateMateria(ViewMateriasInsertResult r) {
-    setState(() {
-      _materias[r.pos] = _materias[r.pos].copyWith(
-        nome: r.materia.nome,
-        sigla: r.materia.sigla,
-        cor: r.materia.cor,
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(Strings.materias),
-      ),
-      body: ViewMateriasBuilder.listViewMaterias(
-        materias: _materias,
-        onTap: (Materias m, int pos) async {
-          ViewMateriasInsertResult result = await Navigator.of(context).push(
-            MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (c) => ViewMateriasInsert(materia: m, pos: pos),
-            ),
-          );
-
-          if (result != null) _updateMateria(result);
-        },
-        onLongTap: (materia) async {
-          final bool result = await showDialog(
-            context: context,
-            builder: (BuildContext c) {
-              return SimpleDialog(
-                title: Text(materia.nome),
-                children: <Widget>[
-                  SimpleDialogOption(
-                    child: Text(Strings.excluir),
-                    onPressed: () => Navigator.of(context).pop(true),
-                  ),
-                ],
-              );
-            },
-          );
-
-          if (result != null) {
-            if (result) {
-              setState(() => _materias.remove(materia));
-            }
-          }
-        },
-      ),
-      floatingActionButton: ViewMateriasBuilder.fab(() async {
-        ViewMateriasInsertResult result = await Navigator.of(context).push(
-          MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (c) {
-              return ViewMateriasInsert(
-                materia: Materias(
-                  cor: Colors.indigo.value,
-                  idPeriodo: widget.idPeriodo,
-                  freq: true,
-                  medAprov: widget.medAprov,
-                ),
-              );
-            },
-          ),
-        );
-
-        if (result != null) _addMateria(result.materia);
-      }),
-    );
-  }
-} */

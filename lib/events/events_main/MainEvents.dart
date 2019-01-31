@@ -33,6 +33,12 @@ class InsertPeriodo extends MainEvents {
   InsertPeriodo(this.periodo);
 }
 
+class DeletePeriodo extends MainEvents {
+  final int idPeriodo;
+
+  DeletePeriodo(this.idPeriodo);
+}
+
 class RefreshMaterias extends MainEvents {
   final int idPeriodo;
   final List<Materias> materias;

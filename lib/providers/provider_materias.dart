@@ -81,29 +81,51 @@ class ProviderMaterias {
   static Future<Materias> updateMateria(Materias materia) async {
     final db = await DBProvider.instance;
     final batch = db.batch();
+    //Atualiza materia separadamente
     batch.update(
       Materias.tableName,
       materia.toMap(),
       where: "${Materias.ID} = ?",
       whereArgs: [materia.id],
     );
+    //deleta todas as faltas, notas e aulas
     batch.delete(Faltas.tableName, where: "${Faltas.IDMATERIA} = ?", whereArgs: [materia.id]);
     batch.delete(Notas.tableName, where: "${Notas.IDMATERIA} = ?", whereArgs: [materia.id]);
     batch.delete(Aulas.tableName, where: "${Aulas.IDMATERIA} = ?", whereArgs: [materia.id]);
 
-    materia.aulas.forEach((aula) => batch.insert(Aulas.tableName, aula.copyWith(id: null).toMap()));
-    materia.notas.forEach((nota) => batch.insert(Notas.tableName, nota.copyWith(id: null).toMap()));
-    materia.aulas.forEach(
-      (falta) => batch.insert(Faltas.tableName, falta.copyWith(id: null).toMap()),
-    );
+    //adiciona novamente todas as faltas, notas e aulas
+    materia.aulas.forEach((aula) {
+      batch.insert(Aulas.tableName, aula.copyWith(id: null).toMap());
+    });
+    materia.notas.forEach((nota) {
+      batch.insert(Notas.tableName, nota.copyWith(id: null).toMap());
+    });
+    materia.aulas.forEach((falta) {
+      batch.insert(Faltas.tableName, falta.copyWith(id: null).toMap());
+    });
 
     batch.commit();
     return await fetchMateriasById(materia.id);
   }
 
-  //todo - gerar insert, atualizar faltas, aulas e notas/
+  static Future deleteMateriasByIdPeriodo(int idPeriodo) async {
+    final db = await DBProvider.instance;
+    final batch = db.batch();
+    final result = await db.query(
+      Materias.tableName,
+      columns: Materias.provideColumns,
+      where: "${Materias.IDPERIODO} = ?",
+      whereArgs: [idPeriodo],
+    );
 
-  // Future<Materias> updateMaterias(Materias materia) async {
-  //   if (materia.idPeriodo == null) throw Exception("Faltando idPeriodo em $materia");
-  // }
+    final materias = result.map((m) => Materias.fromMap(m)).toList();
+    materias.forEach((materia){
+      batch.delete(Aulas.tableName, where: "${Aulas.IDMATERIA} = ?", whereArgs: [materia.id]);
+      batch.delete(Faltas.tableName, where: "${Faltas.IDMATERIA} = ?", whereArgs: [materia.id]);
+      batch.delete(Notas.tableName, where: "${Notas.IDMATERIA} = ?", whereArgs: [materia.id]);
+      batch.delete(Materias.tableName, where: "${Materias.ID} = ?", whereArgs: [materia.id]);
+    });
+
+    await batch.commit();
+  }
 }

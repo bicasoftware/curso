@@ -3,6 +3,8 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
+import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_builder.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
@@ -33,7 +35,16 @@ class ViewPeriodos extends StatelessWidget {
                 b.dispatch(UpdatePeriodo(result));
               }
             },
-            onDelete: (int idPeriodo) => print(idPeriodo),
+            onDelete: (int idPeriodo) async {
+              final deleteConfirmation = await Dialogs.showRemoveDialog(
+                context: context,
+                title: Strings.removerPeriodo,
+              );
+
+              if (deleteConfirmation ?? false) {
+                b.dispatch(DeletePeriodo(idPeriodo));
+              }
+            },
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
               final List<Materias> resultMaterias = await Navigator.of(context).push(
                 MaterialPageRoute(
