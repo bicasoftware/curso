@@ -48,3 +48,19 @@ class RefreshMaterias extends MainEvents {
     this.materias,
   });
 }
+
+class InsertAula extends MainEvents {
+  final int idPeriodo, idMateria, weekDay, ordemAula;
+
+  InsertAula({this.idPeriodo, this.idMateria, this.weekDay, this.ordemAula});
+}
+
+class DeleteAula extends MainEvents {
+  final int idAula, idPeriodo, idMateria;
+
+  DeleteAula({
+    this.idAula,
+    this.idPeriodo,
+    this.idMateria,
+  });
+}

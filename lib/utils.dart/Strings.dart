@@ -30,6 +30,7 @@ class Strings {
   static const String removerMateria = 'Excluír Materia';
   static const String removerPeriodo = 'Excluír Período?';
   static const String selectCor = 'Selecione uma Cor';
+  static const String materiasVazias = 'Adicionar Matéria';
 }
 
 class Arrays {

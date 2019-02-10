@@ -30,7 +30,6 @@ class BlocMain extends Bloc<MainEvents, MainState> {
       yield BlocMainMapper.setNotify(event, currentState);
     } else if (event is SetBrightness) {
       yield BlocMainMapper.setBrightness(event, currentState);
-      yield currentState.copyWith(brightness: event.brightness);
     } else if (event is UpdatePeriodo) {
       yield await BlocMainMapper.updatePeriodo(event, currentState);
     } else if (event is InsertPeriodo) {
@@ -39,6 +38,10 @@ class BlocMain extends Bloc<MainEvents, MainState> {
       yield await BlocMainMapper.updateMaterias(event, currentState);
     } else if (event is DeletePeriodo) {
       yield await BlocMainMapper.deletePeriodo(event, currentState);
+    } else if (event is InsertAula) {
+      yield await BlocMainMapper.insertAula(event, currentState);
+    } else if (event is DeleteAula) {
+      yield await BlocMainMapper.removeAula(event, currentState);
     }
   }
 }

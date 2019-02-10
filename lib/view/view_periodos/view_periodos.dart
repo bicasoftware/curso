@@ -1,15 +1,17 @@
-import 'package:curso/bloc/bloc_main/BlocMain.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:curso/events/events_main/MainEvents.dart';
-import 'package:curso/main_state.dart';
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/view/view_materias/view_materias.dart';
-import 'package:curso/view/view_periodos/view_periodos_builder.dart';
-import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/bloc_main/BlocMain.dart';
+import '../../container/materias.dart';
+import '../../container/periodos.dart';
+import '../../events/events_main/MainEvents.dart';
+import '../../main_state.dart';
+import '../../utils.dart/Strings.dart';
+import '../../utils.dart/bottomsheets.dart';
+import '../../utils.dart/dialogs.dart';
+import '../view_materias/view_materias.dart';
+import '../view_periodos_insert/view_periodos_insert.dart';
+import 'view_periodos_builder.dart';
 
 class ViewPeriodos extends StatelessWidget {
   @override
@@ -61,6 +63,20 @@ class ViewPeriodos extends StatelessWidget {
 
               if (resultMaterias != materias) {
                 b.dispatch(RefreshMaterias(materias: resultMaterias, idPeriodo: idPeriodo));
+              }
+            },
+            onCellClick: (int weekDay, int ordemAula, Periodos p) async {
+              final idMateria = await BottomSheets.showBtsMaterias(context, p);
+              if (idMateria != null) {
+                print("dia: $weekDay, aula: $ordemAula, materia: $idMateria periodo: ${p.id}");
+                b.dispatch(
+                  InsertAula(
+                    idPeriodo: p.id,
+                    idMateria: idMateria,
+                    weekDay: weekDay,
+                    ordemAula: ordemAula,
+                  ),
+                );
               }
             },
           ),

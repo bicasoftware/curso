@@ -12,12 +12,13 @@ class ViewPeriodosBuilder {
     Function(Periodos) onUpdateTap,
     Function(int) onDelete,
     Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    Function(int, int, Periodos) onCellClick,
   }) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: periodos.length,
       itemBuilder: (c, i) {
-        return _expandedTile(c, periodos[i], onUpdateTap, onDelete, onMateriasTap);
+        return _expandedTile(c, periodos[i], onUpdateTap, onDelete, onMateriasTap, onCellClick);
       },
     );
   }
@@ -28,6 +29,7 @@ class ViewPeriodosBuilder {
     Function(Periodos) onUpdateTap,
     Function(int) onDelete,
     Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    Function(int, int, Periodos) onCellClick,
   ) {
     return GestureDetector(
       onLongPress: () {
@@ -39,7 +41,10 @@ class ViewPeriodosBuilder {
         children: <Widget>[
           WeekDayHeader(),
           SizedBox(height: 0.5),
-          Cronograma(periodo: p),
+          Cronograma(
+            periodo: p,
+            onCellClick: onCellClick,
+          ),
           SizedBox(height: 16),
           Row(
             children: <Widget>[

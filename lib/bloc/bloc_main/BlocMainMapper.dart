@@ -1,6 +1,9 @@
+import 'package:curso/container/aulas.dart';
+import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/events/events_main/MainEvents.dart';
 import 'package:curso/main_state.dart';
+import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 
 class BlocMainMapper {
@@ -46,6 +49,59 @@ class BlocMainMapper {
     final periodos = List<Periodos>()
       ..addAll(currentState.periodos)
       ..removeWhere((Periodos it) => it.id == event.idPeriodo);
+
+    return currentState.copyWith(periodos: periodos);
+  }
+
+  static Future<MainState> insertAula(InsertAula event, MainState currentState) async {
+    var aula = Aulas(idMateria: event.idMateria, weekDay: event.weekDay, ordem: event.ordemAula);
+    aula = await ProviderAulas.upsertAulas(aula);
+
+    //cria nova lista de periodos
+    List<Periodos> periodos = []..addAll(currentState.periodos);
+
+    Periodos periodo = periodos.firstWhere((it) => it.id == event.idPeriodo);
+
+    //lista materia
+    final List<Materias> materias = []..addAll(periodo.materias);
+
+    //adiciona aula
+    Materias m = materias.firstWhere((it) => it.id == event.idMateria);
+    m = m.copyWith(aulas: []..addAll(m.aulas)..add(aula));
+
+    final indexMateria = materias.indexWhere((it) => it.id == event.idMateria);
+    materias[indexMateria] = m;
+
+    periodo = periodo.copyWith(materias: materias);
+
+    periodos[periodos.indexWhere((it) => it.id == event.idPeriodo)] = periodo;
+
+    return currentState.copyWith(periodos: periodos);
+  }
+
+  static Future removeAula(DeleteAula event, MainState currentState) async {
+
+    //todo - Debugar método!!!
+    await ProviderAulas.deleteAulasById(event.idAula);
+
+    //cria nova lista de periodos
+    List<Periodos> periodos = []..addAll(currentState.periodos);
+
+    Periodos periodo = periodos.firstWhere((it) => it.id == event.idPeriodo);
+
+    //lista materia
+    final List<Materias> materias = []..addAll(periodo.materias);
+
+    //adiciona aula
+    Materias m = materias.firstWhere((it) => it.id == event.idMateria);
+    m = m.copyWith(aulas: []..addAll(m.aulas)..removeWhere((a) => a.id == event.idAula));
+
+    final indexMateria = materias.indexWhere((it) => it.id == event.idMateria);
+    materias[indexMateria] = m;
+
+    periodo = periodo.copyWith(materias: materias);
+
+    periodos[periodos.indexWhere((it) => it.id == event.idPeriodo)] = periodo;
 
     return currentState.copyWith(periodos: periodos);
   }

@@ -1,15 +1,20 @@
 import 'package:curso/container/CronogramaListContainer.dart';
+import 'package:curso/container/periodos.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class CronogramaRow extends StatelessWidget {
-  final int rowPos;
+  final int ordemAula;
   final List<CronogramaListContainer> container;
+  final Function(int, int, Periodos) onTap;
+  final Periodos periodo;
 
   const CronogramaRow({
     Key key,
-    @required this.rowPos,
+    @required this.ordemAula,
     @required this.container,
+    @required this.onTap,
+    @required this.periodo,
   }) : super(key: key);
 
   @override
@@ -19,24 +24,37 @@ class CronogramaRow extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: container.map((c) => _item(context, c.corMateria, c.sigla)).toList(),
+        children: List.generate(container.length, (i) {
+          final c = container[i];
+          return _item(
+              context: context, cor: c.corMateria, sigla: c.sigla, weekDay: i, periodo: periodo);
+        }),
       ),
     );
   }
 
-  Widget _item(BuildContext c, Color cor, String sigla) {
+  Widget _item({
+    BuildContext context,
+    Color cor,
+    String sigla,
+    int weekDay,
+    Periodos periodo,
+  }) {
     return Expanded(
-      child: Container(
-        height: 48,
-        margin: EdgeInsets.symmetric(horizontal: 1),
-        color: cor ?? Theme.of(c).dividerColor,
-        child: Center(
-          ///Autosized, pois a sigla pode ser enorme
-          child: AutoSizeText(            
-            sigla ?? "${rowPos + 1}ª Aula",
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 10),
+      child: InkWell(
+        splashColor: Theme.of(context).accentColor,
+        onTap: () => onTap(weekDay, ordemAula, periodo),
+        child: Container(
+          height: 48,
+          margin: EdgeInsets.symmetric(horizontal: 1),
+          color: cor ?? Theme.of(context).dividerColor,
+          child: Center(
+            child: AutoSizeText(
+              sigla ?? "${ordemAula + 1}ª Aula",
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 10),
+            ),
           ),
         ),
       ),

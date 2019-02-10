@@ -5,8 +5,9 @@ import 'CronogramaRow.dart';
 
 class Cronograma extends StatelessWidget {
   final Periodos periodo;
+  final Function(int, int, Periodos) onCellClick;
 
-  const Cronograma({Key key, this.periodo}) : super(key: key);
+  const Cronograma({Key key, @required this.periodo, @required this.onCellClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class Cronograma extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: periodo.aulasDia,
       itemBuilder: (BuildContext c, int i) {
-        return CronogramaRow(rowPos: i, container: _getRowContainer(i));
+        return CronogramaRow(ordemAula: i, container: _getRowContainer(i), onTap: onCellClick, periodo: periodo);
       },
     );
   }

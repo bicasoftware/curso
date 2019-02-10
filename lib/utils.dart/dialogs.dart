@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/color_dialog.dart';
+import 'package:curso/widgets/dialog_picker_materias.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -38,6 +40,24 @@ class Dialogs {
         return Dialog(
           child: ColorDialog(
             onTap: (int cor) => Navigator.of(context).pop(cor),
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<int> showMateriasDialog({
+    BuildContext context,
+    List<Materias> materias,
+  }) async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (c) {
+        return Dialog(
+          child: PickerMaterias(
+            materias: materias,
+            onTap: (int idMateria) => Navigator.of(context).pop(idMateria),
           ),
         );
       },
