@@ -48,40 +48,56 @@ class ViewPeriodos extends StatelessWidget {
               }
             },
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
-              final List<Materias> resultMaterias = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (c) {
-                    return ViewMaterias(
-                      idPeriodo: idPeriodo,
-                      materias: materias,
-                      medAprov: medAprov,
-                    );
-                  },
-                ),
-              );
-
-              if (resultMaterias != materias) {
-                b.dispatch(RefreshMaterias(materias: resultMaterias, idPeriodo: idPeriodo));
-              }
+              _showViewInsertMaterias(context, idPeriodo, materias, medAprov, b);
             },
             onCellClick: (int weekDay, int ordemAula, Periodos p) async {
-              final idMateria = await BottomSheets.showBtsMaterias(context, p);
-              if (idMateria != null) {
-                print("dia: $weekDay, aula: $ordemAula, materia: $idMateria periodo: ${p.id}");
-                b.dispatch(
-                  InsertAula(
-                    idPeriodo: p.id,
-                    idMateria: idMateria,
-                    weekDay: weekDay,
-                    ordemAula: ordemAula,
-                  ),
-                );
+              if (p.materias.length == 0) {
+                _showViewInsertMaterias(context, p.id, p.materias, p.medAprov, b);
+              } else {
+                final idMateria = await BottomSheets.showBtsMaterias(context, p);
+                if (idMateria != null) {
+                  print("dia: $weekDay, aula: $ordemAula, materia: $idMateria periodo: ${p.id}");
+                  b.dispatch(
+                    InsertAula(
+                      idPeriodo: p.id,
+                      idMateria: idMateria,
+                      weekDay: weekDay,
+                      ordemAula: ordemAula,
+                    ),
+                  );
+                }
               }
             },
           ),
         );
       },
     );
+  }
+
+  _showViewInsertMaterias(
+    BuildContext context,
+    int idPeriodo,
+    List<Materias> materias,
+    double medAprov,
+    BlocMain b,
+  ) async {
+    final List<Materias> resultMaterias = await Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (c) {
+          return ViewMaterias(
+            idPeriodo: idPeriodo,
+            materias: materias,
+            medAprov: medAprov,
+          );
+        },
+      ),
+    );
+
+    if (resultMaterias != materias) {
+      b.dispatch(
+        RefreshMaterias(materias: resultMaterias, idPeriodo: idPeriodo),
+      );
+    }
   }
 }

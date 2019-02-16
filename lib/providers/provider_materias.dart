@@ -25,17 +25,40 @@ class ProviderMaterias {
     );
 
     final materias = result.map((m) => Materias.fromMap(m)).toList();
-    materias.forEach((m) async {
-      final faltas = await ProviderFaltas.fetchFaltasByMateria(m.id);
-      final notas = await ProviderNotas.fetchNotasByMateria(m.id);
-      final aulas = await ProviderAulas.fetchAulasByMateria(m.id);
 
-      return m.copyWith(
-        faltas: []..addAll(faltas),
-        notas: []..addAll(notas),
-        aulas: []..addAll(aulas),
-      );
-    });
+    for (Materias m in materias) {
+      await Future.wait([
+        ProviderFaltas.fetchFaltasByMateria(m.id),
+        ProviderNotas.fetchNotasByMateria(m.id),
+        ProviderAulas.fetchAulasByMateria(m.id)
+      ]).then((List<Object> results) {
+        m = m.copyWith(
+          faltas: []..addAll(results[0]),
+          notas: []..addAll(results[1]),
+          aulas: []..addAll(results[2]),
+        );
+      });
+    }
+
+    //   final faltas = await ProviderFaltas.fetchFaltasByMateria(m.id);
+    //   final notas = await ProviderNotas.fetchNotasByMateria(m.id);
+    //   final List<Aulas> aulas = await ProviderAulas.fetchAulasByMateria(m.id);
+
+    //   var listAulas = List<Aulas>();
+    //   ProviderAulas.fetchAulasByMateria(m.id).then((List<Aulas> _aulas) {
+    //     listAulas = _aulas;
+    //   });
+
+    //   print("Aulas: ${aulas.length}");
+
+    //   m = m.copyWith(
+    //     faltas: []..addAll(faltas),
+    //     notas: []..addAll(notas),
+    //     aulas: listAulas,
+    //   );
+    // }
+
+    // materias.forEach((materia) => print("Materia: ${materia.id} aulas:${materia.aulas.length}"));
 
     return materias;
   }
@@ -119,7 +142,7 @@ class ProviderMaterias {
     );
 
     final materias = result.map((m) => Materias.fromMap(m)).toList();
-    materias.forEach((materia){
+    materias.forEach((materia) {
       batch.delete(Aulas.tableName, where: "${Aulas.IDMATERIA} = ?", whereArgs: [materia.id]);
       batch.delete(Faltas.tableName, where: "${Faltas.IDMATERIA} = ?", whereArgs: [materia.id]);
       batch.delete(Notas.tableName, where: "${Notas.IDMATERIA} = ?", whereArgs: [materia.id]);

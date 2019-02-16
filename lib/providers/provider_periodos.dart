@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:curso/database/db_provider.dart';
-import 'package:curso/providers/provider_materias.dart';
+import '../container/materias.dart';
+import '../container/periodos.dart';
+import '../database/db_provider.dart';
+import 'provider_materias.dart';
 
 class ProviderPeriodos {
   static Future<List<Periodos>> fetchAllPeriodos() async {
@@ -13,10 +13,10 @@ class ProviderPeriodos {
     final List<Periodos> periodos = result.map((it) => Periodos.fromMap(it)).toList();
     final List<Periodos> mappedPeriodos = [];
 
-    for(var periodo in periodos){
+    for (var periodo in periodos) {
       final List<Materias> materias = await ProviderMaterias.fetchMateriasByPeriodo(periodo.id);
       mappedPeriodos.add(periodo.copyWith(materias: materias));
-    }    
+    }
 
     return mappedPeriodos;
   }
@@ -41,7 +41,7 @@ class ProviderPeriodos {
   }
 
   static Future deletePeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;        
+    final db = await DBProvider.instance;
     await ProviderMaterias.deleteMateriasByIdPeriodo(idPeriodo);
     await db.delete(Periodos.tableName, where: "${Periodos.ID} = ?", whereArgs: [idPeriodo]);
   }

@@ -1,13 +1,14 @@
-import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/dialog_picker_materias.dart';
-import 'package:curso/widgets/dialog_picker_materias_fallback.dart';
 import 'package:flutter/material.dart';
+
+import '../container/periodos.dart';
+import '../utils.dart/Strings.dart';
+import 'dialog_picker_materias.dart';
 
 class BottomSheetMaterias extends StatelessWidget {
   final Periodos periodo;
 
-  const BottomSheetMaterias({Key key, @required this.periodo}) : super(key: key);
+  const BottomSheetMaterias({Key key, @required this.periodo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,12 @@ class BottomSheetMaterias extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 16),
         ),
         Expanded(
-          child: periodo.materias.length > 0
-              ? PickerMaterias(
-                  materias: periodo.materias,
-                  onTap: (int idMateria) {
-                    Navigator.of(context).pop(idMateria);
-                  },
-                )
-              : PickerMateriasFallback(periodo: periodo),
+          child: PickerMaterias(
+            materias: periodo.materias,
+            onTap: (int idMateria) {
+              Navigator.of(context).pop(idMateria);
+            },
+          ),
         ),
       ],
     );

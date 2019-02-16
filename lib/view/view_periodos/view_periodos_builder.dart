@@ -18,7 +18,14 @@ class ViewPeriodosBuilder {
       shrinkWrap: true,
       itemCount: periodos.length,
       itemBuilder: (c, i) {
-        return _expandedTile(c, periodos[i], onUpdateTap, onDelete, onMateriasTap, onCellClick);
+        return _expandedTile(
+          c,
+          periodos[i],
+          onUpdateTap,
+          onDelete,
+          onMateriasTap,
+          onCellClick,
+        );
       },
     );
   }

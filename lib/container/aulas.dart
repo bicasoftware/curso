@@ -64,4 +64,9 @@ class Aulas implements BaseTable {
       );
     """;
   }
+
+  @override
+  String toString(){
+    return "id: $id, idMateria: $idMateria, weekDay: $weekDay, ordem: $ordem";
+  }
 }
