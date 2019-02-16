@@ -20,6 +20,8 @@ dependencies:
   flutter_masked_text: ^0.6.0
   shared_preferences: ^0.4.2
   auto_size_text: ^0.3.0
+  rxdart: ^0.20.0
+  bloc_pattern: ^1.5.1
 
 dev_dependencies:
   flutter_test:

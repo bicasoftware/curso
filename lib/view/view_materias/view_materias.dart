@@ -1,14 +1,13 @@
-import 'package:curso/bloc/bloc_materias.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/events/EventsMaterias.dart';
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/view/view_materias/view_materias_builder.dart';
-import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
-import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/BlocMaterias.dart';
+import '../../container/materias.dart';
+import '../../utils.dart/Strings.dart';
+import '../../utils.dart/dialogs.dart';
+import '../view_materias_insert/view_materias_insert.dart';
+import '../view_materias_insert/view_materias_insert_result.dart';
+import 'view_materias_builder.dart';
 
 class ViewMaterias extends StatefulWidget {
   final List<Materias> materias;
@@ -62,19 +61,20 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMaterias>(context);
 
-    return BlocBuilder<EventsMaterias, List<Materias>>(
-      bloc: b,
-      builder: (c, List<Materias> materias) {
+    return StreamBuilder<List<Materias>>(
+      initialData: [],
+      stream: b.outMaterias,
+      builder: (BuildContext context, AsyncSnapshot<List<Materias>> snap) {
         return Scaffold(
           appBar: AppBar(
             title: Text(Strings.materias),
             leading: IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => Navigator.of(context).pop(materias),
+              onPressed: () => Navigator.of(context).pop(snap.data),
             ),
           ),
           body: ViewMateriasBuilder.listViewMaterias(
-            materias: materias,
+            materias: snap.data,
             onTap: (Materias m, int pos) async {
               ViewMateriasInsertResult result = await Navigator.of(context).push(
                 MaterialPageRoute(
@@ -84,7 +84,7 @@ class _Body extends StatelessWidget {
               );
 
               if (result != null) {
-                b.dispatch(UpdateMateria(materia: result.materia, pos: result.pos));
+                b.updateMaterias(materia: result.materia, pos: result.pos);
               }
             },
             onLongTap: (materia) async {
@@ -92,34 +92,32 @@ class _Body extends StatelessWidget {
                 context: context,
                 title: Strings.opcoes,
               );
-              if (result != null) {                
-                b.dispatch(DeleteMateria(materia: materia));
-              }
-            },
-          ),
-          floatingActionButton: ViewMateriasBuilder.fab(
-            () async {
-              ViewMateriasInsertResult result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (c) {
-                    return ViewMateriasInsert(
-                      materia: Materias(
-                        cor: Colors.indigo.value,
-                        idPeriodo: idPeriodo,
-                        freq: true,
-                        medAprov: medAprov,
-                      ),
-                    );
-                  },
-                ),
-              );
-
               if (result != null) {
-                b.dispatch(InsertMateria(result.materia));
+                b.deleteMateria(materia: materia);
               }
             },
           ),
+          floatingActionButton: ViewMateriasBuilder.fab(() async {
+            ViewMateriasInsertResult result = await Navigator.of(context).push(
+              MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (c) {
+                  return ViewMateriasInsert(
+                    materia: Materias(
+                      cor: Colors.indigo.value,
+                      idPeriodo: idPeriodo,
+                      freq: true,
+                      medAprov: medAprov,
+                    ),
+                  );
+                },
+              ),
+            );
+
+            if (result != null) {
+              b.insertMateria(materia: result.materia);
+            }
+          }),
         );
       },
     );

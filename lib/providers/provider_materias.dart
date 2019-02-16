@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import 'package:curso/container/aulas.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
-import 'package:curso/database/db_provider.dart';
-import 'package:curso/providers/provider_aulas.dart';
-import 'package:curso/providers/provider_faltas.dart';
-import 'package:curso/providers/provider_notas.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../container/aulas.dart';
+import '../container/faltas.dart';
+import '../container/materias.dart';
+import '../container/notas.dart';
+import '../database/db_provider.dart';
+import 'provider_aulas.dart';
+import 'provider_faltas.dart';
+import 'provider_notas.dart';
 
 class ProviderMaterias {
   final providerFaltas = ProviderFaltas();
