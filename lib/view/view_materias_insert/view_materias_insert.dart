@@ -85,12 +85,10 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
           final state = _formKey.currentState;
           if (state.validate()) {
             state.save();
-            final m = widget.materia.copyWith(
-              cor: _cor,
-              sigla: _sigla,
-              nome: _materia,
-            );
-            Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, m));
+            widget.materia.cor = _cor;
+            widget.materia.sigla = _sigla;
+            widget.materia.nome = _materia;
+            Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, widget.materia));
           }
         },
       ),

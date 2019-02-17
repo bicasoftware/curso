@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/bloc/bloc_materias.dart';
 import 'package:flutter/material.dart';
 
-import '../../bloc/BlocMaterias.dart';
 import '../../container/materias.dart';
 import '../../utils.dart/Strings.dart';
 import '../../utils.dart/dialogs.dart';

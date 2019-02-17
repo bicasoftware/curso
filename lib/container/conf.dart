@@ -2,8 +2,8 @@ import 'package:curso/utils.dart/AppBrightness.dart';
 import 'package:curso/database/base_table.dart';
 
 class Conf implements BaseTable {
-  final bool notify;
-  final AppBrightness brightness;
+  bool notify;
+  AppBrightness brightness;
 
   Conf({
     this.notify: false,
@@ -12,13 +12,6 @@ class Conf implements BaseTable {
 
   static const String NOTIFY = "notify";
   static const String BRIGHTNESS = "brightness";
-
-  Conf copyWith(bool notify) {
-    return Conf(
-      notify: notify ?? this.notify,
-      brightness: brightness ?? this.brightness,
-    );
-  }
 
   static List<String> provideColumns = [
     NOTIFY,

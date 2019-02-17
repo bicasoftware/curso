@@ -33,11 +33,9 @@ class ProviderMaterias {
         ProviderNotas.fetchNotasByMateria(m.id),
         ProviderAulas.fetchAulasByMateria(m.id)
       ]).then((List<Object> results) {
-        m = m.copyWith(
-          faltas: []..addAll(results[0]),
-          notas: []..addAll(results[1]),
-          aulas: []..addAll(results[2]),
-        );
+        m.faltas = []..addAll(results[0]);
+        m.notas = []..addAll(results[1]);
+        m.aulas = []..addAll(results[2]);
       });
     }
 
@@ -75,11 +73,9 @@ class ProviderMaterias {
     );
 
     final materia = Materias.fromMap(result[0]);
-    materia.copyWith(
-      faltas: await ProviderFaltas.fetchFaltasByMateria(materia.id),
-      notas: await ProviderNotas.fetchNotasByMateria(materia.id),
-      aulas: await ProviderAulas.fetchAulasByMateria(materia.id),
-    );
+    materia.faltas = await ProviderFaltas.fetchFaltasByMateria(materia.id);
+    materia.notas = await ProviderNotas.fetchNotasByMateria(materia.id);
+    materia.aulas = await ProviderAulas.fetchAulasByMateria(materia.id);
 
     return materia;
   }
@@ -88,7 +84,7 @@ class ProviderMaterias {
     if (materia.idPeriodo == null) throw Exception("Faltando idPeriodo em $materia");
     final db = await DBProvider.instance;
     final id = await db.insert(Materias.tableName, materia.toMap());
-    return materia.copyWith(id: id);
+    return materia..id = id;
   }
 
   static Future deleteMateria(int idMateria) async {
@@ -119,13 +115,13 @@ class ProviderMaterias {
 
     //adiciona novamente todas as faltas, notas e aulas
     materia.aulas.forEach((aula) {
-      batch.insert(Aulas.tableName, aula.copyWith(id: null).toMap());
+      batch.insert(Aulas.tableName, (aula..id = null).toMap());
     });
     materia.notas.forEach((nota) {
-      batch.insert(Notas.tableName, nota.copyWith(id: null).toMap());
+      batch.insert(Notas.tableName, (nota..id = null).toMap());
     });
     materia.aulas.forEach((falta) {
-      batch.insert(Faltas.tableName, falta.copyWith(id: null).toMap());
+      batch.insert(Faltas.tableName, (falta..id = null).toMap());
     });
 
     batch.commit();

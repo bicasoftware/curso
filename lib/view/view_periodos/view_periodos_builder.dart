@@ -1,7 +1,7 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/Cronograma.dart';
+import 'package:curso/widgets/cronograma/Cronograma.dart';
 import 'package:curso/widgets/DiaSemanaHeader.dart';
 import 'package:flutter/material.dart';
 

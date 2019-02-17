@@ -1,11 +1,9 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/bloc_main/BlocMain.dart';
 import '../../container/materias.dart';
 import '../../container/periodos.dart';
-import '../../events/events_main/MainEvents.dart';
-import '../../main_state.dart';
 import '../../utils.dart/Strings.dart';
 import '../../utils.dart/bottomsheets.dart';
 import '../../utils.dart/dialogs.dart';
@@ -13,19 +11,37 @@ import '../view_materias/view_materias.dart';
 import '../view_periodos_insert/view_periodos_insert.dart';
 import 'view_periodos_builder.dart';
 
-class ViewPeriodos extends StatelessWidget {
+class ViewPeriodos extends StatefulWidget {
+  @override
+  ViewPeriodosState createState() => ViewPeriodosState();
+}
+
+class ViewPeriodosState extends State<ViewPeriodos> {
+  BlocMain b;
+
+  @override
+  void dispose() {
+    super.dispose();
+    b.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    b = BlocProvider.of<BlocMain>(context);
 
-    return BlocBuilder<MainEvents, MainState>(
-      bloc: b,
-      builder: (c, state) {
+    _onRefreshMaterias(int idPeriodo, List<Materias> materias) {
+      b.updateMaterias(idPeriodo, materias);
+    }
+
+    return StreamBuilder<List<Periodos>>(
+      initialData: [],
+      stream: b.outPeriodos,
+      builder: (c, snap) {
         return Container(
           padding: EdgeInsets.all(0),
           child: ViewPeriodosBuilder.listPeriodos(
             context: context,
-            periodos: state.periodos,
+            periodos: snap.data,
             onUpdateTap: (p) async {
               final Periodos result = await Navigator.of(context).push(
                 MaterialPageRoute(
@@ -34,7 +50,7 @@ class ViewPeriodos extends StatelessWidget {
               );
 
               if (result != null) {
-                b.dispatch(UpdatePeriodo(result));
+                b.updatePeriodo(result);
               }
             },
             onDelete: (int idPeriodo) async {
@@ -44,26 +60,23 @@ class ViewPeriodos extends StatelessWidget {
               );
 
               if (deleteConfirmation ?? false) {
-                b.dispatch(DeletePeriodo(idPeriodo));
+                b.deletePeriodo(idPeriodo);
               }
             },
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
-              _showViewInsertMaterias(context, idPeriodo, materias, medAprov, b);
+              _showViewInsertMaterias(context, idPeriodo, materias, medAprov, _onRefreshMaterias);
             },
             onCellClick: (int weekDay, int ordemAula, Periodos p) async {
               if (p.materias.length == 0) {
-                _showViewInsertMaterias(context, p.id, p.materias, p.medAprov, b);
+                _showViewInsertMaterias(context, p.id, p.materias, p.medAprov, _onRefreshMaterias);
               } else {
                 final idMateria = await BottomSheets.showBtsMaterias(context, p);
                 if (idMateria != null) {
-                  print("dia: $weekDay, aula: $ordemAula, materia: $idMateria periodo: ${p.id}");
-                  b.dispatch(
-                    InsertAula(
-                      idPeriodo: p.id,
-                      idMateria: idMateria,
-                      weekDay: weekDay,
-                      ordemAula: ordemAula,
-                    ),
+                  b.insertAula(
+                    idPeriodo: p.id,
+                    idMateria: idMateria,
+                    weekDay: weekDay,
+                    ordemAula: ordemAula,
                   );
                 }
               }
@@ -79,7 +92,7 @@ class ViewPeriodos extends StatelessWidget {
     int idPeriodo,
     List<Materias> materias,
     double medAprov,
-    BlocMain b,
+    Function(int, List<Materias> materias) onRefresh,
   ) async {
     final List<Materias> resultMaterias = await Navigator.of(context).push(
       MaterialPageRoute(
@@ -94,10 +107,6 @@ class ViewPeriodos extends StatelessWidget {
       ),
     );
 
-    if (resultMaterias != materias) {
-      b.dispatch(
-        RefreshMaterias(materias: resultMaterias, idPeriodo: idPeriodo),
-      );
-    }
+    if (resultMaterias != materias) onRefresh(idPeriodo, materias);
   }
 }

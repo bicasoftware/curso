@@ -15,7 +15,7 @@ class ProviderPeriodos {
 
     for (var periodo in periodos) {
       final List<Materias> materias = await ProviderMaterias.fetchMateriasByPeriodo(periodo.id);
-      mappedPeriodos.add(periodo.copyWith(materias: materias));
+      mappedPeriodos.add(periodo..materias = materias);
     }
 
     return mappedPeriodos;
@@ -24,8 +24,7 @@ class ProviderPeriodos {
   static Future<Periodos> insertPeriodo(Periodos periodo) async {
     final db = await DBProvider.instance;
     final newId = await db.insert(Periodos.tableName, periodo.toMap());
-    periodo = periodo.copyWith(id: newId);
-    return periodo;
+    return periodo..id = newId;
   }
 
   static Future<Periodos> updatePeriodo(Periodos periodo) async {

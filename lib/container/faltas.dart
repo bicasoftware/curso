@@ -2,10 +2,10 @@ import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/Formatting.dart';
 
 class Faltas implements BaseTable {
-  final int id;
-  final int idMateria;
-  final DateTime data;
-  final int numAula;
+  int id;
+  int idMateria;
+  DateTime data;
+  int numAula;
 
   Faltas({
     this.id,
@@ -18,15 +18,6 @@ class Faltas implements BaseTable {
   static const String IDMATERIA = "id_materia";
   static const String DATA = "dt";
   static const String NUMAULA = "num_aula";
-
-  Faltas copyWith({int id, int idMateria, DateTime data, int numAula}) {
-    return Faltas(
-      id: id ?? this.id,
-      idMateria: idMateria ?? this.idMateria,
-      data: data ?? this.data,
-      numAula: numAula ?? this.numAula,
-    );
-  }
 
   static List<String> provideColumns = [ID, IDMATERIA, DATA, NUMAULA];
 

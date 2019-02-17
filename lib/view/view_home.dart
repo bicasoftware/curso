@@ -1,13 +1,13 @@
-import 'package:curso/bloc/bloc_main/BlocMain.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:curso/events/events_main/MainEvents.dart';
-import 'package:curso/main_state.dart';
-import 'package:curso/view/view_home_builder.dart';
-import 'package:curso/view/view_options/ViewOptionsResult.dart';
-import 'package:curso/view/view_options/view_options.dart';
-import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../container/conf.dart';
+import '../container/periodos.dart';
+import 'view_home_builder.dart';
+import 'view_options/ViewOptionsResult.dart';
+import 'view_options/view_options.dart';
+import 'view_periodos_insert/view_periodos_insert.dart';
 
 class ViewHome extends StatefulWidget {
   @override
@@ -17,19 +17,36 @@ class ViewHome extends StatefulWidget {
 }
 
 class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
+  BlocMain b;
+  int _pos;
+  TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _pos = 0;
+    _controller = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: _pos,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    b.dispose();
+  }
+
+  _setPos(i) => setState(() => _pos = i);
+
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    b = BlocProvider.of<BlocMain>(context);
 
-    return BlocBuilder<MainEvents, MainState>(
-      bloc: b,
-      builder: (context, state) {
-        final nav = TabController(
-          length: 3,
-          vsync: this,
-          initialIndex: state.navPos,
-        );
-
+    return StreamBuilder<Conf>(
+      stream: b.outConf,
+      builder: (BuildContext context, AsyncSnapshot<Conf> snap) {
         return Scaffold(
           appBar: ViewHomeBuilder.appBar(onOptionSelected: (i) async {
             final ViewOptionsResult result = await Navigator.of(context).push(
@@ -37,21 +54,20 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
                 fullscreenDialog: true,
                 builder: (c) {
                   return ViewOptions(
-                    brightness: state.brightness,
-                    notify: state.notify,
+                    brightness: snap.data.brightness,
+                    notify: snap.data.notify,
                   );
                 },
               ),
             );
 
             if (result != null && result is ViewOptionsResult) {
-              b.dispatch(SetBrightness(result.brightness));
-              b.dispatch(SetNotify(result.notify));
+              b.setBrightness(result.brightness);
+              b.setNotify(result.notify);
             }
           }),
-          body: ViewHomeBuilder.body(nav),
-          
-          floatingActionButton: ViewHomeBuilder.fab(state.showFab, () async {
+          body: ViewHomeBuilder.body(_controller),
+          floatingActionButton: ViewHomeBuilder.fab(_pos == 0, () async {
             final result = await Navigator.of(context).push(
               MaterialPageRoute(
                 fullscreenDialog: true,
@@ -61,15 +77,13 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
               ),
             );
 
-            if(result != null){
-              b.dispatch(InsertPeriodo(result));
-            }
+            if (result != null) b.insertPeriodo(result);
           }),
           bottomNavigationBar: ViewHomeBuilder.bottomBar(
-            state.navPos,
+            _pos,
             (i) {
-              b.dispatch(SetPosition(i));
-              nav.animateTo(i);
+              _setPos(i);
+              _controller.animateTo(i);
             },
           ),
         );

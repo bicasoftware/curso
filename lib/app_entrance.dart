@@ -1,13 +1,12 @@
-import 'package:curso/Themes.dart';
-import 'package:curso/bloc/bloc_main/BlocMain.dart';
-import 'package:curso/container/conf.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:curso/events/events_main/MainEvents.dart';
-import 'package:curso/main_state.dart';
-import 'package:curso/utils.dart/AppBrightness.dart';
-import 'package:curso/view/view_home.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'Themes.dart';
+import 'container/conf.dart';
+import 'container/periodos.dart';
+import 'utils.dart/AppBrightness.dart';
+import 'view/view_home.dart';
 
 class AppEntrance extends StatefulWidget {
   final List<Periodos> periodos;
@@ -16,21 +15,21 @@ class AppEntrance extends StatefulWidget {
   const AppEntrance({Key key, this.periodos, this.conf}) : super(key: key);
 
   @override
-  AppEntranceState createState() {
-    return new AppEntranceState();
-  }
+  AppEntranceState createState() => AppEntranceState(conf: conf, periodos: periodos);
 }
 
 class AppEntranceState extends State<AppEntrance> {
   BlocMain _bloc;
 
+  final List<Periodos> periodos;
+  final Conf conf;
+
+  AppEntranceState({@required this.periodos, @required this.conf});
+
   @override
   void initState() {
     super.initState();
-    _bloc = BlocMain(
-      periodos: widget.periodos,
-      conf: widget.conf,
-    );
+    _bloc = BlocMain(periodos: periodos, conf: conf);
   }
 
   @override
@@ -51,14 +50,15 @@ class AppEntranceState extends State<AppEntrance> {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    final BlocMain b = BlocProvider.of<BlocMain>(context);
 
-    return BlocBuilder<MainEvents, MainState>(
-      bloc: b,
-      builder: (c, s) {
+    return StreamBuilder<AppBrightness>(
+      stream: b.outBrightness,
+      initialData: AppBrightness.DARK,
+      builder: (context, AsyncSnapshot<AppBrightness> snap) {
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: s.brightness == AppBrightness.DARK ? Themes.darkTheme : Themes.lightTheme,
+          theme: snap.data == AppBrightness.DARK ? Themes.darkTheme : Themes.lightTheme,
           home: ViewHome(),
         );
       },

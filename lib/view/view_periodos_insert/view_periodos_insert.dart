@@ -51,7 +51,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         actions: [
           ViewPeriodosInsertBuilder.saveButton(_formKey, () {
             Navigator.of(context).pop(
-              widget.periodo.copyWith(
+              Periodos(
                 id: widget.periodo.id,
                 inicio: _ini,
                 termino: _end,

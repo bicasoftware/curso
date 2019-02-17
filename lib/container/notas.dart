@@ -2,9 +2,9 @@ import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/Formatting.dart';
 
 class Notas implements BaseTable {
-  final int id, idMateria;
-  final DateTime data;
-  final double nota;
+  int id, idMateria;
+  DateTime data;
+  double nota;
 
   Notas({
     this.id,
@@ -17,16 +17,6 @@ class Notas implements BaseTable {
   static const String IDMATERIA = "id_materia";
   static const String DATA = "dt_prova";
   static const String NOTA = "nota";
-
-  Notas copyWith({int id, int idMateria, DateTime data, int ordemAula}) {
-    return Notas(
-      id: id ?? this.id,
-      idMateria: idMateria ?? this.idMateria,
-      data: data ?? this.data,
-      nota: ordemAula ?? this.nota,
-    );
-  }
-
 
   static List<String> provideColumns = [ID, IDMATERIA, DATA, NOTA];
 

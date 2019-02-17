@@ -21,7 +21,7 @@ class ProviderFaltas {
 
     if (falta.id == null) {
       final id = await db.insert(Faltas.tableName, falta.toMap());
-      falta.copyWith(id: id);
+      falta.id = id;
     } else {
       await db.update(
         Faltas.tableName,

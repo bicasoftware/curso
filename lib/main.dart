@@ -13,9 +13,11 @@ void main() async {
     ProviderPeriodos.fetchAllPeriodos(),
     ProviderConf.fetchConf(),
   ]).then((List<Object> it) {
-    runApp(AppEntrance(
-      periodos: it[0],
-      conf: it[1],
-    ));
+    runApp(
+      AppEntrance(
+        periodos: it[0],
+        conf: it[1],
+      ),
+    );
   }).catchError((e) => print(e));
 }

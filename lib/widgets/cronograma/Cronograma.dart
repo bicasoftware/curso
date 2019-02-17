@@ -1,5 +1,5 @@
-import 'package:curso/container/CronogramaListContainer.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/widgets/cronograma/CronogramaListContainer.dart';
 import 'package:flutter/material.dart';
 import 'CronogramaRow.dart';
 

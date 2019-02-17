@@ -20,7 +20,7 @@ class ProviderNotas {
     if (nota.idMateria == null) throw Exception("Faltando IDMATERIA em $nota");
     if (nota.id == null) {
       int id = await db.insert(Notas.tableName, nota.toMap());
-      nota.copyWith(id: id);
+      nota.id = id;
     } else {
       await db.update(
         Notas.tableName,

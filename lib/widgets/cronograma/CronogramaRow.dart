@@ -1,7 +1,8 @@
-import 'package:curso/container/CronogramaListContainer.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+
+import '../../container/periodos.dart';
+import 'CronogramaListContainer.dart';
 
 class CronogramaRow extends StatelessWidget {
   final int ordemAula;

@@ -22,7 +22,7 @@ class ProviderAulas {
 
     if (aula.id == null) {
       final id = await db.insert(Aulas.tableName, aula.toMap());
-      aula.copyWith(id: id);
+      aula.id = id;
     } else {
       await db.update(
         Aulas.tableName,

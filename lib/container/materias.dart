@@ -4,17 +4,15 @@ import 'package:curso/database/base_table.dart';
 import 'faltas.dart';
 import 'notas.dart';
 
-//adicionar array com ordem de aulas durante a semana
-
 class Materias implements BaseTable {
-  final int id, idPeriodo;
-  final String nome, sigla;
-  final bool freq;
-  final double medAprov;
-  final int cor;
-  final List<Faltas> faltas;
-  final List<Notas> notas;
-  final List<Aulas> aulas;
+  int id, idPeriodo;
+  String nome, sigla;
+  bool freq;
+  double medAprov;
+  int cor;
+  List<Faltas> faltas;
+  List<Notas> notas;
+  List<Aulas> aulas;
 
   Materias({
     this.id,
@@ -24,9 +22,9 @@ class Materias implements BaseTable {
     this.freq,
     this.medAprov,
     this.cor,
-    this.faltas: const [],
-    this.notas: const [],
-    this.aulas: const [],
+    this.faltas,
+    this.notas,
+    this.aulas,
   });
 
   static const String ID = "id";
@@ -36,32 +34,6 @@ class Materias implements BaseTable {
   static const String FREQ = "freq";
   static const String MEDAPROV = "med_aprov";
   static const String COR = "cor";
-
-  Materias copyWith({
-    int id,
-    int idPeriodo,
-    String nome,
-    String sigla,
-    bool freq,
-    double medAprov,
-    int cor,
-    List<Notas> notas,
-    List<Faltas> faltas,
-    List<Aulas> aulas,
-  }) {
-    return Materias(
-      id: id ?? this.id,
-      idPeriodo: idPeriodo ?? this.idPeriodo,
-      nome: nome ?? this.nome,
-      sigla: sigla ?? this.sigla,
-      freq: freq ?? this.freq,
-      medAprov: medAprov ?? this.medAprov,
-      cor: cor ?? this.cor,
-      faltas: faltas ?? this.faltas,
-      notas: notas ?? this.notas,
-      aulas: aulas ?? this.aulas,
-    );
-  }
 
   static List<String> provideColumns = [
     ID,

@@ -1,7 +1,7 @@
 import 'package:curso/database/base_table.dart';
 
 class Aulas implements BaseTable {
-  final int id, idMateria, weekDay, ordem;
+  int id, idMateria, weekDay, ordem;
 
   Aulas({
     this.id,
@@ -15,14 +15,14 @@ class Aulas implements BaseTable {
   static const String WEEKDAY = "week_day";
   static const String ORDEM = "ordem";
 
-  Aulas copyWith({int id, int idMateria, int weekDay, int ordem}) {
-    return Aulas(
-      id: id ?? this.id,
-      idMateria: idMateria ?? this.idMateria,
-      ordem: ordem ?? this.ordem,
-      weekDay: weekDay ?? this.weekDay,
-    );
-  }
+  // Aulas copyWith({int id, int idMateria, int weekDay, int ordem}) {
+  //   return Aulas(
+  //     id: id ?? this.id,
+  //     idMateria: idMateria ?? this.idMateria,
+  //     ordem: ordem ?? this.ordem,
+  //     weekDay: weekDay ?? this.weekDay,
+  //   );
+  // }
 
   static List<String> provideColumns = [
     ID,
