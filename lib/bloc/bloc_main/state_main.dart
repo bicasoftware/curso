@@ -29,8 +29,7 @@ class StateMain {
   }
 
   refreshMaterias(int idPeriodo, List<Materias> materias) {
-    int index = periodos.indexWhere((it) => it.id == idPeriodo);
-    periodos[index].materias = materias;
+    periodos.firstWhere((it) => it.id == idPeriodo).materias = materias;
   }
 
   insertAula(int idPeriodo, int idMateria, Aulas aula) {

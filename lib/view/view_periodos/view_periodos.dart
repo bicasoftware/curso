@@ -107,6 +107,8 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       ),
     );
 
-    if (resultMaterias != materias) onRefresh(idPeriodo, materias);
+    if (resultMaterias != materias) {
+      onRefresh(idPeriodo, resultMaterias);
+    }
   }
 }

@@ -15,15 +15,6 @@ class Aulas implements BaseTable {
   static const String WEEKDAY = "week_day";
   static const String ORDEM = "ordem";
 
-  // Aulas copyWith({int id, int idMateria, int weekDay, int ordem}) {
-  //   return Aulas(
-  //     id: id ?? this.id,
-  //     idMateria: idMateria ?? this.idMateria,
-  //     ordem: ordem ?? this.ordem,
-  //     weekDay: weekDay ?? this.weekDay,
-  //   );
-  // }
-
   static List<String> provideColumns = [
     ID,
     IDMATERIA,

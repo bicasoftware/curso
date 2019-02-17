@@ -25,7 +25,11 @@ class Materias implements BaseTable {
     this.faltas,
     this.notas,
     this.aulas,
-  });
+  }){
+    faltas = [];
+    notas = [];
+    aulas = [];
+  }
 
   static const String ID = "id";
   static const String IDPERIODO = "id_periodo";
