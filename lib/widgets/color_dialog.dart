@@ -1,5 +1,6 @@
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
+
+import '../utils.dart/Strings.dart';
 
 class ColorDialog extends StatelessWidget {
   final Function(int) onTap;
@@ -30,15 +31,13 @@ class ColorDialog extends StatelessWidget {
           GridView.count(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 6,
-            children: Arrays.materialColors.map((MaterialColor cor) {
+            crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 10 : 5,
+            children: Arrays.materialColors.map((int cor) {
               return GestureDetector(
-                onTap: () => onTap(cor.value),
+                onTap: () => onTap(cor),
                 child: Container(
-                  padding: EdgeInsets.all(2),
-                  child: CircleAvatar(
-                    backgroundColor: Color(cor.value),
-                  ),
+                  padding: EdgeInsets.all(4),
+                  child: CircleAvatar(backgroundColor: Color(cor)),
                 ),
               );
             }).toList(),

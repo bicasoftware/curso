@@ -7,8 +7,7 @@ import 'dialog_picker_materias.dart';
 class BottomSheetMaterias extends StatelessWidget {
   final Periodos periodo;
 
-  const BottomSheetMaterias({Key key, @required this.periodo})
-      : super(key: key);
+  const BottomSheetMaterias({Key key, @required this.periodo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +15,21 @@ class BottomSheetMaterias extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(16),
-          child: Text(
-            Strings.materias,
-            style: TextStyle(
-              fontSize: 18,
-            ),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  Strings.materias,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.delete_sweep),
+                onPressed: () => Navigator.of(context).pop(-1),
+              ),
+            ],
           ),
         ),
         Container(

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+//todo - Adicionar DropDownButton para selecionar o número do Período
+// adicionar a list no bottomsheet de materia, uma opção para remover as aulas
+// adicionar a opção de atualizar a materia usando o bottomsheet de materias
+
 void main() async {
   initializeDateFormatting("pt_BR", null);
   Intl.defaultLocale = "pt_BR";

@@ -66,18 +66,22 @@ class ViewPeriodosState extends State<ViewPeriodos> {
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
               _showViewInsertMaterias(context, idPeriodo, materias, medAprov, _onRefreshMaterias);
             },
-            onCellClick: (int weekDay, int ordemAula, Periodos p) async {
+            onCellClick: (int weekDay, int ordemAula, Periodos p, int idAula) async {
               if (p.materias.length == 0) {
                 _showViewInsertMaterias(context, p.id, p.materias, p.medAprov, _onRefreshMaterias);
               } else {
                 final idMateria = await BottomSheets.showBtsMaterias(context, p);
                 if (idMateria != null) {
-                  b.insertAula(
-                    idPeriodo: p.id,
-                    idMateria: idMateria,
-                    weekDay: weekDay,
-                    ordemAula: ordemAula,
-                  );
+                  if (idMateria > 0) {
+                    b.insertAula(
+                      idPeriodo: p.id,
+                      idMateria: idMateria,
+                      weekDay: weekDay,
+                      ordemAula: ordemAula,
+                    );
+                  } else {
+                    b.deleteAula(idAula:idAula, idPeriodo: p.id);                    
+                  }
                 }
               }
             },

@@ -43,7 +43,8 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
       body: Container(
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,            
             children: <Widget>[
               DefaultTextListTile(
                 icon: Icons.library_books,

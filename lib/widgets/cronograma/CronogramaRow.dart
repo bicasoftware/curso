@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../container/periodos.dart';
-import 'CronogramaListContainer.dart';
+import 'package:curso/widgets/cronograma/cronograma_cell_container.dart';
 
 class CronogramaRow extends StatelessWidget {
   final int ordemAula;
-  final List<CronogramaListContainer> container;
-  final Function(int, int, Periodos) onTap;
+  final List<CronogramaCellContainer> container;
+  final Function(int, int, Periodos, int) onTap;
   final Periodos periodo;
 
   const CronogramaRow({
@@ -28,23 +28,29 @@ class CronogramaRow extends StatelessWidget {
         children: List.generate(container.length, (i) {
           final c = container[i];
           return _item(
-              context: context, cor: c.corMateria, sigla: c.sigla, weekDay: i, periodo: periodo);
+            context: context,
+            cor: c.corMateria,
+            sigla: c.sigla,
+            weekDay: i,
+            periodo: periodo,
+            idAula: c.idAula,
+          );
         }),
       ),
     );
   }
 
   Widget _item({
-    BuildContext context,
-    Color cor,
-    String sigla,
-    int weekDay,
-    Periodos periodo,
+    @required BuildContext context,
+    @required Color cor,
+    @required String sigla,
+    @required int weekDay,
+    @required Periodos periodo, int idAula,
   }) {
     return Expanded(
       child: InkWell(
         splashColor: Theme.of(context).accentColor,
-        onTap: () => onTap(weekDay, ordemAula, periodo),
+        onTap: () => onTap(weekDay, ordemAula, periodo, idAula),
         child: Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 1),

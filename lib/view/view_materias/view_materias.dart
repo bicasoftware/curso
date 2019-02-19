@@ -65,59 +65,63 @@ class _Body extends StatelessWidget {
       initialData: [],
       stream: b.outMaterias,
       builder: (BuildContext context, AsyncSnapshot<List<Materias>> snap) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(Strings.materias),
-            leading: IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () => Navigator.of(context).pop(snap.data),
+        return WillPopScope(
+          onWillPop: () {
+            Navigator.of(context).pop(snap.data);
+          },
+          child: Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                ViewMateriasBuilder.sliverAppbar(() => Navigator.of(context).pop(snap.data)),
+                ViewMateriasBuilder.sliverListMaterias(
+                  materias: snap.data,
+                  onTap: (Materias m, int pos) async {
+                    ViewMateriasInsertResult result = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (c) => ViewMateriasInsert(materia: m, pos: pos),
+                      ),
+                    );
+
+                    if (result != null) {
+                      b.updateMaterias(materia: result.materia, pos: result.pos);
+                    }
+                  },
+                  onLongTap: (materia) async {
+                    final result = await Dialogs.showRemoveDialog(
+                      context: context,
+                      title: Strings.opcoes,
+                    );
+                    if (result != null) {
+                      b.deleteMateria(materia: materia);
+                    }
+                  },
+                )
+              ],
             ),
-          ),
-          body: ViewMateriasBuilder.listViewMaterias(
-            materias: snap.data,
-            onTap: (Materias m, int pos) async {
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: ViewMateriasBuilder.fab(() async {
               ViewMateriasInsertResult result = await Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (c) => ViewMateriasInsert(materia: m, pos: pos),
+                  builder: (c) {
+                    return ViewMateriasInsert(
+                      materia: Materias(
+                        cor: Colors.indigo.value,
+                        idPeriodo: idPeriodo,
+                        freq: true,
+                        medAprov: medAprov,
+                      ),
+                    );
+                  },
                 ),
               );
 
               if (result != null) {
-                b.updateMaterias(materia: result.materia, pos: result.pos);
+                b.insertMateria(materia: result.materia);
               }
-            },
-            onLongTap: (materia) async {
-              final result = await Dialogs.showRemoveDialog(
-                context: context,
-                title: Strings.opcoes,
-              );
-              if (result != null) {
-                b.deleteMateria(materia: materia);
-              }
-            },
+            }),
           ),
-          floatingActionButton: ViewMateriasBuilder.fab(() async {
-            ViewMateriasInsertResult result = await Navigator.of(context).push(
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (c) {
-                  return ViewMateriasInsert(
-                    materia: Materias(
-                      cor: Colors.indigo.value,
-                      idPeriodo: idPeriodo,
-                      freq: true,
-                      medAprov: medAprov,
-                    ),
-                  );
-                },
-              ),
-            );
-
-            if (result != null) {
-              b.insertMateria(materia: result.materia);
-            }
-          }),
         );
       },
     );

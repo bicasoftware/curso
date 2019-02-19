@@ -99,9 +99,15 @@ class BlocMain implements BlocBase {
         .whenComplete(() => _sinkPeriodos());
   }
 
-  deleteAula(int idAula, int idPeriodo, int idMateria) {
+  deleteAula({int idAula, int idPeriodo}) {
     ProviderAulas.deleteAulasById(idAula)
-        .then((a) => state.deleteAula(idPeriodo, idMateria, idAula))
+        .then((a) => state.deleteAula(idPeriodo, idAula))
         .whenComplete(() => _sinkPeriodos());
+  }
+
+  deleteAulaByOrdemDia(int idPeriodo, int weekDay, int ordemAula) {
+    ProviderAulas.deleteAulaByOrdemDia(idPeriodo, weekDay, ordemAula).then((a) {
+      state.deleteAulaByOrdemDia(idPeriodo, weekDay, ordemAula);
+    }).whenComplete(() => _sinkPeriodos());
   }
 }

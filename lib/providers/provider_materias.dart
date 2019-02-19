@@ -120,7 +120,7 @@ class ProviderMaterias {
     materia.notas.forEach((nota) {
       batch.insert(Notas.tableName, (nota..id = null).toMap());
     });
-    materia.aulas.forEach((falta) {
+    materia.faltas.forEach((falta) {
       batch.insert(Faltas.tableName, (falta..id = null).toMap());
     });
 

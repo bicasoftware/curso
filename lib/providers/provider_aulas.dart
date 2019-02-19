@@ -47,4 +47,13 @@ class ProviderAulas {
       whereArgs: [idAula],
     );
   }
+
+  static Future deleteAulaByOrdemDia(int idMateria, int weekDay, int ordemAula) async {
+    final db = await DBProvider.instance;
+    await db.delete(
+      Aulas.tableName,
+      where: "${Aulas.IDMATERIA} = ? and ${Aulas.WEEKDAY} = ? and ${Aulas.ORDEM} = ?",
+      whereArgs: [idMateria, weekDay, ordemAula],
+    );
+  }
 }

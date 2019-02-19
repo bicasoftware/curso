@@ -41,12 +41,17 @@ class StateMain {
         .add(aula);
   }
 
-  deleteAula(int idPeriodo, int idMateria, int idAula) {
+  deleteAula(int idPeriodo, int idAula) {
     periodos
         .firstWhere((it) => it.id == idPeriodo)
         .materias
-        .firstWhere((it) => it.id == idMateria)
-        .aulas
-        .removeWhere((it) => it.id == idAula);
+        .forEach((m) => m.aulas.removeWhere((it) => it.id == idAula));
+  }
+
+  deleteAulaByOrdemDia(int idPeriodo, int weekDay, int ordem) {
+    periodos
+        .firstWhere((it) => it.id == idPeriodo)
+        .materias
+        .forEach((m) => m.aulas.removeWhere((a) => a.weekDay == weekDay && a.ordem == ordem));
   }
 }

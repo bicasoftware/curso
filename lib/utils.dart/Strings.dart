@@ -31,6 +31,7 @@ class Strings {
   static const String removerPeriodo = 'Excluír Período?';
   static const String selectCor = 'Selecione uma Cor';
   static const String materiasVazias = 'Adicionar Matéria';
+  static const String adicionar = 'Adicionar';
 }
 
 class Arrays {
@@ -40,26 +41,43 @@ class Arrays {
 
   static const opcoes = [Strings.opcoes];
   static const temas = [Strings.claro, Strings.escuro];
-  static const List<MaterialColor> materialColors = const <MaterialColor>[
-    Colors.red,
-    Colors.pink,
-    Colors.purple,
-    Colors.deepPurple,
-    Colors.indigo,
-    Colors.blue,
-    Colors.lightBlue,
-    Colors.cyan,
-    Colors.teal,
-    Colors.green,
-    Colors.lightGreen,
-    Colors.lime,
-    Colors.yellow,
-    Colors.amber,
-    Colors.orange,
-    Colors.deepOrange,
-    Colors.brown,
-    Colors.grey,
-    Colors.blueGrey
+
+  static List<int> materialColors = <int>[
+    Colors.red.value,
+    Colors.redAccent.value,
+    Colors.pink.value,
+    Colors.pinkAccent.value,
+    Colors.purple.value,
+    Colors.purpleAccent.value,
+    Colors.deepPurple.value,
+    Colors.deepPurpleAccent.value,
+    Colors.indigo.value,
+    Colors.indigoAccent.value,
+    Colors.blue.value,
+    Colors.blueAccent.value,
+    Colors.lightBlue.value,
+    Colors.lightBlueAccent.value,
+    Colors.cyan.value,
+    Colors.cyanAccent.value,
+    Colors.teal.value,
+    Colors.tealAccent.value,
+    Colors.green.value,
+    Colors.greenAccent.value,
+    Colors.lightGreen.value,
+    Colors.lightGreenAccent.value,
+    Colors.lime.value,
+    Colors.limeAccent.value,
+    Colors.yellow.value,
+    Colors.yellowAccent.value,
+    Colors.amber.value,
+    Colors.amberAccent.value,
+    Colors.orange.value,
+    Colors.orangeAccent.value,
+    Colors.deepOrange.value,
+    Colors.deepOrangeAccent.value,
+    Colors.brown.value,
+    Colors.grey.value,
+    Colors.blueGrey.value,
   ];
 }
 

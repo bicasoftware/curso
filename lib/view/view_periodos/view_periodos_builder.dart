@@ -12,53 +12,50 @@ class ViewPeriodosBuilder {
     Function(Periodos) onUpdateTap,
     Function(int) onDelete,
     Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    Function(int, int, Periodos) onCellClick,
+    Function(int, int, Periodos, int) onCellClick,
   }) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: periodos.length,
       itemBuilder: (c, i) {
         return _expandedTile(
-          c,
-          periodos[i],
-          onUpdateTap,
-          onDelete,
-          onMateriasTap,
-          onCellClick,
+          context: c,
+          periodo: periodos[i],
+          onUpdateTap: onUpdateTap,
+          onDelete: onDelete,
+          onMateriasTap: onMateriasTap,
+          onCellClick: onCellClick,
         );
       },
     );
   }
 
-  static Widget _expandedTile(
-    BuildContext c,
-    Periodos p,
-    Function(Periodos) onUpdateTap,
-    Function(int) onDelete,
-    Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    Function(int, int, Periodos) onCellClick,
-  ) {
+  static Widget _expandedTile({
+    @required BuildContext context,
+    @required Periodos periodo,
+    @required Function(Periodos) onUpdateTap,
+    @required Function(int) onDelete,
+    @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    @required Function(int, int, Periodos, int) onCellClick,
+  }) {
     return GestureDetector(
       onLongPress: () {
-        onDelete(p.id);
+        onDelete(periodo.id);
       },
       child: ExpansionTile(
         leading: Icon(Icons.date_range),
-        title: Text("${p.id}º ${Strings.periodo}"),
+        title: Text("${periodo.id}º ${Strings.periodo}"),
         children: <Widget>[
           WeekDayHeader(),
           SizedBox(height: 0.5),
-          Cronograma(
-            periodo: p,
-            onCellClick: onCellClick,
-          ),
+          Cronograma(periodo: periodo, onCellClick: onCellClick),
           SizedBox(height: 16),
           Row(
             children: <Widget>[
               FlatButton(
                 child: Text(Strings.editar),
                 onPressed: () {
-                  onUpdateTap(p);
+                  onUpdateTap(periodo);
                 },
               ),
               Expanded(
@@ -68,7 +65,7 @@ class ViewPeriodosBuilder {
                     FlatButton(
                       child: Text(Strings.materias),
                       onPressed: () {
-                        onMateriasTap(p.materias, p.id, p.medAprov);
+                        onMateriasTap(periodo.materias, periodo.id, periodo.medAprov);
                       },
                     ),
                     FlatButton(

@@ -1,20 +1,38 @@
 import 'package:curso/container/materias.dart';
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/circle.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasBuilder {
-  static Widget listViewMaterias({
+  static Widget sliverAppbar(VoidCallback onPressed) {
+    return SliverAppBar(
+      title: Text(Strings.materias),
+      floating: true,
+      leading: IconButton(
+        icon: Icon(Icons.close),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
+  static Widget sliverListMaterias({
     @required List<Materias> materias,
     @required Function(Materias, int pos) onTap,
     @required Function(Materias) onLongTap,
   }) {
-    return ListView.separated(
-      itemCount: materias.length,
-      shrinkWrap: true,
-      separatorBuilder: (BuildContext c, int i) => Divider(height: 1),
-      itemBuilder: (BuildContext c, int i) {
-        return _materiaTile(context: c, m: materias[i], onTap: onTap, onLongTap: onLongTap, pos: i);
-      },
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext c, int i) {
+          return _materiaTile(
+            context: c,
+            m: materias[i],
+            onTap: onTap,
+            onLongTap: onLongTap,
+            pos: i,
+          );
+        },
+        childCount: materias.length,
+      ),
     );
   }
 
@@ -43,8 +61,9 @@ class ViewMateriasBuilder {
   }
 
   static Widget fab(VoidCallback onTap) {
-    return FloatingActionButton(
-      child: Icon(Icons.add),
+    return FloatingActionButton.extended(
+      icon: Icon(Icons.add),
+      label: Text(Strings.adicionar),
       onPressed: onTap,
     );
   }

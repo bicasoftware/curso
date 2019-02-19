@@ -1,13 +1,18 @@
+import 'package:curso/container/aulas.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/widgets/cronograma/CronogramaListContainer.dart';
+import 'package:curso/widgets/cronograma/cronograma_cell_container.dart';
 import 'package:flutter/material.dart';
 import 'CronogramaRow.dart';
 
 class Cronograma extends StatelessWidget {
   final Periodos periodo;
-  final Function(int, int, Periodos) onCellClick;
+  final Function(int, int, Periodos, int) onCellClick;
 
-  const Cronograma({Key key, @required this.periodo, @required this.onCellClick}) : super(key: key);
+  const Cronograma({
+    Key key,
+    @required this.periodo,
+    @required this.onCellClick,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +21,39 @@ class Cronograma extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: periodo.aulasDia,
       itemBuilder: (BuildContext c, int i) {
-        return CronogramaRow(ordemAula: i, container: _getRowContainer(i), onTap: onCellClick, periodo: periodo);
+        return CronogramaRow(
+          ordemAula: i,
+          container: _getRowContainer(i),
+          onTap: onCellClick,
+          periodo: periodo,
+        );
       },
     );
   }
 
-  List<CronogramaListContainer> _getRowContainer(int ordemAula) {
+  List<CronogramaCellContainer> _getRowContainer(int ordemAula) {
     final container = List.generate(7, (i) {
-      return CronogramaListContainer(weekDay: i, corMateria: null, sigla: null);
-    });
+      return CronogramaCellContainer(
+        weekDay: i,
+        corMateria: null,
+        sigla: null,
+        idAula: null,
+      );
+    },);
 
     for (var i = 0; i < 7; i++) {
       for (final materia in periodo.materias) {
-        final aula = materia.aulas.where((a) => a.ordem == ordemAula && a.weekDay == i).toList();
-        if (aula.length > 0) {
-          container[i] = CronogramaListContainer(
+        final Aulas aula = materia.aulas.firstWhere(
+          (a) => a.ordem == ordemAula && a.weekDay == i,
+          orElse: () => null,
+        );
+
+        if (aula != null) {
+          container[i] = CronogramaCellContainer(
             corMateria: Color(materia.cor),
             weekDay: i,
             sigla: materia.sigla,
+            idAula: aula.id,
           );
         }
       }
