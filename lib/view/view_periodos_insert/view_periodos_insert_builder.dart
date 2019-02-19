@@ -5,6 +5,25 @@ import 'package:curso/widgets/default_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodosInsertBuilder {
+  static Widget numPeriodoTile({@required int numPeriodo, @required Function(int) onChanged}) {
+    return DefaultListTile(
+      icon: Icons.confirmation_number,
+      leading: Text(Strings.numPeriodo),
+      trailing: DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: numPeriodo,
+          items: List.generate(18, (i) {
+            return DropdownMenuItem(
+              child: Text("${i + 1} ${Strings.periodo}"),
+              value: i + 1,
+            );
+          }),
+          onChanged: onChanged,
+        ),
+      ),
+    );
+  }
+
   static Widget inicioDateTile({@required DateTime inicio, VoidCallback onTap}) {
     return DefaultListTile(
       icon: Icons.calendar_today,
@@ -30,7 +49,12 @@ class ViewPeriodosInsertBuilder {
       trailing: DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           value: aulasDia,
-          items: List.generate(12, (i) => DropdownMenuItem(child: Text("$i"), value: i)),
+          items: List.generate(12, (i) {
+            return DropdownMenuItem(
+              child: Text("$i"),
+              value: i,
+            );
+          }),
           onChanged: onChanged,
         ),
       ),

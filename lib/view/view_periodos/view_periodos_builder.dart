@@ -44,7 +44,7 @@ class ViewPeriodosBuilder {
       },
       child: ExpansionTile(
         leading: Icon(Icons.date_range),
-        title: Text("${periodo.id}º ${Strings.periodo}"),
+        title: Text("${periodo.numPeriodo}º ${Strings.periodo}"),
         children: <Widget>[
           WeekDayHeader(),
           SizedBox(height: 0.5),

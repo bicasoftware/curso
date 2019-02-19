@@ -47,11 +47,4 @@ class StateMain {
         .materias
         .forEach((m) => m.aulas.removeWhere((it) => it.id == idAula));
   }
-
-  deleteAulaByOrdemDia(int idPeriodo, int weekDay, int ordem) {
-    periodos
-        .firstWhere((it) => it.id == idPeriodo)
-        .materias
-        .forEach((m) => m.aulas.removeWhere((a) => a.weekDay == weekDay && a.ordem == ordem));
-  }
 }

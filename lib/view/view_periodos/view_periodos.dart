@@ -73,14 +73,24 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                 final idMateria = await BottomSheets.showBtsMaterias(context, p);
                 if (idMateria != null) {
                   if (idMateria > 0) {
-                    b.insertAula(
-                      idPeriodo: p.id,
-                      idMateria: idMateria,
-                      weekDay: weekDay,
-                      ordemAula: ordemAula,
-                    );
+                    if (idAula != null) {
+                      b.updateAula(
+                        idAula: idAula,
+                        idPeriodo: p.id,
+                        idMateria: idMateria,
+                        weekDay: weekDay,
+                        ordemAula: ordemAula,
+                      );                      
+                    } else {
+                      b.insertAula(
+                        idPeriodo: p.id,
+                        idMateria: idMateria,
+                        weekDay: weekDay,
+                        ordemAula: ordemAula,
+                      );
+                    }
                   } else {
-                    b.deleteAula(idAula:idAula, idPeriodo: p.id);                    
+                    b.deleteAula(idAula: idAula, idPeriodo: p.id);
                   }
                 }
               }

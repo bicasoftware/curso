@@ -32,6 +32,7 @@ class Strings {
   static const String selectCor = 'Selecione uma Cor';
   static const String materiasVazias = 'Adicionar Matéria';
   static const String adicionar = 'Adicionar';
+  static const String numPeriodo = 'Ordem do Período';
 }
 
 class Arrays {

@@ -16,21 +16,23 @@ class ProviderAulas {
     return r.map((it) => Aulas.fromMap(it)).toList();
   }
 
-  static Future<Aulas> upsertAulas(Aulas aula) async {
+  static Future<Aulas> insertAulas(Aulas aula) async {
     if (aula.idMateria == null) throw Exception("Faltando IDMATERIA em $aula");
     final db = await DBProvider.instance;
+    final id = await db.insert(Aulas.tableName, aula.toMap());
 
-    if (aula.id == null) {
-      final id = await db.insert(Aulas.tableName, aula.toMap());
-      aula.id = id;
-    } else {
-      await db.update(
-        Aulas.tableName,
-        aula.toMap(),
-        where: "id = ?",
-        whereArgs: [aula.id],
-      );
-    }
+    return aula..id = id;
+  }
+
+  static Future<Aulas> updateAula(Aulas aula) async {
+    final db = await DBProvider.instance;
+
+    await db.update(
+      Aulas.tableName,
+      aula.toMap(),
+      where: "id = ?",
+      whereArgs: [aula.id],
+    );
 
     return aula;
   }

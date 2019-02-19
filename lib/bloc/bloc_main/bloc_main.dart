@@ -94,7 +94,7 @@ class BlocMain implements BlocBase {
 
   insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
     var aula = Aulas(idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
-    ProviderAulas.upsertAulas(aula)
+    ProviderAulas.insertAulas(aula)
         .then((Aulas a) => state.insertAula(idPeriodo, idMateria, aula))
         .whenComplete(() => _sinkPeriodos());
   }
@@ -105,9 +105,15 @@ class BlocMain implements BlocBase {
         .whenComplete(() => _sinkPeriodos());
   }
 
-  deleteAulaByOrdemDia(int idPeriodo, int weekDay, int ordemAula) {
-    ProviderAulas.deleteAulaByOrdemDia(idPeriodo, weekDay, ordemAula).then((a) {
-      state.deleteAulaByOrdemDia(idPeriodo, weekDay, ordemAula);
+  updateAula({int idAula, int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
+    var aula = Aulas(idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
+
+    Future.wait([
+      ProviderAulas.deleteAulasById(idAula),
+      ProviderAulas.insertAulas(aula),
+    ]).then((List<Object> results) {
+      state.deleteAula(idPeriodo, idAula);
+      state.insertAula(idPeriodo, idMateria, results[1]);
     }).whenComplete(() => _sinkPeriodos());
   }
 }

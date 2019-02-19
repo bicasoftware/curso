@@ -1,7 +1,8 @@
-import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/view/view_periodos_insert/view_periodos_insert_builder.dart';
 import 'package:flutter/material.dart';
+
+import '../../container/periodos.dart';
+import '../../utils.dart/Strings.dart';
+import 'view_periodos_insert_builder.dart';
 
 class ViewPeriodosInsert extends StatefulWidget {
   final Periodos periodo;
@@ -17,31 +18,30 @@ class ViewPeriodosInsert extends StatefulWidget {
 
 class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   static final _formKey = GlobalKey<FormState>();
-  DateTime _ini, _end;
-  int _aulasDia, _presObrig;
-  double _nota;
 
   final _lastDate = DateTime(2030, 12, 31);
+
+  Periodos _periodo;
 
   @override
   void initState() {
     super.initState();
-    _ini = widget.periodo.inicio;
-    _end = widget.periodo.termino;
-    _aulasDia = widget.periodo.aulasDia;
-    _presObrig = widget.periodo.presObrig;
-    _nota = widget.periodo.medAprov;
+    _periodo = widget.periodo;
   }
 
-  _setDataIni(DateTime ini) => setState(() => _ini = ini);
+  _setDataIni(DateTime ini) => setState(() => _periodo.inicio = ini);
 
-  _setDataTermino(DateTime end) => setState(() => _end = end);
+  _setDataTermino(DateTime end) => setState(() => _periodo.termino = end);
 
-  _setAulasDia(int pos) => setState(() => _aulasDia = pos);
+  _setAulasDia(int pos) => setState(() => _periodo.aulasDia = pos);
 
-  _setMedAprov(double aprov) => setState(() => _nota = aprov);
+  _setMedAprov(double aprov) => setState(() => _periodo.medAprov = aprov);
 
-  _setPresObrig(int pos) => setState(() => _presObrig = pos);
+  _setPresObrig(int pos) => setState(() => _periodo.presObrig = pos);
+
+  _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
+
+  Widget _divider() => Divider(height: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +49,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       appBar: AppBar(
         title: Text(Strings.novoPeriodo),
         actions: [
-          ViewPeriodosInsertBuilder.saveButton(_formKey, () {
-            Navigator.of(context).pop(
-              Periodos(
-                id: widget.periodo.id,
-                inicio: _ini,
-                termino: _end,
-                aulasDia: _aulasDia,
-                medAprov: _nota,
-                presObrig: _presObrig,
-              ),
-            );
-          }),
+          ViewPeriodosInsertBuilder.saveButton(_formKey, () => Navigator.of(context).pop(_periodo))
         ],
       ),
       body: Form(
@@ -68,12 +57,17 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
+            ViewPeriodosInsertBuilder.numPeriodoTile(
+              numPeriodo: _periodo.numPeriodo,
+              onChanged: _setNumPeriodo,
+            ),
+            _divider(),
             ViewPeriodosInsertBuilder.inicioDateTile(
-              inicio: _ini,
+              inicio: _periodo.inicio,
               onTap: () async {
                 final dt = await showDatePicker(
                   context: context,
-                  initialDate: _ini,
+                  initialDate: _periodo.inicio,
                   firstDate: DateTime(2010, 1, 1),
                   lastDate: _lastDate,
                 );
@@ -83,29 +77,32 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                 }
               },
             ),
-            Divider(),
+            _divider(),
             ViewPeriodosInsertBuilder.terminoDateTile(
-              termino: _end,
+              termino: _periodo.termino,
               onTap: () {
                 showDatePicker(
                   context: context,
-                  initialDate: _end,
-                  firstDate: _ini,
+                  initialDate: _periodo.termino,
+                  firstDate: _periodo.inicio,
                   lastDate: _lastDate,
                 ).then(
                   (dt) => _setDataTermino(dt),
                 );
               },
             ),
-            Divider(),
-            ViewPeriodosInsertBuilder.aulaDiaTile(_aulasDia, (i) => _setAulasDia(i)),
+            _divider(),
+            ViewPeriodosInsertBuilder.aulaDiaTile(_periodo.aulasDia, (i) => _setAulasDia(i)),
             Divider(),
             ViewPeriodosInsertBuilder.notaMinimaTile(
-              nota: _nota,
+              nota: _periodo.medAprov,
               onChanged: (n) => _setMedAprov(n),
             ),
-            Divider(),
-            ViewPeriodosInsertBuilder.presencaObrigatoriaTile(_presObrig, (i) => _setPresObrig(i)),
+            _divider(),
+            ViewPeriodosInsertBuilder.presencaObrigatoriaTile(
+              _periodo.presObrig,
+              (i) => _setPresObrig(i),
+            ),
           ],
         ),
       ),

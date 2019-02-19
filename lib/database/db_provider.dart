@@ -59,6 +59,7 @@ class DBProvider {
         Periodos.tableName,
         Periodos(
           id: 1,
+          numPeriodo: 1,
           aulasDia: 4,
           inicio: DateTime(2019, 02, 01),
           termino: DateTime(2019, 06, 01),

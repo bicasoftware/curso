@@ -3,13 +3,14 @@ import 'package:curso/utils.dart/Formatting.dart';
 import 'package:curso/container/materias.dart';
 
 class Periodos implements BaseTable {
-  int id, presObrig, aulasDia;
+  int id, presObrig, aulasDia, numPeriodo;
   DateTime inicio, termino;
   double medAprov;
   List<Materias> materias;
 
   Periodos({
     this.id,
+    this.numPeriodo,
     this.inicio,
     this.termino,
     this.presObrig,
@@ -19,6 +20,7 @@ class Periodos implements BaseTable {
   });
 
   static const String ID = "id";
+  static const String NUMPERIODO = "num_periodo";
   static const String INICIO = "inicio";
   static const String TERMINO = "termino";
   static const String PRESOBRIG = "pres_obrig";
@@ -29,6 +31,7 @@ class Periodos implements BaseTable {
     final now = DateTime.now();
     final end = now.add(Duration(days: 6 * 30));
     return Periodos(
+      numPeriodo: 1,
       inicio: now,
       termino: end,
       presObrig: 75,
@@ -40,6 +43,7 @@ class Periodos implements BaseTable {
 
   static List<String> provideColumns = [
     ID,
+    NUMPERIODO,
     INICIO,
     TERMINO,
     PRESOBRIG,
@@ -52,6 +56,7 @@ class Periodos implements BaseTable {
   static String getCreateSQL() {
     return """create table $tableName(
     $ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    $NUMPERIODO INTEGER NOT NULL DEFAULT 1,
     $INICIO TEXT NOT NULL DEFAULT "",
     $TERMINO TEXT NOT NULL DEFAULT "",
     $PRESOBRIG INTEGER NOT NULL DEFAULT 75,
@@ -63,6 +68,7 @@ class Periodos implements BaseTable {
   @override
   Map toMap() {
     final Map<String, dynamic> m = {
+      NUMPERIODO: numPeriodo,
       INICIO: Formatting.formatDbDate(inicio),
       TERMINO: Formatting.formatDbDate(termino),
       PRESOBRIG: presObrig,
@@ -78,6 +84,7 @@ class Periodos implements BaseTable {
   static Periodos fromMap(Map m) {
     return Periodos(
       id: m[ID],
+      numPeriodo: m[NUMPERIODO],
       inicio: Formatting.parseDate(m[INICIO]),
       termino: Formatting.parseDate(m[TERMINO]),
       presObrig: m[PRESOBRIG],
@@ -88,6 +95,6 @@ class Periodos implements BaseTable {
 
   @override
   String toString() {
-    return "${this.id},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
+    return "${this.id},${this.numPeriodo},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
   }
 }
