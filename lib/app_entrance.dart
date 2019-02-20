@@ -50,18 +50,10 @@ class AppEntranceState extends State<AppEntrance> {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final BlocMain b = BlocProvider.of<BlocMain>(context);
-
-    return StreamBuilder<AppBrightness>(
-      stream: b.outBrightness,
-      initialData: AppBrightness.DARK,
-      builder: (context, AsyncSnapshot<AppBrightness> snap) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: snap.data == AppBrightness.DARK ? Themes.darkTheme : Themes.lightTheme,
-          home: ViewHome(),
-        );
-      },
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: Themes.lightTheme,
+      home: ViewHome(),
     );
   }
 }
