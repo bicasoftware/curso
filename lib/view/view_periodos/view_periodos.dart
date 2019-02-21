@@ -17,17 +17,9 @@ class ViewPeriodos extends StatefulWidget {
 }
 
 class ViewPeriodosState extends State<ViewPeriodos> {
-  BlocMain b;
-
-  @override
-  void dispose() {
-    super.dispose();
-    b.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    b = BlocProvider.of<BlocMain>(context);
+    BlocMain b = BlocProvider.of<BlocMain>(context);
 
     _onRefreshMaterias(int idPeriodo, List<Materias> materias) {
       b.updateMaterias(idPeriodo, materias);
@@ -80,7 +72,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                         idMateria: idMateria,
                         weekDay: weekDay,
                         ordemAula: ordemAula,
-                      );                      
+                      );
                     } else {
                       b.insertAula(
                         idPeriodo: p.id,

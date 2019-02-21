@@ -1,11 +1,10 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
 
 import 'Themes.dart';
+import 'bloc/bloc_main/bloc_main.dart';
 import 'container/conf.dart';
 import 'container/periodos.dart';
-import 'utils.dart/AppBrightness.dart';
 import 'view/view_home.dart';
 
 class AppEntrance extends StatefulWidget {
