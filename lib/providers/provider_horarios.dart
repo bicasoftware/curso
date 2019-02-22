@@ -28,4 +28,9 @@ class ProviderHorarios {
 
     return Horarios.fromMap(horario[0]);
   }
+
+  static Future<Null> deleteHorariosByPeriodo(int idPeriodo) async {
+    final db = await DBProvider.instance;
+    await db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [idPeriodo]);
+  }
 }

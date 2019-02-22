@@ -39,26 +39,6 @@ class ProviderMaterias {
       });
     }
 
-    //   final faltas = await ProviderFaltas.fetchFaltasByMateria(m.id);
-    //   final notas = await ProviderNotas.fetchNotasByMateria(m.id);
-    //   final List<Aulas> aulas = await ProviderAulas.fetchAulasByMateria(m.id);
-
-    //   var listAulas = List<Aulas>();
-    //   ProviderAulas.fetchAulasByMateria(m.id).then((List<Aulas> _aulas) {
-    //     listAulas = _aulas;
-    //   });
-
-    //   print("Aulas: ${aulas.length}");
-
-    //   m = m.copyWith(
-    //     faltas: []..addAll(faltas),
-    //     notas: []..addAll(notas),
-    //     aulas: listAulas,
-    //   );
-    // }
-
-    // materias.forEach((materia) => print("Materia: ${materia.id} aulas:${materia.aulas.length}"));
-
     return materias;
   }
 
