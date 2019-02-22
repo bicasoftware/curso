@@ -1,3 +1,4 @@
+import 'package:curso/container/horarios.dart';
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/Formatting.dart';
 import 'package:curso/container/materias.dart';
@@ -7,6 +8,7 @@ class Periodos implements BaseTable {
   DateTime inicio, termino;
   double medAprov;
   List<Materias> materias;
+  List<Horarios> horarios;
 
   Periodos({
     this.id,
@@ -15,9 +17,12 @@ class Periodos implements BaseTable {
     this.termino,
     this.presObrig,
     this.medAprov,
-    this.materias: const [],
+    this.materias,
     this.aulasDia,
-  });
+  }) {
+    materias = [];
+    horarios = [];
+  }
 
   static const String ID = "id";
   static const String NUMPERIODO = "num_periodo";

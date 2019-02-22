@@ -38,5 +38,11 @@ void main() {
     test('parseInt', () {
       assert(StringUtils.isInt("abc") == false);
     });
+
+    test("Horas", (){
+      final hora = "18:00";
+      print(Formatting.parseTime(hora));
+      print(Formatting.formatTime(DateTime.now()));      
+    });
   });
 }

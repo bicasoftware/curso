@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 class Formatting {
   static DateFormat _fmt = DateFormat("dd/MM/yyyy", "pt_BT");
   static DateFormat _defFmt = DateFormat("yyyy-MM-dd");
+  static DateFormat _timeFormat = DateFormat("HH:MM");
 
   static bool isCash(String value) {
     final regex = RegExp(r"""^\d+\,\d{2}$""");
@@ -37,7 +38,7 @@ class Formatting {
     }
   }
 
-  static String formatDate(DateTime date){
+  static String formatDate(DateTime date) {
     return _fmt.format(date);
   }
 
@@ -45,7 +46,15 @@ class Formatting {
     return _defFmt.parse(date);
   }
 
-  static String formatDbDate(DateTime date){
+  static String formatDbDate(DateTime date) {
     return _defFmt.format(date);
+  }
+
+  static String formatTime(DateTime time) {
+    return _timeFormat.format(time);
+  }
+
+  static DateTime parseTime(String time) {
+    return _timeFormat.parse(time);
   }
 }

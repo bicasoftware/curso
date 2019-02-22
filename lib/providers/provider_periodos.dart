@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../container/materias.dart';
 import '../container/periodos.dart';
 import '../database/db_provider.dart';
+import 'provider_horarios.dart';
 import 'provider_materias.dart';
 
 class ProviderPeriodos {
@@ -11,14 +11,18 @@ class ProviderPeriodos {
 
     final result = await db.query(Periodos.tableName, columns: Periodos.provideColumns);
     final List<Periodos> periodos = result.map((it) => Periodos.fromMap(it)).toList();
-    final List<Periodos> mappedPeriodos = [];
 
     for (var periodo in periodos) {
-      final List<Materias> materias = await ProviderMaterias.fetchMateriasByPeriodo(periodo.id);
-      mappedPeriodos.add(periodo..materias = materias);
+      Future.wait([
+        ProviderMaterias.fetchMateriasByPeriodo(periodo.id),
+        ProviderHorarios.fetchHorariosByPeriodo(periodo.id),
+      ]).then((List<Object> results) {
+        periodo.materias = results[0];
+        periodo.horarios = results[1];
+      });
     }
 
-    return mappedPeriodos;
+    return periodos;
   }
 
   static Future<Periodos> insertPeriodo(Periodos periodo) async {

@@ -1,6 +1,7 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/conf.dart';
 import 'package:curso/container/faltas.dart';
+import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
@@ -46,6 +47,7 @@ class DBProvider {
     await _createPeriodos(db);
     await _createConf(db);
     await _initializeConf(db);
+    await _createHorarios(db);
   }
 
   static Future _initializeConf(Database db) async {
@@ -92,5 +94,9 @@ class DBProvider {
 
   static Future _createAulas(Database db) async {
     return await db.execute(Aulas.getCreateSQL());
+  }
+
+  static Future _createHorarios(Database db) async {
+    return await db.execute(Horarios.getCreateSQL());
   }
 }
