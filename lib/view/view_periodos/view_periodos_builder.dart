@@ -1,11 +1,57 @@
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/cronograma/Cronograma.dart';
-import 'package:curso/widgets/DiaSemanaHeader.dart';
 import 'package:flutter/material.dart';
 
+import '../../container/materias.dart';
+import '../../container/periodos.dart';
+import '../../utils.dart/Strings.dart';
+import '../../widgets/DiaSemanaHeader.dart';
+import '../../widgets/cronograma/Cronograma.dart';
+
 class ViewPeriodosBuilder {
+  static Widget _buttonBar({
+    @required BuildContext context,
+    @required Periodos periodo,
+    @required Function(Periodos) onUpdateTap,
+    @required Function(int) onDelete,
+    @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+  }) {
+    final ThemeData theme = Theme.of(context);
+    return ButtonBar(
+      //crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.school,
+            color: theme.accentColor,
+          ),
+          onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.insert_drive_file,
+            color: theme.accentColor,
+          ),
+          onPressed: () {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Não implementado"),
+                duration: Duration(milliseconds: 1000),
+              ),
+            );
+            print("Não implementado");
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.calendar_view_day,
+            color: theme.accentColor,
+          ),
+          onPressed: () => onUpdateTap(periodo),
+        ),
+      ],
+    );
+  }
+
   static Widget listPeriodos({
     BuildContext context,
     List<Periodos> periodos,
@@ -38,46 +84,41 @@ class ViewPeriodosBuilder {
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
     @required Function(int, int, Periodos, int) onCellClick,
   }) {
-    return GestureDetector(
-      onLongPress: () {
-        onDelete(periodo.id);
-      },
-      child: ExpansionTile(
-        leading: Icon(Icons.date_range),
-        title: Text("${periodo.numPeriodo}º ${Strings.periodo}"),
-        children: <Widget>[
-          WeekDayHeader(),
-          SizedBox(height: 0.5),
-          Cronograma(periodo: periodo, onCellClick: onCellClick),
-          SizedBox(height: 16),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                child: Text(Strings.editar),
-                onPressed: () {
-                  onUpdateTap(periodo);
-                },
+    return Card(
+      elevation: 1,
+      margin: EdgeInsets.all(1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+      ),
+      child: GestureDetector(
+        onLongPress: () {
+          onDelete(periodo.id);
+        },
+        child: ExpansionTile(
+          leading: Icon(
+            Icons.date_range,
+            color: Theme.of(context).accentColor,
+          ),
+          title: Text("${periodo.numPeriodo}º ${Strings.periodo}"),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Column(
+                children: <Widget>[
+                  WeekDayHeader(),
+                  Cronograma(periodo: periodo, onCellClick: onCellClick),
+                ],
               ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    FlatButton(
-                      child: Text(Strings.materias),
-                      onPressed: () {
-                        onMateriasTap(periodo.materias, periodo.id, periodo.medAprov);
-                      },
-                    ),
-                    FlatButton(
-                      child: Text(Strings.provas),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
-            ],
-          )
-        ],
+            ),
+            _buttonBar(
+              context: context,
+              periodo: periodo,
+              onDelete: onDelete,
+              onMateriasTap: onMateriasTap,
+              onUpdateTap: onUpdateTap,
+            ),
+          ],
+        ),
       ),
     );
   }

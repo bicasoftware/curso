@@ -16,7 +16,7 @@ class WeekDayHeader extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(2),
         margin: EdgeInsets.symmetric(horizontal: 1),
-        color: Theme.of(c).dividerColor,
+        color: Colors.grey[200],
         child: Text(
           d,
           textAlign: TextAlign.center,

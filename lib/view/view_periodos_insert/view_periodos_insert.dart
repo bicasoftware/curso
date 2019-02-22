@@ -47,7 +47,11 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.novoPeriodo),
+        title: Text(
+          widget.periodo.id == null
+              ? Strings.novoPeriodo
+              : "${widget.periodo.numPeriodo}º ${Strings.editarPeriodo}",
+        ),
         actions: [
           ViewPeriodosInsertBuilder.saveButton(_formKey, () => Navigator.of(context).pop(_periodo))
         ],

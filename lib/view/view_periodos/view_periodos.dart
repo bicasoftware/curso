@@ -30,7 +30,6 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       stream: b.outPeriodos,
       builder: (c, snap) {
         return Container(
-          padding: EdgeInsets.all(0),
           child: ViewPeriodosBuilder.listPeriodos(
             context: context,
             periodos: snap.data,

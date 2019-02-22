@@ -18,7 +18,8 @@ class Strings {
   static const String tema = 'Tema';
   static const String claro = 'Claro';
   static const String escuro = 'Escuro';
-  static const String novoPeriodo = 'Novo Periodo';
+  static const String editarPeriodo = 'Período';
+  static const String novoPeriodo = 'Novo Período';
   static const String inicioPeriodo = 'Inicio do Período';
   static const String terminoPeriodo = 'Inicio do Período';
   static const String aulasDia = 'Aulas por Dia';

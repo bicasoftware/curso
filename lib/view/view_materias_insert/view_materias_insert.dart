@@ -39,6 +39,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(title: Text(Strings.materia)),
       body: Container(
         child: Form(

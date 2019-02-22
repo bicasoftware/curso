@@ -1,3 +1,4 @@
+import 'package:curso/widgets/rounded_bottomsheet_container.dart';
 import 'package:flutter/material.dart';
 
 import '../container/periodos.dart';
@@ -8,9 +9,9 @@ class BottomSheets {
     BuildContext context,
     Periodos periodo,
   ) async {
-    return showModalBottomSheet(
+    return showModalBottomSheet(      
       context: context,
-      builder: (c) => BottomSheetMaterias(periodo: periodo),
+      builder: (c) => RoundedBottomSheetContainer(child: BottomSheetMaterias(periodo: periodo)),
     );
   }
 }

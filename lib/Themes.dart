@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class Themes {
   static ThemeData get lightTheme {
     return ThemeData(
-      primarySwatch: Colors.red,
-      primaryColor: Colors.red,
-      accentColor: Colors.red,
+      primarySwatch: Colors.indigo,
+      primaryColor: Colors.indigo,
+      accentColor: Colors.blueAccent,
       fontFamily: "FiraSans",
       brightness: Brightness.light,
     );
