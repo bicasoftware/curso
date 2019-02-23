@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../container/materias.dart';
 import '../../container/periodos.dart';
 import '../../utils.dart/Strings.dart';
-import '../../widgets/DiaSemanaHeader.dart';
+import '../../widgets/weekday_header.dart';
 import '../../widgets/cronograma/Cronograma.dart';
 
 class ViewPeriodosBuilder {

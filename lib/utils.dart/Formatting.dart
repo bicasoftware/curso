@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class Formatting {
   static DateFormat _fmt = DateFormat("dd/MM/yyyy", "pt_BT");
   static DateFormat _defFmt = DateFormat("yyyy-MM-dd");
-  static DateFormat _timeFormat = DateFormat("HH:MM");
+  static DateFormat _timeFormat = DateFormat("HH:mm");
 
   static bool isCash(String value) {
     final regex = RegExp(r"""^\d+\,\d{2}$""");

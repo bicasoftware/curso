@@ -58,8 +58,8 @@ class Horarios implements BaseTable {
       id: m[ID],
       idPeriodo: m[IDPERIODO],
       ordemAula: m[ORDEMAULA],
-      inicio: m[INICIO],
-      termino: m[TERMINO],
+      inicio: Formatting.parseTime(m[INICIO]),
+      termino: Formatting.parseTime(m[TERMINO]),
     );
   }
 

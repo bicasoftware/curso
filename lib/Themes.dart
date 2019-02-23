@@ -5,7 +5,7 @@ class Themes {
     return ThemeData(
       primarySwatch: Colors.indigo,
       primaryColor: Colors.indigo,
-      accentColor: Colors.blueAccent,
+      accentColor: Colors.blue,
       fontFamily: "FiraSans",
       brightness: Brightness.light,
     );

@@ -41,8 +41,13 @@ void main() {
 
     test("Horas", (){
       final hora = "18:00";
-      print(Formatting.parseTime(hora));
-      print(Formatting.formatTime(DateTime.now()));      
+      final DateTime dtHora = Formatting.parseTime(hora);
+      print(dtHora);
+      print(Formatting.formatTime(dtHora));
+    });
+
+    test("list generate", (){
+      print(List.generate(12, (i) => i+1).join(","));
     });
   });
 }
