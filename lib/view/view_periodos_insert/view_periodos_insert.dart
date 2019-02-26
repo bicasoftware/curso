@@ -38,11 +38,17 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setAulasDia(int pos) => setState(() => _periodo.aulasDia = pos);
 
+  _setAulasDiaDouble(double pos) => setState(() => _periodo.aulasDia = pos.toInt());
+
   _setMedAprov(double aprov) => setState(() => _periodo.medAprov = aprov);
 
   _setPresObrig(int pos) => setState(() => _periodo.presObrig = pos);
+  
+  _setPresObrigDouble(double pos) => setState(() => _periodo.presObrig = pos.toInt());
 
   _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
+  
+  _setNumPeriodoDouble(double numero) => setState(() => _periodo.numPeriodo = numero.toInt());
 
   _setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
     setState(() {
@@ -85,9 +91,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
             shrinkWrap: true,
             children: <Widget>[
               ListIndicator(hint: "Periodo"),
-              ViewPeriodosInsertBuilder.numPeriodoTile(
-                numPeriodo: _periodo.numPeriodo,
-                onChanged: _setNumPeriodo,
+              ViewPeriodosInsertBuilder.numPeriodoSliderTile(
+                numPeriodo: _periodo.numPeriodo.toDouble(),
+                onChanged: _setNumPeriodoDouble,
               ),
               _divider(),
               ViewPeriodosInsertBuilder.inicioDateTile(
@@ -119,22 +125,24 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                   if (termino != null) _setDataTermino(termino);
                 },
               ),
-              ListIndicator(hint: "Valores de Reprovação"),
-              ViewPeriodosInsertBuilder.notaMinimaTile(
+              ListIndicator(hint: "Valores de Reprovação"),              
+              ViewPeriodosInsertBuilder.notaMinimaSliderTile(
                 nota: _periodo.medAprov,
                 onChanged: (n) => _setMedAprov(n),
               ),
-              _divider(),
-              ViewPeriodosInsertBuilder.presencaObrigatoriaTile(
-                _periodo.presObrig,
-                (i) => _setPresObrig(i),
+              _divider(),              
+              ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
+                _periodo.presObrig.toDouble(),
+                (double value) => _setPresObrigDouble(value),
               ),
               _divider(),
               ListIndicator(
                 hint: "Aulas e Horários",
               ),
-              ViewPeriodosInsertBuilder.aulaDiaTile(_periodo.aulasDia, (i) => _setAulasDia(i)),
-              _divider(),
+              ViewPeriodosInsertBuilder.aulaDiaTileSlider(
+                aulasDia: _periodo.aulasDia,
+                onChanged: (double i) => _setAulasDiaDouble(i + 1),
+              ),
               ViewPeriodosInsertBuilder.listHorarios(
                 horarios: _periodo.horarios,
                 aulasDia: _periodo.aulasDia,
