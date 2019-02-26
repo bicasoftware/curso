@@ -130,4 +130,66 @@ class ViewPeriodosInsertBuilder {
       separatorBuilder: (c, i) => Divider(height: 1),
     );
   }
+
+  static Widget aulasSemana() {
+    return Column(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: Arrays.weekDayShort.map((d) {
+            return Expanded(
+              child: Card(
+                margin: EdgeInsets.all(1),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Text(d),
+                      Divider(),
+                      Checkbox(
+                        value: false,
+                        tristate: false,
+                        onChanged: (bool s) => print(s),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+
+    // return GridView.builder(
+    //   shrinkWrap: true,
+    //   physics: NeverScrollableScrollPhysics(),
+    //   itemCount: 7,
+    //   itemBuilder: (c, i) {
+    //     return Card(
+    //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+    //       child: Container(
+    //         height: 48,
+    //         padding: EdgeInsets.all(8),
+    //         child: Column(
+    //           children: [
+    //             Text(Arrays.weekDayShort[i]),
+    //             Divider(),
+    //             Checkbox(
+    //               value: false,
+    //               tristate: false,
+    //               onChanged: (bool s) => print(s),
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //     crossAxisCount: 7,
+    //     childAspectRatio: 1,
+    //   ),
+    // );
+  }
 }

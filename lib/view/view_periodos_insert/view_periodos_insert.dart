@@ -49,10 +49,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       int index = _periodo.horarios.indexWhere((h) => h.ordemAula == ordemAula);
 
       if (index < 0) {
-        //TODO - repassar pq não está atualizando a lista adicionar um novo horários
-        final horario = Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula);
-        _periodo.addHorario(horario);
-        print(horario);
+        _periodo.addHorario(
+          Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula),
+        );
         _periodo.horarios.forEach((h) => print(h));
       } else {
         _periodo.horarios.removeAt(index);

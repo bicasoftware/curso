@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-///TODO - Adicionar nova coluna exibindo o horário das Aulas no Cronograma
-
 void main() async {
   initializeDateFormatting("pt_BR", null);
   Intl.defaultLocale = "pt_BR";
