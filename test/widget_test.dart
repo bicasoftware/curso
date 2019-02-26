@@ -1,5 +1,7 @@
 import 'package:curso/utils.dart/Formatting.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
+import 'package:curso/utils.dart/pair.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 
@@ -39,15 +41,30 @@ void main() {
       assert(StringUtils.isInt("abc") == false);
     });
 
-    test("Horas", (){
+    test("Horas", () {
       final hora = "18:00";
       final DateTime dtHora = Formatting.parseTime(hora);
       print(dtHora);
       print(Formatting.formatTime(dtHora));
     });
 
-    test("list generate", (){
-      print(List.generate(12, (i) => i+1).join(","));
+    test("list generate", () {
+      print(List.generate(12, (i) => i + 1).join(","));
+    });
+
+    test("parse TimeOfDay", () {
+      final time = TimeOfDay(hour: 20, minute: 30);
+      final DateTime date = Formatting.parseTimeOfDay(time);
+
+      print(date);
+    });
+
+    test("Pair", () {
+      final p = Pair(first: "Idade", second: 12);
+      print(p);
+
+      final pessoa = Pair(first: 23, second: "Itapui");
+      print(pessoa);
     });
   });
 }

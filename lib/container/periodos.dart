@@ -102,4 +102,8 @@ class Periodos implements BaseTable {
   String toString() {
     return "${this.id},${this.numPeriodo},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
   }
+
+  addHorario(Horarios horario){
+    horarios.add(horario);
+  }
 }

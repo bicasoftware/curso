@@ -1,5 +1,6 @@
 import 'package:curso/database/base_table.dart';
 import "package:curso/utils.dart/Formatting.dart";
+import 'package:meta/meta.dart';
 
 class Horarios implements BaseTable {
   int id, idPeriodo, ordemAula;
@@ -7,10 +8,10 @@ class Horarios implements BaseTable {
 
   Horarios({
     this.id,
-    this.idPeriodo,
-    this.ordemAula,
-    this.inicio,
-    this.termino,
+    @required this.idPeriodo,
+    @required this.ordemAula,
+    @required this.inicio,
+    @required this.termino,
   });
 
   static const String ID = "id";

@@ -111,7 +111,7 @@ class ViewPeriodosInsertBuilder {
   static Widget listHorarios({
     @required int aulasDia,
     @required List<Horarios> horarios,
-    @required Function(int) onOrdemAulaTap,
+    @required Function(int, DateTime, DateTime) onOrdemAulaTap,
   }) {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
@@ -120,6 +120,7 @@ class ViewPeriodosInsertBuilder {
       itemBuilder: (c, i) {
         return HorarioAulaTile(
           ordemAula: i,
+          onOrdemAulaTap: onOrdemAulaTap,
           inicio: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.inicio ??
               DateTime.now(),
           termino: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.termino ??

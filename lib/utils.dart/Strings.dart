@@ -34,6 +34,8 @@ class Strings {
   static const String materiasVazias = 'Adicionar Matéria';
   static const String adicionar = 'Adicionar';
   static const String numPeriodo = 'Ordem do Período';
+  static const String inicioAula = 'Inicio da Aula';
+  static const String terminoAula = 'Término da Aula';
 }
 
 class Arrays {
@@ -86,4 +88,6 @@ class Arrays {
 class Errors {
   static const errNomeMateria = "Indique um nome com mais de 3 letras";
   static const errSigla = "Sigla não pode estar vazia";
+  static const horariosIguaisInvalidos = "Horários iguais não são permitidos";
+  static const horariosInvalidos = "Horários inválidos";
 }

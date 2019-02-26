@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
 
@@ -5,6 +6,10 @@ class Formatting {
   static DateFormat _fmt = DateFormat("dd/MM/yyyy", "pt_BT");
   static DateFormat _defFmt = DateFormat("yyyy-MM-dd");
   static DateFormat _timeFormat = DateFormat("HH:mm");
+
+  static DateTime get emptyDate => DateTime(1970, 1, 1);
+
+  static DateTime get lastDate => DateTime(2030, 12, 31);
 
   static bool isCash(String value) {
     final regex = RegExp(r"""^\d+\,\d{2}$""");
@@ -56,5 +61,10 @@ class Formatting {
 
   static DateTime parseTime(String time) {
     return _timeFormat.parse(time);
+  }
+
+  static DateTime parseTimeOfDay(TimeOfDay t) {
+    if (t == null) throw NullThrownError();
+    return _timeFormat.parse("${t.hour}:${t.minute}");
   }
 }

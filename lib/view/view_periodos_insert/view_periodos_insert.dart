@@ -1,8 +1,10 @@
-import 'package:curso/widgets/list_indicator.dart';
+import 'package:curso/container/horarios.dart';
+import 'package:curso/view/view_date_range_picker/view_data_range.dart';
+import 'package:curso/view/view_date_range_picker/view_data_range_result.dart';
 import 'package:flutter/material.dart';
 
 import '../../container/periodos.dart';
-import '../../utils.dart/Strings.dart';
+import '../../widgets/list_indicator.dart';
 import 'view_periodos_insert_builder.dart';
 
 class ViewPeriodosInsert extends StatefulWidget {
@@ -42,11 +44,31 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
 
-  _onAulaTap(i) {}
+  _setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
+    setState(() {
+      int index = _periodo.horarios.indexWhere((h) => h.ordemAula == ordemAula);
+
+      if (index < 0) {
+        //TODO - repassar pq não está atualizando a lista adicionar um novo horários
+        final horario = Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula);
+        _periodo.addHorario(horario);
+        print(horario);
+        _periodo.horarios.forEach((h) => print(h));
+      } else {
+        _periodo.horarios.removeAt(index);
+        _periodo.addHorario(
+          Horarios(
+            idPeriodo: _periodo.id,
+            inicio: inicio,
+            termino: termino,
+            ordemAula: ordemAula,
+          ),
+        );
+      }
+    });
+  }
 
   Widget _divider() => Divider(height: 1);
-
-  //TODO - receber Horario e inicio e termino das aulas
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +85,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              ListIndicator(
-                hint: "Periodo",
-              ),
+              ListIndicator(hint: "Periodo"),
               ViewPeriodosInsertBuilder.numPeriodoTile(
                 numPeriodo: _periodo.numPeriodo,
                 onChanged: _setNumPeriodo,
@@ -89,15 +109,15 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
               _divider(),
               ViewPeriodosInsertBuilder.terminoDateTile(
                 termino: _periodo.termino,
-                onTap: () {
-                  showDatePicker(
+                onTap: () async {
+                  final termino = await showDatePicker(
                     context: context,
                     initialDate: _periodo.termino,
                     firstDate: _periodo.inicio,
                     lastDate: _lastDate,
-                  ).then(
-                    (dt) => _setDataTermino(dt),
                   );
+
+                  if (termino != null) _setDataTermino(termino);
                 },
               ),
               ListIndicator(hint: "Valores de Reprovação"),
@@ -119,12 +139,33 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
               ViewPeriodosInsertBuilder.listHorarios(
                 horarios: _periodo.horarios,
                 aulasDia: _periodo.aulasDia,
-                onOrdemAulaTap: (i) => _onAulaTap(i),
+                onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
+                  _showDateRangeView(ordemAula, inicio, termino);
+                },
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
+    ViewDateRangeResult result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (c) {
+          return ViewDateRange(
+            ordemAula: ordemAula,
+            inicio: inicio,
+            termino: termino,
+          );
+        },
+      ),
+    );
+
+    if (result != null && result is ViewDateRangeResult) {
+      _setHoraAula(result.ordemAula, result.inicio, result.termino);
+    }
   }
 }

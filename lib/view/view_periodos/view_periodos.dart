@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
 
+import '../../bloc/bloc_main/bloc_main.dart';
 import '../../container/materias.dart';
 import '../../container/periodos.dart';
 import '../../utils.dart/Strings.dart';
@@ -37,6 +37,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
               final Periodos result = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (c) => ViewPeriodosInsert(periodo: p),
+                  //builder: (c) => ViewPeriodosInsertBloc(periodo: p),
                 ),
               );
 

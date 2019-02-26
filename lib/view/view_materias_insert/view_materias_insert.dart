@@ -44,38 +44,42 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
       body: Container(
         child: Form(
           key: _formKey,
-          child: ListView(
-            shrinkWrap: true,            
-            children: <Widget>[
-              DefaultTextListTile(
-                icon: Icons.library_books,
-                initialValue: _materia,
-                hint: Strings.materia,
-                label: Strings.materia,
-                sufix: _sigla,
-                onSaved: _setMateria,
-                validator: (nome) {
-                  if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
-                },
-                onChanged: _generateSigla,
-              ),
-              DefaultListTile(
-                icon: Icons.color_lens,
-                leading: Text(Strings.corMateria),
-                trailing: Hero(
-                  tag: ObjectKey(widget.materia),
-                  child: Circle(color: _cor),
+          child: Card(            
+            margin: EdgeInsets.all(8),
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                DefaultTextListTile(
+                  icon: Icons.library_books,
+                  initialValue: _materia,
+                  hint: Strings.materia,
+                  label: Strings.materia,
+                  sufix: _sigla,
+                  onSaved: _setMateria,
+                  validator: (nome) {
+                    if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
+                  },
+                  onChanged: _generateSigla,
                 ),
-                onTap: () async {
-                  final cor = await Dialogs.showColorDialog(
-                    context: context,
-                    initialColor: _cor,
-                  );
+                Divider(),
+                DefaultListTile(
+                  icon: Icons.color_lens,
+                  leading: Text(Strings.corMateria),
+                  trailing: Hero(
+                    tag: ObjectKey(widget.materia),
+                    child: Circle(color: _cor),
+                  ),
+                  onTap: () async {
+                    final cor = await Dialogs.showColorDialog(
+                      context: context,
+                      initialColor: _cor,
+                    );
 
-                  if (cor != null) _setCor(cor);
-                },
-              ),
-            ],
+                    if (cor != null) _setCor(cor);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
