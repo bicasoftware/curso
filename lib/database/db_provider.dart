@@ -6,7 +6,7 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -73,29 +73,29 @@ class DBProvider {
       );
       final hora1 = Horarios(
         id: 1,
-        inicio: Formatting.parseTime("18:00"),
-        termino: Formatting.parseTime("18:50"),
+        inicio: parseTime("18:00"),
+        termino: parseTime("18:50"),
         idPeriodo: 1,
         ordemAula: 0,
       );
       final hora2 = Horarios(
         id: 2,
-        inicio: Formatting.parseTime("18:50"),
-        termino: Formatting.parseTime("19:40"),
+        inicio: parseTime("18:50"),
+        termino: parseTime("19:40"),
         idPeriodo: 1,
         ordemAula: 1,
       );
       final hora3 = Horarios(
         id: 3,
-        inicio: Formatting.parseTime("20:00"),
-        termino: Formatting.parseTime("20:50"),
+        inicio: parseTime("20:00"),
+        termino: parseTime("20:50"),
         idPeriodo: 1,
         ordemAula: 2,
       );
       final hora4 = Horarios(
         id: 4,
-        inicio: Formatting.parseTime("20:50"),
-        termino: Formatting.parseTime("21:40"),
+        inicio: parseTime("20:50"),
+        termino: parseTime("21:40"),
         idPeriodo: 1,
         ordemAula: 3,
       );

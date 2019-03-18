@@ -48,44 +48,49 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
       stream: b.outConf,
       builder: (BuildContext context, AsyncSnapshot<Conf> snap) {
         return Scaffold(
-          appBar: ViewHomeBuilder.appBar(onOptionSelected: (i) async {
-            final ViewOptionsResult result = await Navigator.of(context).push(
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (c) {
-                  return ViewOptions(
-                    brightness: snap.data.brightness,
-                    notify: snap.data.notify,
-                  );
-                },
-              ),
-            );
+          appBar: ViewHomeBuilder.appBar(
+            bloc: b,
+            pos: _pos,
+            onOptionSelected: (i) async {
+              final ViewOptionsResult result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (c) {
+                    return ViewOptions(
+                      brightness: snap.data.brightness,
+                      notify: snap.data.notify,
+                    );
+                  },
+                ),
+              );
 
-            if (result != null && result is ViewOptionsResult) {
-              b.setBrightness(result.brightness);
-              b.setNotify(result.notify);
-            }
-          }),
-          body: ViewHomeBuilder.body(_controller),
-          floatingActionButton: ViewHomeBuilder.fab(_pos == 0, () async {
-            final result = await Navigator.of(context).push(
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (BuildContext c) {
-                  return ViewPeriodosInsert(periodo: Periodos.newInstance());
-                },
-              ),
-            );
-
-            if (result != null) b.insertPeriodo(result);
-          }),
-          bottomNavigationBar: ViewHomeBuilder.bottomBar(
-            _pos,
-            (i) {
-              _setPos(i);
-              _controller.animateTo(i);
+              if (result != null && result is ViewOptionsResult) {
+                b.setBrightness(result.brightness);
+                b.setNotify(result.notify);
+              }
             },
           ),
+          body: ViewHomeBuilder.body(_controller),
+          floatingActionButton: ViewHomeBuilder.fab(
+            pos: _pos,
+            onTap: () async {
+              final result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext c) {
+                    return ViewPeriodosInsert(periodo: Periodos.newInstance());
+                  },
+                ),
+              );
+
+              if (result != null) b.insertPeriodo(result);
+            },            
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          bottomNavigationBar: ViewHomeBuilder.bottomBar(_pos, (i) {
+            _setPos(i);
+            _controller.animateTo(i);
+          }),
         );
       },
     );

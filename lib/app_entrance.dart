@@ -1,7 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-import 'Themes.dart';
 import 'bloc/bloc_main/bloc_main.dart';
 import 'container/conf.dart';
 import 'container/periodos.dart';
@@ -51,7 +50,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: Themes.lightTheme,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        primaryColor: Colors.indigo,
+        accentColor: Colors.blue,
+        fontFamily: "FiraSans",
+        brightness: Brightness.light,
+      ),
       home: ViewHome(),
     );
   }

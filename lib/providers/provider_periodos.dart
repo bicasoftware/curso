@@ -6,6 +6,7 @@ import '../container/periodos.dart';
 import '../database/db_provider.dart';
 import 'provider_horarios.dart';
 import 'provider_materias.dart';
+import '../utils.dart/date_utils.dart';
 
 class ProviderPeriodos {
   static Future<List<Periodos>> fetchAllPeriodos() async {
@@ -21,6 +22,9 @@ class ProviderPeriodos {
       ]).then((List<Object> results) {
         periodo.materias = results[0];
         periodo.horarios = results[1];
+        final range = getDaysInRange(start: periodo.inicio, end: periodo.termino);
+        assert(range.length > 0);
+        periodo.calendario = range;
       });
     }
 
@@ -36,7 +40,9 @@ class ProviderPeriodos {
       h.id = await db.insert(Horarios.tableName, h.toMap());
     }
 
-    return periodo..id = newId;
+    return periodo
+      ..id = newId
+      ..setCalendario(getDaysInRange(start: periodo.inicio, end: periodo.termino));
   }
 
   static Future<Periodos> updatePeriodo(Periodos periodo) async {
@@ -54,7 +60,7 @@ class ProviderPeriodos {
       h.id = await db.insert(Horarios.tableName, (h..id = null).toMap());
     }
 
-    return periodo;
+    return periodo..setCalendario(getDaysInRange(start: periodo.inicio, end: periodo.termino));
   }
 
   static Future<Null> deletePeriodo(int idPeriodo) async {

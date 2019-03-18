@@ -1,5 +1,5 @@
 import 'package:curso/database/base_table.dart';
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 
 class Notas implements BaseTable {
   int id, idMateria;
@@ -33,7 +33,7 @@ class Notas implements BaseTable {
   Map toMap() {
     Map<String, dynamic> m = {
       IDMATERIA: idMateria,
-      DATA: Formatting.formatDate(data),
+      DATA: formatDate(data),
       NOTA: nota,
     };
 
@@ -49,7 +49,7 @@ class Notas implements BaseTable {
     return Notas(
       id: m[ID],
       idMateria: m[IDMATERIA],
-      data: Formatting.parseDate(m[DATA]),
+      data: parseDate(m[DATA]),
       nota: m[NOTA],
     );
   }

@@ -1,29 +1,27 @@
-class ListUtils {
-  static List<E> generateInverse<E>(int from, int to, E generateInverse(int index)) {
-    final result = List<E>();
-    for (int i = from; i >= to; i--) {
-      result.add(generateInverse(i));
-    }
-
-    return result;
+List<E> generateInverse<E>(int from, int to, E generateInverse(int index)) {
+  final result = List<E>();
+  for (int i = from; i >= to; i--) {
+    result.add(generateInverse(i));
   }
 
-  static List<E> generateInRange<E>(int from, int to, E generateInRange(int index)) {
-    final result = List<E>();
-    for (int i = from; i <= to; i++) {
-      result.add(generateInRange(i));
-    }
+  return result;
+}
 
-    return result;
+List<E> generateInRange<E>(int from, int to, E generateInRange(int index)) {
+  final result = List<E>();
+  for (int i = from; i <= to; i++) {
+    result.add(generateInRange(i));
   }
 
-  static String parseListAsQuotedString(List<int> from) {
-    return from.map((s) => "'$s'").join(",");
-  }
+  return result;
+}
 
-  static Iterable<int> range(int low, int high) sync* {
-    for (int i = low; i < high; ++i) {
-      yield i;
-    }
+Iterable<int> range(int low, int high) sync* {
+  for (int i = low; i < high; ++i) {
+    yield i;
   }
+}
+
+String parseListAsQuotedString<T>(List<T> from) {
+  return from.map((s) => "'$s'").join(",");
 }

@@ -1,5 +1,5 @@
 import 'package:curso/database/base_table.dart';
-import "package:curso/utils.dart/Formatting.dart";
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class Horarios implements BaseTable {
@@ -45,8 +45,8 @@ class Horarios implements BaseTable {
     final Map<String, dynamic> m = {
       IDPERIODO: this.idPeriodo,
       ORDEMAULA: this.ordemAula,
-      INICIO: Formatting.formatTime(this.inicio),
-      TERMINO: Formatting.formatTime(this.termino),
+      INICIO: formatTime(this.inicio),
+      TERMINO: formatTime(this.termino),
     };
 
     if (id != null) m[ID] = id;
@@ -59,13 +59,13 @@ class Horarios implements BaseTable {
       id: m[ID],
       idPeriodo: m[IDPERIODO],
       ordemAula: m[ORDEMAULA],
-      inicio: Formatting.parseTime(m[INICIO]),
-      termino: Formatting.parseTime(m[TERMINO]),
+      inicio: parseTime(m[INICIO]),
+      termino: parseTime(m[TERMINO]),
     );
   }
 
   @override
   String toString() {
-    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${Formatting.formatTime(this.inicio)}, termino: ${Formatting.formatTime(this.termino)}";
+    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${formatTime(this.inicio)}, termino: ${formatTime(this.termino)}";
   }
 }

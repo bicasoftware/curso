@@ -1,12 +1,34 @@
-import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/view/view_calendario/calendario_strip.dart';
+import 'package:curso/widgets/calendario/calendario_aulas_dia.dart';
 import 'package:flutter/material.dart';
 
-class ViewCalendario extends StatelessWidget {
+import 'calendario_navigator.dart';
+
+class ViewCalendario extends StatefulWidget {
+  @override
+  ViewCalendarioState createState() => ViewCalendarioState();
+}
+
+class ViewCalendarioState extends State<ViewCalendario> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Center(child: Text(Strings.calendario)),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Material(
+          elevation: 4,
+          color: Theme.of(context).primaryColor,
+          child: Column(
+            children: <Widget>[
+              CalendarioNavigator(),
+              SizedBox(height: 8),
+              CalendarioStrip(),
+              SizedBox(height: 4),
+            ],
+          ),
+        ),
+        CalendarioAulasDia(),
+      ],
     );
   }
 }

@@ -1,34 +1,80 @@
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:curso/utils.dart/ListUtils.dart';
 
 void main() {
-//  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//    // Build our app and trigger a frame.
-//    await tester.pumpWidget(AppEntrance());
-//
-//    // Verify that our counter starts at 0.
-//    expect(find.text('0'), findsOneWidget);
-//    expect(find.text('1'), findsNothing);
-//
-//    // Tap the '+' icon and trigger a frame.
-//    await tester.tap(find.byIcon(Icons.add));
-//    await tester.pump();
-//
-//    // Verify that our counter has incremented.
-//    expect(find.text('0'), findsNothing);
-//    expect(find.text('1'), findsOneWidget);
-//  });
-
-  group('Datas', () {
+  group("Datas", () {
     test('parseDate', () {
       Intl.defaultLocale = 'pt_BR';
-      final d = Formatting.parseDate("2018-02-03");
+      final d = parseDate("2018-02-03");
       assert(d == DateTime(2018, 02, 03));
     });
+  });
+
+  test('list dates', () {
+    final inicio = DateTime(2019, 2, 10);
+    final termino = DateTime(2019, 3, 10);
+
+    final dates = buildDateRangeList(inicio, termino);
+    dates.forEach((d) => print(formatDate(d)));
+  });
+
+  test('count weekDays', () {
+    final inicio = DateTime(2019, 2, 10);
+    print(formatDate(inicio));
+    final termino = DateTime(2019, 3, 13);
+    print(formatDate(termino));
+
+    final count = countWeekDayInRange(inicio, termino, 0);
+    print(count);
+  });
+
+  test('isToday', () {
+    final hoje = DateTime(2019, 2, 28);
+    assert(isToday(hoje));
+  });
+
+  test('top level', () {
+    final nomes = ["saulo", "henrique", "andrioli"];
+    print(parseListAsQuotedString(nomes));
+
+    final numeros = [1, 2, 3, 4, 5, 6, 7, 8];
+    print(parseListAsQuotedString(numeros));
+  });
+
+  test("mes extenso", () {
+    final today = DateTime.now();
+    print(formatMonthName(today));
+  });
+
+  test("dia extenso", () {
+    final diaExtenso = formatFullDayString(DateTime.now());
+    print(diaExtenso);
+  });
+
+  test('get days in range', () {
+    final ini = DateTime.now();
+    final end = ini.add(Duration(days: 90));
+    final diasPeriodos = getDaysInRange(start: ini, end: end);
+
+    diasPeriodos.forEach((mes) {
+      print("mes: ${mes.first}");
+      mes.second.forEach((dia) => print(formatDate(dia)));
+    });
+  });
+
+  test('fill Calendar',() {
+
+    final ini = DateTime.now();
+    final end = ini.add(Duration(days: 10));
+    final daysOnMonth = getDaysInRange(start: ini, end: end);
+    final daysToShow = leftFillCalendar(daysOnMonth[0].second);
+
+    daysToShow.forEach((d) => print(formatDate(d)));
   });
 
   group("Strings", () {
@@ -43,9 +89,9 @@ void main() {
 
     test("Horas", () {
       final hora = "18:00";
-      final DateTime dtHora = Formatting.parseTime(hora);
+      final DateTime dtHora = parseTime(hora);
       print(dtHora);
-      print(Formatting.formatTime(dtHora));
+      print(formatTime(dtHora));
     });
 
     test("list generate", () {
@@ -54,7 +100,7 @@ void main() {
 
     test("parse TimeOfDay", () {
       final time = TimeOfDay(hour: 20, minute: 30);
-      final DateTime date = Formatting.parseTimeOfDay(time);
+      final DateTime date = parseTimeOfDay(time);
 
       print(date);
     });
@@ -65,6 +111,13 @@ void main() {
 
       final pessoa = Pair(first: 23, second: "Itapui");
       print(pessoa);
+    });
+
+    test("WeekDayExtenso", () {
+      final day = formatWeekDay(DateTime.now());
+      final dayFull = formatFullWeekDay(DateTime.now());
+      print(day);
+      print(dayFull);
     });
   });
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:curso/container/materias.dart';
+import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/color_dialog.dart';
 import 'package:curso/widgets/dialog_picker_materias.dart';
@@ -59,6 +60,30 @@ class Dialogs {
             materias: materias,
             onTap: (int idMateria) => Navigator.of(context).pop(idMateria),
           ),
+        );
+      },
+    );
+  }
+
+  static Future<int> showMonthPicker({
+    BuildContext context,
+    int inicio,
+    int termino,
+  }) async {
+    return await showDialog(
+      context: context,
+      builder: (c) {
+        return SimpleDialog(
+          title: Text(Strings.mes),
+          children: generateInRange(inicio -1, termino -1, (i) {
+            return SimpleDialogOption(
+              child: ListTile(
+                title: Text(Arrays.meses[i]),
+                leading: Icon(Icons.date_range),                
+              ),
+              onPressed: () => Navigator.of(context).pop(i),
+            );
+          }),
         );
       },
     );

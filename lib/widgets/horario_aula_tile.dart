@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'default_list_tile.dart';
 
 class HorarioAulaTile extends StatelessWidget {
@@ -17,7 +17,7 @@ class HorarioAulaTile extends StatelessWidget {
   }) : super(key: key);
 
   String get horarios =>
-      "das ${Formatting.formatTime(inicio)} até ${Formatting.formatTime(termino)}";
+      "das ${formatTime(inicio)} até ${formatTime(termino)}";
 
   TextStyle chipStyle(BuildContext context) {
     return TextStyle(
@@ -26,8 +26,8 @@ class HorarioAulaTile extends StatelessWidget {
     );
   }
 
-  String get ini => Formatting.formatTime(inicio);
-  String get end => Formatting.formatTime(termino);
+  String get ini => formatTime(inicio);
+  String get end => formatTime(termino);
 
   @override
   Widget build(BuildContext context) {

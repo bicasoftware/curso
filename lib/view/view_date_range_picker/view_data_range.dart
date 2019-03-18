@@ -1,4 +1,4 @@
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_date_range_picker/view_data_range_builder.dart';
 import 'package:curso/view/view_date_range_picker/view_data_range_result.dart';
@@ -91,7 +91,7 @@ class _ViewDateRangeState extends State<ViewDateRange> {
       initialTime: TimeOfDay(hour: date.hour, minute: date.minute),
     );
 
-    return time != null ? Formatting.parseTimeOfDay(time) : date;
+    return time != null ? parseTimeOfDay(time) : date;
   }
 
   void showErrorSnack({@required BuildContext c, @required String msg}) {

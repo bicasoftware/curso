@@ -1,4 +1,4 @@
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/default_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class ViewDateRangeBuilder {
       icon: Icons.date_range,
       leading: Text(title),
       trailing: Text(
-        Formatting.formatTime(date),
+        formatTime(date),
       ),
       onTap: onTap,
     );

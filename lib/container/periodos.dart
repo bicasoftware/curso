@@ -1,7 +1,8 @@
 import 'package:curso/container/horarios.dart';
 import 'package:curso/database/base_table.dart';
-import 'package:curso/utils.dart/Formatting.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/utils.dart/pair.dart';
 
 class Periodos implements BaseTable {
   int id, presObrig, aulasDia, numPeriodo;
@@ -9,6 +10,7 @@ class Periodos implements BaseTable {
   double medAprov;
   List<Materias> materias;
   List<Horarios> horarios;
+  List<Pair<int, List<DateTime>>> calendario;
 
   Periodos({
     this.id,
@@ -21,7 +23,9 @@ class Periodos implements BaseTable {
     this.aulasDia,
   }) {
     materias = [];
-    horarios = [];
+    horarios = [];    
+    //calendario = [];
+    calendario = getDaysInRange(start: inicio, end: termino);
   }
 
   static const String ID = "id";
@@ -74,8 +78,8 @@ class Periodos implements BaseTable {
   Map toMap() {
     final Map<String, dynamic> m = {
       NUMPERIODO: numPeriodo,
-      INICIO: Formatting.formatDbDate(inicio),
-      TERMINO: Formatting.formatDbDate(termino),
+      INICIO: formatDbDate(inicio),
+      TERMINO: formatDbDate(termino),
       PRESOBRIG: presObrig,
       MEDAPROV: medAprov,
       AULASDIA: aulasDia,
@@ -90,8 +94,8 @@ class Periodos implements BaseTable {
     return Periodos(
       id: m[ID],
       numPeriodo: m[NUMPERIODO],
-      inicio: Formatting.parseDate(m[INICIO]),
-      termino: Formatting.parseDate(m[TERMINO]),
+      inicio: parseDate(m[INICIO]),
+      termino: parseDate(m[TERMINO]),
       presObrig: m[PRESOBRIG],
       medAprov: m[MEDAPROV],
       aulasDia: m[AULASDIA],
@@ -105,5 +109,9 @@ class Periodos implements BaseTable {
 
   addHorario(Horarios horario){
     horarios.add(horario);
+  }
+
+  setCalendario(List<Pair<int, List<DateTime>>> calendario){
+    calendario = calendario;
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/utils.dart/pair.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../container/aulas.dart';
@@ -12,6 +15,26 @@ import 'state_main.dart';
 
 class BlocMain implements BlocBase {
   StateMain state;
+
+  BehaviorSubject<int> _subjectPerPos = BehaviorSubject<int>();
+  get outPerPos => _subjectPerPos.stream;
+
+  BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
+  get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
+  get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
+
+  BehaviorSubject<Pair<Periodos, DateTime>> _subAulasDia =
+      BehaviorSubject<Pair<Periodos, DateTime>>();
+  get outAulasDia => _subAulasDia.stream;
+  get inAulasDia => _subAulasDia.sink;
+
+  final _subjectPeriodosLabel = BehaviorSubject<List<Pair<int, int>>>();
+  get outPeriodosLabel => _subjectPeriodosLabel.stream;
+  get inPeriodosLabel => _subjectPeriodosLabel.sink;
+
+  BehaviorSubject<int> _subjectMes = BehaviorSubject<int>();
+  get outMes => _subjectMes.stream;
+  get inMes => _subjectMes.sink;
 
   BehaviorSubject<List<Periodos>> _subjectPeriodos = BehaviorSubject<List<Periodos>>();
   get outPeriodos => _subjectPeriodos.stream;
@@ -29,12 +52,29 @@ class BlocMain implements BlocBase {
   get outBrightness => _subjectBrightness.stream;
   get inBrightness => _subjectBrightness.sink;
 
-  BlocMain({List<Periodos> periodos, Conf conf, int pos}) {
-    this.state = StateMain(periodos: periodos, conf: conf, pos: pos);
+  BehaviorSubject<Pair<int, List<DateTime>>> _subCalendarioContent =
+      BehaviorSubject<Pair<int, List<DateTime>>>();
+  get outCalendario => _subCalendarioContent.stream;
+  get inCalendario => _subCalendarioContent.sink;
 
-    _sinkPeriodos();
-    _sinkConf();
+  BlocMain({
+    List<Periodos> periodos,
+    Conf conf,
+    int pos,
+    int periodoAtual,
+  }) {
+    this.state = StateMain(
+      periodos: periodos,
+      conf: conf,
+      pos: pos,
+      periodoPos: periodoAtual,
+    );
+
     _sinkPos();
+    _sinkPeriodos();
+    _sinkCurrentPeriodo();
+    _sinkConf();
+    inMes.add(state.mes);
   }
 
   @override
@@ -43,9 +83,28 @@ class BlocMain implements BlocBase {
     _subjectConf.close();
     _subPosition.close();
     _subjectBrightness.close();
+    _subjectPerPos.close();
+    _subjectCurrentPeriodo.close();
+    _subjectPeriodosLabel.close();
+    _subjectMes.close();
+    _subCalendarioContent.close();
+    _subAulasDia.close();
   }
 
   _sinkPeriodos() => inPeriodos.add(state.periodos);
+
+  _sinkCurrentPeriodo() {
+    inCurrentPeriodo.add(state.currentPeriodo);
+    inPeriodosLabel.add(state.periodosLabels);
+    inCalendario.add(state.daysOfMonth);
+    inAulasDia.add(state.aulasDia);
+    inMes.add(state.mes);
+  }
+
+  _sinkMes() {
+    inMes.add(state.mes);
+    inCalendario.add(state.daysOfMonth);
+  }
 
   _sinkConf() => inConf.add(state.conf);
 
@@ -58,6 +117,21 @@ class BlocMain implements BlocBase {
     _sinkPos();
   }
 
+  incMes() {
+    state.incMes();
+    _sinkMes();
+  }
+
+  decMes() {
+    state.decMes();
+    _sinkMes();
+  }
+
+  setPeriodoPosition(int pos) {
+    state.periodoPos = pos;
+    _sinkCurrentPeriodo();
+  }
+
   setNotify(bool notify) {
     state.setNotify(notify);
     _sinkConf();
@@ -66,6 +140,26 @@ class BlocMain implements BlocBase {
   setBrightness(AppBrightness brightness) {
     state.setBrightness(brightness);
     _sinkBrightness();
+  }
+
+  setCurrentPeriodo(int periodoPos) {
+    state.setPeriodoPos(periodoPos);
+    _sinkCurrentPeriodo();
+  }
+
+  setCurrentDate(DateTime date) {
+    state.setDate(date);
+    _sinkCurrentPeriodo();
+  }
+
+  incCurrentDate() {
+    state.incDate();
+    _sinkCurrentPeriodo();
+  }
+
+  decCurrentDate() {
+    state.decDate();
+    _sinkCurrentPeriodo();
   }
 
   updatePeriodo(Periodos periodo) {

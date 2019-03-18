@@ -6,6 +6,7 @@ class Strings {
   static const String informacoes = 'Informações';
   static const String periodos = 'Períodos';
   static const String periodo = 'Período';
+  static const String trocarPeriodo = 'Trocar Período';
   static const String materias = 'Matérias';
   static const String materia = 'Matéria';
   static const String sigla = 'Sigla';
@@ -36,12 +37,28 @@ class Strings {
   static const String numPeriodo = 'Ordem do Período';
   static const String inicioAula = 'Inicio da Aula';
   static const String terminoAula = 'Término da Aula';
+  static const String mes = 'Mês';
 }
 
 class Arrays {
+  static const weekDaySigla = ["D", "S", "T", "Q", "Q", "S", "S"];
   static const weekDayShort = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
   static const weekDayLong = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
   static const mediaAprovacao = [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
+  static const meses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
 
   static const opcoes = [Strings.opcoes];
   static const temas = [Strings.claro, Strings.escuro];
@@ -90,4 +107,5 @@ class Errors {
   static const errSigla = "Sigla não pode estar vazia";
   static const horariosIguaisInvalidos = "Horários iguais não são permitidos";
   static const horariosInvalidos = "Horários inválidos";
+  static const datasInvalidas = "Datas inválidas";
 }

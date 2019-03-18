@@ -1,10 +1,10 @@
-import 'package:curso/container/horarios.dart';
-import 'package:curso/view/view_date_range_picker/view_data_range.dart';
-import 'package:curso/view/view_date_range_picker/view_data_range_result.dart';
 import 'package:flutter/material.dart';
 
+import '../../container/horarios.dart';
 import '../../container/periodos.dart';
 import '../../widgets/list_indicator.dart';
+import '../view_date_range_picker/view_data_range.dart';
+import '../view_date_range_picker/view_data_range_result.dart';
 import 'view_periodos_insert_builder.dart';
 
 class ViewPeriodosInsert extends StatefulWidget {
@@ -36,18 +36,13 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setDataTermino(DateTime end) => setState(() => _periodo.termino = end);
 
-  _setAulasDia(int pos) => setState(() => _periodo.aulasDia = pos);
 
   _setAulasDiaDouble(double pos) => setState(() => _periodo.aulasDia = pos.toInt());
 
   _setMedAprov(double aprov) => setState(() => _periodo.medAprov = aprov);
 
-  _setPresObrig(int pos) => setState(() => _periodo.presObrig = pos);
-  
   _setPresObrigDouble(double pos) => setState(() => _periodo.presObrig = pos.toInt());
 
-  _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
-  
   _setNumPeriodoDouble(double numero) => setState(() => _periodo.numPeriodo = numero.toInt());
 
   _setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {

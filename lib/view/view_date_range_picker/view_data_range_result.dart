@@ -1,4 +1,4 @@
-import 'package:curso/utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class ViewDateRangeResult {
@@ -13,6 +13,6 @@ class ViewDateRangeResult {
 
   @override
   String toString() {
-    return "ordemAula: $ordemAula, inicio: ${Formatting.formatTime(inicio)}, termino: ${Formatting.formatTime(termino)}";
+    return "ordemAula: $ordemAula, inicio: ${formatTime(inicio)}, termino: ${formatTime(termino)}";
   }
 }

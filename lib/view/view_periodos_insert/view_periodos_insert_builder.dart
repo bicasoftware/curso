@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../../container/horarios.dart';
-import '../../utils.dart/Formatting.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import '../../utils.dart/Strings.dart';
 import '../../widgets/default_list_tile.dart';
 import '../../widgets/horario_aula_tile.dart';
@@ -57,7 +57,7 @@ class ViewPeriodosInsertBuilder {
     return DefaultListTile(
       icon: Icons.calendar_today,
       leading: Text(Strings.inicioPeriodo),
-      trailing: Text(Formatting.formatDate(inicio)),
+      trailing: Text(formatDate(inicio)),
       onTap: onTap,
     );
   }
@@ -66,7 +66,7 @@ class ViewPeriodosInsertBuilder {
     return DefaultListTile(
       icon: Icons.date_range,
       leading: Text(Strings.inicioPeriodo),
-      trailing: Text(Formatting.formatDate(termino)),
+      trailing: Text(formatDate(termino)),
       onTap: onTap,
     );
   }

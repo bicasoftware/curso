@@ -1,14 +1,24 @@
-import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/view/view_calendario/view_calendario.dart';
-import 'package:curso/view/view_info/view_info.dart';
-import 'package:curso/view/view_periodos/view_periodos.dart';
 import 'package:flutter/material.dart';
 
+import '../bloc/bloc_main/bloc_main.dart';
+import '../utils.dart/Strings.dart';
+import '../widgets/calendario/calendario_drop_down_periodos.dart';
+import 'view_calendario/view_calendario.dart';
+import 'view_info/view_info.dart';
+import 'view_periodos/view_periodos.dart';
+
 class ViewHomeBuilder {
-  static AppBar appBar({Function(int) onOptionSelected}) {
+  static AppBar appBar({
+    @required int pos,
+    @required Function(int) onOptionSelected,
+    @required BlocMain bloc,
+  }) {
     return AppBar(
-      title: Text("iCurso"),
+      //title: dualLineTitle(bloc),
+      title: Text(Strings.appName),
+      elevation: pos == 1 ? 0 : 2,
       actions: <Widget>[
+        pos == 1 ? DropDownPeriodos() : Container(),
         PopupMenuButton<int>(
           icon: Icon(Icons.more_vert),
           onSelected: onOptionSelected,
@@ -20,7 +30,7 @@ class ViewHomeBuilder {
               );
             }).toList();
           },
-        )
+        ),
       ],
     );
   }
@@ -48,7 +58,6 @@ class ViewHomeBuilder {
 
   static Widget body(TabController controller) {
     return Container(
-      padding: EdgeInsets.all(8),
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         children: [
@@ -61,8 +70,11 @@ class ViewHomeBuilder {
     );
   }
 
-  static Widget fab(bool isShown, VoidCallback onTap) {
-    return isShown
+  static Widget fab({
+    @required int pos,
+    @required VoidCallback onTap,
+  }) {
+    return pos == 0
         ? FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: onTap,
