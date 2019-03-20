@@ -77,6 +77,11 @@ void main() {
     daysToShow.forEach((d) => print(formatDate(d)));
   });
 
+  test('short weekDay', () {
+    final s = formatSingleLetterWeekDay(DateTime.now());
+    print(s);    
+  });
+
   group("Strings", () {
     test('cammelCase', () {
       final cammeledNome = StringUtils.toCammelCase("SAULO HENRIQUE ANDRIOLI");

@@ -12,7 +12,6 @@ class CalendarioAulasDia extends StatelessWidget {
     final b = BlocProvider.of<BlocMain>(context);
 
     return Container(
-      padding: EdgeInsets.all(16),
       child: StreamBuilder<Pair<Periodos, DateTime>>(
           stream: b.outAulasDia,
           builder: (context, snapshot) {

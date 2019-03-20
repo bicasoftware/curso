@@ -50,6 +50,11 @@ String formatWeekDay(DateTime date) {
   return _weekDayFmt.format(date).toUpperCase();
 }
 
+String formatSingleLetterWeekDay(DateTime date) {
+  initializeDateFormatting("pt_BR", null);
+  return _weekDayFmt.format(date)[0].toUpperCase();
+}
+
 String formatFullWeekDay(DateTime date) {
   initializeDateFormatting("pt_BR", null);
   return _fullWeekDayFmt.format(date).toLowerCase();

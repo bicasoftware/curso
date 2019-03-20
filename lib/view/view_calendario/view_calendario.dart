@@ -21,9 +21,7 @@ class ViewCalendarioState extends State<ViewCalendario> {
           child: Column(
             children: <Widget>[
               CalendarioNavigator(),
-              SizedBox(height: 8),
               CalendarioStrip(),
-              SizedBox(height: 4),
             ],
           ),
         ),
