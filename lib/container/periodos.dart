@@ -1,8 +1,9 @@
+import 'package:curso/container/calendario_content.dart';
 import 'package:curso/container/horarios.dart';
-import 'package:curso/database/base_table.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/pair.dart';
+import 'package:flutter/material.dart';
 
 class Periodos implements BaseTable {
   int id, presObrig, aulasDia, numPeriodo;
@@ -10,7 +11,8 @@ class Periodos implements BaseTable {
   double medAprov;
   List<Materias> materias;
   List<Horarios> horarios;
-  List<Pair<int, List<DateTime>>> calendario;
+  List<CalendarioDTO> calendario;
+  List<AulasSemanaDTO> aulasSemana;
 
   Periodos({
     this.id,
@@ -23,9 +25,9 @@ class Periodos implements BaseTable {
     this.aulasDia,
   }) {
     materias = [];
-    horarios = [];    
-    //calendario = [];
-    calendario = getDaysInRange(start: inicio, end: termino);
+    horarios = [];
+    calendario = [];
+    aulasSemana = [];
   }
 
   static const String ID = "id";
@@ -107,11 +109,62 @@ class Periodos implements BaseTable {
     return "${this.id},${this.numPeriodo},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
   }
 
-  addHorario(Horarios horario){
-    horarios.add(horario);
+  addHorario(Horarios horario) => horarios.add(horario);
+
+  refreshCalendario() {
+    refreshAulasSemana();
+    calendario = prepareCalendario(
+      start: inicio,
+      end: termino,
+      aulasSemana: aulasSemana,
+    );
   }
 
-  setCalendario(List<Pair<int, List<DateTime>>> calendario){
-    calendario = calendario;
+  refreshAulasSemana() {
+    aulasSemana.clear();
+    if (materias != null && materias.length > 0) {
+      for (var ordemAula = 0; ordemAula < this.aulasDia; ordemAula++) {
+        for (int weekDay = 0; weekDay < 7; weekDay++) {
+          final materia = materias.firstWhere(
+            (m) => m.aulas.indexWhere((a) => a.ordem == ordemAula && a.weekDay == weekDay) >= 0,
+            orElse: () => null,
+          );
+
+          if (materia != null) {
+            aulasSemana.add(
+              AulasSemanaDTO(
+                idMateria: materia.id,
+                idPeriodo: id,
+                nome: materia.nome,
+                sigla: materia.nome,
+                cor: materia.cor,
+                weekDay: weekDay,
+                ordemAula: ordemAula,
+                horario: horarios[ordemAula].inicio,
+              ),
+            );
+          } else {
+            aulasSemana.add(
+              AulasSemanaDTO(
+                idMateria: null,
+                idPeriodo: id,
+                nome: "Sem Aula",
+                sigla: "",
+                cor: Colors.white.value,
+                weekDay: weekDay,
+                ordemAula: ordemAula,
+                horario: horarios[ordemAula].inicio,
+              ),
+            );
+          }
+        }
+      }
+    }
+  }
+
+  void setMaterias({List<Materias> materias, List<Horarios> horarios}) {
+    this.horarios = horarios;
+    this.materias = materias;
+    refreshCalendario();
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
+import 'package:rxdart/rxdart.dart';
 
 void main() {
   group("Datas", () {
@@ -56,30 +57,50 @@ void main() {
     print(diaExtenso);
   });
 
-  test('get days in range', () {
+  /* test('get days in range', () async {
     final ini = DateTime.now();
     final end = ini.add(Duration(days: 90));
-    final diasPeriodos = getDaysInRange(start: ini, end: end);
+    final diasPeriodos = await prepareCalendario(start: ini, end: end);
 
     diasPeriodos.forEach((mes) {
       print("mes: ${mes.first}");
       mes.second.forEach((dia) => print(formatDate(dia)));
     });
-  });
+  }); */
 
-  test('fill Calendar',() {
+  /* test('fill Calendar',() async {
 
     final ini = DateTime.now();
     final end = ini.add(Duration(days: 10));
-    final daysOnMonth = getDaysInRange(start: ini, end: end);
+    final daysOnMonth = await prepareCalendario(start: ini, end: end);
     final daysToShow = leftFillCalendar(daysOnMonth[0].second);
 
     daysToShow.forEach((d) => print(formatDate(d)));
+  }); */
+
+  test("test Streams", () async {
+    final _subTest = BehaviorSubject<DateTime>();
+    Stream<DateTime> outTest = _subTest.stream;
+
+    final _subNome = BehaviorSubject<String>();
+    Stream<String> outNome = _subNome.stream;
+
+    _subTest.sink.add(DateTime.now());
+    _subNome.sink.add("Saulo");
+
+    ZipStream([outTest, outNome], (a){
+      return []..addAll(a);
+    }).listen((List a) {
+      print("Data: ${a[0]}, nome: ${a[1]}");
+    }).onDone(() {
+      _subTest.close();
+      _subNome.close();
+    });
   });
 
   test('short weekDay', () {
     final s = formatSingleLetterWeekDay(DateTime.now());
-    print(s);    
+    print(s);
   });
 
   group("Strings", () {

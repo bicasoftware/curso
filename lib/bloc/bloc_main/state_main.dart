@@ -1,8 +1,10 @@
 import 'package:curso/container/aulas.dart';
+import 'package:curso/container/calendario_content.dart';
 import 'package:curso/container/conf.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:meta/meta.dart';
@@ -75,10 +77,17 @@ class StateMain {
     }
   }
 
-  get aulasDia => Pair(first: currentPeriodo, second: selectedDate);
+  DataDTO get aulasDia {
+    return daysOfMonth.dates.firstWhere((d) => isSameDay(d.date, selectedDate));
+  }
 
-  Pair<int, List<DateTime>> get daysOfMonth =>
-      periodos[periodoPos].calendario.firstWhere((it) => it.first == mes);
+  CalendarioDTO get daysOfMonth {
+    return periodos[periodoPos].calendario.firstWhere(
+              (it) => it.mes == mes,
+              orElse: () => null,
+            ) ??
+        [];
+  }
 
   removePeriodoById(int idPeriodo) {
     periodos.remove(periodos.firstWhere((it) => it.id == idPeriodo));
@@ -90,11 +99,17 @@ class StateMain {
 
   updatePeriodo(Periodos p) {
     int index = periodos.indexWhere((it) => it.id == p.id);
-    periodos[index] = p;
+    periodos[index] = p..refreshCalendario();
+  }
+
+  _refreshCalendario(int idPeriodo) {
+    periodos.firstWhere((it) => it.id == idPeriodo).refreshCalendario();
   }
 
   refreshMaterias(int idPeriodo, List<Materias> materias) {
     periodos.firstWhere((it) => it.id == idPeriodo).materias = materias;
+
+    _refreshCalendario(idPeriodo);
   }
 
   insertAula(int idPeriodo, int idMateria, Aulas aula) {
@@ -104,6 +119,8 @@ class StateMain {
         .firstWhere((it) => it.id == idMateria)
         .aulas
         .add(aula);
+
+    _refreshCalendario(idPeriodo);
   }
 
   deleteAula(int idPeriodo, int idAula) {
@@ -111,5 +128,7 @@ class StateMain {
         .firstWhere((it) => it.id == idPeriodo)
         .materias
         .forEach((m) => m.aulas.removeWhere((it) => it.id == idAula));
+
+    _refreshCalendario(idPeriodo);
   }
 }

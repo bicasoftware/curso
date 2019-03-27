@@ -1,10 +1,11 @@
 import 'package:curso/database/base_table.dart';
 
 class Aulas implements BaseTable {
-  int id, idMateria, weekDay, ordem;
+  int id, idPeriodo, idMateria, weekDay, ordem;
 
   Aulas({
     this.id,
+    this.idPeriodo,
     this.idMateria,
     this.weekDay,
     this.ordem,
@@ -12,12 +13,14 @@ class Aulas implements BaseTable {
 
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
+  static const String IDPERIODO = "id_periodo";
   static const String WEEKDAY = "week_day";
   static const String ORDEM = "ordem";
 
   static List<String> provideColumns = [
     ID,
     IDMATERIA,
+    IDPERIODO,
     WEEKDAY,
     ORDEM,
   ];
@@ -28,6 +31,7 @@ class Aulas implements BaseTable {
     return Aulas(
       id: m[ID],
       idMateria: m[IDMATERIA],
+      idPeriodo: m[IDPERIODO],
       weekDay: m[WEEKDAY],
       ordem: m[ORDEM],
     );
@@ -36,6 +40,7 @@ class Aulas implements BaseTable {
   @override
   Map toMap() {
     Map<String, dynamic> m = {
+      IDPERIODO: idPeriodo,
       IDMATERIA: idMateria,
       WEEKDAY: weekDay,
       ORDEM: ordem,
@@ -49,6 +54,7 @@ class Aulas implements BaseTable {
     return """
       CREATE TABLE $tableName(
       $ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      $IDPERIODO INTEGER NOT NULL,
       $IDMATERIA INTEGER NOT NULL,
       $WEEKDAY INTEGER NOT NULL DEFAULT 0,
       $ORDEM INTEGER NOT NULL
@@ -57,14 +63,14 @@ class Aulas implements BaseTable {
   }
 
   @override
-  String toString(){
-    return "id: $id, idMateria: $idMateria, weekDay: $weekDay, ordem: $ordem";
+  String toString() {
+    return "id: $id, idPeriodo: $idPeriodo, idMateria: $idMateria, weekDay: $weekDay, ordem: $ordem";
   }
 
-  copyWith(Aulas aula){
+  /* copyWith(Aulas aula) {
     this.idMateria = aula.idMateria;
     this.ordem = aula.ordem;
     this.weekDay = aula.weekDay;
     this.id = aula.id;
-  }
+  } */
 }

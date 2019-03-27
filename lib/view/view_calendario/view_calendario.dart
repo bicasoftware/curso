@@ -1,8 +1,5 @@
-import 'package:curso/view/view_calendario/calendario_strip.dart';
-import 'package:curso/widgets/calendario/calendario_aulas_dia.dart';
+import 'package:curso/widgets/calendario/calendario.dart';
 import 'package:flutter/material.dart';
-
-import 'calendario_navigator.dart';
 
 class ViewCalendario extends StatefulWidget {
   @override

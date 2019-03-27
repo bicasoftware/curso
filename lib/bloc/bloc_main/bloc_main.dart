@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/container/aulas.dart';
+import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/conf.dart';
+import 'package:curso/container/materias.dart';
+import 'package:curso/container/periodos.dart';
+import 'package:curso/providers/provider_aulas.dart';
+import 'package:curso/providers/provider_periodos.dart';
+import 'package:curso/utils.dart/AppBrightness.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../container/aulas.dart';
-import '../../container/conf.dart';
-import '../../container/materias.dart';
-import '../../container/periodos.dart';
-import '../../providers/provider_aulas.dart';
-import '../../providers/provider_periodos.dart';
-import '../../utils.dart/AppBrightness.dart';
 import 'state_main.dart';
 
 class BlocMain implements BlocBase {
@@ -20,13 +21,16 @@ class BlocMain implements BlocBase {
   get outPerPos => _subjectPerPos.stream;
 
   BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
-  get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
+  Stream<Periodos> get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
   get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
 
-  BehaviorSubject<Pair<Periodos, DateTime>> _subAulasDia =
-      BehaviorSubject<Pair<Periodos, DateTime>>();
-  get outAulasDia => _subAulasDia.stream;
-  get inAulasDia => _subAulasDia.sink;
+  final _subSelectedDate = BehaviorSubject<DateTime>();
+  Stream<DateTime> get outSelectedDate => _subSelectedDate.stream;
+  get inSelectedDate => _subSelectedDate.sink;
+
+  final _subDataDTO = BehaviorSubject<DataDTO>();
+  get outDataDTO => _subDataDTO.stream;
+  get inDataDTO => _subDataDTO.sink;
 
   final _subjectPeriodosLabel = BehaviorSubject<List<Pair<int, int>>>();
   get outPeriodosLabel => _subjectPeriodosLabel.stream;
@@ -52,10 +56,9 @@ class BlocMain implements BlocBase {
   get outBrightness => _subjectBrightness.stream;
   get inBrightness => _subjectBrightness.sink;
 
-  BehaviorSubject<Pair<int, List<DateTime>>> _subCalendarioContent =
-      BehaviorSubject<Pair<int, List<DateTime>>>();
-  get outCalendario => _subCalendarioContent.stream;
-  get inCalendario => _subCalendarioContent.sink;
+  final _subCalendarioContent = BehaviorSubject<CalendarioDTO>();
+  Stream<CalendarioDTO> get outCalendario => _subCalendarioContent.stream;
+  Sink<CalendarioDTO> get inCalendario => _subCalendarioContent.sink;
 
   BlocMain({
     List<Periodos> periodos,
@@ -88,17 +91,22 @@ class BlocMain implements BlocBase {
     _subjectPeriodosLabel.close();
     _subjectMes.close();
     _subCalendarioContent.close();
-    _subAulasDia.close();
+    _subDataDTO.close();
+    _subSelectedDate.close();
   }
 
-  _sinkPeriodos() => inPeriodos.add(state.periodos);
+  _sinkPeriodos() {
+    inPeriodos.add(state.periodos);
+    inCalendario.add(state.daysOfMonth);
+  }
 
   _sinkCurrentPeriodo() {
     inCurrentPeriodo.add(state.currentPeriodo);
     inPeriodosLabel.add(state.periodosLabels);
     inCalendario.add(state.daysOfMonth);
-    inAulasDia.add(state.aulasDia);
+    inDataDTO.add(state.aulasDia);
     inMes.add(state.mes);
+    inSelectedDate.add(state.selectedDate);
   }
 
   _sinkMes() {
@@ -162,6 +170,15 @@ class BlocMain implements BlocBase {
     _sinkCurrentPeriodo();
   }
 
+  Stream<List<Object>> getPeriodoDate() {
+    return ZipStream(
+      [outCurrentPeriodo, outSelectedDate],
+      (a) {
+        return []..addAll(a);
+      },
+    );
+  }
+
   updatePeriodo(Periodos periodo) {
     ProviderPeriodos.updatePeriodo(periodo)
         .then((Periodos p) => state.updatePeriodo(p))
@@ -187,7 +204,8 @@ class BlocMain implements BlocBase {
   }
 
   insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
-    var aula = Aulas(idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
+    var aula =
+        Aulas(idPeriodo: idPeriodo, idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
     ProviderAulas.insertAulas(aula)
         .then((Aulas a) => state.insertAula(idPeriodo, idMateria, aula))
         .whenComplete(() => _sinkPeriodos());
@@ -200,7 +218,12 @@ class BlocMain implements BlocBase {
   }
 
   updateAula({int idAula, int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
-    var aula = Aulas(idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
+    var aula = Aulas(
+      idPeriodo: idPeriodo,
+      idMateria: idMateria,
+      weekDay: weekDay,
+      ordem: ordemAula,
+    );
 
     Future.wait([
       ProviderAulas.deleteAulasById(idAula),

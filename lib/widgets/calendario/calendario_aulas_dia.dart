@@ -1,41 +1,31 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/container/calendario_content.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/widgets/awaiting_container.dart';
 import 'package:flutter/material.dart';
 
+///todo - REPASSAR, USAR CalendarioDTO para exibir as aulas e as faltas
 class CalendarioAulasDia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
     return Container(
-      child: StreamBuilder<Pair<Periodos, DateTime>>(
-          stream: b.outAulasDia,
+      child: StreamBuilder<DataDTO>(
+          stream: b.outDataDTO,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.separated(
-                itemCount: snapshot.data.first.aulasDia,
+                itemCount: snapshot.data.aulas.length,
                 shrinkWrap: true,
                 itemBuilder: (c, i) {
-                  final horario = snapshot.data.first.horarios.firstWhere((h) => h.ordemAula == i);
-
-                  final materia = snapshot.data.first.materias.firstWhere(
-                    (m) {
-                      return m.aulas.indexWhere(
-                              (a) => a.ordem == i && a.weekDay == snapshot.data.second.weekday) >=
-                          0;
-                    },
-                    orElse: () => null,
-                  );
-
+                  final aulasSemana = snapshot.data.aulas[i];
                   return ListTile(
                     leading: Container(
                       padding: EdgeInsets.symmetric(vertical: 4),
                       child: Text(
-                        formatTime(horario.inicio),
+                        formatTime(aulasSemana.horario),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
@@ -43,9 +33,9 @@ class CalendarioAulasDia extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: materia != null ? Text(materia.nome) : Text("Sem Aula"),
+                    title: Text(aulasSemana.nome),
                     trailing: CircleAvatar(
-                      backgroundColor: materia != null ? Color(materia.cor) : Colors.grey,
+                      backgroundColor: Color(aulasSemana.cor),
                     ),
                   );
                 },

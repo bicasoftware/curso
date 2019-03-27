@@ -18,6 +18,7 @@ class ProviderAulas {
 
   static Future<Aulas> insertAulas(Aulas aula) async {
     if (aula.idMateria == null) throw Exception("Faltando IDMATERIA em $aula");
+    if (aula.idPeriodo == null) throw Exception("Faltando IDPERIODO em $aula");
     final db = await DBProvider.instance;
     final id = await db.insert(Aulas.tableName, aula.toMap());
 

@@ -35,10 +35,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
             periodos: snap.data,
             onUpdateTap: (p) async {
               final Periodos result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (c) => ViewPeriodosInsert(periodo: p),
-                  //builder: (c) => ViewPeriodosInsertBloc(periodo: p),
-                ),
+                MaterialPageRoute(builder: (c) => ViewPeriodosInsert(periodo: p)),
               );
 
               if (result != null) {

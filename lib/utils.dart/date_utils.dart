@@ -1,9 +1,8 @@
+import 'package:curso/container/calendario_content.dart';
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-
-import 'Strings.dart';
-import 'pair.dart';
 
 DateFormat _fmt = DateFormat("dd/MM/yyyy", "pt_BT");
 DateFormat _defFmt = DateFormat("yyyy-MM-dd");
@@ -20,7 +19,7 @@ initializeCountry() => initializeDateFormatting("pt_BR", null);
 
 String formatDate(DateTime date) {
   initializeCountry();
-  if(date == null) return "null";
+  if (date == null) return "null";
   return _fmt.format(date);
 }
 
@@ -139,10 +138,16 @@ bool isToday(DateTime date) {
   return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
 }
 
-List<Pair<int, List<DateTime>>> getDaysInRange({
+bool isSameDay(DateTime date1, DateTime date2){
+  initializeCountry();
+  final dif = date1.difference(date2);
+  return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
+}
+
+/* Future<List<Pair<int, List<DateTime>>>> getDaysInRange({
   @required DateTime start,
   @required DateTime end,
-}) {
+}) async {
   final rightEnd = end.add(Duration(days: 1));
   final datesByMonth = List<Pair<int, List<DateTime>>>();
   for (var m = start.month; m <= rightEnd.month; m++) {
@@ -157,15 +162,40 @@ List<Pair<int, List<DateTime>>> getDaysInRange({
 
   return datesByMonth;
 }
+ */
+List<CalendarioDTO> prepareCalendario({
+  @required DateTime start,
+  @required DateTime end,
+  @required List<AulasSemanaDTO> aulasSemana,
+}) {
+  final rightEnd = end.add(Duration(days: 1));
+  final calendario = List<CalendarioDTO>();
+  for (var m = start.month; m <= rightEnd.month; m++) {
+    final inCalendario = CalendarioDTO(mes: m, dates: []);
 
-List<DateTime> leftFillCalendar(List<DateTime> daysOnMonth){
-    final daysToShow = List<DateTime>();
-    
-    var start = daysOnMonth.first;
-    while (start.weekday != DateTime.sunday) {
-      daysToShow.add(null);
-      start = start.subtract(Duration(days: 1));
+    while (m == start.month && start.isBefore(rightEnd)) {
+      inCalendario.dates.add(
+        DataDTO(
+          date: start,
+          aulas: aulasSemana.where((aulas) => aulas.weekDay == getWeekday(start)).toList(),
+        ),
+      );
+      start = start.add(Duration(days: 1));
     }
+    calendario.add(inCalendario);
+  }
 
-    return daysToShow..addAll(daysOnMonth);
+  return calendario;
+}
+
+List<DateTime> leftFillCalendar(List<DateTime> daysOnMonth) {
+  final daysToShow = List<DateTime>();
+
+  var start = daysOnMonth.first;
+  while (start.weekday != DateTime.sunday) {
+    daysToShow.add(null);
+    start = start.subtract(Duration(days: 1));
+  }
+
+  return daysToShow..addAll(daysOnMonth);
 }
