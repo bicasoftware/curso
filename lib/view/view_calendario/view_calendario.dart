@@ -1,4 +1,5 @@
 import 'package:curso/widgets/calendario/calendario.dart';
+import 'package:curso/widgets/calendario/calendario_aulas_dia/calendario_aulas_dia.dart';
 import 'package:flutter/material.dart';
 
 class ViewCalendario extends StatefulWidget {

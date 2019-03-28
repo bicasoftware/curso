@@ -10,7 +10,6 @@ import 'view_periodos/view_periodos.dart';
 class ViewHomeBuilder {
   static AppBar appBar({
     @required int pos,
-    @required Function(int) onOptionSelected,
     @required BlocMain bloc,
   }) {
     return AppBar(
@@ -18,19 +17,7 @@ class ViewHomeBuilder {
       title: Text(Strings.appName),
       elevation: pos == 1 ? 0 : 2,
       actions: <Widget>[
-        pos == 1 ? DropDownPeriodos() : Container(),
-        PopupMenuButton<int>(
-          icon: Icon(Icons.more_vert),
-          onSelected: onOptionSelected,
-          itemBuilder: (c) {
-            return Arrays.opcoes.map((String s) {
-              return PopupMenuItem<int>(
-                child: Text(s),
-                value: 0,
-              );
-            }).toList();
-          },
-        ),
+        pos == 1 ? DropDownPeriodos() : Container(),        
       ],
     );
   }

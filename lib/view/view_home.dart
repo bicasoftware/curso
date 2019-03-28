@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import '../container/conf.dart';
 import '../container/periodos.dart';
 import 'view_home_builder.dart';
-import 'view_options/ViewOptionsResult.dart';
-import 'view_options/view_options.dart';
 import 'view_periodos_insert/view_periodos_insert.dart';
 
 class ViewHome extends StatefulWidget {
@@ -51,24 +49,6 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
           appBar: ViewHomeBuilder.appBar(
             bloc: b,
             pos: _pos,
-            onOptionSelected: (i) async {
-              final ViewOptionsResult result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (c) {
-                    return ViewOptions(
-                      brightness: snap.data.brightness,
-                      notify: snap.data.notify,
-                    );
-                  },
-                ),
-              );
-
-              if (result != null && result is ViewOptionsResult) {
-                b.setBrightness(result.brightness);
-                b.setNotify(result.notify);
-              }
-            },
           ),
           body: ViewHomeBuilder.body(_controller),
           floatingActionButton: ViewHomeBuilder.fab(
@@ -84,7 +64,7 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
               );
 
               if (result != null) b.insertPeriodo(result);
-            },            
+            },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           bottomNavigationBar: ViewHomeBuilder.bottomBar(_pos, (i) {

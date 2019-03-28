@@ -1,24 +1,18 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario_content.dart';
-import 'package:curso/container/conf.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/AppBrightness.dart';
-import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class StateMain {
   List<Periodos> periodos;
-  Conf conf;
-  int pos, periodoPos, mes;
+  int periodoPos, mes;
   DateTime selectedDate;
 
   StateMain({
     @required this.periodos,
-    @required this.conf,
-    @required this.pos,
     @required this.periodoPos,
   }) {
     if (this.periodoPos == null) this.periodoPos = 0;
@@ -36,58 +30,34 @@ class StateMain {
     }
   }
 
-  setBrightness(AppBrightness br) => conf.brightness = br;
-
-  setNotify(bool notify) => conf.notify = notify;
-
   setPeriodoPos(int periodoPos) => periodoPos = periodoPos;
 
   Periodos get currentPeriodo => periodos[periodoPos];
 
-  get periodosLabels =>
-      periodos.map((p) => Pair<int, int>(first: p.id, second: p.numPeriodo)).toList();
-
   setMes(int mes) => this.mes = mes;
 
   incMes() {
-    if (mes < currentPeriodo.termino.month) this.mes++;
+    if (mes < currentPeriodo.termino.month) {
+      this.mes++;
+      selectedDate = currentCalendario.dates.first.date;
+    }
   }
 
   decMes() {
-    if (mes > currentPeriodo.inicio.month) this.mes--;
-  }
-
-  setDate(DateTime newDate) {
-    selectedDate = newDate;
-  }
-
-  incDate() {
-    final nextDate = selectedDate.add(Duration(days: 1));
-    if (!nextDate.isAfter(currentPeriodo.termino)) {
-      selectedDate = nextDate;
-      mes = selectedDate.month;
+    if (mes > currentPeriodo.inicio.month) {
+      this.mes--;
+      selectedDate = currentCalendario.dates.first.date;
     }
   }
 
-  decDate() {
-    final nextDate = selectedDate.subtract(Duration(days: 1));
-    if (!nextDate.isBefore(currentPeriodo.inicio)) {
-      selectedDate = nextDate;
-      mes = selectedDate.month;
-    }
-  }
+  ///Data selecionada via CalendarioCellStrip
+  setSelectedDate(DateTime newDate) => selectedDate = newDate;
 
   DataDTO get aulasDia {
-    return daysOfMonth.dates.firstWhere((d) => isSameDay(d.date, selectedDate));
+    return currentCalendario.dates.firstWhere((d) => isSameDay(d.date, selectedDate));
   }
 
-  CalendarioDTO get daysOfMonth {
-    return periodos[periodoPos].calendario.firstWhere(
-              (it) => it.mes == mes,
-              orElse: () => null,
-            ) ??
-        [];
-  }
+  CalendarioDTO get currentCalendario => currentPeriodo.getCalendarioByMonth(mes);
 
   removePeriodoById(int idPeriodo) {
     periodos.remove(periodos.firstWhere((it) => it.id == idPeriodo));

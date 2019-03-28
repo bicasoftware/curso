@@ -162,9 +162,7 @@ class Periodos implements BaseTable {
     }
   }
 
-  void setMaterias({List<Materias> materias, List<Horarios> horarios}) {
-    this.horarios = horarios;
-    this.materias = materias;
-    refreshCalendario();
+  CalendarioDTO getCalendarioByMonth(int month) {
+    return calendario.firstWhere((it) => it.mes == month, orElse: () => null) ?? [];
   }
 }

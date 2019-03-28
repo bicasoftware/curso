@@ -9,7 +9,6 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
-import 'package:curso/utils.dart/pair.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
@@ -17,24 +16,9 @@ import 'state_main.dart';
 class BlocMain implements BlocBase {
   StateMain state;
 
-  BehaviorSubject<int> _subjectPerPos = BehaviorSubject<int>();
-  get outPerPos => _subjectPerPos.stream;
-
-  BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
-  Stream<Periodos> get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
-  get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
-
-  final _subSelectedDate = BehaviorSubject<DateTime>();
-  Stream<DateTime> get outSelectedDate => _subSelectedDate.stream;
-  get inSelectedDate => _subSelectedDate.sink;
-
   final _subDataDTO = BehaviorSubject<DataDTO>();
   get outDataDTO => _subDataDTO.stream;
   get inDataDTO => _subDataDTO.sink;
-
-  final _subjectPeriodosLabel = BehaviorSubject<List<Pair<int, int>>>();
-  get outPeriodosLabel => _subjectPeriodosLabel.stream;
-  get inPeriodosLabel => _subjectPeriodosLabel.sink;
 
   BehaviorSubject<int> _subjectMes = BehaviorSubject<int>();
   get outMes => _subjectMes.stream;
@@ -47,10 +31,6 @@ class BlocMain implements BlocBase {
   BehaviorSubject<Conf> _subjectConf = BehaviorSubject<Conf>();
   get outConf => _subjectConf.stream;
   get inConf => _subjectConf.sink;
-
-  BehaviorSubject<int> _subPosition = BehaviorSubject<int>();
-  get outPos => _subPosition.stream;
-  get inPos => _subPosition.sink;
 
   BehaviorSubject<AppBrightness> _subjectBrightness = BehaviorSubject<AppBrightness>();
   get outBrightness => _subjectBrightness.stream;
@@ -68,15 +48,11 @@ class BlocMain implements BlocBase {
   }) {
     this.state = StateMain(
       periodos: periodos,
-      conf: conf,
-      pos: pos,
       periodoPos: periodoAtual,
     );
 
-    _sinkPos();
     _sinkPeriodos();
     _sinkCurrentPeriodo();
-    _sinkConf();
     inMes.add(state.mes);
   }
 
@@ -84,45 +60,27 @@ class BlocMain implements BlocBase {
   void dispose() {
     _subjectPeriodos.close();
     _subjectConf.close();
-    _subPosition.close();
     _subjectBrightness.close();
-    _subjectPerPos.close();
-    _subjectCurrentPeriodo.close();
-    _subjectPeriodosLabel.close();
     _subjectMes.close();
     _subCalendarioContent.close();
     _subDataDTO.close();
-    _subSelectedDate.close();
   }
 
   _sinkPeriodos() {
     inPeriodos.add(state.periodos);
-    inCalendario.add(state.daysOfMonth);
+    inCalendario.add(state.currentCalendario);
   }
 
   _sinkCurrentPeriodo() {
-    inCurrentPeriodo.add(state.currentPeriodo);
-    inPeriodosLabel.add(state.periodosLabels);
-    inCalendario.add(state.daysOfMonth);
+    inCalendario.add(state.currentCalendario);
     inDataDTO.add(state.aulasDia);
     inMes.add(state.mes);
-    inSelectedDate.add(state.selectedDate);
   }
 
   _sinkMes() {
     inMes.add(state.mes);
-    inCalendario.add(state.daysOfMonth);
-  }
-
-  _sinkConf() => inConf.add(state.conf);
-
-  _sinkPos() => inPos.add(state.pos);
-
-  _sinkBrightness() => inBrightness.add(state.conf.brightness);
-
-  setPosition(int pos) {
-    state.pos = pos;
-    _sinkPos();
+    inCalendario.add(state.currentCalendario);
+    inDataDTO.add(state.aulasDia);
   }
 
   incMes() {
@@ -140,43 +98,14 @@ class BlocMain implements BlocBase {
     _sinkCurrentPeriodo();
   }
 
-  setNotify(bool notify) {
-    state.setNotify(notify);
-    _sinkConf();
-  }
-
-  setBrightness(AppBrightness brightness) {
-    state.setBrightness(brightness);
-    _sinkBrightness();
-  }
-
   setCurrentPeriodo(int periodoPos) {
     state.setPeriodoPos(periodoPos);
     _sinkCurrentPeriodo();
   }
 
   setCurrentDate(DateTime date) {
-    state.setDate(date);
+    state.setSelectedDate(date);
     _sinkCurrentPeriodo();
-  }
-
-  incCurrentDate() {
-    state.incDate();
-    _sinkCurrentPeriodo();
-  }
-
-  decCurrentDate() {
-    state.decDate();
-    _sinkCurrentPeriodo();
-  }
-
-  Stream<List<Object>> getPeriodoDate() {
-    return ZipStream(
-      [outCurrentPeriodo, outSelectedDate],
-      (a) {
-        return []..addAll(a);
-      },
-    );
   }
 
   updatePeriodo(Periodos periodo) {

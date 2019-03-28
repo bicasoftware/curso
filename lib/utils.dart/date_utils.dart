@@ -144,25 +144,6 @@ bool isSameDay(DateTime date1, DateTime date2){
   return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
 }
 
-/* Future<List<Pair<int, List<DateTime>>>> getDaysInRange({
-  @required DateTime start,
-  @required DateTime end,
-}) async {
-  final rightEnd = end.add(Duration(days: 1));
-  final datesByMonth = List<Pair<int, List<DateTime>>>();
-  for (var m = start.month; m <= rightEnd.month; m++) {
-    final thisMonth = Pair<int, List<DateTime>>(first: m, second: []);
-
-    while (m == start.month && start.isBefore(rightEnd)) {
-      thisMonth.second.add(start);
-      start = start.add(Duration(days: 1));
-    }
-    datesByMonth.add(thisMonth);
-  }
-
-  return datesByMonth;
-}
- */
 List<CalendarioDTO> prepareCalendario({
   @required DateTime start,
   @required DateTime end,

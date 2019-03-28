@@ -1,4 +1,3 @@
-export 'calendario_aulas_dia.dart';
 export 'calendario_cell.dart';
 export 'calendario_drop_down_periodos.dart';
 export 'calendario_navigator.dart';
