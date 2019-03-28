@@ -22,23 +22,6 @@ class ViewPeriodosInsertBuilder {
     );
   }
 
-/*   static Widget numPeriodoTile({@required int numPeriodo, @required Function(int) onChanged}) {
-    return DefaultListTile(
-      icon: Icons.confirmation_number,
-      leading: Text(Strings.numPeriodo),
-      trailing: DropdownButton<int>(
-        value: numPeriodo,
-        items: List.generate(18, (i) {
-          return DropdownMenuItem(
-            child: Text("${i + 1} ${Strings.periodo}"),
-            value: i + 1,
-          );
-        }),
-        onChanged: onChanged,
-      ),
-    );
-  } */
-
   static Widget numPeriodoSliderTile(
       {@required double numPeriodo, @required Function(double) onChanged}) {
     return SliderTile(
@@ -84,37 +67,6 @@ class ViewPeriodosInsertBuilder {
     );
   }
 
-  /* static Widget aulaDiaTile(int aulasDia, Function(int) onChanged) {
-    return DefaultListTile(
-      icon: Icons.format_list_numbered,
-      leading: Text(Strings.aulasDia),
-      trailing: DropdownButton<int>(
-        value: aulasDia,
-        items: ListUtils.generateInRange(1, 12, (i) {
-          return DropdownMenuItem(
-            child: Text("$i"),
-            value: i,
-          );
-        }),
-        onChanged: onChanged,
-      ),
-    );
-  } */
-
-  /* static Widget notaMinimaTile({@required double nota, @required Function(double) onChanged}) {
-    return DefaultListTile(
-      icon: Icons.warning,
-      leading: Text(Strings.notaAprovacao),
-      trailing: DropdownButton<double>(
-        value: nota,
-        onChanged: onChanged,
-        items: Arrays.mediaAprovacao
-            .map((num n) => DropdownMenuItem(child: Text("$n"), value: n.toDouble()))
-            .toList(),
-      ),
-    );
-  } */
-
   static Widget notaMinimaSliderTile(
       {@required double nota, @required Function(double) onChanged}) {
     return SliderTile(
@@ -128,19 +80,6 @@ class ViewPeriodosInsertBuilder {
       onChanged: onChanged,
     );
   }
-
-  /* static Widget presencaObrigatoriaTile(int presObrig, Function(int) onChanged) {
-    return DefaultListTile(
-      icon: Icons.error_outline,
-      leading: Text(Strings.presencaObrigatoria),
-      trailing: DropdownButton<int>(
-        items:
-            List.generate(40, (i) => DropdownMenuItem(child: Text("${i + 60} %"), value: i + 60)),
-        value: presObrig,
-        onChanged: onChanged,
-      ),
-    );
-  } */
 
   static Widget presencaObrigatoriaSliderTile(double presObrig, Function(double) onChanged) {
     return SliderTile(
@@ -215,35 +154,5 @@ class ViewPeriodosInsertBuilder {
         ),
       ],
     );
-
-    // return GridView.builder(
-    //   shrinkWrap: true,
-    //   physics: NeverScrollableScrollPhysics(),
-    //   itemCount: 7,
-    //   itemBuilder: (c, i) {
-    //     return Card(
-    //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-    //       child: Container(
-    //         height: 48,
-    //         padding: EdgeInsets.all(8),
-    //         child: Column(
-    //           children: [
-    //             Text(Arrays.weekDayShort[i]),
-    //             Divider(),
-    //             Checkbox(
-    //               value: false,
-    //               tristate: false,
-    //               onChanged: (bool s) => print(s),
-    //             )
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   },
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: 7,
-    //     childAspectRatio: 1,
-    //   ),
-    // );
   }
 }

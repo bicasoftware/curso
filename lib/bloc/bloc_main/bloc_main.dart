@@ -44,11 +44,9 @@ class BlocMain implements BlocBase {
     List<Periodos> periodos,
     Conf conf,
     int pos,
-    int periodoAtual,
   }) {
     this.state = StateMain(
       periodos: periodos,
-      periodoPos: periodoAtual,
     );
 
     _sinkPeriodos();
@@ -77,29 +75,18 @@ class BlocMain implements BlocBase {
     inMes.add(state.mes);
   }
 
-  _sinkMes() {
-    inMes.add(state.mes);
-    inCalendario.add(state.currentCalendario);
-    inDataDTO.add(state.aulasDia);
-  }
-
   incMes() {
     state.incMes();
-    _sinkMes();
+    _sinkCurrentPeriodo();
   }
 
   decMes() {
     state.decMes();
-    _sinkMes();
-  }
-
-  setPeriodoPosition(int pos) {
-    state.periodoPos = pos;
     _sinkCurrentPeriodo();
   }
 
-  setCurrentPeriodo(int periodoPos) {
-    state.setPeriodoPos(periodoPos);
+  setCurrentPeriodoId(int idPeriodo) {
+    state.setCurrentPeriodoId(idPeriodo);
     _sinkCurrentPeriodo();
   }
 

@@ -13,7 +13,6 @@ class CalendarioNavigator extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.keyboard_arrow_left,
-            color: Colors.white,
           ),
           onPressed: () {
             b.decMes();
@@ -27,7 +26,10 @@ class CalendarioNavigator extends StatelessWidget {
             builder: (context, snapshot) {
               return Text(
                 Arrays.meses[snapshot.data - 1],
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               );
             },
@@ -36,7 +38,7 @@ class CalendarioNavigator extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.keyboard_arrow_right,
-            color: Colors.white,
+            //color: Colors.white,
           ),
           onPressed: () => b.incMes(),
           splashColor: Colors.white,

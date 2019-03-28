@@ -13,17 +13,24 @@ class ViewCalendarioState extends State<ViewCalendario> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Material(
-          elevation: 4,
-          color: Theme.of(context).primaryColor,
+        Card(
+          elevation: 2,
           child: Column(
             children: <Widget>[
               CalendarioNavigator(),
+              Divider(height: 0),
               CalendarioStrip(),
             ],
           ),
         ),
-        CalendarioAulasDia(),
+        Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[              
+              CalendarioAulasDia(),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curso/container/calendario_content.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/widgets/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
 
 class AulasDiaList extends StatelessWidget {
@@ -15,18 +17,8 @@ class AulasDiaList extends StatelessWidget {
       itemBuilder: (c, i) {
         final aulasSemana = aulas[i];
         return ListTile(
-          leading: Container(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: Text(
-              formatTime(aulasSemana.horario),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Theme.of(context).accentColor,
-              ),
-            ),
-          ),
-          title: Text(aulasSemana.nome),
+          leading: HorarioAulaChip(text: formatTime(aulasSemana.horario)),
+          title: AutoSizeText(aulasSemana.nome),
           trailing: CircleAvatar(
             backgroundColor: Color(aulasSemana.cor),
           ),

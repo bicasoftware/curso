@@ -13,11 +13,9 @@ class ViewHomeBuilder {
     @required BlocMain bloc,
   }) {
     return AppBar(
-      //title: dualLineTitle(bloc),
       title: Text(Strings.appName),
-      elevation: pos == 1 ? 0 : 2,
       actions: <Widget>[
-        pos == 1 ? DropDownPeriodos() : Container(),        
+        pos == 1 ? DropDownPeriodos() : Container(),
       ],
     );
   }

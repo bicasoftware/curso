@@ -163,6 +163,6 @@ class Periodos implements BaseTable {
   }
 
   CalendarioDTO getCalendarioByMonth(int month) {
-    return calendario.firstWhere((it) => it.mes == month, orElse: () => null) ?? [];
+    return calendario.firstWhere((it) => it.mes == month, orElse: () => null);
   }
 }

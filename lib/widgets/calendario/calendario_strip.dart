@@ -23,9 +23,10 @@ class CalendarioStrip extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
+                    addRepaintBoundaries: true,
                     children: snapshot.data.dates.map((date) {
                       return CalendarioStripCell(
-                        today: date,
+                        dataDTO: date,
                         onTap: () => b.setCurrentDate(date.date),
                       );
                     }).toList(),
