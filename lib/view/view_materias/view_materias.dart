@@ -99,7 +99,7 @@ class _Body extends StatelessWidget {
                 )
               ],
             ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             floatingActionButton: ViewMateriasBuilder.fab(() async {
               ViewMateriasInsertResult result = await Navigator.of(context).push(
                 MaterialPageRoute(

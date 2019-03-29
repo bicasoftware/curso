@@ -6,6 +6,7 @@ import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart
 import 'package:curso/widgets/circle.dart';
 import 'package:curso/widgets/default_list_tile.dart';
 import 'package:curso/widgets/default_text_list_tile.dart';
+import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasInsert extends StatefulWidget {
@@ -44,8 +45,8 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
       body: Container(
         child: Form(
           key: _formKey,
-          child: Card(            
-            margin: EdgeInsets.all(8),
+          child: SquaredCard(            
+            //margin: EdgeInsets.all(8),
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[

@@ -1,5 +1,6 @@
 import 'package:curso/widgets/calendario/calendario.dart';
 import 'package:curso/widgets/calendario/calendario_aulas_dia/calendario_aulas_dia.dart';
+import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ViewCalendario extends StatefulWidget {
@@ -13,8 +14,8 @@ class ViewCalendarioState extends State<ViewCalendario> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Card(
-          elevation: 2,
+        SquaredCard(
+          elevation: 1,
           child: Column(
             children: <Widget>[
               CalendarioNavigator(),
@@ -23,10 +24,11 @@ class ViewCalendarioState extends State<ViewCalendario> {
             ],
           ),
         ),
-        Card(
+        SquaredCard(
+          elevation: 4,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: <Widget>[              
+            children: <Widget>[
               CalendarioAulasDia(),
             ],
           ),

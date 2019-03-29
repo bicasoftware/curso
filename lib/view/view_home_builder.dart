@@ -1,22 +1,21 @@
+import 'package:curso/widgets/calendario/calendario_drop_down_periodos_light.dart';
+import 'package:curso/widgets/casper_appbar.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/bloc_main/bloc_main.dart';
 import '../utils.dart/Strings.dart';
-import '../widgets/calendario/calendario_drop_down_periodos.dart';
 import 'view_calendario/view_calendario.dart';
 import 'view_info/view_info.dart';
 import 'view_periodos/view_periodos.dart';
 
 class ViewHomeBuilder {
-  static AppBar appBar({
+  static Widget appBar({
     @required int pos,
     @required BlocMain bloc,
   }) {
-    return AppBar(
-      title: Text(Strings.appName),
-      actions: <Widget>[
-        pos == 1 ? DropDownPeriodos() : Container(),
-      ],
+    return CasperAppBar(
+      title: Strings.appName,
+      trailing: pos == 1 ? DropDownPeriodosLight() : Container(),
     );
   }
 

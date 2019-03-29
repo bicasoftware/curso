@@ -23,12 +23,17 @@ class ViewMateriasBuilder {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext c, int i) {
-          return _materiaTile(
-            context: c,
-            m: materias[i],
-            onTap: onTap,
-            onLongTap: onLongTap,
-            pos: i,
+          return Column(
+            children: <Widget>[
+              _materiaTile(
+                context: c,
+                m: materias[i],
+                onTap: onTap,
+                onLongTap: onLongTap,
+                pos: i,
+              ),
+              i == materias.length ? Container() : Divider(height: 0)
+            ],
           );
         },
         childCount: materias.length,
@@ -50,7 +55,10 @@ class ViewMateriasBuilder {
       onLongPress: () {
         onLongTap(m);
       },
-      leading: Icon(Icons.school, color: Theme.of(context).accentColor),
+      leading: CircleAvatar(
+        backgroundColor: Theme.of(context).accentColor,
+        child: Icon(Icons.school, color: Colors.white),
+      ),
       title: Text(m.nome),
       subtitle: Text(m.sigla),
       trailing: Hero(
@@ -61,9 +69,8 @@ class ViewMateriasBuilder {
   }
 
   static Widget fab(VoidCallback onTap) {
-    return FloatingActionButton.extended(
-      icon: Icon(Icons.add),
-      label: Text(Strings.adicionar),
+    return FloatingActionButton(
+      child: Icon(Icons.add),
       onPressed: onTap,
     );
   }

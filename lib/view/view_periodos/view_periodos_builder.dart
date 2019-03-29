@@ -1,3 +1,4 @@
+import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../container/materias.dart';
@@ -84,12 +85,8 @@ class ViewPeriodosBuilder {
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
     @required Function(int, int, Periodos, int) onCellClick,
   }) {
-    return Card(
+    return SquaredCard(
       elevation: 1,
-      margin: EdgeInsets.all(1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(0)),
-      ),
       child: GestureDetector(
         onLongPress: () {
           onDelete(periodo.id);
