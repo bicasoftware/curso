@@ -39,7 +39,6 @@ class ViewPeriodosBuilder {
                 duration: Duration(milliseconds: 1000),
               ),
             );
-            print("Não implementado");
           },
         ),
         IconButton(

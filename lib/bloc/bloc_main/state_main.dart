@@ -19,7 +19,8 @@ class StateMain {
   }
 
   _positionDates() {
-    final meses = range(periodos[_currentId].inicio.month, periodos[_currentId].termino.month);
+    final meses = range(currentPeriodo.inicio.month, currentPeriodo.termino.month);
+    ///final meses = range(periodos[_currentId].inicio.month, periodos[_currentId].termino.month);
     if (!meses.contains(DateTime.now().month)) {
       mes = currentPeriodo.inicio.month;
       selectedDate = currentPeriodo.inicio;

@@ -59,7 +59,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setPresObrigDouble(double pos) => setState(() => _periodo.presObrig = pos.toInt());
 
-  _setNumPeriodoDouble(double numero) => setState(() => _periodo.numPeriodo = numero.toInt());
+  _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
 
   _setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
     setState(() {
@@ -69,7 +69,6 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         _periodo.addHorario(
           Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula),
         );
-        _periodo.horarios.forEach((h) => print(h));
       } else {
         _periodo.horarios.removeAt(index);
         _periodo.addHorario(
@@ -102,9 +101,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
             shrinkWrap: true,
             children: <Widget>[
               ListIndicator(hint: "Periodo"),
-              ViewPeriodosInsertBuilder.numPeriodoSliderTile(
-                numPeriodo: _periodo.numPeriodo.toDouble(),
-                onChanged: _setNumPeriodoDouble,
+              ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
+                numPeriodo: _periodo.numPeriodo,
+                onChanged: _setNumPeriodo,
               ),
               _divider(),
               ViewPeriodosInsertBuilder.inicioDateTile(

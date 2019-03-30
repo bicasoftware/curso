@@ -45,35 +45,32 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
     return StreamBuilder<Conf>(
       stream: b.outConf,
       builder: (BuildContext context, AsyncSnapshot<Conf> snap) {
-        return SafeArea(
-          top: true,
-          child: Scaffold(
-            appBar: ViewHomeBuilder.appBar(
-              bloc: b,
-              pos: _pos,
-            ),
-            body: ViewHomeBuilder.body(_controller),
-            floatingActionButton: ViewHomeBuilder.fab(
-              pos: _pos,
-              onTap: () async {
-                final result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (BuildContext c) {
-                      return ViewPeriodosInsert(periodo: Periodos.newInstance());
-                    },
-                  ),
-                );
-
-                if (result != null) b.insertPeriodo(result);
-              },
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            bottomNavigationBar: ViewHomeBuilder.bottomBar(_pos, (i) {
-              _setPos(i);
-              _controller.animateTo(i);
-            }),
+        return Scaffold(
+          appBar: ViewHomeBuilder.appBar(
+            bloc: b,
+            pos: _pos,
           ),
+          body: ViewHomeBuilder.body(_controller),
+          floatingActionButton: ViewHomeBuilder.fab(
+            pos: _pos,
+            onTap: () async {
+              final result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext c) {
+                    return ViewPeriodosInsert(periodo: Periodos.newInstance());
+                  },
+                ),
+              );
+
+              if (result != null) b.insertPeriodo(result);
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          bottomNavigationBar: ViewHomeBuilder.bottomBar(context, _pos, (i) {
+            _setPos(i);
+            _controller.animateTo(i);
+          }),
         );
       },
     );

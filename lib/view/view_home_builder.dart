@@ -1,5 +1,5 @@
-import 'package:curso/widgets/calendario/calendario_drop_down_periodos_light.dart';
-import 'package:curso/widgets/casper_appbar.dart';
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:curso/widgets/calendario/calendario.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/bloc_main/bloc_main.dart';
@@ -13,28 +13,52 @@ class ViewHomeBuilder {
     @required int pos,
     @required BlocMain bloc,
   }) {
-    return CasperAppBar(
-      title: Strings.appName,
-      trailing: pos == 1 ? DropDownPeriodosLight() : Container(),
+    return AppBar(
+      title: Text(Strings.appName),
+      elevation: 0,
+      actions: [
+        _dropDownPeriodos(pos),
+      ],
     );
   }
 
-  static Widget bottomBar(int pos, Function(int) onTap) {
-    return BottomNavigationBar(
+  static Widget _dropDownPeriodos(int position) {
+    return Container(
+      child: AnimatedOpacity(
+        child: DropDownPeriodos(),
+        //child: DropDownPeriodosLight(),
+        duration: Duration(milliseconds: 600),
+        curve: position == 1 ? Curves.fastOutSlowIn : Curves.linearToEaseOut,
+        opacity: position == 1 ? 1 : 0,
+      ),
+    );
+  }
+
+  static Widget bottomBar(BuildContext context, int pos, Function(int) onTap) {
+    return BubbleBottomBar(
+      opacity: .2,
       currentIndex: pos,
       onTap: onTap,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_view_day),
-          title: Text(Strings.periodos),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      elevation: 8,
+      items: <BubbleBottomBarItem>[
+        BubbleBottomBarItem(
+          backgroundColor: Theme.of(context).accentColor,
+          title: Text(Strings.periodos, style: TextStyle(color: Colors.black)),
+          icon: Icon(Icons.calendar_view_day, color: Colors.black),
+          activeIcon: Icon(Icons.calendar_view_day, color: Colors.black),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.date_range),
-          title: Text(Strings.calendario),
+        BubbleBottomBarItem(
+          backgroundColor: Theme.of(context).accentColor,
+          title: Text(Strings.calendario, style: TextStyle(color: Colors.black)),
+          icon: Icon(Icons.date_range, color: Colors.black),
+          activeIcon: Icon(Icons.date_range, color: Colors.black),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.format_list_bulleted),
-          title: Text(Strings.informacoes),
+        BubbleBottomBarItem(
+          backgroundColor: Theme.of(context).accentColor,
+          title: Text("Faltas", style: TextStyle(color: Colors.black)),
+          icon: Icon(Icons.format_list_bulleted, color: Colors.black),
+          activeIcon: Icon(Icons.format_list_bulleted, color: Colors.black),
         ),
       ],
     );

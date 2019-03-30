@@ -4,7 +4,7 @@ class ListIndicator extends StatelessWidget {
   final String hint;
 
   static final TextStyle style = TextStyle(
-    fontSize: 20,
+    fontSize: 16,
     color: Colors.white,
   );
 
@@ -13,7 +13,7 @@ class ListIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(8),
       color: Theme.of(context).accentColor,
       child: Text(
         hint,

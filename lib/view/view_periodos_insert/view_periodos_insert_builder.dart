@@ -36,6 +36,29 @@ class ViewPeriodosInsertBuilder {
     );
   }
 
+  static Widget numPeriodoDropdownTile({
+    @required int numPeriodo,
+    @required Function(int) onChanged,
+  }) {
+    return DefaultListTile(
+      icon: Icons.format_list_numbered,
+      leading: Text(Strings.numPeriodo),
+      trailing: DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          elevation: 4,
+          value: numPeriodo,
+          onChanged: onChanged,
+          items: List.generate(12, (i) {
+            return DropdownMenuItem<int>(
+              value: i+1,
+              child: Text("${i+1}º ${Strings.periodo}"),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
   static Widget inicioDateTile({@required DateTime inicio, VoidCallback onTap}) {
     return DefaultListTile(
       icon: Icons.calendar_today,
