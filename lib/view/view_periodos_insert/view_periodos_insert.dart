@@ -36,8 +36,24 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setDataTermino(DateTime end) => setState(() => _periodo.termino = end);
 
-
-  _setAulasDiaDouble(double pos) => setState(() => _periodo.aulasDia = pos.toInt());
+  _setAulasDiaDouble(double pos) {
+    setState(() {
+      _periodo.aulasDia = pos.toInt();
+      for (var i = 0; i < _periodo.aulasDia; i++) {
+        if (!_temHorarioSalvo(i)) {
+          _periodo.horarios.add(
+            Horarios(
+              id: null,
+              idPeriodo: _periodo.id,
+              inicio: _periodo.horarios.last.termino,
+              termino: _periodo.horarios.last.termino.add(Duration(minutes: 50)),
+              ordemAula: i,
+            ),
+          );
+        }
+      }
+    });
+  }
 
   _setMedAprov(double aprov) => setState(() => _periodo.medAprov = aprov);
 
@@ -120,12 +136,12 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                   if (termino != null) _setDataTermino(termino);
                 },
               ),
-              ListIndicator(hint: "Valores de Reprovação"),              
+              ListIndicator(hint: "Valores de Reprovação"),
               ViewPeriodosInsertBuilder.notaMinimaSliderTile(
                 nota: _periodo.medAprov,
                 onChanged: (n) => _setMedAprov(n),
               ),
-              _divider(),              
+              _divider(),
               ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
                 _periodo.presObrig.toDouble(),
                 (double value) => _setPresObrigDouble(value),
@@ -136,7 +152,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
               ),
               ViewPeriodosInsertBuilder.aulaDiaTileSlider(
                 aulasDia: _periodo.aulasDia,
-                onChanged: (double i) => _setAulasDiaDouble(i + 1),
+                onChanged: (double i) {
+                  _setAulasDiaDouble(i + 1);
+                },
               ),
               ViewPeriodosInsertBuilder.listHorarios(
                 horarios: _periodo.horarios,
@@ -150,6 +168,10 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         ),
       ),
     );
+  }
+
+  bool _temHorarioSalvo(int i) {
+    return _periodo.horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null) != null;
   }
 
   _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
