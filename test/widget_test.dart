@@ -1,11 +1,10 @@
-import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
-import 'package:curso/utils.dart/ListUtils.dart';
-import 'package:rxdart/rxdart.dart';
 
 void main() {
   group("Datas", () {

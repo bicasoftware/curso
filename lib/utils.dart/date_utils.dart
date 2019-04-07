@@ -145,7 +145,6 @@ bool isSameDay(DateTime date1, DateTime date2) {
   return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
 }
 
-//TODO - revisar rotina, não está carregando as faltas ao abrir
 ///Linka Faltas e materias conforme o calendário
 ///Gerar versão otimizada assim que possível
 List<CalendarioDTO> prepareCalendario({

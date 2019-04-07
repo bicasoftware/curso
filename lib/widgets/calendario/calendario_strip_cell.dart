@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 
 class CalendarioStripCell extends StatelessWidget {
   final DataDTO dataDTO;
+  final DateTime selectedDate;
   final VoidCallback onTap;
 
   const CalendarioStripCell({
     Key key,
     @required this.dataDTO,
     @required this.onTap,
+    @required this.selectedDate,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class CalendarioStripCell extends StatelessWidget {
     final colorList = dataDTO.aulas.map((aula) => Color(aula.cor)).toList();
 
     return Container(
-      color: checkToday() ? Colors.lightBlue[50] : Colors.transparent,
+      color: getCellColor(context),
 
       child: InkWell(
         onTap: onTap,
@@ -41,7 +43,7 @@ class CalendarioStripCell extends StatelessWidget {
           ),
         ),
       ),
-    );    
+    );
   }
 
   Widget monthDayText(BuildContext context) {
@@ -67,5 +69,15 @@ class CalendarioStripCell extends StatelessWidget {
 
   bool checkToday() {
     return isToday(dataDTO.date);
+  }
+
+  ///Se for hoje, mostra em Azul, se estiver selecionado, mostra Teal, senão, mostra branco
+  Color getCellColor(BuildContext context) {
+    if (isSameDay(dataDTO.date, selectedDate)) {
+      return Colors.orange[50];
+    } else if (isToday(dataDTO.date)) {
+      return Colors.lightBlue[50];
+    } else
+      return Theme.of(context).cardColor;
   }
 }
