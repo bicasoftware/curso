@@ -1,4 +1,5 @@
 import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/faltas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -138,27 +139,52 @@ bool isToday(DateTime date) {
   return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
 }
 
-bool isSameDay(DateTime date1, DateTime date2){
+bool isSameDay(DateTime date1, DateTime date2) {
   initializeCountry();
-  final dif = date1.difference(date2);
+  final dif = date2.difference(date1);
   return dif.inHours >= 0 && dif.inMinutes <= (23 * 60) + 59;
 }
 
+//TODO - revisar rotina, não está carregando as faltas ao abrir
+///Linka Faltas e materias conforme o calendário
+///Gerar versão otimizada assim que possível
 List<CalendarioDTO> prepareCalendario({
   @required DateTime start,
   @required DateTime end,
-  @required List<AulasSemanaDTO> aulasSemana,
+  @required List<AulasSemanaDTO> aulasByWeekDay,
+  @required List<Faltas> faltas,
 }) {
   final rightEnd = end.add(Duration(days: 1));
   final calendario = List<CalendarioDTO>();
+
   for (var m = start.month; m <= rightEnd.month; m++) {
     final inCalendario = CalendarioDTO(mes: m, dates: []);
 
     while (m == start.month && start.isBefore(rightEnd)) {
+      ///Cria uma nova lista de aulas
+      final aulas = List<AulasSemanaDTO>();
+      aulasByWeekDay
+          .where((AulasSemanaDTO aulas) => aulas.weekDay == getWeekday(start))
+          .forEach((aula) => aulas.add(AulasSemanaDTO.copyWith(aula)));
+
+      for (var aula in aulas) {
+        final falta = faltas.firstWhere(
+          (f) =>
+              f.idMateria == aula.idMateria &&
+              f.numAula == aula.numAula &&
+              isSameDay(f.data, start),
+          orElse: () => null,
+        );
+
+        if (falta != null) {
+          aula.idFalta = falta.id;
+        }
+      }
+
       inCalendario.dates.add(
         DataDTO(
           date: start,
-          aulas: aulasSemana.where((aulas) => aulas.weekDay == getWeekday(start)).toList(),
+          aulas: aulas,
         ),
       );
       start = start.add(Duration(days: 1));

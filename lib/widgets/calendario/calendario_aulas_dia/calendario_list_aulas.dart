@@ -6,21 +6,34 @@ import 'package:flutter/material.dart';
 
 class AulasDiaList extends StatelessWidget {
   final List<AulasSemanaDTO> aulas;
+  final Function(AulasSemanaDTO, bool) onChanged;
 
-  const AulasDiaList({Key key, @required this.aulas}) : super(key: key);
+  const AulasDiaList({
+    Key key,
+    @required this.aulas,
+    @required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: aulas.length,
-      shrinkWrap: true,
       itemBuilder: (c, i) {
-        final aulasSemana = aulas[i];
-        return ListTile(
-          leading: HorarioAulaChip(text: formatTime(aulasSemana.horario)),
-          title: AutoSizeText(aulasSemana.nome),
-          trailing: CircleAvatar(
-            backgroundColor: Color(aulasSemana.cor),
+        final AulasSemanaDTO aulasSemana = aulas[i];
+        return Container(
+          color: aulasSemana.isFalta ? Colors.red[50] : Theme.of(context).cardColor,
+          child: ListTile(
+            dense: true,
+            leading: HorarioAulaChip(
+              text: formatTime(aulasSemana.horario),
+              color: Color(aulasSemana.cor),
+            ),
+            title: AutoSizeText(aulasSemana.nome),
+            trailing: Switch(
+              value: aulasSemana.isFalta,
+              onChanged: (bool s) => onChanged(aulasSemana, s),
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+            ),
           ),
         );
       },

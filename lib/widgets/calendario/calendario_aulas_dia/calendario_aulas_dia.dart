@@ -12,21 +12,34 @@ class CalendarioAulasDia extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return Container(
-      child: StreamBuilder<DataDTO>(
-          stream: b.outDataDTO,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children: <Widget>[
-                  DiaExtensoText(date: snapshot.data.date),
-                  Divider(height: 0,),
-                  AulasDiaList(aulas: snapshot.data.aulas),
-                ],
-              );
-            } else
-              return AwaitingContainer();
-          }),
-    );
+    return StreamBuilder<DataDTO>(
+        stream: b.outDataDTO,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                DiaExtensoText(date: snapshot.data.date),
+                Divider(height: 0),
+                Expanded(
+                  child: AulasDiaList(
+                    aulas: snapshot.data.aulas,
+                    onChanged: (AulasSemanaDTO aulas, bool checked) {
+                      if (checked) {
+                        b.insertFalta(aulas.idMateria, aulas.numAula, snapshot.data.date);
+                      } else {
+                        b.deleteFalta(
+                          idFalta: aulas.idFalta,
+                          idMateria: aulas.idMateria,
+                          date: snapshot.data.date,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            );
+          } else
+            return AwaitingContainer();
+        });
   }
 }

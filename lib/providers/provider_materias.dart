@@ -28,15 +28,9 @@ class ProviderMaterias {
     final materias = result.map((m) => Materias.fromMap(m)).toList();
 
     for (Materias m in materias) {
-      await Future.wait([
-        ProviderFaltas.fetchFaltasByMateria(m.id),
-        ProviderNotas.fetchNotasByMateria(m.id),
-        ProviderAulas.fetchAulasByMateria(m.id)
-      ]).then((List<Object> results) {
-        m.faltas = []..addAll(results[0]);
-        m.notas = []..addAll(results[1]);
-        m.aulas = []..addAll(results[2]);
-      });
+      m.aulas = await ProviderAulas.fetchAulasByMateria(m.id);
+      m.notas = await ProviderNotas.fetchNotasByMateria(m.id);
+      m.faltas = await ProviderFaltas.fetchFaltasByMateria(m.id);
     }
 
     return materias;

@@ -1,6 +1,7 @@
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 
+
 class Faltas implements BaseTable {
   int id;
   int idMateria;
@@ -38,7 +39,7 @@ class Faltas implements BaseTable {
   Map toMap() {
     final Map<String, Object> m = {
       IDMATERIA: idMateria,
-      DATA: data,
+      DATA: formatDbDate(data),
       NUMAULA: numAula,
     };
 
@@ -54,5 +55,10 @@ class Faltas implements BaseTable {
       data: parseDate(m[DATA]),
       numAula: m[NUMAULA],
     );
+  }
+
+  @override
+  String toString(){
+    return "id: $id, idMateria: $idMateria, data: ${formatDate(data)}, numAula: $numAula";
   }
 }

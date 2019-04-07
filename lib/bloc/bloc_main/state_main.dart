@@ -1,5 +1,6 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
@@ -20,6 +21,7 @@ class StateMain {
 
   _positionDates() {
     final meses = range(currentPeriodo.inicio.month, currentPeriodo.termino.month);
+
     ///final meses = range(periodos[_currentId].inicio.month, periodos[_currentId].termino.month);
     if (!meses.contains(DateTime.now().month)) {
       mes = currentPeriodo.inicio.month;
@@ -113,5 +115,15 @@ class StateMain {
         .forEach((m) => m.aulas.removeWhere((it) => it.id == idAula));
 
     _refreshCalendario(idPeriodo);
+  }
+
+  insertFalta(Faltas falta) {
+    currentPeriodo.addFalta(falta);
+    currentCalendario.addFalta(falta);
+  }
+
+  deleteFalta(int idMateria, int idFalta, DateTime date){
+    currentPeriodo.removeFalta(idMateria, idFalta);
+    currentCalendario.removeFalta(date, idFalta);
   }
 }

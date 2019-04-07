@@ -95,4 +95,12 @@ class Materias implements BaseTable {
   String toString() {
     return "id: $id, idPeriodo: $idPeriodo, nome: $nome, sigla: $sigla,freq: $freq,medAprov: $medAprov,cor: $cor";
   }
+
+  insertFalta(Faltas falta){
+    faltas.add(falta);
+  }
+
+  deleteFalta(int idFalta){
+    faltas.removeWhere((f) => f.id == idFalta);
+  }
 }

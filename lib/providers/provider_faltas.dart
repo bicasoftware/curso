@@ -15,27 +15,10 @@ class ProviderFaltas {
     return r.map((it) => Faltas.fromMap(it)).toList();
   }
 
-  static Future<Faltas> upsertFaltas(Faltas falta) async {
-    if (falta.idMateria == null) throw Exception("Faltando IDMATERIA em $falta");
+  static Future<Faltas> insertFalta(Faltas f) async {
     final db = await DBProvider.instance;
-
-    if (falta.id == null) {
-      final id = await db.insert(Faltas.tableName, falta.toMap());
-      falta.id = id;
-    } else {
-      await db.update(
-        Faltas.tableName,
-        falta.toMap(),
-        where: "id = ?",
-        whereArgs: [falta.id],
-      );
-    }
-
-    return falta;
-  }
-
-  static Future deleteFalta(Faltas falta) async {
-    await deleteFaltaById(falta.id);
+    final newId = await db.insert(Faltas.tableName, f.toMap());
+    return f..id = newId;
   }
 
   static Future deleteFaltaById(int idFalta) async {
@@ -45,5 +28,16 @@ class ProviderFaltas {
       where: "id = ?",
       whereArgs: [idFalta],
     );
+  }
+
+  static Future truncate() async {
+    final db = await DBProvider.instance;
+    await db.delete(Faltas.tableName);
+  }
+
+  static Future<List<Faltas>> fetchAll() async{
+    final db = await DBProvider.instance;
+    final result = await db.query(Faltas.tableName);
+    return result.map((it) => Faltas.fromMap(it)).toList();
   }
 }

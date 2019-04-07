@@ -4,9 +4,11 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario_content.dart';
 import 'package:curso/container/conf.dart';
+import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/providers/provider_aulas.dart';
+import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
 import 'package:rxdart/rxdart.dart';
@@ -120,8 +122,13 @@ class BlocMain implements BlocBase {
   }
 
   insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
-    var aula =
-        Aulas(idPeriodo: idPeriodo, idMateria: idMateria, weekDay: weekDay, ordem: ordemAula);
+    final aula = Aulas(
+      idPeriodo: idPeriodo,
+      idMateria: idMateria,
+      weekDay: weekDay,
+      ordem: ordemAula,
+    );
+
     ProviderAulas.insertAulas(aula)
         .then((Aulas a) => state.insertAula(idPeriodo, idMateria, aula))
         .whenComplete(() => _sinkPeriodos());
@@ -148,5 +155,22 @@ class BlocMain implements BlocBase {
       state.deleteAula(idPeriodo, idAula);
       state.insertAula(idPeriodo, idMateria, results[1]);
     }).whenComplete(() => _sinkPeriodos());
+  }
+
+  insertFalta(int idMateria, int ordemAula, DateTime date) async {
+    ProviderFaltas.insertFalta(
+      Faltas(id: null, idMateria: idMateria, numAula: ordemAula, data: date),
+    ).then((Faltas f) {
+      state.insertFalta(f);
+    }).whenComplete(() {
+      _sinkCurrentPeriodo();
+    });
+  }
+
+  deleteFalta({int idMateria, int idFalta, DateTime date}) {
+    ProviderFaltas.deleteFaltaById(idFalta)
+        .then((_) => state.deleteFalta(idMateria, idFalta, date))
+        .whenComplete(() => _sinkCurrentPeriodo());
+    //state.deleteFalta(idMateria, idFalta, date);
   }
 }

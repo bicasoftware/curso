@@ -53,6 +53,7 @@ class _DefaultTextListTileState extends State<DefaultTextListTile> {
         controller: widget.onChanged != null ? _controller : null,
         validator: widget.validator,
         onSaved: widget.onSaved,
+        textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
           labelText: widget.label,
           hintText: widget.hint,

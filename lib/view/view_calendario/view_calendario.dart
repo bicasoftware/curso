@@ -12,7 +12,7 @@ class ViewCalendarioState extends State<ViewCalendario> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         SquaredCard(
           elevation: 1,
@@ -24,13 +24,10 @@ class ViewCalendarioState extends State<ViewCalendario> {
             ],
           ),
         ),
-        SquaredCard(
-          elevation: 4,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              CalendarioAulasDia(),
-            ],
+        Expanded(
+          child: SquaredCard(
+            elevation: 4,
+            child: CalendarioAulasDia(),
           ),
         ),
       ],

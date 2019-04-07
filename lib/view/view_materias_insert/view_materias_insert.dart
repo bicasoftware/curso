@@ -46,9 +46,8 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
         child: Form(
           key: _formKey,
           child: SquaredCard(            
-            //margin: EdgeInsets.all(8),
-            child: ListView(
-              shrinkWrap: true,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 DefaultTextListTile(
                   icon: Icons.library_books,

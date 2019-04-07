@@ -1,4 +1,5 @@
 import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/faltas.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/database/base_table.dart';
@@ -113,10 +114,12 @@ class Periodos implements BaseTable {
 
   refreshCalendario() {
     refreshAulasSemana();
+
     calendario = prepareCalendario(
       start: inicio,
       end: termino,
-      aulasSemana: aulasSemana,
+      aulasByWeekDay: aulasSemana,
+      faltas: getFaltas(),
     );
   }
 
@@ -133,26 +136,28 @@ class Periodos implements BaseTable {
           if (materia != null) {
             aulasSemana.add(
               AulasSemanaDTO(
-                idMateria: materia.id,
                 idPeriodo: id,
-                nome: materia.nome,
-                sigla: materia.nome,
-                cor: materia.cor,
+                idMateria: materia.id,
+                idFalta: null,
                 weekDay: weekDay,
-                ordemAula: ordemAula,
+                cor: materia.cor,
+                sigla: materia.sigla,
+                nome: materia.nome,
                 horario: horarios[ordemAula].inicio,
+                numAula: ordemAula,
               ),
             );
           } else {
             aulasSemana.add(
               AulasSemanaDTO(
-                idMateria: null,
                 idPeriodo: id,
+                idMateria: null,
+                idFalta: null,
+                numAula: ordemAula,
+                weekDay: weekDay,
+                cor: Colors.white.value,
                 nome: "Sem Aula",
                 sigla: "",
-                cor: Colors.white.value,
-                weekDay: weekDay,
-                ordemAula: ordemAula,
                 horario: horarios[ordemAula].inicio,
               ),
             );
@@ -164,5 +169,23 @@ class Periodos implements BaseTable {
 
   CalendarioDTO getCalendarioByMonth(int month) {
     return calendario.firstWhere((it) => it.mes == month, orElse: () => null);
+  }
+
+  addFalta(Faltas falta) {
+    materias.firstWhere((it) => it.id == falta.idMateria).insertFalta(falta);
+  }
+
+  removeFalta(int idMateria, int idFalta) {
+    materias.firstWhere((it) => it.id == idMateria).deleteFalta(idFalta);
+  }
+
+  List<Faltas> getFaltas() {
+    final faltas = List<Faltas>();
+    materias.forEach(
+      (materia) {
+        materia.faltas.forEach((falta) => faltas.add(falta));
+      },
+    );
+    return faltas;
   }
 }
