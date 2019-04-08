@@ -1,20 +1,29 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario_content.dart';
-import 'package:curso/utils.dart/pair.dart';
+import 'package:curso/utils.dart/triple.dart';
 import 'package:curso/widgets/awaiting_container.dart';
 import 'package:curso/widgets/calendario/calendario.dart';
 import 'package:flutter/material.dart';
 
-class CalendarioStrip extends StatelessWidget {
+class CalendarioStrip extends StatefulWidget {
+  @override
+  _CalendarioStripState createState() => _CalendarioStripState();
+}
+
+class _CalendarioStripState extends State<CalendarioStrip> {
   @override
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return StreamBuilder<Pair<CalendarioDTO, DateTime>>(
+    return StreamBuilder<Triple<CalendarioDTO, DateTime, double>>(
       stream: b.outCalendario,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          ScrollController controller = ScrollController(
+            initialScrollOffset: snapshot.data.third,
+          );
+
           return Container(
             height: 60,
             child: Row(
@@ -24,6 +33,7 @@ class CalendarioStrip extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
+                    controller: controller,
                     addRepaintBoundaries: true,
                     children: snapshot.data.first.dates.map((date) {
                       return CalendarioStripCell(

@@ -15,7 +15,8 @@ class CalendarioAulasDia extends StatelessWidget {
 
     return StreamBuilder<DataDTO>(
       stream: b.outDataDTO,
-      builder: (context, snapshot) {
+      builder: (context, snapshot) {       
+
         if (snapshot.hasData) {
           return Column(
             children: <Widget>[
@@ -48,7 +49,6 @@ class CalendarioAulasDia extends StatelessWidget {
   }
 
   bool hasAula(List<AulasSemanaDTO> aulas){
-    aulas.forEach((a) => print(a.idMateria));
     return aulas.every((a) => a.idMateria == null);    
   }
 }

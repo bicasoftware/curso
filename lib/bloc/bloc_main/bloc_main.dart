@@ -11,7 +11,7 @@ import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/AppBrightness.dart';
-import 'package:curso/utils.dart/pair.dart';
+import 'package:curso/utils.dart/triple.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
@@ -39,9 +39,9 @@ class BlocMain implements BlocBase {
   get outBrightness => _subjectBrightness.stream;
   get inBrightness => _subjectBrightness.sink;
 
-  final _subCalendarioContent = BehaviorSubject<Pair<CalendarioDTO, DateTime>>();
-  Stream<Pair<CalendarioDTO, DateTime>> get outCalendario => _subCalendarioContent.stream;
-  Sink<Pair<CalendarioDTO, DateTime>> get inCalendario => _subCalendarioContent.sink;
+  final _subCalendarioContent = BehaviorSubject<Triple<CalendarioDTO, DateTime, double>>();
+  Stream<Triple<CalendarioDTO, DateTime, double>> get outCalendario => _subCalendarioContent.stream;
+  Sink<Triple<CalendarioDTO, DateTime, double>> get inCalendario => _subCalendarioContent.sink;
 
   BlocMain({
     List<Periodos> periodos,
@@ -69,11 +69,23 @@ class BlocMain implements BlocBase {
 
   _sinkPeriodos() {
     inPeriodos.add(state.periodos);
-    inCalendario.add(Pair(first: state.currentCalendario, second: state.selectedDate));
+    inCalendario.add(
+      Triple(
+        first: state.currentCalendario,
+        second: state.selectedDate,
+        third: state.calendarStripPosition,
+      ),
+    );
   }
 
   _sinkCurrentPeriodo() {
-    inCalendario.add(Pair(first: state.currentCalendario, second: state.selectedDate));
+    inCalendario.add(
+      Triple(
+        first: state.currentCalendario,
+        second: state.selectedDate,
+        third: state.calendarStripPosition,
+      ),
+    );
     inDataDTO.add(state.aulasDia);
     inMes.add(state.mes);
   }

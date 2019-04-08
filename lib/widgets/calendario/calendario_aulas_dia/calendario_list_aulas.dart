@@ -20,20 +20,17 @@ class AulasDiaList extends StatelessWidget {
       itemCount: aulas.length,
       itemBuilder: (c, i) {
         final AulasSemanaDTO aulasSemana = aulas[i];
-        return Container(
-          color: aulasSemana.isFalta ? Colors.red[50] : Theme.of(context).cardColor,
-          child: ListTile(
-            dense: true,
-            leading: HorarioAulaChip(
-              text: formatTime(aulasSemana.horario),
-              color: Color(aulasSemana.cor),
-            ),
-            title: AutoSizeText(aulasSemana.nome),
-            trailing: Switch(
-              value: aulasSemana.isFalta,
-              onChanged: (bool s) => onChanged(aulasSemana, s),
-              materialTapTargetSize: MaterialTapTargetSize.padded,
-            ),
+        return ListTile(
+          dense: true,
+          leading: HorarioAulaChip(
+            text: formatTime(aulasSemana.horario),
+            color: Color(aulasSemana.cor),
+          ),
+          title: AutoSizeText(aulasSemana.nome),
+          trailing: Switch(
+            value: aulasSemana.isFalta,
+            onChanged: (bool s) => onChanged(aulasSemana, s),
+            materialTapTargetSize: MaterialTapTargetSize.padded,
           ),
         );
       },

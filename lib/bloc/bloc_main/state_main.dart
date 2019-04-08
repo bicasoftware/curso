@@ -34,6 +34,20 @@ class StateMain {
 
   Periodos get currentPeriodo => periodos.firstWhere((it) => it.id == _currentId);
 
+  double get calendarStripPosition {
+    return _containsDate(currentCalendario.dates) ? (selectedDate.day - 1) * 70.0 : 0.0;
+  }
+
+  bool _containsDate(List<DataDTO> datas) {
+    final n = DateTime.now();
+    final count = datas.firstWhere(
+      (d) => isSameDay(d.date, n),
+      orElse: () => null,
+    );
+
+    return count != null;
+  }
+
   setCurrentPeriodoId(int idPeriodo) {
     _currentId = idPeriodo;
 
@@ -52,16 +66,29 @@ class StateMain {
   setMes(int mes) => this.mes = mes;
 
   incMes() {
+    final n = DateTime.now();
     if (mes < currentPeriodo.termino.month) {
       this.mes++;
-      selectedDate = currentCalendario.dates.first.date;
+      final d = currentCalendario.dates.firstWhere((d) => isSameDay(d.date, n), orElse: () => null);
+      if (d != null) {
+        selectedDate = d.date;
+      } else {
+        selectedDate = currentCalendario.dates.first.date;
+      }
     }
   }
 
   decMes() {
+    final n = DateTime.now();
+
     if (mes > currentPeriodo.inicio.month) {
       this.mes--;
-      selectedDate = currentCalendario.dates.first.date;
+      final d = currentCalendario.dates.firstWhere((d) => isSameDay(d.date, n), orElse: () => null);
+      if (d != null) {
+        selectedDate = d.date;
+      } else {
+        selectedDate = currentCalendario.dates.first.date;
+      }
     }
   }
 
@@ -122,7 +149,7 @@ class StateMain {
     currentCalendario.addFalta(falta);
   }
 
-  deleteFalta(int idMateria, int idFalta, DateTime date){
+  deleteFalta(int idMateria, int idFalta, DateTime date) {
     currentPeriodo.removeFalta(idMateria, idFalta);
     currentCalendario.removeFalta(date, idFalta);
   }

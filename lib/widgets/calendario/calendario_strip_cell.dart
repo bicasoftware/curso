@@ -21,6 +21,7 @@ class CalendarioStripCell extends StatelessWidget {
 
     return Container(
       color: getCellColor(context),
+      width: 70,
 
       child: InkWell(
         onTap: onTap,
