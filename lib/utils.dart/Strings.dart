@@ -39,6 +39,7 @@ class Strings {
   static const String terminoAula = 'Término da Aula';
   static const String mes = 'Mês';
   static const String semAulasHoje = 'Nenhuma aula nessa data';
+  static const String parciais = 'Parciais';
 }
 
 class Arrays {

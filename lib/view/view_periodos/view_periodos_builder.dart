@@ -1,3 +1,4 @@
+import 'package:curso/widgets/labeled_button.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
@@ -8,50 +9,6 @@ import '../../widgets/weekday_header.dart';
 import '../../widgets/cronograma/Cronograma.dart';
 
 class ViewPeriodosBuilder {
-  static Widget _buttonBar({
-    @required BuildContext context,
-    @required Periodos periodo,
-    @required Function(Periodos) onUpdateTap,
-    @required Function(int) onDelete,
-    @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-  }) {
-    final ThemeData theme = Theme.of(context);
-    return ButtonBar(
-      //crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.school,
-            color: theme.accentColor,
-          ),
-          onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.insert_drive_file,
-            color: theme.accentColor,
-          ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Não implementado"),
-                duration: Duration(milliseconds: 1000),
-              ),
-            );
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.calendar_view_day,
-            color: theme.accentColor,
-          ),
-          onPressed: () => onUpdateTap(periodo),
-        ),
-      ],
-    );
-  }
-
   static Widget listPeriodos({
     BuildContext context,
     List<Periodos> periodos,
@@ -97,6 +54,7 @@ class ViewPeriodosBuilder {
           ),
           title: Text("${periodo.numPeriodo}º ${Strings.periodo}"),
           children: <Widget>[
+            Divider(height: 8),
             Padding(
               padding: EdgeInsets.all(4),
               child: Column(
@@ -106,6 +64,7 @@ class ViewPeriodosBuilder {
                 ],
               ),
             ),
+            Divider(height: 8),
             _buttonBar(
               context: context,
               periodo: periodo,
@@ -116,6 +75,58 @@ class ViewPeriodosBuilder {
           ],
         ),
       ),
+    );
+  }
+
+  static Widget _buttonBar({
+    @required BuildContext context,
+    @required Periodos periodo,
+    @required Function(Periodos) onUpdateTap,
+    @required Function(int) onDelete,
+    @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+  }) {
+    final ThemeData theme = Theme.of(context);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        LabeledButton(
+          height: 60,
+          width: 60,
+          label: Strings.materias,
+          icon: Icon(
+            Icons.school,
+            color: theme.accentColor,
+          ),
+          onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
+        ),
+        LabeledButton(
+          height: 60,
+          width: 60,
+          label: Strings.provas,
+          icon: Icon(
+            Icons.insert_drive_file,
+            color: theme.accentColor,
+          ),
+          onPressed: () {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Não implementado"),
+                duration: Duration(milliseconds: 1000),
+              ),
+            );
+          },
+        ),
+        LabeledButton(
+          height: 60,
+          width: 60,
+          icon: Icon(
+            Icons.donut_small,
+            color: theme.accentColor,
+          ),
+          label: Strings.editar,
+          onPressed: () => onUpdateTap(periodo),
+        )
+      ],
     );
   }
 }

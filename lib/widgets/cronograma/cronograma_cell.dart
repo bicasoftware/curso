@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +34,7 @@ class CronogramaCell extends StatelessWidget {
           splashColor: Theme.of(context).accentColor,
           onTap: () => onCellTap(weekDay, ordemAula, periodo, idAula),
           child: Center(
-            child: AutoSizeText(
+            child: Text(
               sigla ?? "${ordemAula + 1}ª Aula",
               maxLines: 2,
               textAlign: TextAlign.center,

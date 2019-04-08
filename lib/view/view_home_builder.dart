@@ -1,4 +1,3 @@
-import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:curso/widgets/calendario/calendario.dart';
 import 'package:flutter/material.dart';
 
@@ -35,30 +34,21 @@ class ViewHomeBuilder {
   }
 
   static Widget bottomBar(BuildContext context, int pos, Function(int) onTap) {
-    return BubbleBottomBar(
-      opacity: .2,
+    return BottomNavigationBar(
       currentIndex: pos,
       onTap: onTap,
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      elevation: 8,
-      items: <BubbleBottomBarItem>[
-        BubbleBottomBarItem(
-          backgroundColor: Theme.of(context).accentColor,
-          title: Text(Strings.periodos, style: TextStyle(color: Colors.black)),
-          icon: Icon(Icons.calendar_view_day, color: Colors.black),
-          activeIcon: Icon(Icons.calendar_view_day, color: Colors.black),
+      items: [
+        BottomNavigationBarItem(
+          title: Text(Strings.periodos),
+          icon: Icon(Icons.donut_small),
         ),
-        BubbleBottomBarItem(
-          backgroundColor: Theme.of(context).accentColor,
-          title: Text(Strings.calendario, style: TextStyle(color: Colors.black)),
-          icon: Icon(Icons.date_range, color: Colors.black),
-          activeIcon: Icon(Icons.date_range, color: Colors.black),
+        BottomNavigationBarItem(
+          title: Text(Strings.calendario),
+          icon: Icon(Icons.date_range),
         ),
-        BubbleBottomBarItem(
-          backgroundColor: Theme.of(context).accentColor,
-          title: Text("Faltas", style: TextStyle(color: Colors.black)),
-          icon: Icon(Icons.format_list_bulleted, color: Colors.black),
-          activeIcon: Icon(Icons.format_list_bulleted, color: Colors.black),
+        BottomNavigationBarItem(
+          title: Text(Strings.parciais),
+          icon: Icon(Icons.format_list_bulleted),
         ),
       ],
     );

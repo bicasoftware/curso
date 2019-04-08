@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curso/container/calendario_content.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
@@ -26,7 +25,7 @@ class AulasDiaList extends StatelessWidget {
             text: formatTime(aulasSemana.horario),
             color: Color(aulasSemana.cor),
           ),
-          title: AutoSizeText(aulasSemana.nome),
+          title: Text(aulasSemana.nome),
           trailing: Switch(
             value: aulasSemana.isFalta,
             onChanged: (bool s) => onChanged(aulasSemana, s),
