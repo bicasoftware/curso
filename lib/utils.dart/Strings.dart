@@ -8,6 +8,7 @@ class Strings {
   static const String periodo = 'Período';
   static const String trocarPeriodo = 'Trocar Período';
   static const String materias = 'Matérias';
+  static const String materiasNoDia = 'Matérias no dia';
   static const String materia = 'Matéria';
   static const String sigla = 'Sigla';
   static const String corMateria = 'Cor da Materia';
@@ -31,6 +32,7 @@ class Strings {
   static const String salvar = 'Salvar';
   static const String removerMateria = 'Excluír Materia';
   static const String removerPeriodo = 'Excluír Período?';
+  static const String removerProva = 'Deseja excluir a Prova?';
   static const String selectCor = 'Selecione uma Cor';
   static const String materiasVazias = 'Adicionar Matéria';
   static const String adicionar = 'Adicionar';
@@ -40,6 +42,9 @@ class Strings {
   static const String mes = 'Mês';
   static const String semAulasHoje = 'Nenhuma aula nessa data';
   static const String parciais = 'Parciais';
+  static const String dataProva = 'Data da Prova';
+  static const String valorReprovacao = "Valores de Reprovação";
+  static const String aulas_e_horarios = "Aulas e Horários";
 }
 
 class Arrays {

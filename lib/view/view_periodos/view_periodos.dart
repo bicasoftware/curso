@@ -1,4 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/container/cronograma.dart';
+import 'package:curso/view/view_provas/view_provas.dart';
 import 'package:flutter/material.dart';
 
 import '../../bloc/bloc_main/bloc_main.dart';
@@ -54,6 +56,21 @@ class ViewPeriodosState extends State<ViewPeriodos> {
             },
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
               _showViewInsertMaterias(context, idPeriodo, materias, medAprov, _onRefreshMaterias);
+            },
+            onNotasTap: (List<CronogramaNotas> cronogramas, Periodos periodo) async {
+              final result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (c) => ViewProvas(cronogramas: cronogramas,
+                  aulasSemana: periodo.aulasSemana,
+                  ),
+                )
+              );
+
+              if(result != null){
+                print("finalizado");
+              }
+
             },
             onCellClick: (int weekDay, int ordemAula, Periodos p, int idAula) async {
               if (p.materias.length == 0) {

@@ -1,3 +1,5 @@
+import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/date_picker_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../container/horarios.dart';
@@ -21,8 +23,6 @@ class ViewPeriodosInsert extends StatefulWidget {
 
 class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   static final _formKey = GlobalKey<FormState>();
-
-  final _lastDate = DateTime(2030, 12, 31);
 
   Periodos _periodo;
 
@@ -100,42 +100,24 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              ListIndicator(hint: "Periodo"),
+              ListIndicator(hint: Strings.periodo),
               ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
                 numPeriodo: _periodo.numPeriodo,
                 onChanged: _setNumPeriodo,
               ),
               _divider(),
-              ViewPeriodosInsertBuilder.inicioDateTile(
-                inicio: _periodo.inicio,
-                onTap: () async {
-                  final dt = await showDatePicker(
-                    context: context,
-                    initialDate: _periodo.inicio,
-                    firstDate: DateTime(2010, 1, 1),
-                    lastDate: _lastDate,
-                  );
-
-                  if (dt != null) {
-                    _setDataIni(dt);
-                  }
-                },
+              DatePickerTile(
+                initialDate: _periodo.inicio,
+                title: Strings.inicioPeriodo,
+                onDateSet: _setDataIni,
               ),
               _divider(),
-              ViewPeriodosInsertBuilder.terminoDateTile(
-                termino: _periodo.termino,
-                onTap: () async {
-                  final termino = await showDatePicker(
-                    context: context,
-                    initialDate: _periodo.termino,
-                    firstDate: _periodo.inicio,
-                    lastDate: _lastDate,
-                  );
-
-                  if (termino != null) _setDataTermino(termino);
-                },
+              DatePickerTile(
+                initialDate: _periodo.termino,
+                title: Strings.terminoPeriodo,
+                onDateSet: _setDataTermino,
               ),
-              ListIndicator(hint: "Valores de Reprovação"),
+              ListIndicator(hint: Strings.valorReprovacao),
               ViewPeriodosInsertBuilder.notaMinimaSliderTile(
                 nota: _periodo.medAprov,
                 onChanged: (n) => _setMedAprov(n),
@@ -145,10 +127,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                 _periodo.presObrig.toDouble(),
                 (double value) => _setPresObrigDouble(value),
               ),
-              _divider(),
-              ListIndicator(
-                hint: "Aulas e Horários",
-              ),
+              ListIndicator(hint: Strings.aulas_e_horarios),
               ViewPeriodosInsertBuilder.aulaDiaTileSlider(
                 aulasDia: _periodo.aulasDia,
                 onChanged: (double i) {

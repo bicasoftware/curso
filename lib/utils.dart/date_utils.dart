@@ -1,4 +1,4 @@
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';

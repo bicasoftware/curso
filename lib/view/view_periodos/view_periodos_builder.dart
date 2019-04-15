@@ -1,21 +1,23 @@
+import 'package:curso/container/cronograma.dart';
 import 'package:curso/widgets/labeled_button.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../container/materias.dart';
-import '../../container/periodos.dart';
-import '../../utils.dart/Strings.dart';
-import '../../widgets/weekday_header.dart';
-import '../../widgets/cronograma/Cronograma.dart';
+import 'package:curso/container/materias.dart';
+import 'package:curso/container/periodos.dart';
+import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/weekday_header.dart';
+import 'package:curso/widgets/cronograma/Cronograma.dart';
 
 class ViewPeriodosBuilder {
   static Widget listPeriodos({
-    BuildContext context,
-    List<Periodos> periodos,
-    Function(Periodos) onUpdateTap,
-    Function(int) onDelete,
-    Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    Function(int, int, Periodos, int) onCellClick,
+    @required BuildContext context,
+    @required List<Periodos> periodos,
+    @required Function(Periodos) onUpdateTap,
+    @required Function(int) onDelete,
+    @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
+    @required Function(int, int, Periodos, int) onCellClick,
   }) {
     return ListView.builder(
       shrinkWrap: true,
@@ -28,6 +30,7 @@ class ViewPeriodosBuilder {
           onDelete: onDelete,
           onMateriasTap: onMateriasTap,
           onCellClick: onCellClick,
+          onNotasTap: onNotasTap,
         );
       },
     );
@@ -39,6 +42,7 @@ class ViewPeriodosBuilder {
     @required Function(Periodos) onUpdateTap,
     @required Function(int) onDelete,
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
     @required Function(int, int, Periodos, int) onCellClick,
   }) {
     return SquaredCard(
@@ -71,6 +75,7 @@ class ViewPeriodosBuilder {
               onDelete: onDelete,
               onMateriasTap: onMateriasTap,
               onUpdateTap: onUpdateTap,
+              onNotasTap: onNotasTap,
             ),
           ],
         ),
@@ -84,8 +89,8 @@ class ViewPeriodosBuilder {
     @required Function(Periodos) onUpdateTap,
     @required Function(int) onDelete,
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
+    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
   }) {
-    final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -95,7 +100,7 @@ class ViewPeriodosBuilder {
           label: Strings.materias,
           icon: Icon(
             Icons.school,
-            color: theme.accentColor,
+            color: Theme.of(context).accentColor,
           ),
           onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
         ),
@@ -105,23 +110,16 @@ class ViewPeriodosBuilder {
           label: Strings.provas,
           icon: Icon(
             Icons.insert_drive_file,
-            color: theme.accentColor,
+            color: Theme.of(context).accentColor,
           ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Não implementado"),
-                duration: Duration(milliseconds: 1000),
-              ),
-            );
-          },
+          onPressed: () => onNotasTap(periodo.cronogramas, periodo),
         ),
         LabeledButton(
           height: 60,
           width: 60,
           icon: Icon(
             Icons.donut_small,
-            color: theme.accentColor,
+            color: Theme.of(context).accentColor,
           ),
           label: Strings.editar,
           onPressed: () => onUpdateTap(periodo),

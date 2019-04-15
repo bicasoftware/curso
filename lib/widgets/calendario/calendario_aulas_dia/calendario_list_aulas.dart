@@ -1,4 +1,4 @@
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,12 @@ class AulasDiaList extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (c, i) => Divider(height: 0),
+      separatorBuilder: (c, i) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Divider(height: 0),
+        );
+      },
     );
   }
 }

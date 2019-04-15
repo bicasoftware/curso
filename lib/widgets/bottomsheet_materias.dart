@@ -1,13 +1,13 @@
+import 'package:curso/container/materias.dart';
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
-import '../container/periodos.dart';
-import '../utils.dart/Strings.dart';
 import 'dialog_picker_materias.dart';
 
 class BottomSheetMaterias extends StatelessWidget {
-  final Periodos periodo;
+  final List<Materias> materias;
 
-  const BottomSheetMaterias({Key key, @required this.periodo}) : super(key: key);
+  const BottomSheetMaterias({Key key, @required this.materias}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class BottomSheetMaterias extends StatelessWidget {
         ),
         Expanded(
           child: PickerMaterias(
-            materias: periodo.materias,
+            materias: materias,
             onTap: (int idMateria) {
               Navigator.of(context).pop(idMateria);
             },

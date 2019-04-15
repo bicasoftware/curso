@@ -1,7 +1,9 @@
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
+import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class Periodos implements BaseTable {
   List<Horarios> horarios;
   List<CalendarioDTO> calendario;
   List<AulasSemanaDTO> aulasSemana;
+  List<CronogramaNotas> cronogramas;
 
   Periodos({
     this.id,
@@ -29,6 +32,7 @@ class Periodos implements BaseTable {
     horarios = [];
     calendario = [];
     aulasSemana = [];
+    cronogramas = [];
   }
 
   static const String ID = "id";
@@ -113,17 +117,17 @@ class Periodos implements BaseTable {
   addHorario(Horarios horario) => horarios.add(horario);
 
   refreshCalendario() {
-    refreshAulasSemana();
+    _refreshAulasSemana();
 
     calendario = prepareCalendario(
       start: inicio,
       end: termino,
       aulasByWeekDay: aulasSemana,
-      faltas: getFaltas(),
+      faltas: _getFaltas(),
     );
   }
 
-  refreshAulasSemana() {
+  _refreshAulasSemana() {
     aulasSemana.clear();
     if (materias != null && materias.length > 0) {
       for (var ordemAula = 0; ordemAula < this.aulasDia; ordemAula++) {
@@ -179,7 +183,7 @@ class Periodos implements BaseTable {
     materias.firstWhere((it) => it.id == idMateria).deleteFalta(idFalta);
   }
 
-  List<Faltas> getFaltas() {
+  List<Faltas> _getFaltas() {
     final faltas = List<Faltas>();
     materias.forEach(
       (materia) {
@@ -187,5 +191,39 @@ class Periodos implements BaseTable {
       },
     );
     return faltas;
+  }
+
+  List<Notas> _getNotas() {
+    final notas = List<Notas>();
+    materias.forEach((m) => notas.addAll(m.notas));
+    notas.sort((a, b) => a.data.compareTo(b.data));
+    return notas;
+  }
+
+  refreshCronograma() {
+    cronogramas.clear();
+    final notas = _getNotas();
+    final meses = notas.map((n) => n.data.month).toSet();
+    for (int mes in meses) {
+      final crono = CronogramaNotas(mes: mes);
+      final notasMes = notas.where((n) => n.data.month == mes);
+
+      for (final nota in notasMes) {
+        final cronoDates = CronogramaDates(date: nota.data);
+        final materia = materias.firstWhere((mt) => mt.id == nota.idMateria);
+        cronoDates.materias.add(
+          CronogramaMaterias(
+            cor: materia.cor,
+            id: materia.id,
+            nome: materia.nome,
+            sigla: materia.sigla,
+            notas: nota,
+          ),
+        );
+        crono.addDates(cronoDates);
+      }
+
+      cronogramas.add(crono);
+    }
   }
 }

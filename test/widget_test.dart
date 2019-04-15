@@ -69,6 +69,22 @@ void main() {
     print(s);
   });
 
+  test('set', () {
+    final testes = [
+      Teste(nome: "aaaa", idade: 1),
+      Teste(nome: "aaaa", idade: 1),
+      Teste(nome: "aaaa", idade: 1),
+      Teste(nome: "bbbb", idade: 2),
+      Teste(nome: "bbbb", idade: 2),
+      Teste(nome: "cc", idade: 3),
+      Teste(nome: "cc", idade: 3),
+    ];
+
+    
+    testes.map((t) => distinct(testes)).forEach(print);
+    
+  });
+
   group("Strings", () {
     test('cammelCase', () {
       final cammeledNome = StringUtils.toCammelCase("SAULO HENRIQUE ANDRIOLI");
@@ -112,4 +128,16 @@ void main() {
       print(dayFull);
     });
   });
+}
+
+class Teste {
+  final int idade;
+  final String nome;
+
+  const Teste({this.nome, this.idade});
+
+  @override
+  String toString() {
+    return "nome: $nome, idade: $idade";
+  }
 }

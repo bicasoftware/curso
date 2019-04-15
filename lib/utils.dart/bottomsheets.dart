@@ -11,7 +11,7 @@ class BottomSheets {
   ) async {
     return showModalBottomSheet(      
       context: context,
-      builder: (c) => RoundedBottomSheetContainer(child: BottomSheetMaterias(periodo: periodo)),
+      builder: (c) => RoundedBottomSheetContainer(child: BottomSheetMaterias(materias: periodo.materias)),
     );
   }
 }

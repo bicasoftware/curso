@@ -1,6 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/triple.dart';
 import 'package:curso/widgets/awaiting_container.dart';
 import 'package:curso/widgets/calendario/calendario.dart';

@@ -1,6 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/widgets/awaiting_container.dart';
 import 'package:curso/widgets/calendario/calendario_aulas_dia/calendario_aulas_dia_empty.dart';
 import 'package:curso/widgets/calendario/calendario_aulas_dia/calendario_dia_extenso.dart';
@@ -21,7 +21,7 @@ class CalendarioAulasDia extends StatelessWidget {
           return Column(
             children: <Widget>[
               DiaExtensoText(date: snapshot.data.date),
-              Divider(height: 0),
+              Divider(height: 0, color: Colors.black26),
               hasAula(snapshot.data.aulas)
                   ? CalendarioAulasDiaEmpty()
                   : Expanded(

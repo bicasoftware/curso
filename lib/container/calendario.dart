@@ -75,4 +75,9 @@ class AulasSemanaDTO {
   deleteFalta() => this.idFalta = null;
 
   get isFalta => idFalta != null;
+
+  bool isSameItem(int idMateria, int weekDay){
+    print("aqui");
+    return this.idMateria == idMateria  && this.weekDay == weekDay;
+  }
 }

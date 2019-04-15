@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.indigoAccent,
         fontFamily: "FiraSans",
         brightness: Brightness.light,
+        splashColor: Colors.lightBlue[50]
       ),
       home: ViewHome(),
     );

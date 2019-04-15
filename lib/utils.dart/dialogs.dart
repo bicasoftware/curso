@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 
 class Dialogs {
   static Future<bool> showRemoveDialog({
-    BuildContext context,
-    String title,
+    @required BuildContext context,
+    @required String title,
   }) async {
     return await showDialog(
       context: context,

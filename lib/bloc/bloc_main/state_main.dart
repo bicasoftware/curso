@@ -1,5 +1,5 @@
 import 'package:curso/container/aulas.dart';
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';

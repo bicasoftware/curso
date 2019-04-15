@@ -18,7 +18,7 @@ class RoundedBottomSheetContainer extends StatelessWidget {
           topRight: Radius.circular(radius),
         ),
         child: Container(
-          height: 800.0,
+          //height: 400.0,
           width: double.infinity,
           child: child,
           color: Colors.white,

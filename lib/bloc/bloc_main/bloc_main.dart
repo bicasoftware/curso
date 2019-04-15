@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/container/aulas.dart';
-import 'package:curso/container/calendario_content.dart';
+import 'package:curso/container/calendario.dart';
 import 'package:curso/container/conf.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
