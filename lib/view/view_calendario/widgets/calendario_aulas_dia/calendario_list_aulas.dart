@@ -1,6 +1,5 @@
 import 'package:curso/container/calendario.dart';
-import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/widgets/horario_aula_tile_chip.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_list_aulas_tile.dart';
 import 'package:flutter/material.dart';
 
 class AulasDiaList extends StatelessWidget {
@@ -16,21 +15,13 @@ class AulasDiaList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      shrinkWrap: true,
       itemCount: aulas.length,
       itemBuilder: (c, i) {
-        final AulasSemanaDTO aulasSemana = aulas[i];
-        return ListTile(
-          dense: true,
-          leading: HorarioAulaChip(
-            text: formatTime(aulasSemana.horario),
-            color: Color(aulasSemana.cor),
-          ),
-          title: Text(aulasSemana.nome),
-          trailing: Switch(
-            value: aulasSemana.isFalta,
-            onChanged: (bool s) => onChanged(aulasSemana, s),
-            materialTapTargetSize: MaterialTapTargetSize.padded,
-          ),
+        return CalendarioAulasDiaTile(
+          ordem: i,
+          aulasSemana: aulas[i],
+          onChanged: onChanged,
         );
       },
       separatorBuilder: (c, i) {

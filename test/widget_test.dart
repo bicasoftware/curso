@@ -69,22 +69,6 @@ void main() {
     print(s);
   });
 
-  test('set', () {
-    final testes = [
-      Teste(nome: "aaaa", idade: 1),
-      Teste(nome: "aaaa", idade: 1),
-      Teste(nome: "aaaa", idade: 1),
-      Teste(nome: "bbbb", idade: 2),
-      Teste(nome: "bbbb", idade: 2),
-      Teste(nome: "cc", idade: 3),
-      Teste(nome: "cc", idade: 3),
-    ];
-
-    
-    testes.map((t) => distinct(testes)).forEach(print);
-    
-  });
-
   group("Strings", () {
     test('cammelCase', () {
       final cammeledNome = StringUtils.toCammelCase("SAULO HENRIQUE ANDRIOLI");

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class Strings {
   static const String appName = 'iCurso';
   static const String opcoes = 'Opções';
+  static const String aula = 'Aula';
+  static const String aulas = 'Aulas';
   static const String informacoes = 'Informações';
   static const String periodos = 'Períodos';
   static const String periodo = 'Período';

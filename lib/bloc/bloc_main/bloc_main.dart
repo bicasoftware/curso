@@ -54,7 +54,7 @@ class BlocMain implements BlocBase {
 
     _sinkPeriodos();
     _sinkCurrentPeriodo();
-    inMes.add(state.mes);
+    inMes.add(state.mes);    
   }
 
   @override

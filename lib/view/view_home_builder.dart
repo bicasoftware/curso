@@ -1,4 +1,4 @@
-import 'package:curso/widgets/calendario/calendario.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_drop_down_periodos.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/bloc_main/bloc_main.dart';

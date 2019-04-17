@@ -7,7 +7,7 @@ import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_provas_insert/bottomsheet_aulas_dia.dart';
 import 'package:curso/view/view_provas_insert/view_provas_insert_materias.dart';
 import 'package:curso/widgets/date_picker_tile.dart';
-import 'package:curso/widgets/list_insert_item.dart';
+import 'package:curso/widgets/list_insert_header.dart';
 import 'package:curso/widgets/rounded_bottomsheet_container.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _ViewProvasInsertState extends State<ViewProvasInsert> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  ListInsertItem(
+                  ListInsertHeader(
                     title: Strings.materias,
                     onAddTapped: () async {
                       final result = await showModalBottomSheet(
@@ -105,10 +105,6 @@ class _ViewProvasInsertState extends State<ViewProvasInsert> {
                         }
                       }
                     },
-                  ),
-                  Divider(
-                    height: 0,
-                    color: Colors.black26,
                   ),
                   Container(
                     child: ListProvasMaterias(
