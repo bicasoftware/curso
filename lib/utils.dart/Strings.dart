@@ -49,8 +49,10 @@ class Strings {
   static const String dataProva = 'Data da Prova';
   static const String valorReprovacao = "Valores de Reprovação";
   static const String aulas_e_horarios = "Aulas e Horários";
-  static const String todasAulasAgendadas = "Todas as aulas de hoje já foram agendadas";
+  static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
   static const String desagendarProva = "Deseja cancelar a prova?";
+  static const String adicionarNota = "Adicionar Nota";
+  static const String cancelarProva = "Cancelar Prova";
 }
 
 class Arrays {

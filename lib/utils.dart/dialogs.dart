@@ -116,3 +116,49 @@ Future<bool> showConfirmationDialog({
     },
   );
 }
+
+Future<int> showOptionsDialog({
+  @required BuildContext context,
+  @required String title,
+  @required List<String> options,
+}) async {
+  return await showDialog(
+    context: context,
+    builder: (_) {
+      return SimpleDialog(
+        title: Text(title),
+        children: options.map((opt) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SimpleDialogOption(
+              child: Text(opt),
+              onPressed: () => Navigator.of(context).pop(options.indexOf(opt)),
+            ),
+          );
+        }).toList(),
+      );
+    },
+  );
+}
+
+Future<bool> showRemoveDialog({
+  @required BuildContext context,
+  @required String title,
+}) async {
+  return await showDialog(
+    context: context,
+    builder: (BuildContext c) {
+      return SimpleDialog(
+        title: Text(title),
+        children: <Widget>[
+          SimpleDialogOption(
+            child: Text(Strings.excluir),
+            onPressed: () {
+              return Navigator.of(context).pop(true);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
