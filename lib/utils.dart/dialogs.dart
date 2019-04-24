@@ -75,11 +75,11 @@ class Dialogs {
       builder: (c) {
         return SimpleDialog(
           title: Text(Strings.mes),
-          children: generateInRange(inicio -1, termino -1, (i) {
+          children: generateInRange(inicio - 1, termino - 1, (i) {
             return SimpleDialogOption(
               child: ListTile(
                 title: Text(Arrays.meses[i]),
-                leading: Icon(Icons.date_range),                
+                leading: Icon(Icons.date_range),
               ),
               onPressed: () => Navigator.of(context).pop(i),
             );
@@ -88,4 +88,31 @@ class Dialogs {
       },
     );
   }
+}
+
+Future<bool> showConfirmationDialog({
+  @required BuildContext context,
+  @required String title,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(Strings.confirmacao),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Não"),
+            onPressed: () => Navigator.of(context).pop(false),
+          ),
+          FlatButton(
+            child: Text("Sim"),
+            onPressed: () => Navigator.of(context).pop(true),
+          ),
+        ],
+        content: Container(
+          child: Text(title),
+        ),
+      );
+    },
+  );
 }

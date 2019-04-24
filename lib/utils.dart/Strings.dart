@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Strings {
   static const String appName = 'iCurso';
   static const String opcoes = 'Opções';
+  static const String confirmacao = 'Confirmar';
   static const String aula = 'Aula';
   static const String aulas = 'Aulas';
   static const String informacoes = 'Informações';
@@ -49,6 +50,7 @@ class Strings {
   static const String valorReprovacao = "Valores de Reprovação";
   static const String aulas_e_horarios = "Aulas e Horários";
   static const String todasAulasAgendadas = "Todas as aulas de hoje já foram agendadas";
+  static const String desagendarProva = "Deseja cancelar a prova?";
 }
 
 class Arrays {

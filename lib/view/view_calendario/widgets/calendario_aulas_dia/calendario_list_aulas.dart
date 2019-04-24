@@ -24,6 +24,7 @@ class AulasDiaList extends StatelessWidget {
           onChanged: onChanged,
         );
       },
+
       separatorBuilder: (c, i) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -2,7 +2,10 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/cronograma.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/pair.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_provas_dia/calendario_provas_dia_list_tile.dart';
+import 'package:curso/widgets/default_list_tile.dart';
 import 'package:curso/widgets/happy_placeholder.dart';
 import 'package:flutter/material.dart';
 
@@ -23,23 +26,10 @@ class CalendarioProvasDiaList extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: snapshot.data.first.length,
                 separatorBuilder: (c, i) => Divider(height: 0),
-                itemBuilder: (c, i) {
-                  final provaNotasMaterias = snapshot.data.first[i];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(Icons.school),
-                      backgroundColor: Color(provaNotasMaterias.materia.cor),
+                itemBuilder: (c, i) => CalendarioProvasDiaListTile(
+                      provasNotasMaterias: snapshot.data.first[i],
+                      onDeleted: (Notas n) => bloc.deleteNota(n),
                     ),
-                    title: Text(provaNotasMaterias.materia.nome),
-                    subtitle: Text("Nota: " + (provaNotasMaterias.nota.nota ?? 0.0).toString()),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete_sweep),
-                      onPressed: () {
-                        bloc.deleteNota(provaNotasMaterias.nota);
-                      },
-                    ),
-                  );
-                },
               );
             }
           },

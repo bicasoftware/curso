@@ -25,8 +25,7 @@ class CalendarioAulasDiaTile extends StatelessWidget {
               color: Theme.of(context).primaryColorLight,
             ),
           )
-        : ListTile(
-            dense: false,
+        : ListTile(            
             leading: HorarioAulaChip(
               color: Color(aulasSemana.cor),
               text: "${ordem + 1}ª ${Strings.aula}",
