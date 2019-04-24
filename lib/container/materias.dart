@@ -103,4 +103,12 @@ class Materias implements BaseTable {
   deleteFalta(int idFalta){
     faltas.removeWhere((f) => f.id == idFalta);
   }
+
+  insertNota(Notas nota){
+    notas.add(nota);
+  }
+
+  deleteNota(Notas nota){
+    notas.remove(nota);
+  }
 }

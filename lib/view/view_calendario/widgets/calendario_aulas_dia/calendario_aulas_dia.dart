@@ -1,9 +1,9 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_aulas_dia_empty.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_list_aulas.dart';
 import 'package:curso/widgets/awaiting_container.dart';
+import 'package:curso/widgets/happy_placeholder.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioAulasDia extends StatelessWidget {
@@ -19,7 +19,7 @@ class CalendarioAulasDia extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               hasAula(snapshot.data.aulas)
-                  ? CalendarioAulasDiaEmpty()
+                  ? HappyPlaceholder()
                   : Expanded(
                       child: AulasDiaList(
                         aulas: snapshot.data.aulas,

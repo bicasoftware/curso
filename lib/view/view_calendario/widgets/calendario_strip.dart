@@ -5,7 +5,6 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/triple.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip_cell.dart';
 import 'package:curso/widgets/awaiting_container.dart';
-import 'package:curso/widgets/list_insert_header.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioStrip extends StatefulWidget {

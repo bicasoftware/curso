@@ -1,6 +1,5 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/cronograma.dart';
-import 'package:curso/view/view_provas/view_provas_list_item.dart';
 import 'package:flutter/material.dart';
 
 class ProvasList extends StatelessWidget {
@@ -21,10 +20,11 @@ class ProvasList extends StatelessWidget {
       itemCount: dates.length,
       shrinkWrap: true,
       itemBuilder: (c, i) {
-        return ProvasListItem(
-          dates: dates[i],
+        return Container();
+/*         return ProvasListItem(
+          provaNotasMateria: dates[i],
           onTap: onTileTap,
-        );
+        ); */
       },
     );
   }

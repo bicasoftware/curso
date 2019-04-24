@@ -2,7 +2,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:flutter/material.dart';
 
-import '../container/conf.dart';
 import '../container/periodos.dart';
 import 'view_home_builder.dart';
 import 'view_periodos_insert/view_periodos_insert.dart';
@@ -42,37 +41,32 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     b = BlocProvider.of<BlocMain>(context);
 
-    return StreamBuilder<Conf>(
-      stream: b.outConf,
-      builder: (BuildContext context, AsyncSnapshot<Conf> snap) {
-        return Scaffold(
-          appBar: ViewHomeBuilder.appBar(
-            bloc: b,
-            pos: _pos,
-          ),
-          body: ViewHomeBuilder.body(_controller),
-          floatingActionButton: ViewHomeBuilder.fab(
-            pos: _pos,
-            onTap: () async {
-              final result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (BuildContext c) {
-                    return ViewPeriodosInsert(periodo: Periodos.newInstance());
-                  },
-                ),
-              );
+    return Scaffold(
+      appBar: ViewHomeBuilder.appBar(
+        bloc: b,
+        pos: _pos,
+      ),
+      body: ViewHomeBuilder.body(_controller),
+      floatingActionButton: ViewHomeBuilder.fab(
+        pos: _pos,
+        onTap: () async {
+          final result = await Navigator.of(context).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (BuildContext c) {
+                return ViewPeriodosInsert(periodo: Periodos.newInstance());
+              },
+            ),
+          );
 
-              if (result != null) b.insertPeriodo(result);
-            },
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          bottomNavigationBar: ViewHomeBuilder.bottomBar(context, _pos, (i) {
-            _setPos(i);
-            _controller.animateTo(i);
-          }),
-        );
-      },
+          if (result != null) b.insertPeriodo(result);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: ViewHomeBuilder.bottomBar(context, _pos, (i) {
+        _setPos(i);
+        _controller.animateTo(i);
+      }),
     );
   }
 }

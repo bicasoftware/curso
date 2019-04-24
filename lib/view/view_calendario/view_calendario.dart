@@ -42,6 +42,7 @@ class ViewCalendarioState extends State<ViewCalendario> with TickerProviderState
                       Tab(text: Strings.provas),
                     ],
                   ),
+                  Divider(height: 0,),
                   Expanded(
                     child: TabBarView(
                       children: [

@@ -1,10 +1,13 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
+import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/utils.dart/pair.dart';
 import 'package:meta/meta.dart';
 
 class StateMain {
@@ -101,6 +104,88 @@ class StateMain {
 
   CalendarioDTO get currentCalendario => currentPeriodo.getCalendarioByMonth(mes);
 
+  CronogramaNotas get currentCronograma {
+    return currentPeriodo.cronogramas.firstWhere((c) => c.mes == mes, orElse: () => null);
+  }
+
+  CronogramaDates get provas {
+    return currentCronograma.dates.firstWhere(
+      (d) => isSameDay(d.date, selectedDate),
+      orElse: () => null,
+    );
+  }
+
+  Pair<CronogramaDates, List<AulasSemanaDTO>> get provasMateriasDia {
+    CronogramaDates dates = CronogramaDates(
+      date: selectedDate,
+      materias: List<CronogramaMaterias>(),
+    );
+
+    if (currentCronograma.dates.length > 0) {
+      dates = currentCronograma.dates
+          .firstWhere((d) => isSameDay(d.date, selectedDate), orElse: () => dates);
+    }
+
+    return Pair(
+      first: dates,
+      second: aulasByWeekDay,
+    );
+  }
+
+  List<AulasSemanaDTO> get aulasByWeekDay {
+    final aulas =
+        currentPeriodo.aulasSemana.where((m) => m.weekDay == getWeekday(selectedDate)).toList();
+
+    final List<AulasSemanaDTO> resultAulas = [];
+    aulas
+        .where((AulasSemanaDTO a) => a.idMateria != null)
+        .map((AulasSemanaDTO a) => a.idMateria)
+        .toSet()
+        .forEach((int id) => resultAulas.add(aulas.firstWhere((it) => it.idMateria == id)));
+
+    return resultAulas;
+  }
+
+  List<AulasSemanaDTO> get aulasAgendaveis {
+
+    ///Lista [aulas] por [dia da semana]
+    final aulas =
+        currentPeriodo.aulasSemana.where((m) => m.weekDay == getWeekday(selectedDate)).toList();
+
+    ///lista [aulas] já agendadas para determinado dia
+    final aulasAgendadas =
+        currentPeriodo.extractNotasByDate(selectedDate).map((n) => n.idMateria).toSet();
+
+    ///remove [aulas] já agendadas
+    aulas.removeWhere((a) => aulasAgendadas.contains(a.idMateria));
+
+    final List<AulasSemanaDTO> resultAulas = [];
+    aulas
+        .where((AulasSemanaDTO a) => a.idMateria != null)
+        .map((AulasSemanaDTO a) => a.idMateria)
+        .toSet()
+        .forEach((int id) => resultAulas.add(aulas.firstWhere((it) => it.idMateria == id)));
+
+    return resultAulas;
+  }
+
+  List<ProvasNotasMaterias> get currentProvasNotas {
+    final notas = currentPeriodo.extractNotasByDate(selectedDate);
+
+    final List<ProvasNotasMaterias> provasNotasMaterias = [];
+
+    for (final n in notas) {
+      provasNotasMaterias.add(
+        ProvasNotasMaterias(
+          nota: n,
+          materia: currentPeriodo.getMateriaById(n.idMateria),
+        ),
+      );
+    }
+
+    return provasNotasMaterias;
+  }
+
   removePeriodoById(int idPeriodo) {
     periodos.remove(periodos.firstWhere((it) => it.id == idPeriodo));
   }
@@ -145,12 +230,20 @@ class StateMain {
   }
 
   insertFalta(Faltas falta) {
-    currentPeriodo.addFalta(falta);
-    currentCalendario.addFalta(falta);
+    currentPeriodo.insertFalta(falta);
+    currentCalendario.insertFalta(falta);
   }
 
   deleteFalta(int idMateria, int idFalta, DateTime date) {
-    currentPeriodo.removeFalta(idMateria, idFalta);
-    currentCalendario.removeFalta(date, idFalta);
+    currentPeriodo.deleteFalta(idMateria, idFalta);
+    currentCalendario.deleteFalta(date, idFalta);
+  }
+
+  insertNota(Notas nota) {
+    currentPeriodo.insertNota(nota);
+  }
+
+  deleteNota(Notas nota) {
+    currentPeriodo.deleteNota(nota);
   }
 }

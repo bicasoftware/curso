@@ -110,7 +110,6 @@ class _ViewProvasState extends State<ViewProvas> {
         child: ProvasList(
           dates: placeHolder,
           onTileTap: (CronogramaDates dates) async {
-            print(dates.date);
             final results = await Navigator.of(context).push(
               MaterialPageRoute(
                 fullscreenDialog: true,
@@ -119,7 +118,6 @@ class _ViewProvasState extends State<ViewProvas> {
             );
 
             if (results != null) {
-              print("opaaa");
             }
           },
         ),

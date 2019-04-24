@@ -3,6 +3,16 @@ import 'package:curso/container/notas.dart';
 import 'package:curso/database/db_provider.dart';
 
 class ProviderNotas {
+  static Future<List<Notas>> fetchAll() async {
+    final db = await DBProvider.instance;
+    final r = await db.query(
+      Notas.tableName,
+      columns: Notas.provideColumns,
+    );
+
+    return r.map((it) => Notas.fromMap(it)).toList();
+  }
+
   static Future<List<Notas>> fetchNotasByMateria(int idMateria) async {
     final db = await DBProvider.instance;
     final r = await db.query(
@@ -33,16 +43,12 @@ class ProviderNotas {
     return nota;
   }
 
-  Future deleteNota(Notas nota) async {
-    await deleteNotaById(nota.id);
-  }
-
-  static Future deleteNotaById(int idNota) async {
+  static Future deleteNota(Notas nota) async {
     final db = await DBProvider.instance;
     await db.delete(
       Notas.tableName,
-      where: "id = ?",
-      whereArgs: [idNota],
+      where: "${Notas.ID} = ?",
+      whereArgs: [nota.id],
     );
   }
 }

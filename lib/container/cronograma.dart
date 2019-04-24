@@ -1,5 +1,7 @@
+import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:meta/meta.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 
 class CronogramaNotas {
   int mes;
@@ -9,8 +11,16 @@ class CronogramaNotas {
     dates = [];
   }
 
-  addDates(CronogramaDates dates) {
+  insertDates(CronogramaDates dates) {
     this.dates.add(dates);
+  }
+
+  insertNota(DateTime selectedDate, Notas nota) {
+    dates.firstWhere((d) => isSameDay(d.date, selectedDate)).addNota(nota);
+  }
+
+  deleteNota(DateTime selectedDate, Notas nota) {
+    dates.firstWhere((d) => isSameDay(d.date, selectedDate)).removeNota(nota);
   }
 }
 
@@ -18,19 +28,25 @@ class CronogramaDates {
   DateTime date;
   List<CronogramaMaterias> materias;
 
-  CronogramaDates({this.date, this.materias});
+  CronogramaDates({this.date, this.materias}){
+    materias = List<CronogramaMaterias>();
+  }
 
   CronogramaDates getCopy() {
     return CronogramaDates(date: this.date, materias: []..addAll(this.materias));
   }
 
-  addMateria(CronogramaMaterias materia){
+  addMateria(CronogramaMaterias materia) {
     materias.add(materia);
   }
 
-  deleteMateria(CronogramaMaterias materia){
+  deleteMateria(CronogramaMaterias materia) {
     materias.remove(materia);
   }
+
+  addNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).addNota(nota);
+
+  removeNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).deleteProva();
 }
 
 class CronogramaMaterias {
@@ -46,18 +62,14 @@ class CronogramaMaterias {
     this.notas,
   });
 
-  addProva(
-    int idProva,
-    DateTime data,
-    double nota,
-  ) {
-    notas.id = idProva;
-    notas.idMateria = id;
-    notas.data = data;
-    notas.nota = nota;
-  }
+  addNota(Notas nota) => notas = nota;
 
-  deleteProva(int idProva) {
-    notas = null;
-  }
+  deleteProva() => notas = null;
+}
+
+class ProvasNotasMaterias {
+  final Notas nota;
+  final Materias materia;
+
+  ProvasNotasMaterias({this.nota, this.materia});
 }

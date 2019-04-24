@@ -33,7 +33,7 @@ class Notas implements BaseTable {
   Map toMap() {
     Map<String, dynamic> m = {
       IDMATERIA: idMateria,
-      DATA: formatDate(data),
+      DATA: formatDbDate(data),
       NOTA: nota,
     };
 
@@ -52,5 +52,10 @@ class Notas implements BaseTable {
       data: parseDate(m[DATA]),
       nota: m[NOTA],
     );
+  }
+
+  @override
+  String toString(){
+    return "id: $id, idMateria: $idMateria, data: $data, nota: $nota";
   }
 }

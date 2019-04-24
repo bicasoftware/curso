@@ -4,13 +4,16 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/conf.dart';
+import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_faltas.dart';
+import 'package:curso/providers/provider_notas.dart';
 import 'package:curso/providers/provider_periodos.dart';
-import 'package:curso/utils.dart/AppBrightness.dart';
+import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/utils.dart/triple.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,17 +34,23 @@ class BlocMain implements BlocBase {
   get outPeriodos => _subjectPeriodos.stream;
   get inPeriodos => _subjectPeriodos.sink;
 
-  BehaviorSubject<Conf> _subjectConf = BehaviorSubject<Conf>();
-  get outConf => _subjectConf.stream;
-  get inConf => _subjectConf.sink;
-
-  BehaviorSubject<AppBrightness> _subjectBrightness = BehaviorSubject<AppBrightness>();
-  get outBrightness => _subjectBrightness.stream;
-  get inBrightness => _subjectBrightness.sink;
-
   final _subCalendarioContent = BehaviorSubject<Triple<CalendarioDTO, DateTime, double>>();
   Stream<Triple<CalendarioDTO, DateTime, double>> get outCalendario => _subCalendarioContent.stream;
   Sink<Triple<CalendarioDTO, DateTime, double>> get inCalendario => _subCalendarioContent.sink;
+
+  final _subProvasNotasMaterias =
+      BehaviorSubject<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>();
+
+  get outProvasNotasMaterias => _subProvasNotasMaterias.stream;
+  get inProvasNotasMaterias => _subProvasNotasMaterias.sink;
+
+  final _subSelectedDate = BehaviorSubject<DateTime>();
+  Stream<DateTime> get outSelectedDate => _subSelectedDate.stream;
+  Sink<DateTime> get inSelectedDate => _subSelectedDate.sink;
+
+  final _subAulasAgendamento = BehaviorSubject<List<AulasSemanaDTO>>();
+  Stream<List<AulasSemanaDTO>> get outAulasAgendamento => _subAulasAgendamento.stream;
+  Sink<List<AulasSemanaDTO>> get inAulasAgendamento => _subAulasAgendamento.sink;
 
   BlocMain({
     List<Periodos> periodos,
@@ -54,17 +63,18 @@ class BlocMain implements BlocBase {
 
     _sinkPeriodos();
     _sinkCurrentPeriodo();
-    inMes.add(state.mes);    
+    inMes.add(state.mes);
   }
 
   @override
   void dispose() {
     _subjectPeriodos.close();
-    _subjectConf.close();
-    _subjectBrightness.close();
     _subjectMes.close();
     _subCalendarioContent.close();
     _subDataDTO.close();
+    _subAulasAgendamento.close();
+    _subProvasNotasMaterias.close();
+    _subSelectedDate.close();
   }
 
   _sinkPeriodos() {
@@ -88,6 +98,9 @@ class BlocMain implements BlocBase {
     );
     inDataDTO.add(state.aulasDia);
     inMes.add(state.mes);
+    inSelectedDate.add(state.selectedDate);
+    inAulasAgendamento.add(state.aulasAgendaveis);
+    inProvasNotasMaterias.add(Pair(first: state.currentProvasNotas, second: state.aulasByWeekDay));
   }
 
   incMes() {
@@ -184,6 +197,19 @@ class BlocMain implements BlocBase {
     ProviderFaltas.deleteFaltaById(idFalta)
         .then((_) => state.deleteFalta(idMateria, idFalta, date))
         .whenComplete(() => _sinkCurrentPeriodo());
-    //state.deleteFalta(idMateria, idFalta, date);
+  }
+
+  insertNota(int idMateria) {
+    final nota = Notas(id: null, nota: null, idMateria: idMateria, data: state.selectedDate);
+    print("insert nota $nota");
+    ProviderNotas.upsertNota(nota)
+        .then((Notas nota) => state.insertNota(nota))
+        .whenComplete(() => _sinkCurrentPeriodo());
+  }
+
+  deleteNota(Notas nota) {
+    ProviderNotas.deleteNota(nota)
+        .then((_) => state.deleteNota(nota))
+        .whenComplete(() => _sinkCurrentPeriodo());
   }
 }

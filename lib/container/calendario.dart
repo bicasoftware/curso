@@ -9,11 +9,11 @@ class CalendarioDTO {
 
   const CalendarioDTO({this.mes, this.dates});
 
-  addFalta(Faltas falta) {
+  insertFalta(Faltas falta) {
     dates.firstWhere((dt) => isSameDay(dt.date, falta.data)).insertFalta(falta);
   }
 
-  removeFalta(DateTime date, int idFalta) {
+  deleteFalta(DateTime date, int idFalta) {
     dates.firstWhere((dt) => isSameDay(dt.date, date)).deleteFalta(idFalta);
   }
 }
@@ -77,7 +77,6 @@ class AulasSemanaDTO {
   get isFalta => idFalta != null;
 
   bool isSameItem(int idMateria, int weekDay){
-    print("aqui");
     return this.idMateria == idMateria  && this.weekDay == weekDay;
   }
 }

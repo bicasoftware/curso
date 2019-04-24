@@ -68,7 +68,6 @@ class ViewPeriodosState extends State<ViewPeriodos> {
               );
 
               if(result != null){
-                print("finalizado");
               }
 
             },

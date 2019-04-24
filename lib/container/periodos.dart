@@ -175,12 +175,20 @@ class Periodos implements BaseTable {
     return calendario.firstWhere((it) => it.mes == month, orElse: () => null);
   }
 
-  addFalta(Faltas falta) {
+  insertFalta(Faltas falta) {
     materias.firstWhere((it) => it.id == falta.idMateria).insertFalta(falta);
   }
 
-  removeFalta(int idMateria, int idFalta) {
+  deleteFalta(int idMateria, int idFalta) {
     materias.firstWhere((it) => it.id == idMateria).deleteFalta(idFalta);
+  }
+
+  insertNota(Notas nota) {
+    materias.firstWhere((m) => m.id == nota.idMateria).insertNota(nota);
+  }
+
+  deleteNota(Notas nota) {
+    materias.firstWhere((m) => m.id == nota.idMateria).deleteNota(nota);
   }
 
   List<Faltas> _getFaltas() {
@@ -193,37 +201,59 @@ class Periodos implements BaseTable {
     return faltas;
   }
 
-  List<Notas> _getNotas() {
+  List<Notas> extractNotas() {
     final notas = List<Notas>();
     materias.forEach((m) => notas.addAll(m.notas));
     notas.sort((a, b) => a.data.compareTo(b.data));
     return notas;
   }
 
+  List<Notas> extractNotasByDate(DateTime date) {
+    final notas = List<Notas>();
+    materias.forEach(
+      (m) => notas.addAll(
+            m.notas.where(
+              (nota) => isSameDay(nota.data, date),
+            ),
+          ),
+    );
+    notas.sort((a, b) => a.data.compareTo(b.data));
+    return notas;
+  }
+
   refreshCronograma() {
     cronogramas.clear();
-    final notas = _getNotas();
-    final meses = notas.map((n) => n.data.month).toSet();
-    for (int mes in meses) {
-      final crono = CronogramaNotas(mes: mes);
-      final notasMes = notas.where((n) => n.data.month == mes);
 
-      for (final nota in notasMes) {
-        final cronoDates = CronogramaDates(date: nota.data);
-        final materia = materias.firstWhere((mt) => mt.id == nota.idMateria);
-        cronoDates.materias.add(
-          CronogramaMaterias(
-            cor: materia.cor,
-            id: materia.id,
-            nome: materia.nome,
-            sigla: materia.sigla,
-            notas: nota,
-          ),
-        );
-        crono.addDates(cronoDates);
-      }
-
-      cronogramas.add(crono);
+    for (int i = inicio.month; i <= termino.month; i++) {
+      cronogramas.add(
+        CronogramaNotas(mes: i, dates: List<CronogramaDates>()),
+      );
     }
+
+    final notas = extractNotas();
+    final mesesComNotas = notas.map((n) => n.data.month).toSet();
+    for (int mes in mesesComNotas) {
+      final notasNoMes = notas.where((n) => n.data.month == mes);
+
+      for (final nota in notasNoMes) {
+        final materia = materias.firstWhere((mt) => mt.id == nota.idMateria);
+        final cronoDates = CronogramaDates(date: nota.data)
+          ..addMateria(
+            CronogramaMaterias(
+              cor: materia.cor,
+              id: materia.id,
+              nome: materia.nome,
+              sigla: materia.sigla,
+              notas: nota,
+            ),
+          );
+
+        cronogramas.firstWhere((it) => it.mes == mes).insertDates(cronoDates);
+      }
+    }
+  }
+
+  Materias getMateriaById(int idMateria) {
+    return materias.firstWhere((m) => m.id == idMateria, orElse: () => null);
   }
 }

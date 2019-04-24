@@ -10,12 +10,13 @@ class Strings {
   static const String periodo = 'Período';
   static const String trocarPeriodo = 'Trocar Período';
   static const String materias = 'Matérias';
-  static const String materiasNoDia = 'Matérias no dia';
+  static const String selecioneMateriaProva = 'Prova de: ';
   static const String materia = 'Matéria';
   static const String sigla = 'Sigla';
   static const String corMateria = 'Cor da Materia';
   static const String cor = 'Cor';
   static const String provas = 'Provas';
+  static const String provasAgendar = 'Provas agendadas';
   static const String cronograma = 'Cronograma';
   static const String calendario = 'Calendário';
   static const String notificar = 'Notificar';
@@ -47,6 +48,7 @@ class Strings {
   static const String dataProva = 'Data da Prova';
   static const String valorReprovacao = "Valores de Reprovação";
   static const String aulas_e_horarios = "Aulas e Horários";
+  static const String todasAulasAgendadas = "Todas as aulas de hoje já foram agendadas";
 }
 
 class Arrays {

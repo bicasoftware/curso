@@ -21,7 +21,6 @@ class ProviderPeriodos {
       periodo.horarios = horarios;
       periodo.refreshCalendario();
       periodo.refreshCronograma();
-      periodo.cronogramas.forEach(print);
     }
 
     return periodos;

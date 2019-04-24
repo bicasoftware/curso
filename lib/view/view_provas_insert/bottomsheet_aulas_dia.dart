@@ -15,7 +15,7 @@ class BottomSheetAulasDia extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(16),
           child: Text(
-            Strings.materiasNoDia,
+            Strings.selecioneMateriaProva,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 18,
