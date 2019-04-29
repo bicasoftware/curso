@@ -4,20 +4,23 @@ class HorarioAulaChip extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
+  final Color textColor;
+  final Color iconColor;
 
-  const HorarioAulaChip({Key key, this.text, this.icon, this.color}) : super(key: key);
+  const HorarioAulaChip({Key key, this.text, this.icon, this.color, this.textColor, this.iconColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Chip(
-      padding: EdgeInsets.symmetric(horizontal: 8),      
+      padding: EdgeInsets.symmetric(horizontal: 8),
       avatar: Icon(
         icon ?? Icons.timeline,
-        color: Colors.white,
+        color: iconColor ?? Colors.white,
       ),
       label: Text(
         text,
-        style: TextStyle(fontSize: 14, color: Colors.white70),
+        style: TextStyle(fontSize: 14, color: textColor ?? Colors.white70),
       ),
       backgroundColor: color ?? Theme.of(context).accentColor,
     );

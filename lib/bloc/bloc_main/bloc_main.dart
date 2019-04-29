@@ -183,9 +183,15 @@ class BlocMain implements BlocBase {
     }).whenComplete(() => _sinkPeriodos());
   }
 
-  insertFalta(int idMateria, int ordemAula, DateTime date) async {
+  insertFalta({int idMateria, int ordemAula, DateTime date, int tipo}) async {
     ProviderFaltas.insertFalta(
-      Faltas(id: null, idMateria: idMateria, numAula: ordemAula, data: date),
+      Faltas(
+        id: null,
+        idMateria: idMateria,
+        numAula: ordemAula,
+        data: date,
+        tipo: tipo,
+      ),
     ).then((Faltas f) {
       state.insertFalta(f);
     }).whenComplete(() {

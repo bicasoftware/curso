@@ -4,17 +4,19 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
 
+typedef ListAulaAction(int selectedAction, AulasSemanaDTO aulasSemana);
+
 class CalendarioAulasDiaTile extends StatelessWidget {
   const CalendarioAulasDiaTile({
     Key key,
     @required this.aulasSemana,
-    @required this.onChanged,
     @required this.ordem,
+    @required this.onOptionSelected,
   }) : super(key: key);
 
   final AulasSemanaDTO aulasSemana;
-  final Function(AulasSemanaDTO, bool) onChanged;
   final int ordem;
+  final ListAulaAction onOptionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +27,72 @@ class CalendarioAulasDiaTile extends StatelessWidget {
               color: Theme.of(context).primaryColorLight,
             ),
           )
-        : ListTile(            
-            leading: HorarioAulaChip(
-              color: Color(aulasSemana.cor),
-              text: "${ordem + 1}ª ${Strings.aula}",
-            ),
-            title: Text(aulasSemana.nome),
-            subtitle: Text("${formatTime(aulasSemana.horario)}"),
-            trailing: Switch(
-              value: aulasSemana.isFalta,
-              onChanged: (bool s) => onChanged(aulasSemana, s),
-              materialTapTargetSize: MaterialTapTargetSize.padded,
+        : Container(
+            color: _getColor(),
+            child: ListTile(
+              subtitle: Text("${ordem + 1}ª ${Strings.aula}"),
+              dense: true,
+              title: Text(aulasSemana.nome),
+              leading: HorarioAulaChip(
+                color: Color(aulasSemana.cor),
+                text: "${formatTime(aulasSemana.horario)}",
+              ),
+              trailing: PopupMenuButton<int>(
+                onSelected: (int i) => onOptionSelected(i, aulasSemana),
+                itemBuilder: (c) => entryList(),
+              ),
             ),
           );
+  }
+
+  List<PopupMenuEntry<int>> entryList() {
+    final entryList = List<PopupMenuEntry<int>>();
+
+    if (aulasSemana.idFalta == null) {
+      entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.faltar)));
+      entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.aulaVaga)));
+    } else {
+      if (aulasSemana.isFalta) {
+        entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.cancelarFalta)));
+      } else if (aulasSemana.isAulaVaga) {
+        entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.cancelarAulaVaga)));
+      }
+    }
+
+    // return <PopupMenuEntry<int>>[
+    //   PopupMenuItem<int>(value: 0, child: _getFaltaText()),
+    //   PopupMenuItem<int>(value: 0, child: _getAulaVagaText()),
+    //   PopupMenuItem<int>(value: 0, child: _getAgendarProvaText()),
+    // ];
+
+    return entryList;
+  }
+
+  /* Widget _getFaltaText() {
+    return Text(
+      (aulasSemana.idFalta == null ? Strings.faltar : Strings.cancelarFalta),
+    );
+  }
+
+  Widget _getAulaVagaText() {
+    return Text(
+      (aulasSemana.idFalta == null ? Strings.aulaVaga : Strings.cancelarAulaVaga),
+    );
+  }
+
+  Widget _getAgendarProvaText() {
+    return Text(Strings.agendarProva);
+  } */
+
+  _getColor() {
+    print("Tipo aula: ${aulasSemana.tipo}");
+    if (aulasSemana.idFalta != null) {
+      if (aulasSemana.tipo == 0) {
+        return Colors.red[50];
+      } else if (aulasSemana.tipo == 1) {
+        return Colors.teal[50];
+      }
+    } else
+      return Colors.transparent;
   }
 }

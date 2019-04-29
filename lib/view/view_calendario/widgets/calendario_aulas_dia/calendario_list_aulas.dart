@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class AulasDiaList extends StatelessWidget {
   final List<AulasSemanaDTO> aulas;
-  final Function(AulasSemanaDTO, bool) onChanged;
+  final ListAulaAction onOptionSelected;
 
   const AulasDiaList({
     Key key,
     @required this.aulas,
-    @required this.onChanged,
+    @required this.onOptionSelected,
   }) : super(key: key);
 
   @override
@@ -20,14 +20,14 @@ class AulasDiaList extends StatelessWidget {
       itemBuilder: (c, i) {
         return CalendarioAulasDiaTile(
           ordem: i,
-          aulasSemana: aulas[i],
-          onChanged: onChanged,
+          aulasSemana: aulas[i],          
+          onOptionSelected: onOptionSelected,
         );
       },
 
       separatorBuilder: (c, i) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(right: 16, left: 120),
           child: Divider(height: 0),
         );
       },

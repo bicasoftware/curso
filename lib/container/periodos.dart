@@ -138,17 +138,24 @@ class Periodos implements BaseTable {
           );
 
           if (materia != null) {
+            final falta = materia.faltas.firstWhere(
+              //(f) => getWeekday(f.data) == weekDay && f.numAula == ordemAula,
+              (f) => getWeekday(f.data) == weekDay && f.numAula == ordemAula,
+              orElse: () => null,
+            );
+
             aulasSemana.add(
               AulasSemanaDTO(
                 idPeriodo: id,
                 idMateria: materia.id,
-                idFalta: null,
+                idFalta: falta != null ? falta.id : null,
                 weekDay: weekDay,
                 cor: materia.cor,
                 sigla: materia.sigla,
                 nome: materia.nome,
                 horario: horarios[ordemAula].inicio,
                 numAula: ordemAula,
+                tipo: falta != null ? falta.tipo : null,
               ),
             );
           } else {
@@ -163,6 +170,7 @@ class Periodos implements BaseTable {
                 nome: "Sem Aula",
                 sigla: "",
                 horario: horarios[ordemAula].inicio,
+                tipo: null,
               ),
             );
           }

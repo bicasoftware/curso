@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 class Strings {
   static const String appName = 'iCurso';
   static const String opcoes = 'Opções';
+  static const String faltar = 'Faltar';
+  static const String cancelarFalta = 'Cancelar falta';
+  static const String aulaVaga = 'Aula Vaga';
+  static const String cancelarAulaVaga = 'Cancelar Aula Vaga';
+  static const String agendarProva = 'Agendar prova';
   static const String confirmacao = 'Confirmar';
   static const String aula = 'Aula';
   static const String aulas = 'Aulas';

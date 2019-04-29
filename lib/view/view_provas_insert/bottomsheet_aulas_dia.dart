@@ -27,18 +27,20 @@ class BottomSheetAulasDia extends StatelessWidget {
           child: Divider(height: 1),
           margin: EdgeInsets.symmetric(horizontal: 16),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: aulasSemana != null ? aulasSemana.length : 0,
-          itemBuilder: (c, i) {
-            final m = aulasSemana[i];
-            return ListTile(
-              onTap: () => Navigator.of(context).pop(m.idMateria),
-              leading: CircleAvatar(backgroundColor: Color(m.cor)),
-              title: Text(m.nome),
-              subtitle: Text(m.sigla),
-            );
-          },
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: aulasSemana != null ? aulasSemana.length : 0,
+            itemBuilder: (c, i) {
+              final m = aulasSemana[i];
+              return ListTile(
+                onTap: () => Navigator.of(context).pop(m.idMateria),
+                leading: CircleAvatar(backgroundColor: Color(m.cor)),
+                title: Text(m.nome),
+                subtitle: Text(m.sigla),
+              );
+            },
+          ),
         ),
       ],
     );

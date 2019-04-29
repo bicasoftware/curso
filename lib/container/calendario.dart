@@ -43,6 +43,7 @@ class AulasSemanaDTO {
   final String sigla;
   final DateTime horario;
   int idFalta;
+  int tipo;
 
   AulasSemanaDTO({
     @required this.idFalta,
@@ -54,6 +55,7 @@ class AulasSemanaDTO {
     @required this.nome,
     @required this.sigla,
     @required this.horario,
+    @required this.tipo,
   });
 
   static AulasSemanaDTO copyWith(AulasSemanaDTO base) {
@@ -67,14 +69,20 @@ class AulasSemanaDTO {
       nome: base.nome,
       sigla: base.sigla,
       horario: base.horario,
+      tipo: base.tipo,
     );
   }
 
-  insertFalta(Faltas falta) => this.idFalta = falta.id;
+  insertFalta(Faltas falta) {
+    this.idFalta = falta.id;
+    this.tipo = falta.tipo;
+  }
 
   deleteFalta() => this.idFalta = null;
 
-  get isFalta => idFalta != null;
+  get isFalta => idFalta != null && tipo == 0;
+
+  get isAulaVaga => isFalta != null && tipo == 1;
 
   bool isSameItem(int idMateria, int weekDay){
     return this.idMateria == idMateria  && this.weekDay == weekDay;

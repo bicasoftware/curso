@@ -23,16 +23,18 @@ class CalendarioProvasDiaList extends StatelessWidget {
             if (!snapshot.hasData || snapshot.data.first.length == 0) {
               return HappyPlaceholder();
             } else {
-              return ListView.separated(
-                shrinkWrap: true,
-                itemCount: snapshot.data.first.length,
-                separatorBuilder: (c, i) => Divider(height: 0),
-                itemBuilder: (c, i) {
-                  return CalendarioProvasDiaListTile(
-                    provasNotasMaterias: snapshot.data.first[i],
-                    onDeleted: (Notas n) => bloc.deleteNota(n),
-                  );
-                },
+              return Expanded(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.first.length,
+                  separatorBuilder: (_, __) => Divider(),
+                  itemBuilder: (c, i) {
+                    return CalendarioProvasDiaListTile(
+                      provasNotasMaterias: snapshot.data.first[i],
+                      onDeleted: (Notas n) => bloc.deleteNota(n),
+                    );
+                  },
+                ),
               );
             }
           },

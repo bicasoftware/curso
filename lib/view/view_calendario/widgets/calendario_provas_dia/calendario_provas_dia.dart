@@ -14,6 +14,7 @@ class CalendarioProvasDia extends StatelessWidget {
 
     return Stack(
       children: [
+        CalendarioProvasDiaList(),
         StreamBuilder<List<AulasSemanaDTO>>(
           stream: bloc.outAulasAgendamento,
           builder: (context, snapshot) {
@@ -24,7 +25,6 @@ class CalendarioProvasDia extends StatelessWidget {
             );
           },
         ),
-        CalendarioProvasDiaList(),
       ],
     );
   }
