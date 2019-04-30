@@ -246,4 +246,9 @@ class StateMain {
   deleteNota(Notas nota) {
     currentPeriodo.deleteNota(nota);
   }
+
+  updateNota(Notas nota){
+    currentPeriodo.updateNota(nota);
+  }
 }
+

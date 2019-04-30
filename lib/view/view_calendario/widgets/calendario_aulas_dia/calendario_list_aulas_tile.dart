@@ -59,33 +59,10 @@ class CalendarioAulasDiaTile extends StatelessWidget {
       }
     }
 
-    // return <PopupMenuEntry<int>>[
-    //   PopupMenuItem<int>(value: 0, child: _getFaltaText()),
-    //   PopupMenuItem<int>(value: 0, child: _getAulaVagaText()),
-    //   PopupMenuItem<int>(value: 0, child: _getAgendarProvaText()),
-    // ];
-
     return entryList;
   }
 
-  /* Widget _getFaltaText() {
-    return Text(
-      (aulasSemana.idFalta == null ? Strings.faltar : Strings.cancelarFalta),
-    );
-  }
-
-  Widget _getAulaVagaText() {
-    return Text(
-      (aulasSemana.idFalta == null ? Strings.aulaVaga : Strings.cancelarAulaVaga),
-    );
-  }
-
-  Widget _getAgendarProvaText() {
-    return Text(Strings.agendarProva);
-  } */
-
   _getColor() {
-    print("Tipo aula: ${aulasSemana.tipo}");
     if (aulasSemana.idFalta != null) {
       if (aulasSemana.tipo == 0) {
         return Colors.red[50];

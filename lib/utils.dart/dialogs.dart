@@ -162,3 +162,56 @@ Future<bool> showRemoveDialog({
     },
   );
 }
+
+Future<double> showNotaDialog({
+  @required BuildContext context,
+  @required double nota,
+}) async {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  return await showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (c) {
+      return AlertDialog(
+        title: Text(Strings.adicionarNota),
+        content: Form(
+          key: _formKey,
+          child: TextFormField(
+            initialValue: (nota ?? 0.0).toString(),
+            decoration: InputDecoration(labelText: Strings.adicionarNota, hintText: "10,0"),
+            onSaved: (String n) {
+              Navigator.of(context).pop(double.parse(n));
+            },
+            validator: (n) {
+              final novaNota = double.tryParse(n.replaceAll(",", "."));
+              if (novaNota == null) {
+                return Errors.notaInvalida;
+              } else if (novaNota < 0.0 || novaNota > 10.0) {
+                return Errors.notaInvalida;
+              } else
+                return null;
+            },
+          ),
+        ),
+        actions: [
+          FlatButton(
+            child: Text(Strings.cancelar),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text(Strings.salvar),
+            onPressed: () {
+              final state = _formKey.currentState;
+              if (state.validate()) {
+                state.save();
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}

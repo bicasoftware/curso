@@ -27,11 +27,17 @@ class CalendarioProvasDiaList extends StatelessWidget {
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: snapshot.data.first.length,
-                  separatorBuilder: (_, __) => Divider(),
+                  separatorBuilder: (_, __) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 16.0, left: 140),
+                      child: Divider(height: 0),
+                    );
+                  },
                   itemBuilder: (c, i) {
                     return CalendarioProvasDiaListTile(
                       provasNotasMaterias: snapshot.data.first[i],
                       onDeleted: (Notas n) => bloc.deleteNota(n),
+                      onUpdateNota: (Notas nota) => bloc.updateNota(nota),
                     );
                   },
                 ),

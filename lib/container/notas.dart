@@ -58,4 +58,6 @@ class Notas implements BaseTable {
   String toString(){
     return "id: $id, idMateria: $idMateria, data: $data, nota: $nota";
   }
+
+  void updateNota(double novaNota) => this.nota = novaNota;
 }

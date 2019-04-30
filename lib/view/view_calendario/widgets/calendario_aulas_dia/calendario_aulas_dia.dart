@@ -26,46 +26,36 @@ class CalendarioAulasDia extends StatelessWidget {
                         onOptionSelected: (int selectedAction, AulasSemanaDTO aulas) {
                           ///0 - faltas
                           ///1 - aula vaga
-                          ///2 - agendar prova
-                          switch (selectedAction) {
-                            case 0:
-                              if (aulas.idFalta == null) {
-                                b.insertFalta(
-                                  idMateria: aulas.idMateria,
-                                  ordemAula: aulas.numAula,
-                                  date: snapshot.data.date,
-                                  tipo: 0,
-                                );
-                              } else {
-                                b.deleteFalta(
-                                  idMateria: aulas.idMateria,
-                                  idFalta: aulas.idFalta,
-                                  date: snapshot.data.date,
-                                );
-                              }
-                              break;
-                            case 1:
-                              if (aulas.idFalta == null) {
-                                b.insertFalta(
-                                  idMateria: aulas.idMateria,
-                                  ordemAula: aulas.numAula,
-                                  date: snapshot.data.date,
-                                  tipo: 1,
-                                );
-                              } else {
-                                b.deleteFalta(
-                                  idFalta: aulas.idFalta,
-                                  idMateria: aulas.idMateria,
-                                  date: snapshot.data.date,
-                                );
-                              }
-                              break;
-                            case 2:
-
-                              ///TODO - Agendar [provas] aqui
-                              break;
-                            default:
-                              break;
+                          if (selectedAction == 0) {
+                            if (aulas.idFalta == null) {
+                              b.insertFalta(
+                                idMateria: aulas.idMateria,
+                                ordemAula: aulas.numAula,
+                                date: snapshot.data.date,
+                                tipo: 0,
+                              );
+                            } else {
+                              b.deleteFalta(
+                                idMateria: aulas.idMateria,
+                                idFalta: aulas.idFalta,
+                                date: snapshot.data.date,
+                              );
+                            }
+                          } else if (selectedAction == 1) {
+                            if (aulas.idFalta == null) {
+                              b.insertFalta(
+                                idMateria: aulas.idMateria,
+                                ordemAula: aulas.numAula,
+                                date: snapshot.data.date,
+                                tipo: 1,
+                              );
+                            } else {
+                              b.deleteFalta(
+                                idFalta: aulas.idFalta,
+                                idMateria: aulas.idMateria,
+                                date: snapshot.data.date,
+                              );
+                            }
                           }
                         },
                       ),

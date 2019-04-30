@@ -7,6 +7,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 
 void main() {
+
+  test('tryParse', () {
+    final double valor = double.tryParse("a.36");
+    print(valor);
+
+    final double valor2 = double.tryParse("0.0");
+    print(valor2);
+  });
+
   group("Datas", () {
     test('parseDate', () {
       Intl.defaultLocale = 'pt_BR';

@@ -4,9 +4,10 @@ class Strings {
   static const String appName = 'iCurso';
   static const String opcoes = 'Opções';
   static const String faltar = 'Faltar';
-  static const String cancelarFalta = 'Cancelar falta';
+  static const String cancelar = 'Cancelar';
+  static const String cancelarFalta = 'Desfazer falta';
   static const String aulaVaga = 'Aula Vaga';
-  static const String cancelarAulaVaga = 'Cancelar Aula Vaga';
+  static const String cancelarAulaVaga = 'Desfazer aula vaga';
   static const String agendarProva = 'Agendar prova';
   static const String confirmacao = 'Confirmar';
   static const String aula = 'Aula';
@@ -56,7 +57,7 @@ class Strings {
   static const String aulas_e_horarios = "Aulas e Horários";
   static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
   static const String desagendarProva = "Deseja cancelar a prova?";
-  static const String adicionarNota = "Adicionar Nota";
+  static const String adicionarNota = "Alterar Nota";
   static const String cancelarProva = "Cancelar Prova";
 }
 
@@ -128,4 +129,5 @@ class Errors {
   static const horariosIguaisInvalidos = "Horários iguais não são permitidos";
   static const horariosInvalidos = "Horários inválidos";
   static const datasInvalidas = "Datas inválidas";
+  static const notaInvalida = "digite algo entre 0,0 e 10,0";
 }

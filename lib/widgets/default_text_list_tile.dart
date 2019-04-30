@@ -47,9 +47,16 @@ class _DefaultTextListTileState extends State<DefaultTextListTile> {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: widget.onTap,
-      leading: Icon(widget.icon, color: Theme.of(context).accentColor),
+      leading: Column(
+        children: [
+          SizedBox(height: 24),
+          Icon(
+            widget.icon,
+            color: Theme.of(context).accentColor,
+          ),
+        ],
+      ),
       title: TextFormField(
-
         controller: widget.onChanged != null ? _controller : null,
         validator: widget.validator,
         onSaved: widget.onSaved,
@@ -57,9 +64,9 @@ class _DefaultTextListTileState extends State<DefaultTextListTile> {
         decoration: InputDecoration(
           labelText: widget.label,
           hintText: widget.hint,
-          suffixText: widget.sufix ?? null
+          suffixText: widget.sufix ?? null,
         ),
-      ),      
+      ),
     );
   }
 }

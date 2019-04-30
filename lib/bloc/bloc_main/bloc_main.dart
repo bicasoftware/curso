@@ -207,9 +207,14 @@ class BlocMain implements BlocBase {
 
   insertNota(int idMateria) {
     final nota = Notas(id: null, nota: null, idMateria: idMateria, data: state.selectedDate);
-    print("insert nota $nota");
     ProviderNotas.upsertNota(nota)
         .then((Notas nota) => state.insertNota(nota))
+        .whenComplete(() => _sinkCurrentPeriodo());
+  }
+
+  updateNota(Notas nota) {
+    ProviderNotas.upsertNota(nota)
+        .then((Notas nota) => state.updateNota(nota))
         .whenComplete(() => _sinkCurrentPeriodo());
   }
 

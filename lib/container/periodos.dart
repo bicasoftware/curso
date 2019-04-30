@@ -139,7 +139,6 @@ class Periodos implements BaseTable {
 
           if (materia != null) {
             final falta = materia.faltas.firstWhere(
-              //(f) => getWeekday(f.data) == weekDay && f.numAula == ordemAula,
               (f) => getWeekday(f.data) == weekDay && f.numAula == ordemAula,
               orElse: () => null,
             );
@@ -193,6 +192,10 @@ class Periodos implements BaseTable {
 
   insertNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).insertNota(nota);
+  }
+
+  updateNota(Notas nota){
+    materias.firstWhere((m) => m.id == nota.idMateria).updateNota(nota);
   }
 
   deleteNota(Notas nota) {

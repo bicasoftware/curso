@@ -28,6 +28,7 @@ class DataDTO {
     aulas.firstWhere((aula) => aula.numAula == falta.numAula).insertFalta(falta);
   }
 
+
   deleteFalta(int idFalta) {
     aulas.firstWhere((aula) => aula.idFalta == idFalta).deleteFalta();
   }
@@ -84,7 +85,7 @@ class AulasSemanaDTO {
 
   get isAulaVaga => isFalta != null && tipo == 1;
 
-  bool isSameItem(int idMateria, int weekDay){
-    return this.idMateria == idMateria  && this.weekDay == weekDay;
+  bool isSameItem(int idMateria, int weekDay) {
+    return this.idMateria == idMateria && this.weekDay == weekDay;
   }
 }

@@ -111,4 +111,8 @@ class Materias implements BaseTable {
   deleteNota(Notas nota){
     notas.remove(nota);
   }
+
+  updateNota(Notas nota){
+    notas.firstWhere((n) => n.id == nota.id).updateNota(nota.nota);
+  }
 }
