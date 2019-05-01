@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/widgets/color_dialog.dart';
 import 'package:curso/widgets/dialog_picker_materias.dart';
 import 'package:flutter/material.dart';
@@ -180,11 +181,12 @@ Future<double> showNotaDialog({
           child: TextFormField(
             initialValue: (nota ?? 0.0).toString(),
             decoration: InputDecoration(labelText: Strings.adicionarNota, hintText: "10,0"),
+            keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
             onSaved: (String n) {
-              Navigator.of(context).pop(double.parse(n));
+              Navigator.of(context).pop(parseDoubleFromText(n));
             },
             validator: (n) {
-              final novaNota = double.tryParse(n.replaceAll(",", "."));
+              final novaNota = parseDoubleFromText(n);
               if (novaNota == null) {
                 return Errors.notaInvalida;
               } else if (novaNota < 0.0 || novaNota > 10.0) {
