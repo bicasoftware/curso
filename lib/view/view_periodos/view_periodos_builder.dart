@@ -1,13 +1,13 @@
-import 'package:curso/container/cronograma.dart';
-import 'package:curso/widgets/labeled_button.dart';
-import 'package:curso/widgets/squared_card.dart';
-import 'package:flutter/material.dart';
-
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/weekday_header.dart';
 import 'package:curso/widgets/cronograma/Cronograma.dart';
+import 'package:curso/widgets/labeled_button.dart';
+import 'package:curso/widgets/squared_card.dart';
+import 'package:curso/widgets/weekday_header.dart';
+import 'package:flutter/material.dart';
+
+typedef OnNotasTapped = Function(Periodos);
 
 class ViewPeriodosBuilder {
   static Widget listPeriodos({
@@ -16,7 +16,7 @@ class ViewPeriodosBuilder {
     @required Function(Periodos) onUpdateTap,
     @required Function(int) onDelete,
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
+    @required OnNotasTapped onNotasTap,
     @required Function(int, int, Periodos, int) onCellClick,
   }) {
     return ListView.builder(
@@ -42,7 +42,7 @@ class ViewPeriodosBuilder {
     @required Function(Periodos) onUpdateTap,
     @required Function(int) onDelete,
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
+    @required OnNotasTapped onNotasTap,
     @required Function(int, int, Periodos, int) onCellClick,
   }) {
     return SquaredCard(
@@ -89,7 +89,7 @@ class ViewPeriodosBuilder {
     @required Function(Periodos) onUpdateTap,
     @required Function(int) onDelete,
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
-    @required Function(List<CronogramaNotas>, Periodos) onNotasTap,
+    @required OnNotasTapped onNotasTap,
   }) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -112,7 +112,7 @@ class ViewPeriodosBuilder {
             Icons.insert_drive_file,
             color: Theme.of(context).accentColor,
           ),
-          onPressed: () => onNotasTap(periodo.cronogramas, periodo),
+          onPressed: () => onNotasTap(periodo),
         ),
         LabeledButton(
           height: 60,

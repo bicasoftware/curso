@@ -1,13 +1,12 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/pair.dart';
 import 'package:meta/meta.dart';
 
 class StateMain {
@@ -104,7 +103,7 @@ class StateMain {
 
   CalendarioDTO get currentCalendario => currentPeriodo.getCalendarioByMonth(mes);
 
-  CronogramaNotas get currentCronograma {
+  /* CronogramaNotas get currentCronograma {
     return currentPeriodo.cronogramas.firstWhere((c) => c.mes == mes, orElse: () => null);
   }
 
@@ -130,7 +129,7 @@ class StateMain {
       first: dates,
       second: aulasByWeekDay,
     );
-  }
+  } */
 
   List<AulasSemanaDTO> get aulasByWeekDay {
     final aulas =
@@ -147,7 +146,6 @@ class StateMain {
   }
 
   List<AulasSemanaDTO> get aulasAgendaveis {
-
     ///Lista [aulas] por [dia da semana]
     final aulas =
         currentPeriodo.aulasSemana.where((m) => m.weekDay == getWeekday(selectedDate)).toList();
@@ -247,8 +245,7 @@ class StateMain {
     currentPeriodo.deleteNota(nota);
   }
 
-  updateNota(Notas nota){
+  updateNota(Notas nota) {
     currentPeriodo.updateNota(nota);
   }
 }
-

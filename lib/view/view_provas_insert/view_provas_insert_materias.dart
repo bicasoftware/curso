@@ -1,9 +1,9 @@
-import 'package:curso/container/cronograma.dart';
+import 'package:curso/container/falta_container.dart';
 import 'package:flutter/material.dart';
 
 class ListProvasMaterias extends StatelessWidget {
-  final List<CronogramaMaterias> materias;
-  final Function(CronogramaMaterias) onLongTap;
+  final List<MateriasByDate> materias;
+  final Function(MateriasByDate) onLongTap;
 
   const ListProvasMaterias({
     Key key,

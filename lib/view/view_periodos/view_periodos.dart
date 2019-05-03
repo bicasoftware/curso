@@ -1,5 +1,4 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:curso/container/cronograma.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
 import 'package:flutter/material.dart';
 
@@ -57,13 +56,11 @@ class ViewPeriodosState extends State<ViewPeriodos> {
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
               _showViewInsertMaterias(context, idPeriodo, materias, medAprov, _onRefreshMaterias);
             },
-            onNotasTap: (List<CronogramaNotas> cronogramas, Periodos periodo) async {
+            onNotasTap: (Periodos periodos) async {
               final result = await Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (c) => ViewProvas(cronogramas: cronogramas,
-                  aulasSemana: periodo.aulasSemana,
-                  ),
+                  builder: (c) => ViewProvas(periodo: periodos),
                 )
               );
 

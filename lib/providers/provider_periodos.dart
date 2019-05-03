@@ -20,7 +20,6 @@ class ProviderPeriodos {
       periodo.materias = materias;
       periodo.horarios = horarios;
       periodo.refreshCalendario();
-      periodo.refreshCronograma();
     }
 
     return periodos;

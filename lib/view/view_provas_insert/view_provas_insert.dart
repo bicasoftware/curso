@@ -1,5 +1,5 @@
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/cronograma.dart';
+import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
@@ -13,7 +13,7 @@ import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ViewProvasInsert extends StatefulWidget {
-  final CronogramaDates dates;
+  final NotasByDate dates;
   final List<AulasSemanaDTO> aulasSemana;
 
   const ViewProvasInsert({
@@ -27,7 +27,7 @@ class ViewProvasInsert extends StatefulWidget {
 }
 
 class _ViewProvasInsertState extends State<ViewProvasInsert> {
-  CronogramaDates _dates;
+  NotasByDate _dates;
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _ViewProvasInsertState extends State<ViewProvasInsert> {
                         if (materia != null) {
                           setState(() {
                             _dates.addMateria(
-                              CronogramaMaterias(
+                              MateriasByDate(
                                 id: result,
                                 cor: materia.cor,
                                 nome: materia.nome,
@@ -109,7 +109,7 @@ class _ViewProvasInsertState extends State<ViewProvasInsert> {
                   Container(
                     child: ListProvasMaterias(
                       materias: _dates.materias,
-                      onLongTap: (CronogramaMaterias m) async {
+                      onLongTap: (MateriasByDate m) async {
                         final bool shouldRemove = await Dialogs.showRemoveDialog(
                           context: context,
                           title: Strings.removerProva,

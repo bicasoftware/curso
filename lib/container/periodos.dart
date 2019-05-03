@@ -1,6 +1,5 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
-import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
@@ -16,7 +15,6 @@ class Periodos implements BaseTable {
   List<Horarios> horarios;
   List<CalendarioDTO> calendario;
   List<AulasSemanaDTO> aulasSemana;
-  List<CronogramaNotas> cronogramas;
 
   Periodos({
     this.id,
@@ -32,7 +30,6 @@ class Periodos implements BaseTable {
     horarios = [];
     calendario = [];
     aulasSemana = [];
-    cronogramas = [];
   }
 
   static const String ID = "id";
@@ -194,7 +191,7 @@ class Periodos implements BaseTable {
     materias.firstWhere((m) => m.id == nota.idMateria).insertNota(nota);
   }
 
-  updateNota(Notas nota){
+  updateNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).updateNota(nota);
   }
 
@@ -212,13 +209,6 @@ class Periodos implements BaseTable {
     return faltas;
   }
 
-  List<Notas> extractNotas() {
-    final notas = List<Notas>();
-    materias.forEach((m) => notas.addAll(m.notas));
-    notas.sort((a, b) => a.data.compareTo(b.data));
-    return notas;
-  }
-
   List<Notas> extractNotasByDate(DateTime date) {
     final notas = List<Notas>();
     materias.forEach(
@@ -230,38 +220,6 @@ class Periodos implements BaseTable {
     );
     notas.sort((a, b) => a.data.compareTo(b.data));
     return notas;
-  }
-
-  refreshCronograma() {
-    cronogramas.clear();
-
-    for (int i = inicio.month; i <= termino.month; i++) {
-      cronogramas.add(
-        CronogramaNotas(mes: i, dates: List<CronogramaDates>()),
-      );
-    }
-
-    final notas = extractNotas();
-    final mesesComNotas = notas.map((n) => n.data.month).toSet();
-    for (int mes in mesesComNotas) {
-      final notasNoMes = notas.where((n) => n.data.month == mes);
-
-      for (final nota in notasNoMes) {
-        final materia = materias.firstWhere((mt) => mt.id == nota.idMateria);
-        final cronoDates = CronogramaDates(date: nota.data)
-          ..addMateria(
-            CronogramaMaterias(
-              cor: materia.cor,
-              id: materia.id,
-              nome: materia.nome,
-              sigla: materia.sigla,
-              notas: nota,
-            ),
-          );
-
-        cronogramas.firstWhere((it) => it.mes == mes).insertDates(cronoDates);
-      }
-    }
   }
 
   Materias getMateriaById(int idMateria) {

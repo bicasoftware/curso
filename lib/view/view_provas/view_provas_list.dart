@@ -1,30 +1,39 @@
-import 'package:curso/container/calendario.dart';
-import 'package:curso/container/cronograma.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:curso/bloc/bloc_provas/bloc_provas.dart';
+import 'package:curso/container/falta_container.dart';
+import 'package:curso/view/view_provas/view_provas_list_item.dart';
+import 'package:curso/widgets/happy_placeholder.dart';
+import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ProvasList extends StatelessWidget {
-  final List<CronogramaDates> dates;
-  final List<AulasSemanaDTO> aulasSemana;
-  final Function(CronogramaDates) onTileTap;
-
-  const ProvasList({
-    Key key,
-    @required this.dates,
-    @required this.onTileTap,
-    this.aulasSemana,
-  }) : super(key: key);
+  const ProvasList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: dates.length,
-      shrinkWrap: true,
-      itemBuilder: (c, i) {
-        return Container();
-/*         return ProvasListItem(
-          provaNotasMateria: dates[i],
-          onTap: onTileTap,
-        ); */
+    final b = BlocProvider.of<BlocProvas>(context);
+
+    return StreamBuilder<List<NotasContainer>>(
+      stream: b.outFaltas,
+      initialData: [],
+      builder: (_, AsyncSnapshot<List<NotasContainer>> snap) {
+        if (!snap.hasData) {
+          return HappyPlaceholder();
+        } else {
+          return Expanded(
+            child: SquaredCard(
+              child: ListView.builder(
+                itemCount: snap.data.length,
+                itemBuilder: (_, i) {
+                  return ViewProvasListItem(
+                    dates: snap.data[i].dates,
+                    mes: snap.data[i].mes,
+                  );
+                },
+              ),
+            ),
+          );
+        }
       },
     );
   }

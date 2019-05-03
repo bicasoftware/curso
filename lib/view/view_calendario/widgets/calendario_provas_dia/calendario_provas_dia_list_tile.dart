@@ -1,5 +1,5 @@
-import 'package:curso/container/cronograma.dart';
 import 'package:curso/container/notas.dart';
+import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
@@ -67,7 +67,7 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
     }
   }
 
-  String formatNota(double nota){
+  String formatNota(double nota) {
     return NumberFormat("##.## 00.00").format(nota ?? 0.0);
   }
 }
