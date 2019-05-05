@@ -2,12 +2,13 @@ import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/utils.dart/date_utils.dart';
 
 class StateProvas {
-  List<NotasContainer> faltas;
+  List<NotasContainer> provas;
 
   StateProvas(Periodos periodo) {
-    faltas = List<NotasContainer>();
+    provas = List<NotasContainer>();
     _prepareFaltas(periodo.inicio, periodo.termino, periodo.materias);
   }
 
@@ -19,7 +20,7 @@ class StateProvas {
   }
 
   _prepareFaltas(DateTime inicio, DateTime termino, List<Materias> materias) {
-    faltas.clear();
+    provas.clear();
     final notas = _extractNotas(materias);
     final mesesComNotas = notas.map((n) => n.data.month).toSet();
 
@@ -49,7 +50,17 @@ class StateProvas {
         });
         container.addDates(notasByDate);
       }
-      faltas.add(container);
+      provas.add(container);
     }
+  }
+
+  void updateProva(Notas nota) {
+    provas
+        .firstWhere((p) => p.mes == nota.data.month)
+        .dates
+        .firstWhere((d) => isSameDay(d.date, nota.data))
+        .materias
+        .firstWhere((m) => m.id == nota.idMateria)
+        .notas = nota;
   }
 }

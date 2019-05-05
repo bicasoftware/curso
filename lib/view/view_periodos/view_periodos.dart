@@ -56,11 +56,12 @@ class ViewPeriodosState extends State<ViewPeriodos> {
             onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
               _showViewInsertMaterias(context, idPeriodo, materias, medAprov, _onRefreshMaterias);
             },
-            onNotasTap: (Periodos periodos) async {
+            onNotasTap: (Periodos periodo) async {
+              b.setCurrentPeriodoId(periodo.id);
               final result = await Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (c) => ViewProvas(periodo: periodos),
+                  builder: (c) => ViewProvas(periodo: periodo),
                 )
               );
 

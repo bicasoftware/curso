@@ -1,6 +1,7 @@
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,6 +23,11 @@ void main() {
       final d = parseDate("2018-02-03");
       assert(d == DateTime(2018, 02, 03));
     });
+  });
+
+  test('formatNota', () {
+    double nota = 2;
+    print(formatNota(nota));
   });
 
   test('list dates', () {

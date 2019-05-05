@@ -14,7 +14,7 @@ class _ViewProvasBodyState extends State<ViewProvasBody> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text(Strings.provas),
+            title: Text("${Strings.provas}"),
             floating: true,
           ),
           ProvasList(),

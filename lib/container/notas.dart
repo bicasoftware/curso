@@ -50,7 +50,7 @@ class Notas implements BaseTable {
       id: m[ID],
       idMateria: m[IDMATERIA],
       data: parseDate(m[DATA]),
-      nota: m[NOTA],
+      nota: double.tryParse(m[NOTA].toString()),
     );
   }
 

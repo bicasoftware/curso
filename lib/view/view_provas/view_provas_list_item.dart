@@ -1,18 +1,19 @@
 import 'package:curso/container/falta_container.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';
 import 'package:curso/widgets/list_indicator.dart';
 import 'package:flutter/material.dart';
 
-///TODO a- alterar view para utilizar Sleeves
-
 class ViewProvasListItem extends StatelessWidget {
+  final Function(Notas) onNotasTap;
   final List<NotasByDate> dates;
   final int mes;
 
   const ViewProvasListItem({
     Key key,
+    @required this.onNotasTap,
     @required this.dates,
     @required this.mes,
   }) : super(key: key);
@@ -52,7 +53,7 @@ class ViewProvasListItem extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Divider(height: 0),
                   ),
-                  ViewProvasListItemMaterias(materias: dates[j].materias)
+                  ViewProvasListItemMaterias(materias: dates[j].materias, onTap: onNotasTap)
                 ],
               );
             },
