@@ -201,8 +201,6 @@ class Periodos implements BaseTable {
     materias.firstWhere((m) => m.id == nota.idMateria).updateNota(nota);
   }
 
-  //TODO - testar e finalizar de provas
-
   deleteNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).deleteNota(nota);
     calendario

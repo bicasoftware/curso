@@ -3,15 +3,7 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/default_list_tile.dart';
 import 'package:flutter/material.dart';
 
-class ViewDateRangeBuilder {
-  static getAppBar(String title) => AppBar(title: Text(title));
-
-  static getFAB(VoidCallback onTap) => FloatingActionButton.extended(
-        icon: Icon(Icons.save),
-        label: Text(Strings.salvar),
-        highlightElevation: 2,
-        onPressed: onTap,
-      );
+class ViewTimeRangeBuilder {
 
   static Widget getTileInicio({@required DateTime date, @required VoidCallback onTap}) {
     return _timeTile(date, onTap, Strings.inicioAula);
@@ -32,4 +24,3 @@ class ViewDateRangeBuilder {
     );
   }
 }
-

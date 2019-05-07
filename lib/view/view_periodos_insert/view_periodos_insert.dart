@@ -1,13 +1,12 @@
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/view/view_time_range_picker/view_time_range.dart';
+import 'package:curso/view/view_time_range_picker/view_time_range_result.dart';
 import 'package:curso/widgets/date_picker_tile.dart';
 import 'package:curso/widgets/list_indicator_slim.dart';
 import 'package:flutter/material.dart';
 
-import '../../container/horarios.dart';
-import '../../container/periodos.dart';
-import '../../widgets/list_indicator.dart';
-import '../view_date_range_picker/view_data_range.dart';
-import '../view_date_range_picker/view_data_range_result.dart';
+import 'package:curso/container/horarios.dart';
+import 'package:curso/container/periodos.dart';
 import 'view_periodos_insert_builder.dart';
 
 class ViewPeriodosInsert extends StatefulWidget {
@@ -23,7 +22,6 @@ class ViewPeriodosInsert extends StatefulWidget {
 }
 
 class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
-  static final _formKey = GlobalKey<FormState>();
 
   Periodos _periodo;
 
@@ -87,58 +85,63 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ViewPeriodosInsertBuilder.appBar(
-        idPeriodo: _periodo.numPeriodo,
-        formKey: _formKey,
-        onTap: () => Navigator.of(context).pop(_periodo),
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
-              numPeriodo: _periodo.numPeriodo,
-              onChanged: _setNumPeriodo,
-            ),
-            DatePickerTile(
-              initialDate: _periodo.inicio,
-              title: Strings.inicioPeriodo,
-              onDateSet: _setDataIni,
-            ),
-            DatePickerTile(
-              initialDate: _periodo.termino,
-              title: Strings.terminoPeriodo,
-              onDateSet: _setDataTermino,
-            ),
-            ListIndicatorSlim(hint: Strings.valorReprovacao),
-            ViewPeriodosInsertBuilder.notaMinimaSliderTile(
-              nota: _periodo.medAprov,
-              onChanged: (n) => _setMedAprov(n),
-            ),
-            ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
-              _periodo.presObrig.toDouble(),
-              (double value) => _setPresObrigDouble(value),
-            ),
-            //ListIndicatorSlim(hint: Strings.aulas_e_horarios),            
-            ViewPeriodosInsertBuilder.aulaDiaTileSlider(
-              aulasDia: _periodo.aulasDia,
-              onChanged: (double i) {
-                _setAulasDiaDouble(i + 1);
-              },
-            ),
-            ListIndicatorSlim(hint: Strings.horarios),
-            ViewPeriodosInsertBuilder.listHorarios(
-              horarios: _periodo.horarios,
-              aulasDia: _periodo.aulasDia,
-              onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
-                _showDateRangeView(ordemAula, inicio, termino);
-              },
+        body: CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          floating: true,
+          title: Text("${_periodo.numPeriodo}º ${Strings.periodo}"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () => Navigator.of(context).pop(_periodo),
             ),
           ],
         ),
-      ),
-    );
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
+                numPeriodo: _periodo.numPeriodo,
+                onChanged: _setNumPeriodo,
+              ),
+              DatePickerTile(
+                initialDate: _periodo.inicio,
+                title: Strings.inicioPeriodo,
+                onDateSet: _setDataIni,
+              ),
+              DatePickerTile(
+                initialDate: _periodo.termino,
+                title: Strings.terminoPeriodo,
+                onDateSet: _setDataTermino,
+              ),
+              ListIndicatorSlim(hint: Strings.valorReprovacao),
+              ViewPeriodosInsertBuilder.notaMinimaSliderTile(
+                nota: _periodo.medAprov,
+                onChanged: (n) => _setMedAprov(n),
+              ),
+              ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
+                _periodo.presObrig.toDouble(),
+                (double value) => _setPresObrigDouble(value),
+              ),
+              ViewPeriodosInsertBuilder.aulaDiaTileSlider(
+                aulasDia: _periodo.aulasDia,
+                onChanged: (double i) {
+                  _setAulasDiaDouble(i + 1);
+                },
+              ),
+              ListIndicatorSlim(hint: Strings.horarios),
+              ViewPeriodosInsertBuilder.listHorarios(
+                horarios: _periodo.horarios,
+                aulasDia: _periodo.aulasDia,
+                onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
+                  _showDateRangeView(ordemAula, inicio, termino);
+                },
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
   }
 
   bool _temHorarioSalvo(int i) {
@@ -146,11 +149,11 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   }
 
   _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
-    ViewDateRangeResult result = await Navigator.of(context).push(
+    ViewTimeRangeResult result = await Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (c) {
-          return ViewDateRange(
+          return ViewTimeRange(
             ordemAula: ordemAula,
             inicio: inicio,
             termino: termino,
@@ -159,7 +162,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       ),
     );
 
-    if (result != null && result is ViewDateRangeResult) {
+    if (result != null && result is ViewTimeRangeResult) {
       _setHoraAula(result.ordemAula, result.inicio, result.termino);
     }
   }
