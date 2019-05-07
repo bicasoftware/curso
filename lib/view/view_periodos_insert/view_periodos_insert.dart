@@ -1,5 +1,6 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/date_picker_tile.dart';
+import 'package:curso/widgets/list_indicator_slim.dart';
 import 'package:flutter/material.dart';
 
 import '../../container/horarios.dart';
@@ -83,8 +84,6 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
     });
   }
 
-  Widget _divider() => Divider(height: 1);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,54 +94,48 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       ),
       body: Form(
         key: _formKey,
-        child: Card(
-          margin: EdgeInsets.all(8),
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              ListIndicator(hint: Strings.periodo),
-              ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
-                numPeriodo: _periodo.numPeriodo,
-                onChanged: _setNumPeriodo,
-              ),
-              _divider(),
-              DatePickerTile(
-                initialDate: _periodo.inicio,
-                title: Strings.inicioPeriodo,
-                onDateSet: _setDataIni,
-              ),
-              _divider(),
-              DatePickerTile(
-                initialDate: _periodo.termino,
-                title: Strings.terminoPeriodo,
-                onDateSet: _setDataTermino,
-              ),
-              ListIndicator(hint: Strings.valorReprovacao),
-              ViewPeriodosInsertBuilder.notaMinimaSliderTile(
-                nota: _periodo.medAprov,
-                onChanged: (n) => _setMedAprov(n),
-              ),
-              _divider(),
-              ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
-                _periodo.presObrig.toDouble(),
-                (double value) => _setPresObrigDouble(value),
-              ),
-              ListIndicator(hint: Strings.aulas_e_horarios),
-              ViewPeriodosInsertBuilder.aulaDiaTileSlider(
-                aulasDia: _periodo.aulasDia,
-                onChanged: (double i) {
-                  _setAulasDiaDouble(i + 1);
-                },
-              ),
-              ViewPeriodosInsertBuilder.listHorarios(
-                horarios: _periodo.horarios,
-                aulasDia: _periodo.aulasDia,
-                onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
-                  _showDateRangeView(ordemAula, inicio, termino);
-                },
-              ),
-            ],
-          ),
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
+              numPeriodo: _periodo.numPeriodo,
+              onChanged: _setNumPeriodo,
+            ),
+            DatePickerTile(
+              initialDate: _periodo.inicio,
+              title: Strings.inicioPeriodo,
+              onDateSet: _setDataIni,
+            ),
+            DatePickerTile(
+              initialDate: _periodo.termino,
+              title: Strings.terminoPeriodo,
+              onDateSet: _setDataTermino,
+            ),
+            ListIndicatorSlim(hint: Strings.valorReprovacao),
+            ViewPeriodosInsertBuilder.notaMinimaSliderTile(
+              nota: _periodo.medAprov,
+              onChanged: (n) => _setMedAprov(n),
+            ),
+            ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
+              _periodo.presObrig.toDouble(),
+              (double value) => _setPresObrigDouble(value),
+            ),
+            //ListIndicatorSlim(hint: Strings.aulas_e_horarios),            
+            ViewPeriodosInsertBuilder.aulaDiaTileSlider(
+              aulasDia: _periodo.aulasDia,
+              onChanged: (double i) {
+                _setAulasDiaDouble(i + 1);
+              },
+            ),
+            ListIndicatorSlim(hint: Strings.horarios),
+            ViewPeriodosInsertBuilder.listHorarios(
+              horarios: _periodo.horarios,
+              aulasDia: _periodo.aulasDia,
+              onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
+                _showDateRangeView(ordemAula, inicio, termino);
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -33,7 +33,7 @@ class Strings {
   static const String editarPeriodo = 'Período';
   static const String novoPeriodo = 'Novo Período';
   static const String inicioPeriodo = 'Inicio do Período';
-  static const String terminoPeriodo = 'Inicio do Período';
+  static const String terminoPeriodo = 'Término do Período';
   static const String aulasDia = 'Aulas por Dia';
   static const String notaAprovacao = 'Nota de Aprovação';
   static const String presencaObrigatoria = 'Presença obrigatória';
@@ -53,12 +53,13 @@ class Strings {
   static const String semAulasHoje = 'Nenhuma aula nessa data';
   static const String parciais = 'Parciais';
   static const String dataProva = 'Data da Prova';
-  static const String valorReprovacao = "Valores de Reprovação";
-  static const String aulas_e_horarios = "Aulas e Horários";
+  static const String valorReprovacao = "Notas, Presença e Aulas ";
+  static const String horarios = "Horários";
   static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
   static const String desagendarProva = "Deseja cancelar a prova?";
   static const String adicionarNota = "Alterar Nota";
   static const String cancelarProva = "Cancelar Prova";
+  static const String duracaoOrdemPeriodo = "Duração e Ordem do $periodo";
 }
 
 class Arrays {
