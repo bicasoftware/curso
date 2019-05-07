@@ -37,6 +37,10 @@ String formatTime(DateTime time) {
   return _timeFormat.format(time);
 }
 
+String formatTimeOfDay(TimeOfDay timeOf) {
+  return "${timeOf.hour.toString().padLeft(2, '0')}: ${timeOf.minute.toString().padLeft(2, '0')}";
+}
+
 DateTime parseTime(String time) {
   return _timeFormat.parse(time);
 }

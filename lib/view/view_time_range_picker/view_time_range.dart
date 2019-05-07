@@ -1,13 +1,12 @@
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/view/view_time_range_picker/view_time_range_builder.dart';
 import 'package:curso/view/view_time_range_picker/view_time_range_result.dart';
 import 'package:curso/widgets/squared_card.dart';
+import 'package:curso/widgets/time_picker_tile.dart';
 import 'package:flutter/material.dart';
 
 class ViewTimeRange extends StatefulWidget {
   final int ordemAula;
-  final DateTime inicio, termino;
+  final TimeOfDay inicio, termino;
 
   const ViewTimeRange({
     Key key,
@@ -21,7 +20,7 @@ class ViewTimeRange extends StatefulWidget {
 
 class _ViewTimeRangeState extends State<ViewTimeRange> {
   int _ordemAula;
-  DateTime _inicio, _termino;
+  TimeOfDay _inicio, _termino;
 
   @override
   void initState() {
@@ -31,15 +30,15 @@ class _ViewTimeRangeState extends State<ViewTimeRange> {
     _termino = widget.termino;
   }
 
-  _setInicio(DateTime date) {
+  _setInicio(TimeOfDay time) {
     setState(() {
-      _inicio = date;
+      _inicio = time;
     });
   }
 
-  _setTermino(DateTime date) {
+  _setTermino(TimeOfDay time) {
     setState(() {
-      _termino = date;
+      _termino = time;
     });
   }
 
@@ -58,25 +57,17 @@ class _ViewTimeRangeState extends State<ViewTimeRange> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ViewTimeRangeBuilder.getTileInicio(
-                date: _inicio,
-                onTap: () async {
-                  final DateTime inicio = await showTimeDialog(_inicio);
-                  if (inicio != null) {
-                    _setInicio(inicio);
-                  }
-                },
+              TimePickerTile(
+                initialTime: _inicio,
+                title: Strings.inicioAula,
+                onTimeSet: (time) => _setInicio(time),
               ),
               Divider(height: 0),
-              ViewTimeRangeBuilder.getTileTermino(
-                date: _termino,
-                onTap: () async {
-                  final DateTime termino = await showTimeDialog(_termino);
-                  if (termino != null) {
-                    _setTermino(termino);
-                  }
-                },
-              ),
+              TimePickerTile(
+                initialTime: _termino,
+                title: Strings.terminoAula,
+                onTimeSet: (time) => _setTermino(time),
+              )
             ],
           ),
         ),
@@ -97,29 +88,23 @@ class _ViewTimeRangeState extends State<ViewTimeRange> {
     );
   }
 
-  Future<DateTime> showTimeDialog(DateTime date) async {
-    final TimeOfDay time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: date.hour, minute: date.minute),
-    );
-
-    return time != null ? parseTimeOfDay(time) : date;
-  }
-
   void showErrorSnack({@required BuildContext c, @required String msg}) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg)));
   }
 
   void validateHorarios({@required BuildContext c}) {
-    if (_inicio.isAfter(_termino)) {
+    final inicio = DateTime(1970, 1, 1, _inicio.hour, _inicio.minute, 0);
+    final termino = DateTime(1970, 1, 1, _termino.hour, _termino.minute, 0);
+
+    if (inicio.isAfter(termino)) {
       showErrorSnack(c: c, msg: Errors.horariosInvalidos);
-    } else if (_termino.isAtSameMomentAs(_inicio)) {
+    } else if (termino.isAtSameMomentAs(inicio)) {
       showErrorSnack(c: c, msg: Errors.horariosIguaisInvalidos);
     } else {
       Navigator.of(c).pop(
         ViewTimeRangeResult(
-          inicio: _inicio,
-          termino: _termino,
+          inicio: inicio,
+          termino: termino,
           ordemAula: _ordemAula,
         ),
       );

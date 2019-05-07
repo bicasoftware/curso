@@ -155,8 +155,8 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         builder: (c) {
           return ViewTimeRange(
             ordemAula: ordemAula,
-            inicio: inicio,
-            termino: termino,
+            inicio: TimeOfDay.fromDateTime(inicio),
+            termino: TimeOfDay.fromDateTime(termino),
           );
         },
       ),
