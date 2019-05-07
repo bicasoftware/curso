@@ -1,4 +1,5 @@
 import 'package:curso/container/faltas.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -9,29 +10,51 @@ class CalendarioDTO {
 
   const CalendarioDTO({this.mes, this.dates});
 
+  DataDTO _findByDate(DateTime date){
+    return dates.firstWhere((dt) => isSameDay(dt.date, date));
+  }
+
   insertFalta(Faltas falta) {
-    dates.firstWhere((dt) => isSameDay(dt.date, falta.data)).insertFalta(falta);
+    _findByDate(falta.data).insertFalta(falta);
   }
 
   deleteFalta(DateTime date, int idFalta) {
-    dates.firstWhere((dt) => isSameDay(dt.date, date)).deleteFalta(idFalta);
+    _findByDate(date).deleteFalta(idFalta);
+  }
+
+  setHasProvas(Notas nota, bool hasProva){
+    _findByDate(nota.data).setHasProvas(hasProva);
   }
 }
 
 class DataDTO {
   final DateTime date;
   final List<AulasSemanaDTO> aulas;
+  bool hasProvas;
 
-  const DataDTO({this.date, this.aulas});
+  DataDTO({this.date, this.aulas, this.hasProvas: false});
 
   insertFalta(Faltas falta) {
     aulas.firstWhere((aula) => aula.numAula == falta.numAula).insertFalta(falta);
   }
 
-
   deleteFalta(int idFalta) {
     aulas.firstWhere((aula) => aula.idFalta == idFalta).deleteFalta();
   }
+
+  get colorList => aulas.map((aula) => Color(aula.cor)).toList();
+
+  bool get isFalta {
+    final qr = aulas.firstWhere((a) => a.idFalta != null && a.tipo == 0, orElse: () => null);
+    return qr != null;
+  }
+
+  bool get isVaga {
+    final qr = aulas.firstWhere((a) => a.idFalta != null && a.tipo == 1, orElse: () => null);
+    return qr != null;
+  }
+
+  setHasProvas(bool hasProvas) => this.hasProvas = hasProvas;
 }
 
 class AulasSemanaDTO {

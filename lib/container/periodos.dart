@@ -121,6 +121,7 @@ class Periodos implements BaseTable {
       end: termino,
       aulasByWeekDay: aulasSemana,
       faltas: _getFaltas(),
+      provas: _getProvas(),
     );
   }
 
@@ -189,14 +190,28 @@ class Periodos implements BaseTable {
 
   insertNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).insertNota(nota);
+    calendario
+        .firstWhere((c) => c.mes == nota.data.month)
+        .dates
+        .firstWhere((d) => isSameDay(d.date, nota.data), orElse: () => null)
+        ?.setHasProvas(true);
   }
 
   updateNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).updateNota(nota);
   }
 
+  //TODO - testar e finalizar de provas
+
   deleteNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).deleteNota(nota);
+    calendario
+        .firstWhere((c) => c.mes == nota.data.month)
+        .dates
+        .firstWhere((d) => isSameDay(d.date, nota.data), orElse: () => null)
+        ?.setHasProvas(
+          _getProvas().firstWhere((p) => isSameDay(nota.data, p.data), orElse: () => null) != null,
+        );
   }
 
   List<Faltas> _getFaltas() {
@@ -207,6 +222,12 @@ class Periodos implements BaseTable {
       },
     );
     return faltas;
+  }
+
+  List<Notas> _getProvas() {
+    final provas = List<Notas>();
+    materias.forEach((m) => m.notas.forEach((n) => provas.add(n)));
+    return provas;
   }
 
   List<Notas> extractNotasByDate(DateTime date) {

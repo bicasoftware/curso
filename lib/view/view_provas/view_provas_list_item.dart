@@ -4,6 +4,7 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';
 import 'package:curso/widgets/list_indicator.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class ViewProvasListItem extends StatelessWidget {
@@ -49,9 +50,8 @@ class ViewProvasListItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
+                  PaddedDivider(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Divider(height: 0),
                   ),
                   ViewProvasListItemMaterias(materias: dates[j].materias, onTap: onNotasTap)
                 ],

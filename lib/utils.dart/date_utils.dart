@@ -1,5 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
+import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -152,6 +153,7 @@ List<CalendarioDTO> prepareCalendario({
   @required DateTime end,
   @required List<AulasSemanaDTO> aulasByWeekDay,
   @required List<Faltas> faltas,
+  @required List<Notas> provas,
 }) {
   final rightEnd = end.add(Duration(days: 1));
   final calendario = List<CalendarioDTO>();
@@ -184,6 +186,7 @@ List<CalendarioDTO> prepareCalendario({
         DataDTO(
           date: start,
           aulas: aulas,
+          hasProvas: provas.firstWhere((p) => isSameDay(p.data, start), orElse: () => null) != null,
         ),
       );
       start = start.add(Duration(days: 1));

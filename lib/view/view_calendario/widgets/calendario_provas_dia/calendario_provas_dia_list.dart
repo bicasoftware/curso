@@ -6,6 +6,7 @@ import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_provas_dia/calendario_provas_dia_list_tile.dart';
 import 'package:curso/widgets/happy_placeholder.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 //Repassar tela de Notas a partir de ViewPeriodos
@@ -27,12 +28,8 @@ class CalendarioProvasDiaList extends StatelessWidget {
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: snapshot.data.first.length,
-                  separatorBuilder: (_, __) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 16.0, left: 140),
-                      child: Divider(height: 0),
-                    );
-                  },
+                  separatorBuilder: (_, __) =>
+                      PaddedDivider(padding: const EdgeInsets.only(right: 16.0, left: 140)),
                   itemBuilder: (c, i) {
                     return CalendarioProvasDiaListTile(
                       provasNotasMaterias: snapshot.data.first[i],

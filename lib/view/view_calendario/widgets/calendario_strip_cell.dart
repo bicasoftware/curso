@@ -1,5 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_strip_cell_indicator.dart';
 import 'package:curso/widgets/rainbow_radial/rainbow_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -17,12 +18,11 @@ class CalendarioStripCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorList = dataDTO.aulas.map((aula) => Color(aula.cor)).toList();
+    final colorList = dataDTO.colorList;
 
     return Container(
       color: getCellColor(context),
       width: 70,
-
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -39,6 +39,13 @@ class CalendarioStripCell extends StatelessWidget {
                   size: Offset(25, 25),
                   colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
                 ),
+                SizedBox(height: 4),
+                CellIndicator(
+                  isFalta: dataDTO.isFalta,
+                  isVaga: dataDTO.isVaga,
+                  hasProva: dataDTO.hasProvas,
+                ),
+                SizedBox(height: 4),
               ],
             ),
           ),

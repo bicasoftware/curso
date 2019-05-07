@@ -5,7 +5,6 @@ import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class CalendarioProvasDiaListTile extends StatelessWidget {
   final ProvasNotasMaterias provasNotasMaterias;

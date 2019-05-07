@@ -103,33 +103,11 @@ class StateMain {
 
   CalendarioDTO get currentCalendario => currentPeriodo.getCalendarioByMonth(mes);
 
-  /* CronogramaNotas get currentCronograma {
-    return currentPeriodo.cronogramas.firstWhere((c) => c.mes == mes, orElse: () => null);
+  bool hasProva(){
+    final List<Notas> listNotas = [];
+    currentPeriodo.materias.forEach((m) => m.notas.forEach((n) => listNotas.add(n)));
+    return listNotas.firstWhere((l) => isSameDay(l.data, selectedDate), orElse: () => null) != null;
   }
-
-  CronogramaDates get provas {
-    return currentCronograma.dates.firstWhere(
-      (d) => isSameDay(d.date, selectedDate),
-      orElse: () => null,
-    );
-  }
-
-  Pair<CronogramaDates, List<AulasSemanaDTO>> get provasMateriasDia {
-    CronogramaDates dates = CronogramaDates(
-      date: selectedDate,
-      materias: List<CronogramaMaterias>(),
-    );
-
-    if (currentCronograma.dates.length > 0) {
-      dates = currentCronograma.dates
-          .firstWhere((d) => isSameDay(d.date, selectedDate), orElse: () => dates);
-    }
-
-    return Pair(
-      first: dates,
-      second: aulasByWeekDay,
-    );
-  } */
 
   List<AulasSemanaDTO> get aulasByWeekDay {
     final aulas =

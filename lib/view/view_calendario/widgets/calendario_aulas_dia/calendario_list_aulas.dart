@@ -1,5 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_list_aulas_tile.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class AulasDiaList extends StatelessWidget {
@@ -20,17 +21,13 @@ class AulasDiaList extends StatelessWidget {
       itemBuilder: (c, i) {
         return CalendarioAulasDiaTile(
           ordem: i,
-          aulasSemana: aulas[i],          
+          aulasSemana: aulas[i],
           onOptionSelected: onOptionSelected,
         );
       },
-
       separatorBuilder: (c, i) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 16, left: 120),
-          child: Divider(height: 0),
-        );
-      },
+        return PaddedDivider(padding: const EdgeInsets.only(right: 16, left: 120));
+      },      
     );
   }
 }

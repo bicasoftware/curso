@@ -1,8 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/calendario.dart';
+import 'package:curso/container/calendario_strip_container.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/triple.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip_cell.dart';
 import 'package:curso/widgets/awaiting_container.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +16,12 @@ class _CalendarioStripState extends State<CalendarioStrip> {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return StreamBuilder<Triple<CalendarioDTO, DateTime, double>>(
+    return StreamBuilder<CalendarioStripContainer>(
       stream: b.outCalendario,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           ScrollController controller = ScrollController(
-            initialScrollOffset: snapshot.data.third,
+            initialScrollOffset: snapshot.data.initialOffset,
           );
 
           return Column(
@@ -38,9 +37,9 @@ class _CalendarioStripState extends State<CalendarioStrip> {
                         scrollDirection: Axis.horizontal,
                         controller: controller,
                         addRepaintBoundaries: true,
-                        children: snapshot.data.first.dates.map((date) {
+                        children: snapshot.data.calendario.dates.map((date) {
                           return CalendarioStripCell(
-                            selectedDate: snapshot.data.second,
+                            selectedDate: snapshot.data.selectedDate,
                             dataDTO: date,
                             onTap: () => b.setCurrentDate(date.date),
                           );
@@ -56,7 +55,7 @@ class _CalendarioStripState extends State<CalendarioStrip> {
               Container(
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  formatFullDayString(snapshot.data.second),
+                  formatFullDayString(snapshot.data.selectedDate),
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontSize: 16,

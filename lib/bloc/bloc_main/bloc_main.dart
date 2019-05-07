@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
+import 'package:curso/container/calendario_strip_container.dart';
 import 'package:curso/container/conf.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
@@ -14,7 +15,6 @@ import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_notas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/pair.dart';
-import 'package:curso/utils.dart/triple.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
@@ -34,9 +34,9 @@ class BlocMain implements BlocBase {
   get outPeriodos => _subjectPeriodos.stream;
   get inPeriodos => _subjectPeriodos.sink;
 
-  final _subCalendarioContent = BehaviorSubject<Triple<CalendarioDTO, DateTime, double>>();
-  Stream<Triple<CalendarioDTO, DateTime, double>> get outCalendario => _subCalendarioContent.stream;
-  Sink<Triple<CalendarioDTO, DateTime, double>> get inCalendario => _subCalendarioContent.sink;
+  final _subCalendarioContent = BehaviorSubject<CalendarioStripContainer>();
+  Stream<CalendarioStripContainer> get outCalendario => _subCalendarioContent.stream;
+  Sink<CalendarioStripContainer> get inCalendario => _subCalendarioContent.sink;
 
   final _subProvasNotasMaterias =
       BehaviorSubject<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>();
@@ -80,20 +80,20 @@ class BlocMain implements BlocBase {
   _sinkPeriodos() {
     inPeriodos.add(state.periodos);
     inCalendario.add(
-      Triple(
-        first: state.currentCalendario,
-        second: state.selectedDate,
-        third: state.calendarStripPosition,
+      CalendarioStripContainer(
+        calendario: state.currentCalendario,
+        selectedDate: state.selectedDate,
+        initialOffset: state.calendarStripPosition,
       ),
     );
   }
 
   _sinkCurrentPeriodo() {
     inCalendario.add(
-      Triple(
-        first: state.currentCalendario,
-        second: state.selectedDate,
-        third: state.calendarStripPosition,
+      CalendarioStripContainer(
+        calendario: state.currentCalendario,
+        selectedDate: state.selectedDate,
+        initialOffset: state.calendarStripPosition,
       ),
     );
     inDataDTO.add(state.aulasDia);

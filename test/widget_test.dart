@@ -25,6 +25,13 @@ void main() {
     });
   });
 
+  test("isSameDay", (){
+    final d1 = DateTime(2018,01,01,12,0,0);
+    final d2 = DateTime(2018,01,01,23,59,59);
+
+    assert(isSameDay(d1, d2));
+  });
+
   test('formatNota', () {
     double nota = 2;
     print(formatNota(nota));
