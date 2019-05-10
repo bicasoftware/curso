@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';

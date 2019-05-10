@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc/bloc_main/bloc_main.dart';
@@ -36,7 +36,7 @@ class AppEntranceState extends State<AppEntrance> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocMain>(
-      bloc: _bloc,
+      creator: (_, __) => _bloc,      
       child: MyApp(),
     );
   }

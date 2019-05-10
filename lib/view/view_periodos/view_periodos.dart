@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
 import 'package:flutter/material.dart';
 

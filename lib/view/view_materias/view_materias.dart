@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_materias.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +45,7 @@ class ViewMateriasState extends State<ViewMaterias> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocMaterias>(
-      bloc: _bloc,
+      creator: (_, __) => _bloc,
       child: _Body(idPeriodo: widget.idPeriodo, medAprov: widget.medAprov),
     );
   }

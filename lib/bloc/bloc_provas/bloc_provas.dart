@@ -1,11 +1,11 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_provas/state_provas.dart';
 import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:rxdart/rxdart.dart';
 
-class BlocProvas implements BlocBase {
+class BlocProvas implements Bloc {
   StateProvas state;
 
   BlocProvas(Periodos periodo) {
