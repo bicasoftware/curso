@@ -3,9 +3,9 @@ import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';
-import 'package:curso/widgets/list_indicator.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewProvasListItem extends StatelessWidget {
   final Function(Notas) onNotasTap;
@@ -27,10 +27,7 @@ class ViewProvasListItem extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            child: ListIndicator(
-              hint: Arrays.meses[mes - 1],
-              padding: EdgeInsets.all(8),
-            ),
+            child: LabeledDividerTile(hint: Arrays.meses[mes - 1]),
           ),
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),

@@ -6,11 +6,11 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_provas_insert/bottomsheet_aulas_dia.dart';
 import 'package:curso/view/view_provas_insert/view_provas_insert_materias.dart';
-import 'package:curso/widgets/date_picker_tile.dart';
 import 'package:curso/widgets/list_insert_header.dart';
 import 'package:curso/widgets/rounded_bottomsheet_container.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewProvasInsert extends StatefulWidget {
   final NotasByDate dates;

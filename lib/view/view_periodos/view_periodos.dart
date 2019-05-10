@@ -31,6 +31,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       stream: b.outPeriodos,
       builder: (c, snap) {
         return Container(
+          color: Colors.white,
           child: ViewPeriodosBuilder.listPeriodos(
             context: context,
             periodos: snap.data,

@@ -1,8 +1,8 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_time_range_picker/view_time_range_result.dart';
 import 'package:curso/widgets/squared_card.dart';
-import 'package:curso/widgets/time_picker_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewTimeRange extends StatefulWidget {
   final int ordemAula;

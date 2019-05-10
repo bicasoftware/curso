@@ -8,13 +8,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  helper_tiles:
+    git:
+      url: https://github.com/bicasoftware/helper_tiles
 
   cupertino_icons: ^0.1.2
   intl: ^0.15.8
   sqflite: ^1.1.5
   path_provider: ^1.0.0
   rxdart: ^0.22.0
-  # bloc_pattern: ^1.5.2
   bloc_provider: ^0.6.1+1
 
 dev_dependencies:

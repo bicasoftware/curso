@@ -34,28 +34,37 @@ class ViewHomeBuilder {
   }
 
   static Widget bottomBar(BuildContext context, int pos, Function(int) onTap) {
-    return BottomNavigationBar(
-      currentIndex: pos,
-      onTap: onTap,
-      items: [
-        BottomNavigationBarItem(
-          title: Text(Strings.periodos),
-          icon: Icon(Icons.donut_small),
-        ),
-        BottomNavigationBarItem(
-          title: Text(Strings.calendario),
-          icon: Icon(Icons.date_range),
-        ),
-        BottomNavigationBarItem(
-          title: Text(Strings.parciais),
-          icon: Icon(Icons.format_list_bulleted),
-        ),
-      ],
+    return Theme(
+      data: ThemeData(        
+        fontFamily: "FiraSans",
+        accentColor: Theme.of(context).accentColor,
+        primaryColor: Theme.of(context).primaryColor,        
+        cardColor: Theme.of(context).cardColor,
+      ),
+      child: BottomNavigationBar(
+        currentIndex: pos,
+        onTap: onTap,
+        items: [
+          BottomNavigationBarItem(
+            title: Text(Strings.periodos),
+            icon: Icon(Icons.donut_small),
+          ),
+          BottomNavigationBarItem(
+            title: Text(Strings.calendario),
+            icon: Icon(Icons.date_range),
+          ),
+          BottomNavigationBarItem(
+            title: Text(Strings.parciais),
+            icon: Icon(Icons.format_list_bulleted),
+          ),
+        ],
+      ),
     );
   }
 
   static Widget body(TabController controller) {
     return Container(
+      color: Colors.white,
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         children: [

@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         splashColor: Colors.lightBlue[50],
         highlightColor: Colors.lightBlue[50],
+        canvasColor: Colors.transparent,
       ),
       home: ViewHome(),
     );

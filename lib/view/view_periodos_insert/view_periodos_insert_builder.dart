@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 import 'package:meta/meta.dart';
 
 import '../../container/horarios.dart';
 import '../../utils.dart/Strings.dart';
-import '../../widgets/default_list_tile.dart';
 import '../../widgets/horario_aula_tile.dart';
-import '../../widgets/slider_tile.dart';
 
 class ViewPeriodosInsertBuilder {
   static Widget numPeriodoDropdownTile({

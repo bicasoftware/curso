@@ -4,10 +4,9 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
 import 'package:curso/widgets/circle.dart';
-import 'package:curso/widgets/default_list_tile.dart';
-import 'package:curso/widgets/default_text_list_tile.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewMateriasInsert extends StatefulWidget {
   final Materias materia;
@@ -45,11 +44,11 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
       body: Container(
         child: Form(
           key: _formKey,
-          child: SquaredCard(            
+          child: SquaredCard(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                DefaultTextListTile(
+                TextInputTile(
                   icon: Icons.library_books,
                   initialValue: _materia,
                   hint: Strings.materia,

@@ -1,8 +1,7 @@
+import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/widgets/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
-
-import 'package:curso/utils.dart/date_utils.dart';
-import 'default_list_tile.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class HorarioAulaTile extends StatelessWidget {
   final int ordemAula;
