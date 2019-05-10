@@ -214,7 +214,7 @@ class Periodos implements BaseTable {
 
   List<Faltas> _getFaltas() {
     final faltas = List<Faltas>();
-    materias.forEach(
+    materias?.forEach(
       (materia) {
         materia.faltas.forEach((falta) => faltas.add(falta));
       },
@@ -224,13 +224,13 @@ class Periodos implements BaseTable {
 
   List<Notas> _getProvas() {
     final provas = List<Notas>();
-    materias.forEach((m) => m.notas.forEach((n) => provas.add(n)));
+    materias?.forEach((m) => m.notas.forEach((n) => provas.add(n)));
     return provas;
   }
 
   List<Notas> extractNotasByDate(DateTime date) {
     final notas = List<Notas>();
-    materias.forEach(
+    materias?.forEach(
       (m) => notas.addAll(
             m.notas.where(
               (nota) => isSameDay(nota.data, date),

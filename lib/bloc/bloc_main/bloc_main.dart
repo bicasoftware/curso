@@ -19,7 +19,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
 
-class BlocMain implements BlocBase {
+class BlocMain extends BlocBase {
   StateMain state;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();

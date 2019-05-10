@@ -2,40 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../../container/horarios.dart';
-import 'package:curso/utils.dart/date_utils.dart';
 import '../../utils.dart/Strings.dart';
 import '../../widgets/default_list_tile.dart';
 import '../../widgets/horario_aula_tile.dart';
 import '../../widgets/slider_tile.dart';
 
 class ViewPeriodosInsertBuilder {
-  static Widget appBar({
-    @required int idPeriodo,
-    @required GlobalKey<FormState> formKey,
-    @required Function() onTap,
-  }) {
-    return AppBar(
-      title: Text(
-        idPeriodo == null ? Strings.novoPeriodo : "$idPeriodoº ${Strings.editarPeriodo}",
-      ),
-      actions: [saveButton(formKey, onTap)],
-    );
-  }
-
-  static Widget numPeriodoSliderTile(
-      {@required double numPeriodo, @required Function(double) onChanged}) {
-    return SliderTile(
-      initialValue: numPeriodo,
-      min: 1,
-      max: 18,
-      divisions: 18,
-      mask: "º período",
-      title: Strings.numPeriodo,
-      fixedSize: 0,
-      onChanged: onChanged,
-    );
-  }
-
   static Widget numPeriodoDropdownTile({
     @required int numPeriodo,
     @required Function(int) onChanged,
@@ -50,30 +22,12 @@ class ViewPeriodosInsertBuilder {
           onChanged: onChanged,
           items: List.generate(12, (i) {
             return DropdownMenuItem<int>(
-              value: i+1,
-              child: Text("${i+1}º ${Strings.periodo}"),
+              value: i + 1,
+              child: Text("${i + 1}º ${Strings.periodo}"),
             );
           }),
         ),
       ),
-    );
-  }
-
-  static Widget inicioDateTile({@required DateTime inicio, VoidCallback onTap}) {
-    return DefaultListTile(
-      icon: Icons.calendar_today,
-      leading: Text(Strings.inicioPeriodo),
-      trailing: Text(formatDate(inicio)),
-      onTap: onTap,
-    );
-  }
-
-  static Widget terminoDateTile({@required DateTime termino, VoidCallback onTap}) {
-    return DefaultListTile(
-      icon: Icons.date_range,
-      leading: Text(Strings.inicioPeriodo),
-      trailing: Text(formatDate(termino)),
-      onTap: onTap,
     );
   }
 
