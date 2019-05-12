@@ -2,8 +2,8 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_list_aulas.dart';
-import 'package:curso/widgets/awaiting_container.dart';
-import 'package:curso/widgets/happy_placeholder.dart';
+import 'package:curso/widgets/placeholders/awaiting_container.dart';
+import 'package:curso/widgets/placeholders/happy_placeholder.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioAulasDia extends StatelessWidget {

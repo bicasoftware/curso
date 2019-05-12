@@ -1,8 +1,8 @@
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/widgets/cronograma/cronograma_cell_container.dart';
+import 'package:curso/widgets/cronograma/cronograma_row.dart';
 import 'package:flutter/material.dart';
-import 'CronogramaRow.dart';
 
 class Cronograma extends StatelessWidget {
   final Periodos periodo;
@@ -32,14 +32,17 @@ class Cronograma extends StatelessWidget {
   }
 
   List<CronogramaCellContainer> _getRowContainer(int ordemAula) {
-    final container = List.generate(7, (i) {
-      return CronogramaCellContainer(
-        weekDay: i,
-        corMateria: null,
-        sigla: null,
-        idAula: null,
-      );
-    },);
+    final container = List.generate(
+      7,
+      (i) {
+        return CronogramaCellContainer(
+          weekDay: i,
+          corMateria: null,
+          sigla: null,
+          idAula: null,
+        );
+      },
+    );
 
     for (var i = 0; i < 7; i++) {
       for (final materia in periodo.materias) {

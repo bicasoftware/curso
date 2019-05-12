@@ -1,11 +1,11 @@
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
-class ViewTimeRangeResult {
+class ViewHorarioAulasResult {
   final int ordemAula;
   final DateTime inicio, termino;
 
-  ViewTimeRangeResult({
+  ViewHorarioAulasResult({
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,

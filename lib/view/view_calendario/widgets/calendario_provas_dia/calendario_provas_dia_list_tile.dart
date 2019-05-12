@@ -3,7 +3,7 @@ import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/utils.dart/double_utils.dart';
-import 'package:curso/widgets/horario_aula_tile_chip.dart';
+import 'package:curso/view/view_periodos_insert/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioProvasDiaListTile extends StatelessWidget {

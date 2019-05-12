@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DropDownAction<T> extends StatelessWidget {
+class ActionBarDropDownButton<T> extends StatelessWidget {
   final List<DropdownMenuItem> children;
   final T currentValue;
   final Function(T) onChanged;
   final bool showLine;
 
-  const DropDownAction({
+  const ActionBarDropDownButton({
     Key key,
     @required this.children,
     @required this.currentValue,

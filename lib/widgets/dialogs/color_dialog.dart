@@ -1,6 +1,6 @@
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
-import '../utils.dart/Strings.dart';
 
 class ColorDialog extends StatelessWidget {
   final Function(int) onTap;

@@ -1,10 +1,10 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/cronograma/Cronograma.dart';
+import 'package:curso/view/view_periodos/weekday_header.dart';
+import 'package:curso/widgets/cronograma/cronograma.dart';
 import 'package:curso/widgets/labeled_button.dart';
 import 'package:curso/widgets/squared_card.dart';
-import 'package:curso/widgets/weekday_header.dart';
 import 'package:flutter/material.dart';
 
 typedef OnNotasTapped = Function(Periodos);

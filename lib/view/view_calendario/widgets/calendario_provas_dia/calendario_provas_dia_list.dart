@@ -5,8 +5,8 @@ import 'package:curso/container/notas.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_provas_dia/calendario_provas_dia_list_tile.dart';
-import 'package:curso/widgets/happy_placeholder.dart';
 import 'package:curso/widgets/padded_divider.dart';
+import 'package:curso/widgets/placeholders/happy_placeholder.dart';
 import 'package:flutter/material.dart';
 
 //Repassar tela de Notas a partir de ViewPeriodos

@@ -1,7 +1,7 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/widgets/horario_aula_tile_chip.dart';
+import 'package:curso/view/view_periodos_insert/horario_aula_tile_chip.dart';
 import 'package:flutter/material.dart';
 
 typedef ListAulaAction(int selectedAction, AulasSemanaDTO aulasSemana);

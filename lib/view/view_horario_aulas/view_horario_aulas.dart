@@ -1,24 +1,24 @@
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/view/view_time_range_picker/view_time_range_result.dart';
+import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
 import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
-class ViewTimeRange extends StatefulWidget {
+class ViewHorarioAulas extends StatefulWidget {
   final int ordemAula;
   final TimeOfDay inicio, termino;
 
-  const ViewTimeRange({
+  const ViewHorarioAulas({
     Key key,
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,
   }) : super(key: key);
 
-  _ViewTimeRangeState createState() => _ViewTimeRangeState();
+  _ViewHorarioAulasState createState() => _ViewHorarioAulasState();
 }
 
-class _ViewTimeRangeState extends State<ViewTimeRange> {
+class _ViewHorarioAulasState extends State<ViewHorarioAulas> {
   int _ordemAula;
   TimeOfDay _inicio, _termino;
 
@@ -103,7 +103,7 @@ class _ViewTimeRangeState extends State<ViewTimeRange> {
       showErrorSnack(c: c, msg: Errors.horariosIguaisInvalidos);
     } else {
       Navigator.of(c).pop(
-        ViewTimeRangeResult(
+        ViewHorarioAulasResult(
           inicio: inicio,
           termino: termino,
           ordemAula: _ordemAula,

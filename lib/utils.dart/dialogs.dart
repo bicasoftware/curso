@@ -4,8 +4,8 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/double_utils.dart';
-import 'package:curso/widgets/color_dialog.dart';
-import 'package:curso/widgets/dialog_picker_materias.dart';
+import 'package:curso/widgets/dialogs/color_dialog.dart';
+import 'package:curso/widgets/dialogs/dialog_picker_materias.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {

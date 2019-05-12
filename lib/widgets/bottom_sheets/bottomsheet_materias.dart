@@ -1,8 +1,7 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/dialogs/dialog_picker_materias.dart';
 import 'package:flutter/material.dart';
-
-import 'dialog_picker_materias.dart';
 
 class BottomSheetMaterias extends StatelessWidget {
   final List<Materias> materias;

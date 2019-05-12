@@ -1,15 +1,12 @@
 class StringUtils {
 
 
-  /* 
-    Gera sigla da matéria seguindo o padrão: 
-    apenas com mais de 3 caracteres,
-    com 1 palavras apenas, retorna 3 primeiras letras em uppercase;
-    com 2 palavras, tendo a segunda palavra sendo 2 número, retorna 3 letras e número
-    com 2 palavras, retorna primeira letra em uppercase e tres primeiras letras da segunda palavra
-    com 3 palavras ou mais, retorna a primeira letra de cada palavra;
-  */
-  
+  ///Gera sigla da matéria seguindo o padrão: 
+  ///apenas com mais de 3 caracteres,
+  ///com 1 palavras apenas, retorna 3 primeiras letras em uppercase;
+  ///com 2 palavras, tendo a segunda palavra sendo 2 número, retorna 3 letras e número
+  ///com 2 palavras, retorna primeira letra em uppercase e tres primeiras letras da segunda palavra
+  ///com 3 palavras ou mais, retorna a primeira letra de cada palavra;  
   static String geraSigla(String str) {
     str = str.trim();
     if (str.length > 2) {

@@ -2,9 +2,8 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_provas_dia/calendario_provas_dia_list.dart';
-import 'package:curso/view/view_provas_insert/bottomsheet_aulas_dia.dart';
-import 'package:curso/widgets/rounded_bottomsheet_container.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioProvasDia extends StatelessWidget {
@@ -39,19 +38,13 @@ class CalendarioProvasDia extends StatelessWidget {
       bottom: 16,
       child: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (aulasAgendamento.length > 0) {
-            final selectedIdMateria = await showModalBottomSheet(
-              context: context,
-              builder: (c) {
-                return RoundedBottomSheetContainer(
-                  child: BottomSheetAulasDia(aulasSemana: aulasAgendamento),
-                );
-              },
-            );
-            if (selectedIdMateria != null) {
-              onInsertMateria(selectedIdMateria);
-            }
+            BottomSheets.showBtsProvasDia(context, aulasAgendamento).then((id) {
+              if (id != null) {
+                onInsertMateria(id);
+              }
+            },);
           } else {
             Scaffold.of(context).showSnackBar(SnackBar(content: Text(Strings.todasAulasAgendadas)));
           }

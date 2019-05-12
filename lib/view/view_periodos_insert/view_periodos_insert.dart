@@ -1,8 +1,8 @@
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/view/view_time_range_picker/view_time_range.dart';
-import 'package:curso/view/view_time_range_picker/view_time_range_result.dart';
+import 'package:curso/view/view_horario_aulas/view_horario_aulas.dart';
+import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
@@ -149,11 +149,11 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   }
 
   _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
-    ViewTimeRangeResult result = await Navigator.of(context).push(
+    ViewHorarioAulasResult result = await Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (c) {
-          return ViewTimeRange(
+          return ViewHorarioAulas(
             ordemAula: ordemAula,
             inicio: TimeOfDay.fromDateTime(inicio),
             termino: TimeOfDay.fromDateTime(termino),
@@ -162,7 +162,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
       ),
     );
 
-    if (result != null && result is ViewTimeRangeResult) {
+    if (result != null && result is ViewHorarioAulasResult) {
       _setHoraAula(result.ordemAula, result.inicio, result.termino);
     }
   }

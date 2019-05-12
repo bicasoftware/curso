@@ -3,7 +3,7 @@ import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario_strip_container.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip_cell.dart';
-import 'package:curso/widgets/awaiting_container.dart';
+import 'package:curso/widgets/placeholders/awaiting_container.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioStrip extends StatefulWidget {
@@ -53,13 +53,13 @@ class _CalendarioStripState extends State<CalendarioStrip> {
                 height: 0,
               ),
               Container(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(8),
                 child: Text(
                   formatFullDayString(snapshot.data.selectedDate),
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle
+                      .copyWith(color: Theme.of(context).accentColor),
                 ),
               ),
             ],

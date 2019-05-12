@@ -4,7 +4,6 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/calendario_strip_container.dart';
-import 'package:curso/container/conf.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
@@ -54,7 +53,6 @@ class BlocMain extends Bloc {
 
   BlocMain({
     List<Periodos> periodos,
-    Conf conf,
     int pos,
   }) {
     this.state = StateMain(

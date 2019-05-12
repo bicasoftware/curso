@@ -1,10 +1,10 @@
 import 'package:curso/view/view_calendario/widgets/calendario_drop_down_periodos.dart';
+import 'package:curso/view/view_parciais/view_parciais.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/bloc_main/bloc_main.dart';
 import '../utils.dart/Strings.dart';
 import 'view_calendario/view_calendario.dart';
-import 'view_info/view_info.dart';
 import 'view_periodos/view_periodos.dart';
 
 class ViewHomeBuilder {

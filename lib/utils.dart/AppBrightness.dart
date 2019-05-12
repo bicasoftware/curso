@@ -1,1 +1,0 @@
-enum AppBrightness{ LIGHT, DARK }

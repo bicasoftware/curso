@@ -6,7 +6,7 @@ class ViewInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      child: Center(child: Text(Strings.informacoes)),
+      child: Center(child: Text(Strings.parciais)),
     );
   }
 }

@@ -1,11 +1,9 @@
 import 'package:curso/container/aulas.dart';
-import 'package:curso/container/conf.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/AppBrightness.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -47,7 +45,6 @@ class DBProvider {
     await _createMaterias(db);
     await _createAulas(db);
     await _createPeriodos(db);
-    await _createConf(db);
     await _createHorarios(db);
 
     await _initializeConf(db);
@@ -55,11 +52,6 @@ class DBProvider {
 
   static Future _initializeConf(Database db) async {
     await db.transaction((tr) {
-      tr.insert(
-        Conf.tableName,
-        Conf(brightness: AppBrightness.DARK, notify: true).toMap(),
-      );
-
       tr.insert(
         Periodos.tableName,
         Periodos(
@@ -208,10 +200,6 @@ class DBProvider {
 
   static Future _createPeriodos(Database db) async {
     return await db.execute(Periodos.getCreateSQL());
-  }
-
-  static Future _createConf(Database db) async {
-    return await db.execute(Conf.getCreateSQL());
   }
 
   static Future _createAulas(Database db) async {

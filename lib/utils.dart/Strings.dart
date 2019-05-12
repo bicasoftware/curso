@@ -12,7 +12,6 @@ class Strings {
   static const String confirmacao = 'Confirmar';
   static const String aula = 'Aula';
   static const String aulas = 'Aulas';
-  static const String informacoes = 'Informações';
   static const String periodos = 'Períodos';
   static const String periodo = 'Período';
   static const String trocarPeriodo = 'Trocar Período';
