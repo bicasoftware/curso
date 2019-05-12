@@ -70,6 +70,7 @@ class _Body extends StatelessWidget {
             Navigator.of(context).pop(snap.data);
           },
           child: Scaffold(
+            backgroundColor: ThemeData.light().canvasColor,
             body: CustomScrollView(
               slivers: [
                 ViewMateriasBuilder.sliverAppbar(() => Navigator.of(context).pop(snap.data)),

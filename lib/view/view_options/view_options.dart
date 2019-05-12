@@ -50,6 +50,7 @@ class _ViewOptionsState extends State<ViewOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(
         title: Text(Strings.appName),
         leading: IconButton(

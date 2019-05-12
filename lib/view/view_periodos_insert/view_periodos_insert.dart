@@ -83,65 +83,63 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              floating: true,
-              title: Text("${_periodo.numPeriodo}º ${Strings.periodo}"),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.save),
-                  onPressed: () => Navigator.of(context).pop(_periodo),
+      backgroundColor: ThemeData.light().canvasColor,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: true,
+            title: Text("${_periodo.numPeriodo}º ${Strings.periodo}"),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.save),
+                onPressed: () => Navigator.of(context).pop(_periodo),
+              ),
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
+                  numPeriodo: _periodo.numPeriodo,
+                  onChanged: _setNumPeriodo,
+                ),
+                DatePickerTile(
+                  initialDate: _periodo.inicio,
+                  title: Strings.inicioPeriodo,
+                  onDateSet: _setDataIni,
+                ),
+                DatePickerTile(
+                  initialDate: _periodo.termino,
+                  title: Strings.terminoPeriodo,
+                  onDateSet: _setDataTermino,
+                ),
+                LabeledDividerTile(hint: Strings.valorReprovacao),
+                ViewPeriodosInsertBuilder.notaMinimaSliderTile(
+                  nota: _periodo.medAprov,
+                  onChanged: (n) => _setMedAprov(n),
+                ),
+                ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
+                  _periodo.presObrig.toDouble(),
+                  (double value) => _setPresObrigDouble(value),
+                ),
+                ViewPeriodosInsertBuilder.aulaDiaTileSlider(
+                  aulasDia: _periodo.aulasDia,
+                  onChanged: (double i) {
+                    _setAulasDiaDouble(i + 1);
+                  },
+                ),
+                LabeledDividerTile(hint: Strings.horarios),
+                ViewPeriodosInsertBuilder.listHorarios(
+                  horarios: _periodo.horarios,
+                  aulasDia: _periodo.aulasDia,
+                  onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
+                    _showDateRangeView(ordemAula, inicio, termino);
+                  },
                 ),
               ],
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
-                    numPeriodo: _periodo.numPeriodo,
-                    onChanged: _setNumPeriodo,
-                  ),
-                  DatePickerTile(
-                    initialDate: _periodo.inicio,
-                    title: Strings.inicioPeriodo,
-                    onDateSet: _setDataIni,
-                  ),
-                  DatePickerTile(
-                    initialDate: _periodo.termino,
-                    title: Strings.terminoPeriodo,
-                    onDateSet: _setDataTermino,
-                  ),
-                  LabeledDividerTile(hint: Strings.valorReprovacao),
-                  ViewPeriodosInsertBuilder.notaMinimaSliderTile(
-                    nota: _periodo.medAprov,
-                    onChanged: (n) => _setMedAprov(n),
-                  ),
-                  ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
-                    _periodo.presObrig.toDouble(),
-                    (double value) => _setPresObrigDouble(value),
-                  ),
-                  ViewPeriodosInsertBuilder.aulaDiaTileSlider(
-                    aulasDia: _periodo.aulasDia,
-                    onChanged: (double i) {
-                      _setAulasDiaDouble(i + 1);
-                    },
-                  ),
-                  LabeledDividerTile(hint: Strings.horarios),
-                  ViewPeriodosInsertBuilder.listHorarios(
-                    horarios: _periodo.horarios,
-                    aulasDia: _periodo.aulasDia,
-                    onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
-                      _showDateRangeView(ordemAula, inicio, termino);
-                    },
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

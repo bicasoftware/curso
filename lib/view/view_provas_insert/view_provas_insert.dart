@@ -42,6 +42,7 @@ class _ViewProvasInsertState extends State<ViewProvasInsert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(title: Text("Incluir Provas")),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),

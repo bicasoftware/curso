@@ -48,6 +48,7 @@ class _ViewTimeRangeState extends State<ViewTimeRange> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ThemeData.light().canvasColor,
       key: _scaffoldKey,
       appBar: AppBar(title: Text("Horários ${_ordemAula + 1}ª aula")),
       body: Container(

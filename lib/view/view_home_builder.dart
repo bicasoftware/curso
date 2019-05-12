@@ -63,17 +63,14 @@ class ViewHomeBuilder {
   }
 
   static Widget body(TabController controller) {
-    return Container(
-      color: Colors.white,
-      child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          ViewPeriodos(),
-          ViewCalendario(),
-          ViewInfo(),
-        ],
-        controller: controller,
-      ),
+    return TabBarView(
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        ViewPeriodos(),
+        ViewCalendario(),
+        ViewInfo(),
+      ],
+      controller: controller,
     );
   }
 

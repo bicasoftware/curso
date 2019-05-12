@@ -11,9 +11,11 @@ class ViewCalendario extends StatefulWidget {
   ViewCalendarioState createState() => ViewCalendarioState();
 }
 
-class ViewCalendarioState extends State<ViewCalendario> with TickerProviderStateMixin {
+class ViewCalendarioState extends State<ViewCalendario>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -59,4 +61,7 @@ class ViewCalendarioState extends State<ViewCalendario> with TickerProviderState
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

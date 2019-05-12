@@ -42,6 +42,7 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
     b = BlocProvider.of<BlocMain>(context);
 
     return Scaffold(
+      backgroundColor: ThemeData.light().canvasColor,
       appBar: ViewHomeBuilder.appBar(
         bloc: b,
         pos: _pos,
