@@ -76,26 +76,6 @@ String formatFullDayString(DateTime date) {
   return DateFormat("dd 'de' MMMM 'de' yyyy, EEEE", "pt_BR").format(date);
 }
 
-List<DateTime> buildDateRangeList(DateTime inicio, DateTime termino) {
-  initializeDateFormatting("pt_BR", null);
-  if (inicio.isAfter(termino)) throw Exception(Errors.datasInvalidas);
-  final List<DateTime> dateList = [];
-  var currentDay = inicio;
-
-  while (currentDay.isBefore(termino)) {
-    dateList.add(currentDay);
-    currentDay = currentDay.add(Duration(days: 1));
-
-    if (dateList.length > 50) {
-      break;
-    }
-  }
-
-  dateList.add(currentDay);
-
-  return dateList;
-}
-
 int countWeekDayInRange(DateTime inicio, DateTime termino, int dayToCount) {
   initializeDateFormatting("pt_BR", null);
   if (inicio.isAfter(termino)) throw Exception(Errors.datasInvalidas);
@@ -183,6 +163,7 @@ List<CalendarioDTO> prepareCalendario({
 
         if (falta != null) {
           aula.idFalta = falta.id;
+          aula.tipo = falta.tipo;
         }
       }
 
@@ -199,16 +180,4 @@ List<CalendarioDTO> prepareCalendario({
   }
 
   return calendario;
-}
-
-List<DateTime> leftFillCalendar(List<DateTime> daysOnMonth) {
-  final daysToShow = List<DateTime>();
-
-  var start = daysOnMonth.first;
-  while (start.weekday != DateTime.sunday) {
-    daysToShow.add(null);
-    start = start.subtract(Duration(days: 1));
-  }
-
-  return daysToShow..addAll(daysOnMonth);
 }

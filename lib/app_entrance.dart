@@ -37,12 +37,17 @@ class AppEntranceState extends State<AppEntrance> {
   Widget build(BuildContext context) {
     return BlocProvider<BlocMain>(
       creator: (_, __) => _bloc,      
-      child: MyApp(),
+      child: MyApp(initPos: widget.periodos.length > 0 ? 1 : 0),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
+
+  final int initPos;
+
+  const MyApp({Key key, @required this.initPos}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +62,7 @@ class MyApp extends StatelessWidget {
         highlightColor: Colors.lightBlue[50],
         canvasColor: Colors.transparent,
       ),
-      home: ViewHome(),
+      home: ViewHome(initialPagePos: initPos),
     );
   }
 }

@@ -37,14 +37,6 @@ void main() {
     print(formatNota(nota));
   });
 
-  test('list dates', () {
-    final inicio = DateTime(2019, 2, 10);
-    final termino = DateTime(2019, 3, 10);
-
-    final dates = buildDateRangeList(inicio, termino);
-    dates.forEach((d) => print(formatDate(d)));
-  });
-
   test('count weekDays', () {
     final inicio = DateTime(2019, 2, 10);
     print(formatDate(inicio));

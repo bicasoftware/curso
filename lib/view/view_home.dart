@@ -7,6 +7,11 @@ import 'view_home_builder.dart';
 import 'view_periodos_insert/view_periodos_insert.dart';
 
 class ViewHome extends StatefulWidget {
+
+  final int initialPagePos;
+
+  const ViewHome({Key key, @required this.initialPagePos}) : super(key: key);
+
   @override
   ViewHomeState createState() {
     return new ViewHomeState();
@@ -21,7 +26,7 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _pos = 0;
+    _pos = widget.initialPagePos;
     _controller = TabController(
       length: 3,
       vsync: this,
