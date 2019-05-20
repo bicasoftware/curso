@@ -13,6 +13,9 @@ import '../view_periodos_insert/view_periodos_insert.dart';
 import 'view_periodos_builder.dart';
 
 class ViewPeriodos extends StatefulWidget {
+
+  const ViewPeriodos({Key key}) : super(key: key);
+
   @override
   ViewPeriodosState createState() => ViewPeriodosState();
 }

@@ -7,6 +7,10 @@ import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ViewCalendario extends StatefulWidget {
+
+  const ViewCalendario({Key key}) : super(key: key);
+
+
   @override
   ViewCalendarioState createState() => ViewCalendarioState();
 }

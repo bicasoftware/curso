@@ -62,14 +62,15 @@ class CalendarioAulasDiaTile extends StatelessWidget {
     return entryList;
   }
 
-  _getColor() {
+  Color _getColor() {
     if (aulasSemana.idFalta != null) {
       if (aulasSemana.tipo == 0) {
         return Colors.red[50];
       } else if (aulasSemana.tipo == 1) {
         return Colors.teal[50];
       }
-    } else
-      return Colors.transparent;
+    }
+
+    return Colors.transparent;
   }
 }

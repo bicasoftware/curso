@@ -20,6 +20,11 @@ import 'state_main.dart';
 
 class BlocMain extends Bloc {
   StateMain state;
+  int _pos;
+
+  BehaviorSubject<int> _subjectPos = BehaviorSubject<int>();
+  get outPos => _subjectPos.stream;
+  get inPos => _subjectPos.sink;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();
   get outDataDTO => _subDataDTO.stream;
@@ -62,6 +67,7 @@ class BlocMain extends Bloc {
     _sinkPeriodos();
     _sinkCurrentPeriodo();
     inMes.add(state.mes);
+    inPos.add(periodos.length > 0 ? 1 : 0);
   }
 
   @override
@@ -73,6 +79,7 @@ class BlocMain extends Bloc {
     _subAulasAgendamento.close();
     _subProvasNotasMaterias.close();
     _subSelectedDate.close();
+    _subjectPos.close();
   }
 
   _sinkPeriodos() {
@@ -99,6 +106,11 @@ class BlocMain extends Bloc {
     inSelectedDate.add(state.selectedDate);
     inAulasAgendamento.add(state.aulasAgendaveis);
     inProvasNotasMaterias.add(Pair(first: state.currentProvasNotas, second: state.aulasByWeekDay));
+  }
+
+  void setPos(int pos) {
+    _pos = pos;
+    inPos.add(_pos);
   }
 
   incMes() {

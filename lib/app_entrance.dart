@@ -1,9 +1,9 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/view/view_home/view_home.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc/bloc_main/bloc_main.dart';
 import 'container/periodos.dart';
-import 'view/view_home.dart';
 
 class AppEntrance extends StatefulWidget {
   final List<Periodos> periodos;
@@ -36,17 +36,14 @@ class AppEntranceState extends State<AppEntrance> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocMain>(
-      creator: (_, __) => _bloc,      
-      child: MyApp(initPos: widget.periodos.length > 0 ? 1 : 0),
+      creator: (_, __) => _bloc,
+      child: MyApp(),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
-
-  final int initPos;
-
-  const MyApp({Key key, @required this.initPos}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +59,7 @@ class MyApp extends StatelessWidget {
         highlightColor: Colors.lightBlue[50],
         canvasColor: Colors.transparent,
       ),
-      home: ViewHome(initialPagePos: initPos),
+      home: ViewHome(),
     );
   }
 }
