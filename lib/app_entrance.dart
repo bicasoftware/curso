@@ -1,4 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/view/view_home/view_home.dart';
 import 'package:flutter/material.dart';
 
@@ -50,15 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.indigo,
-        accentColor: Colors.indigoAccent,
-        fontFamily: "FiraSans",
-        brightness: Brightness.light,
-        splashColor: Colors.lightBlue[50],
-        highlightColor: Colors.lightBlue[50],
-        canvasColor: Colors.transparent,
-      ),
+      theme: CustomThemes.transparedBackgroundTheme,
       home: ViewHome(),
     );
   }

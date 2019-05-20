@@ -1,5 +1,6 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,7 @@ class ViewHomeBottombar extends StatelessWidget {
       stream: b.outPos,
       widgetBuilder: (c, int pos) {
         return Theme(
-          data: ThemeData(
-            fontFamily: "FiraSans",
-            accentColor: Theme.of(context).accentColor,
-            primaryColor: Theme.of(context).primaryColor,
-            cardColor: Theme.of(context).cardColor,
-          ),
+          data: CustomThemes.lightTheme,
           child: BottomNavigationBar(
             currentIndex: pos,
             onTap: (i) => b.setPos(i),
