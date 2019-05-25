@@ -1,10 +1,11 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_calendario/view_calendario.dart';
+import 'package:curso/view/view_calendario/widgets/dropdown_periodos_light.dart';
 import 'package:curso/view/view_home/widgets/view_home_bottombar.dart';
-import 'package:curso/view/view_home/widgets/view_home_dropdown_periodos.dart';
 import 'package:curso/view/view_home/widgets/view_home_fab.dart';
 import 'package:curso/view/view_parciais/view_parciais.dart';
 import 'package:curso/view/view_periodos/view_periodos.dart';
@@ -19,6 +20,19 @@ class ViewHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
+    void showActInsertEmprego() async {
+      final result = await Navigator.of(context).push(
+        MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (BuildContext c) {
+            return ViewPeriodosInsert(periodo: Periodos.newInstance());
+          },
+        ),
+      );
+
+      if (result != null) b.insertPeriodo(result);
+    }
+
     return Scaffold(
       backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(
@@ -27,7 +41,12 @@ class ViewHome extends StatelessWidget {
         actions: [
           StreamAwaiter<int>(
             stream: b.outPos,
-            widgetBuilder: (_, int pos) => ViewHomeDropdownPeriodos(pos: pos),
+            widgetBuilder: (BuildContext context, int pos) {
+              return Visibility(
+                visible: pos == 1 ? true : false,
+                child: DropDownPeriodos2(theme: CustomThemes.primaryColorThemeData),
+              );
+            },
           ),
         ],
       ),
@@ -35,7 +54,6 @@ class ViewHome extends StatelessWidget {
         stream: b.outPos,
         widgetBuilder: (_, int pos) {
           return IndexedStack(
-
             index: pos,
             children: const [
               const ViewPeriodos(),
@@ -45,22 +63,11 @@ class ViewHome extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: ViewHomeFab(
-        onTap: () async {
-          final result = await Navigator.of(context).push(
-            MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (BuildContext c) {
-                return ViewPeriodosInsert(periodo: Periodos.newInstance());
-              },
-            ),
-          );
-
-          if (result != null) b.insertPeriodo(result);
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: ViewHomeBottombar(),
+      floatingActionButton: StreamAwaiter<int>(
+        stream: b.outPos,
+        widgetBuilder: (BuildContext context, int pos) => ViewHomeFab(pos: pos, onTap: showActInsertEmprego),
+      ),
     );
   }
 }

@@ -67,13 +67,20 @@ String formatFullWeekDay(DateTime date) {
 
 String formatMonthName(DateTime date) {
   initializeCountry();
-  return _monthFmt.format(date).toUpperCase();
+  final String mes = _monthFmt.format(date);
+  return mes[0].toUpperCase() + mes.substring(1, mes.length);
 }
 
 String formatFullDayString(DateTime date) {
   //"02 de Março de 2018, Quarta-Feira"
   initializeCountry();
   return DateFormat("dd 'de' MMMM 'de' yyyy, EEEE", "pt_BR").format(date);
+}
+
+String formatFullDayStringAlt(DateTime date) {
+  //"Quarta-Feira, 02 de Março de 2018"
+  initializeCountry();
+  return DateFormat("EEEE, dd 'de' MMMM 'de' yyyy", "pt_BR").format(date);
 }
 
 int countWeekDayInRange(DateTime inicio, DateTime termino, int dayToCount) {

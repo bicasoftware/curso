@@ -4,6 +4,7 @@ import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
@@ -24,7 +25,6 @@ class StateMain {
   _positionDates() {
     final meses = range(currentPeriodo.inicio.month, currentPeriodo.termino.month);
 
-    ///final meses = range(periodos[_currentId].inicio.month, periodos[_currentId].termino.month);
     if (!meses.contains(DateTime.now().month)) {
       mes = currentPeriodo.inicio.month;
       selectedDate = currentPeriodo.inicio;
@@ -60,8 +60,8 @@ class StateMain {
       selectedDate = now;
       mes = selectedDate.month;
     } else {
-      selectedDate = currentCalendario.dates.first.date;
-      mes = currentCalendario.mes;
+      selectedDate = currentPeriodo.inicio;
+      mes = currentPeriodo.inicio.month;
     }
   }
 
@@ -103,7 +103,7 @@ class StateMain {
 
   CalendarioDTO get currentCalendario => currentPeriodo.getCalendarioByMonth(mes);
 
-  bool hasProva(){
+  bool hasProva() {
     final List<Notas> listNotas = [];
     currentPeriodo.materias.forEach((m) => m.notas.forEach((n) => listNotas.add(n)));
     return listNotas.firstWhere((l) => isSameDay(l.data, selectedDate), orElse: () => null) != null;
@@ -145,7 +145,7 @@ class StateMain {
     return resultAulas;
   }
 
-  List<ProvasNotasMaterias> get currentProvasNotas {
+  List<ProvasNotasMaterias> get provasNotasByDate {
     final notas = currentPeriodo.extractNotasByDate(selectedDate);
 
     final List<ProvasNotasMaterias> provasNotasMaterias = [];
@@ -162,8 +162,16 @@ class StateMain {
     return provasNotasMaterias;
   }
 
+  PeriodosPosicao get periodosPosicao {
+    return PeriodosPosicao(
+      periodos: periodos,
+      currentPeriodoPos: periodos.indexWhere((i) => i.id == _currentId),
+    );
+  }
+
   removePeriodoById(int idPeriodo) {
     periodos.remove(periodos.firstWhere((it) => it.id == idPeriodo));
+    setCurrentPeriodoId(periodos.first.id);
   }
 
   addPeriodo(Periodos p) {

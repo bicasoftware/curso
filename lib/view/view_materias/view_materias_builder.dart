@@ -70,6 +70,7 @@ class ViewMateriasBuilder {
 
   static Widget fab(VoidCallback onTap) {
     return FloatingActionButton(
+      key: UniqueKey(),
       child: Icon(Icons.add),
       onPressed: onTap,
     );

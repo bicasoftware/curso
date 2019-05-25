@@ -15,19 +15,21 @@ class AulasDiaList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: aulas.length,
-      itemBuilder: (c, i) {
-        return CalendarioAulasDiaTile(
-          ordem: i,
-          aulasSemana: aulas[i],
-          onOptionSelected: onOptionSelected,
-        );
-      },
-      separatorBuilder: (c, i) {
-        return PaddedDivider(padding: const EdgeInsets.only(right: 16, left: 120));
-      },      
+    return Center(
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemCount: aulas.length,
+        itemBuilder: (c, i) {
+          return CalendarioAulasDiaTile(
+            ordem: i,
+            aulasSemana: aulas[i],
+            onOptionSelected: onOptionSelected,
+          );
+        },
+        separatorBuilder: (c, i) {
+          return PaddedDivider(padding: const EdgeInsets.only(right: 16, left: 120));
+        },
+      ),
     );
   }
 }

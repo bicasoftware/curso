@@ -8,6 +8,7 @@ import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_faltas.dart';
@@ -34,9 +35,17 @@ class BlocMain extends Bloc {
   get outMes => _subjectMes.stream;
   get inMes => _subjectMes.sink;
 
-  BehaviorSubject<List<Periodos>> _subjectPeriodos = BehaviorSubject<List<Periodos>>();
-  get outPeriodos => _subjectPeriodos.stream;
-  get inPeriodos => _subjectPeriodos.sink;
+  BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
+  get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
+  get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
+
+  BehaviorSubject<List<Periodos>> _subjectListPeriodos = BehaviorSubject<List<Periodos>>();
+  get outListPeriodos => _subjectListPeriodos.stream;
+  get inListPeriodos => _subjectListPeriodos.sink;
+
+  final _subjectPeriodos = BehaviorSubject<PeriodosPosicao>();
+  Stream<PeriodosPosicao> get outPeriodos => _subjectPeriodos.stream;
+  Sink<PeriodosPosicao> get inPeriodos => _subjectPeriodos.sink;
 
   final _subCalendarioContent = BehaviorSubject<CalendarioStripContainer>();
   Stream<CalendarioStripContainer> get outCalendario => _subCalendarioContent.stream;
@@ -80,10 +89,14 @@ class BlocMain extends Bloc {
     _subProvasNotasMaterias.close();
     _subSelectedDate.close();
     _subjectPos.close();
+    _subjectCurrentPeriodo.close();
+    _subjectListPeriodos.close();
   }
 
   _sinkPeriodos() {
-    inPeriodos.add(state.periodos);
+    inPeriodos.add(state.periodosPosicao);
+    inListPeriodos.add(state.periodos);
+    inCurrentPeriodo.add(state.currentPeriodo);
     inCalendario.add(
       CalendarioStripContainer(
         calendario: state.currentCalendario,
@@ -105,12 +118,15 @@ class BlocMain extends Bloc {
     inMes.add(state.mes);
     inSelectedDate.add(state.selectedDate);
     inAulasAgendamento.add(state.aulasAgendaveis);
-    inProvasNotasMaterias.add(Pair(first: state.currentProvasNotas, second: state.aulasByWeekDay));
+    inProvasNotasMaterias.add(Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay));
+    inCurrentPeriodo.add(state.currentPeriodo);
   }
 
   void setPos(int pos) {
-    _pos = pos;
-    inPos.add(_pos);
+    if (_pos != pos) {
+      _pos = pos;
+      inPos.add(_pos);
+    }
   }
 
   incMes() {
@@ -152,8 +168,6 @@ class BlocMain extends Bloc {
   }
 
   updateMaterias(int idPeriodo, List<Materias> materias) {
-    ///Não há chamadas ao banco, pois as queries são chamadas via ViewInsertMaterias
-    ///Aqui ocorre somente a atualização dos resultados vindos de ViewMaterias
     state.refreshMaterias(idPeriodo, materias);
   }
 

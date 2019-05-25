@@ -7,6 +7,8 @@ import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/widgets/dialogs/color_dialog.dart';
 import 'package:curso/widgets/dialogs/dialog_picker_materias.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:helper_tiles/helper_tiles.dart';
 
 class Dialogs {
   static Future<bool> showRemoveDialog({
@@ -213,6 +215,43 @@ Future<double> showNotaDialog({
             },
           ),
         ],
+      );
+    },
+  );
+}
+
+Future<int> showOptionsDialog2({
+  BuildContext context,
+  String title,
+  int currentItem,
+  List<String> options,
+}) async {
+  return await showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (c) {
+      return Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(title, style: Theme.of(context).textTheme.title),
+            ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                for (final opt in options)
+                  DefaultListTile(
+                    icon: Icons.donut_small,
+                    leading: Text(opt),
+                    trailing: null,
+                    onTap: () => Navigator.of(context).pop(options.indexWhere((i) => i == opt)),
+                  )
+              ],
+            ),
+          ],
+        ),
       );
     },
   );

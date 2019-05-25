@@ -18,6 +18,7 @@ class ViewPeriodosBuilder {
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
     @required OnNotasTapped onNotasTap,
     @required Function(int, int, Periodos, int) onCellClick,
+    @required int currentPeriodoPos,
   }) {
     return ListView.builder(
       shrinkWrap: true,
@@ -31,6 +32,7 @@ class ViewPeriodosBuilder {
           onMateriasTap: onMateriasTap,
           onCellClick: onCellClick,
           onNotasTap: onNotasTap,
+          isOpen: currentPeriodoPos == i,
         );
       },
     );
@@ -44,6 +46,7 @@ class ViewPeriodosBuilder {
     @required Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap,
     @required OnNotasTapped onNotasTap,
     @required Function(int, int, Periodos, int) onCellClick,
+    @required bool isOpen,
   }) {
     return SquaredCard(
       elevation: 1,
@@ -52,6 +55,7 @@ class ViewPeriodosBuilder {
           onDelete(periodo.id);
         },
         child: ExpansionTile(
+          initiallyExpanded: isOpen,
           leading: Icon(
             Icons.date_range,
             color: Theme.of(context).accentColor,

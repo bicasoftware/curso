@@ -66,11 +66,4 @@ class Aulas implements BaseTable {
   String toString() {
     return "id: $id, idPeriodo: $idPeriodo, idMateria: $idMateria, weekDay: $weekDay, ordem: $ordem";
   }
-
-  /* copyWith(Aulas aula) {
-    this.idMateria = aula.idMateria;
-    this.ordem = aula.ordem;
-    this.weekDay = aula.weekDay;
-    this.id = aula.id;
-  } */
 }

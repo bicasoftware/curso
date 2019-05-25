@@ -9,8 +9,6 @@ import 'package:curso/widgets/padded_divider.dart';
 import 'package:curso/widgets/placeholders/happy_placeholder.dart';
 import 'package:flutter/material.dart';
 
-//Repassar tela de Notas a partir de ViewPeriodos
-
 class CalendarioProvasDiaList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -59,6 +59,7 @@ class Strings {
   static const String adicionarNota = "Alterar Nota";
   static const String cancelarProva = "Cancelar Prova";
   static const String duracaoOrdemPeriodo = "Duração e Ordem do $periodo";
+  static const String selecionarPeriodo = "Selecionar Periodo";
 }
 
 class Arrays {

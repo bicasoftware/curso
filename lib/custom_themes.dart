@@ -19,4 +19,11 @@ class CustomThemes {
     );
   }
 
+  static ThemeData get primaryColorThemeData {
+    return  transparedBackgroundTheme.copyWith(
+      brightness: Brightness.dark,
+      canvasColor: transparedBackgroundTheme.primaryColor,
+      textTheme: ThemeData.dark().textTheme,
+    );
+  }
 }

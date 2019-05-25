@@ -19,7 +19,7 @@ class LabeledButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(      
       onTap: onPressed,
-      splashColor: Theme.of(context).accentColor,
+      splashColor: Theme.of(context).splashColor,
       child: Container(
         width: width ?? 40,
         height: height ?? 40,

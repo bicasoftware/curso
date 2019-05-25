@@ -1,5 +1,7 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
+import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 
 import '../../bloc/bloc_main/bloc_main.dart';
@@ -13,7 +15,6 @@ import '../view_periodos_insert/view_periodos_insert.dart';
 import 'view_periodos_builder.dart';
 
 class ViewPeriodos extends StatefulWidget {
-
   const ViewPeriodos({Key key}) : super(key: key);
 
   @override
@@ -30,13 +31,13 @@ class ViewPeriodosState extends State<ViewPeriodos> with AutomaticKeepAliveClien
       b.updateMaterias(idPeriodo, materias);
     }
 
-    return StreamBuilder<List<Periodos>>(
-      initialData: [],
+    return StreamAwaiter<PeriodosPosicao>(
       stream: b.outPeriodos,
-      builder: (c, snap) {
-        return ViewPeriodosBuilder.listPeriodos(
+      widgetBuilder: (BuildContext context, PeriodosPosicao data) {
+        return ViewPeriodosBuilder.listPeriodos(          
           context: context,
-          periodos: snap.data,
+          periodos: data.periodos,
+          currentPeriodoPos: data.currentPeriodoPos,
           onUpdateTap: (p) async {
             final Periodos result = await Navigator.of(context).push(
               MaterialPageRoute(builder: (c) => ViewPeriodosInsert(periodo: p)),

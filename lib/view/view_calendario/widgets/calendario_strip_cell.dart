@@ -25,29 +25,27 @@ class CalendarioStripCell extends StatelessWidget {
       width: 70,
       child: InkWell(
         onTap: onTap,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                weekDayText(context),
-                SizedBox(height: 4),
-                RainbowIndicator(
-                  child: monthDayText(context),
-                  lineWidth: 1.5,
-                  size: Offset(25, 25),
-                  colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
-                ),
-                SizedBox(height: 4),
-                CellIndicator(
-                  isFalta: dataDTO.isFalta,
-                  isVaga: dataDTO.isVaga,
-                  hasProva: dataDTO.hasProvas,
-                ),
-                SizedBox(height: 4),
-              ],
-            ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 4),
+              weekDayText(context),
+              SizedBox(height: 4),
+              RainbowIndicator(
+                child: monthDayText(context),
+                lineWidth: 1.5,
+                size: Offset(25, 25),
+                colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
+              ),
+              SizedBox(height: 4),
+              CellIndicator(
+                isFalta: dataDTO.isFalta,
+                isVaga: dataDTO.isVaga,
+                hasProva: dataDTO.hasProvas,
+              ),
+              SizedBox(height: 4),
+            ],
           ),
         ),
       ),
