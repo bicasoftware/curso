@@ -38,13 +38,20 @@ class AppEntranceState extends State<AppEntrance> {
   Widget build(BuildContext context) {
     return BlocProvider<BlocMain>(
       creator: (_, __) => _bloc,
-      child: MyApp(),
+      child: MyApp(
+        initialPosition: widget.periodos.length > 0 ? 1 : 0,
+      ),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final int initialPosition;
+
+  const MyApp({
+    Key key,
+    @required this.initialPosition,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: CustomThemes.transparedBackgroundTheme,
-      home: ViewHome(),
+      home: ViewHome(
+        initialPos: initialPosition,
+      ),
     );
   }
 }

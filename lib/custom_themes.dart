@@ -26,4 +26,8 @@ class CustomThemes {
       textTheme: ThemeData.dark().textTheme,
     );
   }
+
+  static TextStyle get lightTextButton{
+    return lightTheme.textTheme.button.copyWith(color: Colors.white);
+  }
 }

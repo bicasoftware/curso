@@ -3,8 +3,8 @@ import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
+import 'package:curso/widgets/bottom_save_button.dart';
 import 'package:curso/widgets/circle.dart';
-import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
@@ -41,51 +41,53 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(title: Text(Strings.materia)),
-      body: Container(
-        child: Form(
-          key: _formKey,
-          child: SquaredCard(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextInputTile(
-                  icon: Icons.library_books,
-                  initialValue: _materia,
-                  hint: Strings.materia,
-                  label: Strings.materia,
-                  sufix: _sigla,
-                  onSaved: _setMateria,
-                  validator: (nome) {
-                    if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
-                  },
-                  onChanged: _generateSigla,
-                ),
-                Divider(),
-                DefaultListTile(
-                  icon: Icons.color_lens,
-                  leading: Text(Strings.corMateria),
-                  trailing: Hero(
-                    tag: ObjectKey(widget.materia),
-                    child: Circle(color: _cor),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Card(
+              child: Column(
+                children: <Widget>[
+                  TextInputTile(
+                    icon: Icons.library_books,
+                    initialValue: _materia,
+                    hint: Strings.materia,
+                    label: Strings.materia,
+                    sufix: _sigla,
+                    onSaved: _setMateria,
+                    validator: (nome) {
+                      if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
+                    },
+                    onChanged: _generateSigla,
                   ),
-                  onTap: () async {
-                    final cor = await Dialogs.showColorDialog(
-                      context: context,
-                      initialColor: _cor,
-                    );
-
-                    if (cor != null) _setCor(cor);
-                  },
-                ),
-              ],
+                  SizedBox(height: 8),
+                ],
+              ),
             ),
-          ),
+            Card(
+              child: DefaultListTile(
+                icon: Icons.color_lens,
+                leading: Text(Strings.corMateria),
+                trailing: Hero(
+                  tag: ObjectKey(widget.materia),
+                  child: Circle(color: _cor),
+                ),
+                onTap: () async {
+                  final cor = await Dialogs.showColorDialog(
+                    context: context,
+                    initialColor: _cor,
+                  );
+
+                  if (cor != null) _setCor(cor);
+                },
+              ),
+            ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.save),
-        label: Text(Strings.salvar),
+      bottomNavigationBar: BottomSaveButton(
+        title: Strings.salvar,
         onPressed: () {
           final state = _formKey.currentState;
           if (state.validate()) {

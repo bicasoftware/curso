@@ -1,13 +1,13 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_materias.dart';
+import 'package:curso/container/materias.dart';
+import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
+import 'package:curso/view/view_materias/view_materias_appbar.dart';
+import 'package:curso/view/view_materias/view_materias_list.dart';
+import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
+import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
 import 'package:flutter/material.dart';
-
-import '../../container/materias.dart';
-import '../../utils.dart/Strings.dart';
-import '../../utils.dart/dialogs.dart';
-import '../view_materias_insert/view_materias_insert.dart';
-import '../view_materias_insert/view_materias_insert_result.dart';
-import 'view_materias_builder.dart';
 
 class ViewMaterias extends StatefulWidget {
   final List<Materias> materias;
@@ -73,8 +73,31 @@ class _Body extends StatelessWidget {
             backgroundColor: ThemeData.light().canvasColor,
             body: CustomScrollView(
               slivers: [
-                ViewMateriasBuilder.sliverAppbar(() => Navigator.of(context).pop(snap.data)),
-                ViewMateriasBuilder.sliverListMaterias(
+                ViewMateriasAppBar(
+                  onClosePressed: () => Navigator.of(context).pop(snap.data),
+                  onAddPressed: () async {
+                    ViewMateriasInsertResult result = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (c) {
+                          return ViewMateriasInsert(
+                            materia: Materias(
+                              cor: Colors.indigo.value,
+                              idPeriodo: idPeriodo,
+                              freq: true,
+                              medAprov: medAprov,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+
+                    if (result != null) {
+                      b.insertMateria(materia: result.materia);
+                    }
+                  },
+                ),
+                ViewMateriasList(
                   materias: snap.data,
                   onTap: (Materias m, int pos) async {
                     ViewMateriasInsertResult result = await Navigator.of(context).push(
@@ -97,31 +120,9 @@ class _Body extends StatelessWidget {
                       b.deleteMateria(materia: materia);
                     }
                   },
-                )
+                ),
               ],
             ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            floatingActionButton: ViewMateriasBuilder.fab(() async {
-              ViewMateriasInsertResult result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (c) {
-                    return ViewMateriasInsert(
-                      materia: Materias(
-                        cor: Colors.indigo.value,
-                        idPeriodo: idPeriodo,
-                        freq: true,
-                        medAprov: medAprov,
-                      ),
-                    );
-                  },
-                ),
-              );
-
-              if (result != null) {
-                b.insertMateria(materia: result.materia);
-              }
-            }),
           ),
         );
       },

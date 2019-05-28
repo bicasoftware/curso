@@ -6,12 +6,14 @@ class StreamAwaiter<T> extends StatelessWidget {
   final Stream<T> stream;
   final Widget Function(BuildContext context, T data) widgetBuilder;
   final bool isHappy;
+  final bool isContainer;
 
   const StreamAwaiter({
     Key key,
     @required this.stream,
     @required this.widgetBuilder,
     this.isHappy: false,
+    this.isContainer: false,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,8 @@ class StreamAwaiter<T> extends StatelessWidget {
         if (!snapshot.hasData) {
           if (isHappy) {
             return HappyPlaceholder();
+          } else if (isContainer) {
+            return Container();
           } else {
             return AwaitingContainer();
           }

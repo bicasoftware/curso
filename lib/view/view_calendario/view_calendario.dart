@@ -18,15 +18,17 @@ class ViewCalendarioState extends State<ViewCalendario> with AutomaticKeepAliveC
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         SquaredCard(
+          elevation: 1,
           child: Column(
-            children: <Widget>[
-              CalendarioNavigator(),
-              PaddedDivider(height: 0, padding: EdgeInsets.symmetric(horizontal: 64)),
-              CalendarioStrip(),
+            children: const <Widget>[
+              const CalendarioNavigator(),
+              const PaddedDivider(height: 0, padding: EdgeInsets.symmetric(horizontal: 64)),
+              const CalendarioStrip(),
             ],
           ),
         ),
@@ -36,6 +38,7 @@ class ViewCalendarioState extends State<ViewCalendario> with AutomaticKeepAliveC
             child: DefaultTabController(
               length: 2,
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   TabBar(
                     labelColor: Theme.of(context).primaryColorDark,
@@ -45,7 +48,6 @@ class ViewCalendarioState extends State<ViewCalendario> with AutomaticKeepAliveC
                       Tab(child: Text(Strings.provas)),
                     ],
                   ),
-                  Divider(height: 0),
                   Expanded(
                     child: TabBarView(
                       children: [

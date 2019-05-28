@@ -1,40 +1,41 @@
-import 'package:bloc_provider/bloc_provider.dart';
-import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 
 class ViewHomeBottombar extends StatelessWidget {
+  final int pos;
+  final Function(int) onChanged;
+
+  const ViewHomeBottombar({
+    Key key,
+    @required this.pos,
+    @required this.onChanged,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
-
-    return StreamAwaiter(
-      stream: b.outPos,
-      widgetBuilder: (c, int pos) {
-        return Theme(
-          data: CustomThemes.lightTheme,
-          child: BottomNavigationBar(
-            currentIndex: pos,
-            onTap: (i) => b.setPos(i),
-            items: [
-              BottomNavigationBarItem(
-                title: Text(Strings.periodos),
-                icon: Icon(Icons.donut_small),
-              ),
-              BottomNavigationBarItem(
-                title: Text(Strings.calendario),
-                icon: Icon(Icons.date_range),
-              ),
-              BottomNavigationBarItem(
-                title: Text(Strings.parciais),
-                icon: Icon(Icons.format_list_bulleted),
-              ),
-            ],
+    return Theme(
+      data: CustomThemes.lightTheme,
+      child: BottomNavigationBar(
+        currentIndex: pos,
+        selectedItemColor: Theme.of(context).accentColor,
+        selectedFontSize: 14,
+        onTap: onChanged,
+        items: [
+          BottomNavigationBarItem(
+            title: Text(Strings.periodos),
+            icon: Icon(Icons.donut_small),
           ),
-        );
-      },
+          BottomNavigationBarItem(
+            title: Text(Strings.calendario),
+            icon: Icon(Icons.date_range),
+          ),
+          BottomNavigationBarItem(
+            title: Text(Strings.parciais),
+            icon: Icon(Icons.format_list_bulleted),
+          ),
+        ],
+      ),
     );
   }
 }

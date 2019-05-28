@@ -14,10 +14,13 @@ class CalendarioProvasDia extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<BlocMain>(context);
 
+    //animar Widget!
+
     return Column(
       children: [
         Expanded(child: CalendarioProvasDiaList()),
         StreamAwaiter<List<AulasSemanaDTO>>(
+          isContainer: true,
           stream: bloc.outAulasAgendamento,
           widgetBuilder: (_, List<AulasSemanaDTO> aulas) {
             return Container(

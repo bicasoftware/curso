@@ -21,19 +21,10 @@ import 'state_main.dart';
 
 class BlocMain extends Bloc {
   StateMain state;
-  int _pos;
-
-  BehaviorSubject<int> _subjectPos = BehaviorSubject<int>();
-  get outPos => _subjectPos.stream;
-  get inPos => _subjectPos.sink;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();
   get outDataDTO => _subDataDTO.stream;
   get inDataDTO => _subDataDTO.sink;
-
-  BehaviorSubject<int> _subjectMes = BehaviorSubject<int>();
-  get outMes => _subjectMes.stream;
-  get inMes => _subjectMes.sink;
 
   BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
   get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
@@ -75,20 +66,16 @@ class BlocMain extends Bloc {
 
     _sinkPeriodos();
     _sinkCurrentPeriodo();
-    inMes.add(state.mes);
-    inPos.add(periodos.length > 0 ? 1 : 0);
   }
 
   @override
   void dispose() {
     _subjectPeriodos.close();
-    _subjectMes.close();
     _subCalendarioContent.close();
     _subDataDTO.close();
     _subAulasAgendamento.close();
     _subProvasNotasMaterias.close();
     _subSelectedDate.close();
-    _subjectPos.close();
     _subjectCurrentPeriodo.close();
     _subjectListPeriodos.close();
   }
@@ -115,18 +102,10 @@ class BlocMain extends Bloc {
       ),
     );
     inDataDTO.add(state.aulasDia);
-    inMes.add(state.mes);
     inSelectedDate.add(state.selectedDate);
     inAulasAgendamento.add(state.aulasAgendaveis);
     inProvasNotasMaterias.add(Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay));
     inCurrentPeriodo.add(state.currentPeriodo);
-  }
-
-  void setPos(int pos) {
-    if (_pos != pos) {
-      _pos = pos;
-      inPos.add(_pos);
-    }
   }
 
   incMes() {

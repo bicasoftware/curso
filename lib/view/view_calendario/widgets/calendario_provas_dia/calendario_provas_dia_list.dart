@@ -7,6 +7,8 @@ import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_provas_dia/calendario_provas_dia_list_tile.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:curso/widgets/placeholders/happy_placeholder.dart';
+import 'package:curso/widgets/placeholders/stream_builder_child.dart';
+import 'package:curso/widgets/placeholders/widget_swapper.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioProvasDiaList extends StatelessWidget {
@@ -14,33 +16,41 @@ class CalendarioProvasDiaList extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<BlocMain>(context);
 
-    return Column(
-      children: <Widget>[
-        StreamBuilder<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>(
-          stream: bloc.outProvasNotasMaterias,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData || snapshot.data.first.length == 0) {
-              return HappyPlaceholder();
-            } else {
-              return Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.first.length,
-                  separatorBuilder: (_, __) =>
-                      PaddedDivider(padding: const EdgeInsets.only(right: 16.0, left: 140)),
-                  itemBuilder: (c, i) {
-                    return CalendarioProvasDiaListTile(
-                      provasNotasMaterias: snapshot.data.first[i],
-                      onDeleted: (Notas n) => bloc.deleteNota(n),
-                      onUpdateNota: (Notas nota) => bloc.updateNota(nota),
-                    );
-                  },
-                ),
-              );
-            }
+    return StreamAwaiter<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>(
+      stream: bloc.outProvasNotasMaterias,
+      isHappy: true,
+      widgetBuilder:
+          (BuildContext context, Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>> data) {
+        return AnimatedSwitcher(
+          duration: Duration(milliseconds: 200),
+          switchInCurve: Curves.easeIn,
+          switchOutCurve: Curves.easeOut,
+          transitionBuilder: (Widget w, Animation<double> a) {
+            return FadeTransition(
+              opacity: a,
+              child: w,
+            );
           },
-        ),
-      ],
+          child: WidgetSwapper(
+            key: UniqueKey(),
+            switchingCase: () => data.first.length > 0,
+            placeholder: HappyPlaceholder(),
+            realWidget: ListView.separated(
+              itemCount: data.first.length,
+              separatorBuilder: (_, __) {
+                return PaddedDivider(padding: const EdgeInsets.only(right: 16.0, left: 140));
+              },
+              itemBuilder: (_, int i) {
+                return CalendarioProvasDiaListTile(
+                  provasNotasMaterias: data.first[i],
+                  onDeleted: (Notas n) => bloc.deleteNota(n),
+                  onUpdateNota: (Notas nota) => bloc.updateNota(nota),
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

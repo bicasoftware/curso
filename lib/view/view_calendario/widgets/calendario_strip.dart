@@ -5,12 +5,10 @@ import 'package:curso/view/view_calendario/widgets/calendario_strip_cell.dart';
 import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 
-class CalendarioStrip extends StatefulWidget {
-  @override
-  _CalendarioStripState createState() => _CalendarioStripState();
-}
+class CalendarioStrip extends StatelessWidget {
 
-class _CalendarioStripState extends State<CalendarioStrip> {
+  const CalendarioStrip({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);

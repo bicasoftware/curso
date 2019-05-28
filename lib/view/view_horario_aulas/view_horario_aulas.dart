@@ -1,6 +1,6 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
-import 'package:curso/widgets/squared_card.dart';
+import 'package:curso/widgets/bottom_save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
@@ -51,40 +51,28 @@ class _ViewHorarioAulasState extends State<ViewHorarioAulas> {
       backgroundColor: ThemeData.light().canvasColor,
       key: _scaffoldKey,
       appBar: AppBar(title: Text("Horários ${_ordemAula + 1}ª aula")),
-      body: Container(
-        padding: EdgeInsets.all(8),
-        child: SquaredCard(
-          elevation: 2,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TimePickerTile(
-                initialTime: _inicio,
-                title: Strings.inicioAula,
-                onTimeSet: (time) => _setInicio(time),
-              ),
-              Divider(height: 0),
-              TimePickerTile(
-                initialTime: _termino,
-                title: Strings.terminoAula,
-                onTimeSet: (time) => _setTermino(time),
-              )
-            ],
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Card(
+            child: TimePickerTile(
+              initialTime: _inicio,
+              title: Strings.inicioAula,
+              onTimeSet: (time) => _setInicio(time),
+            ),
           ),
-        ),
+          Card(
+            child: TimePickerTile(
+              initialTime: _termino,
+              title: Strings.terminoAula,
+              onTimeSet: (time) => _setTermino(time),
+            ),
+          )
+        ],
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: FlatButton(
-          color: Theme.of(context).accentColor,
-          child: Text(
-            Strings.salvar,
-            style: Theme.of(context).textTheme.button.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-          onPressed: () => validateHorarios(c: context),
-        ),
+      bottomNavigationBar: BottomSaveButton(
+        title: Strings.salvar,
+        onPressed: () => validateHorarios(c: context),
       ),
     );
   }
