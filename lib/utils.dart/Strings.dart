@@ -22,6 +22,7 @@ class Strings {
   static const String corMateria = 'Cor da Materia';
   static const String cor = 'Cor';
   static const String provas = 'Provas';
+  static const String notas = 'Notas';
   static const String provasAgendar = 'Provas agendadas';
   static const String cronograma = 'Cronograma';
   static const String calendario = 'Calendário';
@@ -60,6 +61,15 @@ class Strings {
   static const String cancelarProva = "Cancelar Prova";
   static const String duracaoOrdemPeriodo = "Duração e Ordem do $periodo";
   static const String selecionarPeriodo = "Selecionar Periodo";
+  static const String emAndamento = "Em Andamento";
+  static const String concluido = "Concluído";
+  static const String aprovado = "Aprovado";
+  static const String reprovado = "Reprovado";
+  static const String dispensado = "Dispensado";
+  static const String faltas = "Faltas";
+  static const String vagas = "Vagas";
+  static const String total = "Total";
+  static const String notaAtual = "Nota Atual";
 }
 
 class Arrays {
