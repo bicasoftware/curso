@@ -7,6 +7,7 @@ import 'package:curso/container/calendario_strip_container.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
+import 'package:curso/container/parciais.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
@@ -15,6 +16,7 @@ import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_notas.dart';
 import 'package:curso/providers/provider_periodos.dart';
 import 'package:curso/utils.dart/pair.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
@@ -56,6 +58,10 @@ class BlocMain extends Bloc {
   Stream<List<AulasSemanaDTO>> get outAulasAgendamento => _subAulasAgendamento.stream;
   Sink<List<AulasSemanaDTO>> get inAulasAgendamento => _subAulasAgendamento.sink;
 
+  BehaviorSubject<Parciais> _subjectParciais = BehaviorSubject<Parciais>();
+  get outParciais => _subjectParciais.stream;
+  get inParciais => _subjectParciais.sink;
+
   BlocMain({
     List<Periodos> periodos,
     int pos,
@@ -78,6 +84,7 @@ class BlocMain extends Bloc {
     _subSelectedDate.close();
     _subjectCurrentPeriodo.close();
     _subjectListPeriodos.close();
+    _subjectParciais.close();
   }
 
   _sinkPeriodos() {
@@ -91,6 +98,7 @@ class BlocMain extends Bloc {
         initialOffset: state.calendarStripPosition,
       ),
     );
+    inParciais.add(state.provideParciais);
   }
 
   _sinkCurrentPeriodo() {
@@ -106,6 +114,7 @@ class BlocMain extends Bloc {
     inAulasAgendamento.add(state.aulasAgendaveis);
     inProvasNotasMaterias.add(Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay));
     inCurrentPeriodo.add(state.currentPeriodo);
+    inParciais.add(state.provideParciais);
   }
 
   incMes() {
@@ -148,6 +157,7 @@ class BlocMain extends Bloc {
 
   updateMaterias(int idPeriodo, List<Materias> materias) {
     state.refreshMaterias(idPeriodo, materias);
+    _sinkPeriodos();
   }
 
   insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
@@ -202,9 +212,9 @@ class BlocMain extends Bloc {
     });
   }
 
-  deleteFalta({int idMateria, int idFalta, DateTime date}) {
+  deleteFalta({int idMateria, int idFalta, DateTime date, @required int tipoFalta}) {
     ProviderFaltas.deleteFaltaById(idFalta)
-        .then((_) => state.deleteFalta(idMateria, idFalta, date))
+        .then((_) => state.deleteFalta(idMateria, idFalta, date, tipoFalta))
         .whenComplete(() => _sinkCurrentPeriodo());
   }
 

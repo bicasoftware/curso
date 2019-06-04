@@ -3,6 +3,7 @@ import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
+import 'package:curso/container/parciais.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
@@ -184,12 +185,13 @@ class StateMain {
   }
 
   _refreshCalendario(int idPeriodo) {
-    periodos.firstWhere((it) => it.id == idPeriodo).refreshCalendario();
+    periodos.firstWhere((it) => it.id == idPeriodo)
+      ..refreshCalendario()
+      ..prepareParciais();
   }
 
   refreshMaterias(int idPeriodo, List<Materias> materias) {
     periodos.firstWhere((it) => it.id == idPeriodo).materias = materias;
-
     _refreshCalendario(idPeriodo);
   }
 
@@ -218,8 +220,8 @@ class StateMain {
     currentCalendario.insertFalta(falta);
   }
 
-  deleteFalta(int idMateria, int idFalta, DateTime date) {
-    currentPeriodo.deleteFalta(idMateria, idFalta);
+  deleteFalta(int idMateria, int idFalta, DateTime date, int tipoFalta) {
+    currentPeriodo.deleteFalta(idMateria, idFalta, tipoFalta);
     currentCalendario.deleteFalta(date, idFalta);
   }
 
@@ -234,4 +236,6 @@ class StateMain {
   updateNota(Notas nota) {
     currentPeriodo.updateNota(nota);
   }
+
+  Parciais get provideParciais => currentPeriodo.parciais;
 }

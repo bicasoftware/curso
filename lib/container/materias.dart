@@ -25,7 +25,7 @@ class Materias implements BaseTable {
     this.faltas,
     this.notas,
     this.aulas,
-  }){
+  }) {
     faltas = [];
     notas = [];
     aulas = [];
@@ -96,23 +96,35 @@ class Materias implements BaseTable {
     return "id: $id, idPeriodo: $idPeriodo, nome: $nome, sigla: $sigla,freq: $freq,medAprov: $medAprov,cor: $cor";
   }
 
-  insertFalta(Faltas falta){
+  Materias clone() {
+    return Materias(
+      id: this.id,
+      idPeriodo: this.idPeriodo,
+      nome: this.nome,
+      sigla: this.sigla,
+      cor: this.cor,
+    );
+  }
+
+
+
+  insertFalta(Faltas falta) {
     faltas.add(falta);
   }
 
-  deleteFalta(int idFalta){
+  deleteFalta(int idFalta) {
     faltas.removeWhere((f) => f.id == idFalta);
   }
 
-  insertNota(Notas nota){
+  insertNota(Notas nota) {
     notas.add(nota);
   }
 
-  deleteNota(Notas nota){
+  deleteNota(Notas nota) {
     notas.remove(nota);
   }
 
-  updateNota(Notas nota){
+  updateNota(Notas nota) {
     notas.firstWhere((n) => n.id == nota.id).updateNota(nota.nota);
   }
 }

@@ -10,7 +10,7 @@ class CalendarioDTO {
 
   const CalendarioDTO({this.mes, this.dates});
 
-  DataDTO _findByDate(DateTime date){
+  DataDTO _findByDate(DateTime date) {
     return dates.firstWhere((dt) => isSameDay(dt.date, date));
   }
 
@@ -22,9 +22,10 @@ class CalendarioDTO {
     _findByDate(date).deleteFalta(idFalta);
   }
 
-  setHasProvas(Notas nota, bool hasProva){
+  setHasProvas(Notas nota, bool hasProva) {
     _findByDate(nota.data).setHasProvas(hasProva);
   }
+
 }
 
 class DataDTO {

@@ -3,8 +3,10 @@ import 'package:curso/container/faltas.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
+import 'package:curso/container/parciais.dart';
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
 
 class Periodos implements BaseTable {
@@ -15,6 +17,7 @@ class Periodos implements BaseTable {
   List<Horarios> horarios;
   List<CalendarioDTO> calendario;
   List<AulasSemanaDTO> aulasSemana;
+  Parciais parciais;
 
   Periodos({
     this.id,
@@ -30,6 +33,7 @@ class Periodos implements BaseTable {
     horarios = [];
     calendario = [];
     aulasSemana = [];
+    parciais = Parciais(terminoPeriodo: termino);
   }
 
   static const String ID = "id";
@@ -202,10 +206,12 @@ class Periodos implements BaseTable {
 
   insertFalta(Faltas falta) {
     materias.firstWhere((it) => it.id == falta.idMateria).insertFalta(falta);
+    parciais.addFalta(falta);
   }
 
-  deleteFalta(int idMateria, int idFalta) {
+  deleteFalta(int idMateria, int idFalta, int tipoFalta) {
     materias.firstWhere((it) => it.id == idMateria).deleteFalta(idFalta);
+    parciais.removeFalta(idMateria: idMateria, tipoFalta: tipoFalta);
   }
 
   insertNota(Notas nota) {
@@ -263,5 +269,46 @@ class Periodos implements BaseTable {
 
   Materias getMateriaById(int idMateria) {
     return materias.firstWhere((m) => m.id == idMateria, orElse: () => null);
+  }
+
+  prepareParciais() {
+    parciais = Parciais(terminoPeriodo: this.termino);
+    List<int> aulasSemestre = [];
+
+    for (int dia = 0; dia < 7; dia++) {
+      aulasSemestre.add(countWeekDayInRange(inicio, termino, dia));
+    }
+
+    for (final m in materias) {
+      ///Lista com quantas vezes determinado dia da semana existem durante o período
+      final Set<int> diasComAula = m.aulas.map((m) => m.weekDay).toSet();
+
+      final totalAulas = calcNumAulasSemestre(
+        aulas: m.aulas,
+        diasComAula: diasComAula,
+        weekDaysInRange: aulasSemestre,
+        idMateria: m.id,
+      );
+
+      ///Soma notas da materia
+      final media = calcMedia(m.notas.where((n) => n.data.isBefore(termino)).toList());
+
+      ///Soma faltas e aulas vagas
+      final faltas = m.faltas.where((f) => f.tipo == 0).length;
+      final vagas = m.faltas.where((f) => f.tipo == 1).length;
+
+      parciais.add(
+        materia: m.clone(),
+
+        ///80 sextas-feiras, com 4 aulas, somam 320 aulas, que são o total de aulas do semestre
+        numAulasSemestre: totalAulas,
+        // numAulasSemestre: totalAulasSemestre * totalAulasSemana,
+        notas: m.notas,
+        notaAprovacao: medAprov,
+        notaAtual: media,
+        faltas: faltas,
+        vagas: vagas,
+      );
+    }
   }
 }

@@ -16,20 +16,14 @@ class ParcialPresencaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
+      padding: EdgeInsets.all(4),
+      child: Row(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Circle(color: cor.value, size: 20),
-              SizedBox(width: 8),
-              Text(title),
-              Spacer(),
-              Text(valor.toString().padLeft(3, "0"), textAlign: TextAlign.end),
-            ],
-          ),
-          SizedBox(height: 4),
-          Divider(height: 0)
+          Circle(color: cor.value, size: 20),
+          SizedBox(width: 8),
+          Text(title),
+          Spacer(),
+          Text(valor.toString().padLeft(3, "0"), textAlign: TextAlign.end),
         ],
       ),
     );

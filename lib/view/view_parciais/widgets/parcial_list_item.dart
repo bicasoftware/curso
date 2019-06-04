@@ -1,38 +1,38 @@
+import 'package:curso/container/materias.dart';
+import 'package:curso/container/parciais.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/pair.dart';
-import 'package:curso/view/view_parciais/parcial_status.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_header.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_notas_header.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_notas_item.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_presenca_item.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_presenca_progress.dart';
 import 'package:curso/widgets/padded_divider.dart';
+import 'package:curso/widgets/squared_card.dart';
 import 'package:flutter/material.dart';
 
 class ParcialListItem extends StatelessWidget {
-  static final List<Pair<DateTime, double>> notas = [
-    Pair(first: DateTime.now(), second: 10.0),
-    Pair(first: DateTime.now().add(Duration(days: 1)), second: 8.5),
-    Pair(first: DateTime.now().add(Duration(days: 10)), second: 4.8),
-  ];
+  final ParciaisMaterias parciais;
+
+  Materias get m => parciais.materia;
 
   const ParcialListItem({
     Key key,
+    @required this.parciais,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
+    return SquaredCard(
+      elevation: 1,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ///Item com [nome da matéria, sigla, cor da matéria e indicador de status]
           ParcialHeader(
-            materia: "Matemática",
-            cor: Colors.teal.value,
-            sigla: "MAT",
-            status: ParcialStatus.emAndamento(),
+            materia: m.nome,
+            cor: m.cor,
+            sigla: m.sigla,
+            status: parciais.status,
           ),
           PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
 
@@ -55,21 +55,22 @@ class ParcialListItem extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   child: ListView(
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       ParcialPresencaItem(
                         cor: Colors.red,
                         title: Strings.faltas,
-                        valor: 2,
+                        valor: parciais.numFaltas,
                       ),
                       ParcialPresencaItem(
                         cor: Colors.teal,
                         title: Strings.vagas,
-                        valor: 6,
+                        valor: parciais.numAulasVagas,
                       ),
                       ParcialPresencaItem(
                         cor: Colors.indigo,
                         title: Strings.total,
-                        valor: 200,
+                        valor: parciais.numAulasSemestre,
                       ),
                     ],
                   ),
@@ -79,16 +80,20 @@ class ParcialListItem extends StatelessWidget {
           ),
           PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
           ParcialNotasHeader(),
+
           ListView.builder(
+            itemCount: parciais.notas.length,
             shrinkWrap: true,
-            itemCount: notas.length,
-            itemBuilder: (_, i) => ParcialNotasItem(data: notas[i].first, nota: notas[i].second),
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (_, i) {
+              return ParcialNotasItem(nota: parciais.notas[i]);
+            },
           ),
           PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
           ParcialPresencaProgress(
-            media: 8.5,
-            notaAprov: 7.5,
-            status: ParcialStatus.aprovado(),
+            notaAtual: parciais.notaAtual,
+            notaAprov: parciais.notaAprovacao,
+            status: parciais.status,
           ),
         ],
       ),

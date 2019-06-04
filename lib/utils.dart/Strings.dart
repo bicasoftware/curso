@@ -65,6 +65,7 @@ class Strings {
   static const String concluido = "Concluído";
   static const String aprovado = "Aprovado";
   static const String reprovado = "Reprovado";
+  static const String desconhecido = "Desconhecido";
   static const String dispensado = "Dispensado";
   static const String faltas = "Faltas";
   static const String vagas = "Vagas";

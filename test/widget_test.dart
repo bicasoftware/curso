@@ -9,6 +9,12 @@ import 'package:intl/intl.dart';
 
 void main() {
 
+  test('contains', () {
+    final numeros = [1,1,2,3,4,4,5,7,7,8,6,6,6,2,5];
+    final seta = numeros.toSet();
+    print(seta);
+  });
+
   test('tryParse', () {
     final double valor = double.tryParse("a.36");
     print(valor);

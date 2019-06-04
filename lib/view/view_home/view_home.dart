@@ -10,6 +10,7 @@ import 'package:curso/view/view_periodos/view_periodos.dart';
 import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:morpheus/morpheus.dart';
 
 class ViewHome extends StatefulWidget {
   final int initialPos;
@@ -32,7 +33,7 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
 
   @override
   void initState() {
-    super.initState();    
+    super.initState();
     inPos.add(widget.initialPos);
   }
 
@@ -61,42 +62,17 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
               );
             },
           )
-        ],        
+        ],
       ),
       body: StreamAwaiter<int>(
         stream: outPos,
-        widgetBuilder: (BuildContext context, int pos) {
-          return AnimatedSwitcher(
-            duration: Duration(milliseconds: 200),
-            child: pages[pos],
-            switchInCurve: Curves.easeIn,
-            switchOutCurve: Curves.easeOut,
-            transitionBuilder: (Widget child, Animation<double> anim) {
-              if (!MediaQuery.of(context).disableAnimations) {
-                final scaleTween = TweenSequence([
-                  TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.9), weight: 1),
-                  TweenSequenceItem(tween: Tween(begin: 0.9, end: 1.0), weight: 1),
-                ]);
-                return FadeTransition(                  
-                  opacity: anim,
-                  child: ScaleTransition(
-                    scale: scaleTween.animate(anim),
-                    child: child,
-                  ),
-                );
-              } else {
-                return child;
-              }
-            },
-          );
-        },
+        widgetBuilder: (BuildContext context, int pos) => MorpheusTabView(child: pages[pos]),
       ),
       bottomNavigationBar: StreamAwaiter(
         stream: _subjectPos,
         widgetBuilder: (_, int pos) {
           return ViewHomeBottombar(
             pos: pos,
-            // onChanged: (pos) => controller.animateTo(pos),
             onChanged: (pos) => inPos.add(pos),
           );
         },

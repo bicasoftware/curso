@@ -20,6 +20,7 @@ class ProviderPeriodos {
       periodo.materias = materias;
       periodo.horarios = horarios;
       periodo.refreshCalendario();
+      periodo.prepareParciais();
     }
 
     return periodos;
@@ -35,6 +36,7 @@ class ProviderPeriodos {
     }
     periodo.id = newId;
     await periodo.refreshCalendario();
+    periodo.prepareParciais();
 
     return periodo;
   }

@@ -1,36 +1,47 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
-class ParcialStatus {
-  final String title;
-  final Color cor;
+abstract class ParciaisStatus {
+  String get title;
+  Color get cor;
+}
 
-  ParcialStatus({this.title, this.cor});
+class StatusAprovado implements ParciaisStatus {
+  @override
+  Color get cor => Colors.green;
 
-  factory ParcialStatus.emAndamento() {
-    return ParcialStatus(cor: Colors.teal, title: Strings.emAndamento);
-  }
+  @override
+  String get title => Strings.aprovado;
+}
 
-  factory ParcialStatus.dispensado() {
-    return ParcialStatus(cor: Colors.greenAccent, title: Strings.dispensado);
-  }
+class StatusReprovado implements ParciaisStatus {
+  @override
+  Color get cor => Colors.deepOrange;
 
-  factory ParcialStatus.aprovado() {
-    return ParcialStatus(cor: Colors.lightBlue, title: Strings.aprovado);
-  }
+  @override
+  String get title => Strings.reprovado;
+}
 
-  factory ParcialStatus.reprovado() {
-    return ParcialStatus(cor: Colors.deepOrange, title: Strings.reprovado);
-  }
+class StatusEmAndamento implements ParciaisStatus {
+  @override
+  Color get cor => Colors.teal;
 
-  factory ParcialStatus.concluido() {
-    return ParcialStatus(cor: Colors.blue, title: Strings.concluido);
-  }
+  @override
+  String get title => Strings.emAndamento;
+}
 
-  ParcialStatus copyWith({String title, double cor}) {
-    return ParcialStatus(
-      title: title ?? this.title,
-      cor: cor ?? this.cor,
-    );
-  }
+class StatusDispensado implements ParciaisStatus {
+  @override
+  Color get cor => Colors.greenAccent;
+
+  @override
+  String get title => Strings.dispensado;
+}
+
+class StatusDesconhecido implements ParciaisStatus {
+  @override
+  Color get cor => Colors.grey;
+
+  @override
+  String get title => Strings.desconhecido;
 }

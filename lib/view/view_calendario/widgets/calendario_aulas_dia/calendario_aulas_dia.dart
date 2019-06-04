@@ -52,6 +52,7 @@ class _CalendarioAulasDiaState extends State<CalendarioAulasDia>
                       idMateria: aulas.idMateria,
                       idFalta: aulas.idFalta,
                       date: data.date,
+                      tipoFalta: aulas.tipo,
                     );
                   }
                 } else if (selectedAction == 1) {
@@ -67,6 +68,7 @@ class _CalendarioAulasDiaState extends State<CalendarioAulasDia>
                       idFalta: aulas.idFalta,
                       idMateria: aulas.idMateria,
                       date: data.date,
+                      tipoFalta: aulas.tipo,
                     );
                   }
                 }
