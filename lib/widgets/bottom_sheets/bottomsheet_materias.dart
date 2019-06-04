@@ -1,6 +1,7 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/dialogs/dialog_picker_materias.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetMaterias extends StatelessWidget {
@@ -31,9 +32,8 @@ class BottomSheetMaterias extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          child: Divider(height: 1),
-          margin: EdgeInsets.symmetric(horizontal: 16),
+        PaddedDivider(
+          padding: EdgeInsets.symmetric(horizontal: 16),
         ),
         Expanded(
           child: PickerMaterias(

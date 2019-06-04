@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CustomThemes {
   static ThemeData get transparedBackgroundTheme {
     return ThemeData(
+      primarySwatch: Colors.indigo,
       primaryColor: Colors.indigo,
-      accentColor: Colors.indigoAccent,
+      accentColor: Colors.blue,
       fontFamily: "FiraSans",
       brightness: Brightness.light,
       splashColor: Colors.lightBlue[50],
@@ -15,19 +16,20 @@ class CustomThemes {
 
   static ThemeData get lightTheme {
     return transparedBackgroundTheme.copyWith(
-      canvasColor: ThemeData.light().canvasColor
+      canvasColor: ThemeData.light().canvasColor,
+      cardColor: ThemeData.light().cardColor,
     );
   }
 
   static ThemeData get primaryColorThemeData {
-    return  transparedBackgroundTheme.copyWith(
+    return transparedBackgroundTheme.copyWith(
       brightness: Brightness.dark,
       canvasColor: transparedBackgroundTheme.primaryColor,
       textTheme: ThemeData.dark().textTheme,
     );
   }
 
-  static TextStyle get lightTextButton{
+  static TextStyle get lightTextButton {
     return lightTheme.textTheme.button.copyWith(color: Colors.white);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:curso/container/materias.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class PickerMaterias extends StatelessWidget {
@@ -19,7 +20,7 @@ class PickerMaterias extends StatelessWidget {
         final m = materias[i];
         return ListTile(
           onTap: () => onTap(materias[i].id),
-          leading: CircleAvatar(backgroundColor: Color(m.cor)),
+          leading: MateriaColorContainer(color: Color(m.cor), type: MaterialType.circle),
           title: Text(m.nome),
           subtitle: Text(m.sigla),
         );

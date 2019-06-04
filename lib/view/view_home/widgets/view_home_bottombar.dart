@@ -18,7 +18,6 @@ class ViewHomeBottombar extends StatelessWidget {
       data: CustomThemes.lightTheme,
       child: BottomNavigationBar(
         currentIndex: pos,
-        selectedItemColor: Theme.of(context).accentColor,
         selectedFontSize: 14,
         onTap: onChanged,
         items: [

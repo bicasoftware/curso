@@ -1,5 +1,5 @@
 import 'package:curso/container/materias.dart';
-import 'package:curso/widgets/circle.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasListItem extends StatelessWidget {
@@ -28,14 +28,17 @@ class ViewMateriasListItem extends StatelessWidget {
         onLongTap(m);
       },
       leading: CircleAvatar(
-        backgroundColor: Theme.of(context).accentColor,
-        child: Icon(Icons.school, color: Colors.white),
+        backgroundColor: Colors.transparent,
+        child: Icon(Icons.school, color: Theme.of(context).accentColor),
       ),
       title: Text(m.nome),
       subtitle: Text(m.sigla),
       trailing: Hero(
         tag: ObjectKey(m),
-        child: Circle(color: m.cor, size: 35),
+        child: MateriaColorContainer(
+          color: Color(m.cor),
+          size: 32,
+        ),
       ),
     );
   }

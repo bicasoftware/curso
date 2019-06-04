@@ -9,7 +9,6 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_faltas.dart';
@@ -36,9 +35,9 @@ class BlocMain extends Bloc {
   get outListPeriodos => _subjectListPeriodos.stream;
   get inListPeriodos => _subjectListPeriodos.sink;
 
-  final _subjectPeriodos = BehaviorSubject<PeriodosPosicao>();
-  Stream<PeriodosPosicao> get outPeriodos => _subjectPeriodos.stream;
-  Sink<PeriodosPosicao> get inPeriodos => _subjectPeriodos.sink;
+  final _subjectPeriodos = BehaviorSubject<List<Periodos>>();
+  Stream<List<Periodos>> get outPeriodos => _subjectPeriodos.stream;
+  Sink<List<Periodos>> get inPeriodos => _subjectPeriodos.sink;
 
   final _subCalendarioContent = BehaviorSubject<CalendarioStripContainer>();
   Stream<CalendarioStripContainer> get outCalendario => _subCalendarioContent.stream;
@@ -88,7 +87,7 @@ class BlocMain extends Bloc {
   }
 
   _sinkPeriodos() {
-    inPeriodos.add(state.periodosPosicao);
+    inPeriodos.add(state.periodos);
     inListPeriodos.add(state.periodos);
     inCurrentPeriodo.add(state.currentPeriodo);
     inCalendario.add(

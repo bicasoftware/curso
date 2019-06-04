@@ -1,4 +1,5 @@
 import 'package:curso/container/periodos.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class CronogramaCell extends StatelessWidget {
@@ -26,19 +27,25 @@ class CronogramaCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 48,
-        margin: EdgeInsets.symmetric(horizontal: 1),
-        color: cor ?? Colors.grey[100],
-        child: InkWell(
-          splashColor: Theme.of(context).accentColor,
-          onTap: () => onCellTap(weekDay, ordemAula, periodo, idAula),
-          child: Center(
-            child: Text(
-              sigla ?? "${ordemAula + 1}ª Aula",
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 10),
+      child: GestureDetector(
+        onTap: () => onCellTap(weekDay, ordemAula, periodo, idAula),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 1),
+          child: MateriaColorContainer(          
+            type: MaterialType.card,
+            size: 48,
+            color: cor ?? Theme.of(context).cardColor,
+            child: Center(            
+              child: Text(
+                sigla ?? "${ordemAula + 1}ª Aula",
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: sigla != null ? FontWeight.bold : null,
+                  color: (cor != null && cor.computeLuminance() < 0.5) ? Colors.white : Colors.black,
+                ),
+              ),
             ),
           ),
         ),

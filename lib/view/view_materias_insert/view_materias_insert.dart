@@ -4,7 +4,7 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
 import 'package:curso/widgets/bottom_save_button.dart';
-import 'package:curso/widgets/circle.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
@@ -71,7 +71,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
                 leading: Text(Strings.corMateria),
                 trailing: Hero(
                   tag: ObjectKey(widget.materia),
-                  child: Circle(color: _cor),
+                  child: MateriaColorContainer(color: Color(_cor), size: 32),
                 ),
                 onTap: () async {
                   final cor = await Dialogs.showColorDialog(

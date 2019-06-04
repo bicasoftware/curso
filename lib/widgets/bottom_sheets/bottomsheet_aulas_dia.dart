@@ -1,5 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetAulasDia extends StatelessWidget {
@@ -35,7 +36,7 @@ class BottomSheetAulasDia extends StatelessWidget {
               final m = aulasSemana[i];
               return ListTile(
                 onTap: () => Navigator.of(context).pop(m.idMateria),
-                leading: CircleAvatar(backgroundColor: Color(m.cor)),
+                leading: MateriaColorContainer(color: Color(m.cor), type: MaterialType.circle),
                 title: Text(m.nome),
                 subtitle: Text(m.sigla),
               );

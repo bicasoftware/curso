@@ -5,7 +5,6 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/container/periodos_posicao.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
@@ -161,13 +160,6 @@ class StateMain {
     }
 
     return provasNotasMaterias;
-  }
-
-  PeriodosPosicao get periodosPosicao {
-    return PeriodosPosicao(
-      periodos: periodos,
-      currentPeriodoPos: periodos.indexWhere((i) => i.id == _currentId),
-    );
   }
 
   removePeriodoById(int idPeriodo) {
