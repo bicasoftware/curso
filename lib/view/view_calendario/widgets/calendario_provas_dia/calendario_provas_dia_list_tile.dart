@@ -25,8 +25,6 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
       leading: HorarioAulaChip(
         color: Color(provasNotasMaterias.materia.cor),
         text: "Nota: ${formatNota(provasNotasMaterias.nota.nota)}",
-        textColor: Colors.black54,
-        iconColor: Colors.black87,
       ),
       title: Text(provasNotasMaterias.materia.nome),
       trailing: PopupMenuButton<int>(

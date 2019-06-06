@@ -5,7 +5,7 @@ class CustomThemes {
     return ThemeData(
       primarySwatch: Colors.indigo,
       primaryColor: Colors.indigo,
-      accentColor: Colors.blue,
+      accentColor: Colors.pink,
       fontFamily: "FiraSans",
       brightness: Brightness.light,
       splashColor: Colors.lightBlue[50],

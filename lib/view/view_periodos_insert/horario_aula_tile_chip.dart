@@ -1,14 +1,12 @@
+import 'package:curso/utils.dart/random_utils.dart';
 import 'package:flutter/material.dart';
 
 class HorarioAulaChip extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
-  final Color textColor;
-  final Color iconColor;
 
-  const HorarioAulaChip({Key key, this.text, this.icon, this.color, this.textColor, this.iconColor})
-      : super(key: key);
+  const HorarioAulaChip({Key key, this.text, this.icon, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +14,11 @@ class HorarioAulaChip extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8),
       avatar: Icon(
         icon ?? Icons.timeline,
-        color: iconColor ?? Colors.white,
+        color: getForegroundColorByLuminance(bgColor: color),
       ),
       label: Text(
         text,
-        style: TextStyle(fontSize: 14, color: textColor ?? Colors.white70),
+        style: TextStyle(fontSize: 14, color: getForegroundColorByLuminance(bgColor: color)),
       ),
       backgroundColor: color ?? Theme.of(context).accentColor,
     );

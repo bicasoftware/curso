@@ -16,7 +16,7 @@ class BottomSaveButton extends StatelessWidget {
           child: MaterialButton(
             colorBrightness: Brightness.dark,
             child: Text(title),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             onPressed: onPressed,
           ),
         ),
