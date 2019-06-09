@@ -40,8 +40,6 @@ class _ViewPeriodosListItemState extends State<ViewPeriodosListItem> {
 
   @override
   Widget build(BuildContext context) {
-    final styleClosed = Theme.of(context).textTheme.subhead;
-    final styleOpened = styleClosed.copyWith(color: Theme.of(context).accentColor);
 
     return Theme(
       data: CustomThemes.lightTheme,
@@ -50,13 +48,8 @@ class _ViewPeriodosListItemState extends State<ViewPeriodosListItem> {
         child: ExpansionTile(
           onExpansionChanged: (bool status) => setState(() => isOpen = status),
           leading: Icon(Icons.date_range),
-          title: Container(
-            width: double.infinity,
-            child: Text(
-              "${widget.periodo.numPeriodo}º ${Strings.periodo}",
-              textAlign: TextAlign.center,
-              style: isOpen ? styleOpened : styleClosed,
-            ),
+          title: Text(
+            "${widget.periodo.numPeriodo}º ${Strings.periodo}",
           ),
           children: <Widget>[
             Padding(

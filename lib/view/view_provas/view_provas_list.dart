@@ -8,7 +8,8 @@ import 'package:curso/view/view_provas/view_provas_list_item.dart';
 import 'package:flutter/material.dart';
 
 class ProvasList extends StatelessWidget {
-  const ProvasList({Key key}) : super(key: key);
+  final int position;
+  const ProvasList({Key key, this.position}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class ProvasList extends StatelessWidget {
           delegate: SliverChildBuilderDelegate(
             (c, i) {
               return ViewProvasListItem(
+                pos: i,
                 dates: snap.data[i].dates,
                 mes: snap.data[i].mes,
                 onNotasTap: (Notas nota) async {

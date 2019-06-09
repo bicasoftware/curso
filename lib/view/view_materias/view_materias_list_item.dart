@@ -21,23 +21,15 @@ class ViewMateriasListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        onTap(m, pos);
-      },
-      onLongPress: () {
-        onLongTap(m);
-      },
-      leading: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        child: Icon(Icons.school, color: Theme.of(context).accentColor),
-      ),
+      onTap: () => onTap(m, pos),
+      onLongPress: () => onLongTap(m),
       title: Text(m.nome),
-      subtitle: Text(m.sigla),
-      trailing: Hero(
+      trailing: Text(m.sigla, style: Theme.of(context).textTheme.caption),
+      leading: Hero(
         tag: ObjectKey(m),
         child: MateriaColorContainer(
           color: Color(m.cor),
-          size: 32,
+          size: 36,
         ),
       ),
     );

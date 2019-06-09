@@ -3,14 +3,19 @@ import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/utils.dart/pair.dart';
+import 'package:curso/utils.dart/random_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 
 void main() {
+  test('color', () {
+    print("Colors.pink: ${Colors.pink.value}, ${Colors.pink.computeLuminance()}, ${getForegroundColorByLuminance(Colors.pink)}");
+    print("Colors.red: ${Colors.red.value}, ${Colors.red.computeLuminance()},  ${getForegroundColorByLuminance(Colors.red)}");
+  });
 
   test('contains', () {
-    final numeros = [1,1,2,3,4,4,5,7,7,8,6,6,6,2,5];
+    final numeros = [1, 1, 2, 3, 4, 4, 5, 7, 7, 8, 6, 6, 6, 2, 5];
     final seta = numeros.toSet();
     print(seta);
   });
@@ -31,9 +36,9 @@ void main() {
     });
   });
 
-  test("isSameDay", (){
-    final d1 = DateTime(2018,01,01,12,0,0);
-    final d2 = DateTime(2018,01,01,23,59,59);
+  test("isSameDay", () {
+    final d1 = DateTime(2018, 01, 01, 12, 0, 0);
+    final d2 = DateTime(2018, 01, 01, 23, 59, 59);
 
     assert(isSameDay(d1, d2));
   });

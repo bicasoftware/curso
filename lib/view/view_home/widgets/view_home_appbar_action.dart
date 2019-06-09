@@ -54,16 +54,18 @@ class ViewHomeAppbarAction extends StatelessWidget {
     }
 
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 300),
       child: getActionByPos(pos),
       switchInCurve: Curves.easeIn,
       switchOutCurve: Curves.easeOut,
       transitionBuilder: (Widget child, Animation<double> anim) {
         return FadeTransition(
           opacity: anim,
+          alwaysIncludeSemantics: true,
           child: SizeTransition(
             axis: Axis.horizontal,
             sizeFactor: anim,
+            axisAlignment: 1,
             child: child,
           ),
         );

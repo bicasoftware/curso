@@ -85,21 +85,18 @@ class ViewPeriodosInsertBuilder {
     @required List<Horarios> horarios,
     @required Function(int, DateTime, DateTime) onOrdemAulaTap,
   }) {
-    return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: aulasDia,
-      itemBuilder: (c, i) {
-        return HorarioAulaTile(
-          ordemAula: i,
-          onOrdemAulaTap: onOrdemAulaTap,
-          inicio: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.inicio ??
-              DateTime.now(),
-          termino: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.termino ??
-              DateTime.now(),
-        );
-      },
-      separatorBuilder: (c, i) => Divider(height: 1),
+    return Column(
+      children: [
+        for (int i = 0; i < aulasDia; i++)
+          HorarioAulaTile(
+            ordemAula: i,
+            onOrdemAulaTap: onOrdemAulaTap,
+            inicio: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.inicio ??
+                DateTime.now(),
+            termino: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.termino ??
+                DateTime.now(),
+          )
+      ],
     );
   }
 }

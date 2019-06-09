@@ -1,5 +1,6 @@
 import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/notas.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 
@@ -15,28 +16,20 @@ class ViewProvasListItemMaterias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: materias.length,
-      itemBuilder: (_, i) {
-        final m = materias[i];
-        return InkWell(
-          onTap: () {
-            ///mostrar dialog de notas
-          },
-          child: Container(
-            padding: EdgeInsets.all(4),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final m in materias)
+          InkWell(
+            onTap: () => onTap(m.notas),
             child: ListTile(
               dense: true,
-              onTap: () => onTap(m.notas),
-              leading: Icon(Icons.school, color: Color(m.cor)),
+              leading: MateriaColorContainer(color: Color(m.cor), size: 24),
               title: Text(m.nome),
               trailing: Text((formatNota(m.notas.nota ?? 0.0))),
             ),
-          ),
-        );
-      },
+          )
+      ],
     );
   }
 }

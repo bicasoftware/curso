@@ -113,7 +113,17 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                   title: Strings.terminoPeriodo,
                   onDateSet: _setDataTermino,
                 ),
-                LabeledDividerTile(hint: Strings.valorReprovacao),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
+                  child: Text(
+                    Strings.valorReprovacao,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ),
+                ),
                 ViewPeriodosInsertBuilder.notaMinimaSliderTile(
                   nota: _periodo.medAprov,
                   onChanged: (n) => _setMedAprov(n),
@@ -128,7 +138,17 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                     _setAulasDiaDouble(i + 1);
                   },
                 ),
-                LabeledDividerTile(hint: Strings.horarios),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
+                  child: Text(
+                    Strings.horarios,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ),
+                ),
                 ViewPeriodosInsertBuilder.listHorarios(
                   horarios: _periodo.horarios,
                   aulasDia: _periodo.aulasDia,

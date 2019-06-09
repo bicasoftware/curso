@@ -16,15 +16,6 @@ class HorarioAulaTile extends StatelessWidget {
     @required this.onOrdemAulaTap,
   }) : super(key: key);
 
-  String get horarios => "das ${formatTime(inicio)} até ${formatTime(termino)}";
-
-  TextStyle chipStyle(BuildContext context) {
-    return TextStyle(
-      fontSize: 14,
-      color: Colors.white70,
-    );
-  }
-
   String get ini => formatTime(inicio);
   String get end => formatTime(termino);
 
@@ -32,9 +23,9 @@ class HorarioAulaTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultListTile(
       onTap: () => onOrdemAulaTap(ordemAula, inicio, termino),
-      icon: Icons.timelapse,
+      icon: Icons.access_time,
       leading: Text("${ordemAula + 1}ª aula"),
-      trailing: HorarioAulaChip(text: "$ini | $end"),
+      trailing: HorarioAulaChip(color: Theme.of(context).accentColor, text: "$ini | $end"),
     );
   }
 }

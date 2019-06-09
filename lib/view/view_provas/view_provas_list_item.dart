@@ -3,58 +3,49 @@ import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';
-import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewProvasListItem extends StatelessWidget {
   final Function(Notas) onNotasTap;
   final List<NotasByDate> dates;
   final int mes;
+  final int pos;
 
   const ViewProvasListItem({
     Key key,
     @required this.onNotasTap,
     @required this.dates,
     @required this.mes,
+    @required this.pos,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
+    return Card(
+      elevation: 2,
+      child: ExpansionTile(
+        leading: Icon(Icons.date_range),
+        title: Text(Arrays.meses[mes - 1]),
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: LabeledDividerTile(hint: Arrays.meses[mes - 1]),
-          ),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: dates.length,
-            shrinkWrap: true,
-            itemBuilder: (_, j) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        formatFullDayString(dates[j].date),
-                        textAlign: TextAlign.start,
-                        style: TextStyle(color: Theme.of(context).accentColor),
-                      ),
+          for (final NotasByDate notaByDate in dates)
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      formatFullDayString(notaByDate.date),
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.caption,
                     ),
                   ),
-                  PaddedDivider(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                  ),
-                  ViewProvasListItemMaterias(materias: dates[j].materias, onTap: onNotasTap)
-                ],
-              );
-            },
-          )
+                ),
+                Divider(),
+                ViewProvasListItemMaterias(materias: notaByDate.materias, onTap: onNotasTap)
+              ],
+            )
         ],
       ),
     );

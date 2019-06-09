@@ -1,5 +1,6 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/view/view_materias/view_materias_list_item.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class ViewMateriasList extends StatelessWidget {
@@ -22,8 +23,16 @@ class ViewMateriasList extends StatelessWidget {
           return Column(
             children: <Widget>[
               ViewMateriasListItem(
-                  context: c, m: materias[i], pos: i, onTap: onTap, onLongTap: onLongTap),
-              i == materias.length ? Container() : Divider(height: 0)
+                context: c,
+                m: materias[i],
+                pos: i,
+                onTap: onTap,
+                onLongTap: onLongTap,
+              ),
+              if (i == materias.length - 1)
+                Container()
+              else
+                PaddedDivider(padding: EdgeInsets.only(left: 72, right: 16))
             ],
           );
         },

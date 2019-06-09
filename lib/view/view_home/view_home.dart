@@ -27,6 +27,12 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
     const ViewInfo(),
   ];
 
+  final titles = [
+    Strings.periodos,
+    Strings.calendario,
+    Strings.parciais,
+  ];
+
   BehaviorSubject<int> _subjectPos = BehaviorSubject<int>();
   get outPos => _subjectPos.stream;
   get inPos => _subjectPos.sink;
@@ -50,8 +56,26 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
     return Scaffold(
       backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(
-        title: Text(Strings.appName),
-        elevation: 0,
+        title: StreamAwaiter<int>(
+          stream: outPos,
+          widgetBuilder: (BuildContext context, int pos) {
+            return AnimatedSwitcher(
+              duration: Duration(milliseconds: 250),
+              child: Text(titles[pos], key: UniqueKey()),
+              transitionBuilder: (Widget w, Animation<double> a) {
+                return SizeTransition(
+                  sizeFactor: a,
+                  axis: Axis.vertical,
+                  axisAlignment: 0,
+                  child: FadeTransition(
+                    opacity: a,
+                    child: w,
+                  ),
+                );
+              },
+            );
+          },
+        ),
         actions: [
           StreamAwaiter<int>(
             stream: outPos,
@@ -66,7 +90,10 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
       ),
       body: StreamAwaiter<int>(
         stream: outPos,
-        widgetBuilder: (BuildContext context, int pos) => MorpheusTabView(child: pages[pos]),
+        widgetBuilder: (BuildContext context, int pos) => MorpheusTabView(
+              child: pages[pos],
+              duration: Duration(milliseconds: 300),
+            ),
       ),
       bottomNavigationBar: StreamAwaiter(
         stream: _subjectPos,
@@ -76,7 +103,7 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
             onChanged: (pos) => inPos.add(pos),
           );
         },
-      ),
+      ),      
     );
   }
 }
