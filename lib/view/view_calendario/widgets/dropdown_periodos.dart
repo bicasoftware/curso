@@ -5,10 +5,10 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 
-class DropDownPeriodos2 extends StatelessWidget {
+class DropDownPeriodos extends StatelessWidget {
   final ThemeData theme;
 
-  const DropDownPeriodos2({Key key, @required this.theme}) : super(key: key);
+  const DropDownPeriodos({Key key, @required this.theme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

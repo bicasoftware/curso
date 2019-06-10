@@ -19,8 +19,10 @@ class CalendarioProvasDiaList extends StatelessWidget {
     return StreamAwaiter<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>(
       stream: bloc.outProvasNotasMaterias,
       isHappy: true,
-      widgetBuilder:
-          (BuildContext context, Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>> data) {
+      widgetBuilder: (
+        BuildContext context,
+        Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>> data,
+      ) {
         return AnimatedSwitcher(
           duration: Duration(milliseconds: 200),
           switchInCurve: Curves.easeIn,
@@ -38,7 +40,7 @@ class CalendarioProvasDiaList extends StatelessWidget {
             realWidget: ListView.separated(
               itemCount: data.first.length,
               separatorBuilder: (_, __) {
-                return PaddedDivider(padding: const EdgeInsets.only(right: 16.0, left: 140));
+                return PaddedDivider(padding: const EdgeInsets.only(right: 16.0, left: 72));
               },
               itemBuilder: (_, int i) {
                 return CalendarioProvasDiaListTile(

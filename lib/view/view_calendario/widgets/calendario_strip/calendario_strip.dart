@@ -1,7 +1,7 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario_strip_container.dart';
-import 'package:curso/view/view_calendario/widgets/calendario_strip_cell.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell.dart';
 import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 

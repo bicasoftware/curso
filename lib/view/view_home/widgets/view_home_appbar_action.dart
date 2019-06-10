@@ -1,6 +1,6 @@
 import 'package:curso/container/periodos.dart';
 import 'package:curso/custom_themes.dart';
-import 'package:curso/view/view_calendario/widgets/dropdown_periodos_light.dart';
+import 'package:curso/view/view_calendario/widgets/dropdown_periodos.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class ViewHomeAppbarAction extends StatelessWidget {
           );
           break;
         case 1:
-          return DropDownPeriodos2(
+          return DropDownPeriodos(
             key: UniqueKey(),
             theme: CustomThemes.primaryColorThemeData,
           );

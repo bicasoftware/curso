@@ -116,6 +116,21 @@ class BlocMain extends Bloc {
     inParciais.add(state.provideParciais);
   }
 
+  _sinkProva() {
+    inCalendario.add(
+      CalendarioStripContainer(
+        calendario: state.currentCalendario,
+        selectedDate: state.selectedDate,
+        initialOffset: state.calendarStripPosition,
+      ),
+    );
+    inProvasNotasMaterias.add(
+      Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay),
+    );
+    inParciais.add(state.provideParciais);
+    inAulasAgendamento.add(state.aulasAgendaveis);
+  }
+
   incMes() {
     state.incMes();
     _sinkCurrentPeriodo();
@@ -195,6 +210,18 @@ class BlocMain extends Bloc {
     }).whenComplete(() => _sinkPeriodos());
   }
 
+  _sinkFalta() {
+    inCalendario.add(
+      CalendarioStripContainer(
+        calendario: state.currentCalendario,
+        selectedDate: state.selectedDate,
+        initialOffset: state.calendarStripPosition,
+      ),
+    );
+    inParciais.add(state.provideParciais);
+    inDataDTO.add(state.aulasDia);
+  }
+
   insertFalta({int idMateria, int ordemAula, DateTime date, int tipo}) async {
     ProviderFaltas.insertFalta(
       Faltas(
@@ -207,32 +234,35 @@ class BlocMain extends Bloc {
     ).then((Faltas f) {
       state.insertFalta(f);
     }).whenComplete(() {
-      _sinkCurrentPeriodo();
+      _sinkFalta();
     });
   }
 
   deleteFalta({int idMateria, int idFalta, DateTime date, @required int tipoFalta}) {
     ProviderFaltas.deleteFaltaById(idFalta)
         .then((_) => state.deleteFalta(idMateria, idFalta, date, tipoFalta))
-        .whenComplete(() => _sinkCurrentPeriodo());
+        .whenComplete(() {
+      _sinkFalta();
+      //_sinkCurrentPeriodo();
+    });
   }
 
   insertNota(int idMateria) {
     final nota = Notas(id: null, nota: null, idMateria: idMateria, data: state.selectedDate);
     ProviderNotas.upsertNota(nota)
         .then((Notas nota) => state.insertNota(nota))
-        .whenComplete(() => _sinkCurrentPeriodo());
+        .whenComplete(() => _sinkProva());
   }
 
   updateNota(Notas nota) {
     ProviderNotas.upsertNota(nota)
         .then((Notas nota) => state.updateNota(nota))
-        .whenComplete(() => _sinkCurrentPeriodo());
+        .whenComplete(() => _sinkProva());
   }
 
   deleteNota(Notas nota) {
     ProviderNotas.deleteNota(nota)
         .then((_) => state.deleteNota(nota))
-        .whenComplete(() => _sinkCurrentPeriodo());
+        .whenComplete(() => _sinkProva());
   }
 }

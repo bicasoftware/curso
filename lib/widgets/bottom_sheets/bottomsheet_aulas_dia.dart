@@ -1,6 +1,8 @@
 import 'package:curso/container/calendario.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/materia_color_container.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetAulasDia extends StatelessWidget {
@@ -10,6 +12,8 @@ class BottomSheetAulasDia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -18,30 +22,20 @@ class BottomSheetAulasDia extends StatelessWidget {
           child: Text(
             Strings.selecioneMateriaProva,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).accentColor,
-            ),
+            style: CustomThemes.bottomSheetHeader,
           ),
         ),
-        Container(
-          child: Divider(height: 1),
-          margin: EdgeInsets.symmetric(horizontal: 16),
-        ),
-        Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: aulasSemana != null ? aulasSemana.length : 0,
-            itemBuilder: (c, i) {
-              final m = aulasSemana[i];
-              return ListTile(
-                onTap: () => Navigator.of(context).pop(m.idMateria),
-                leading: MateriaColorContainer(color: Color(m.cor), type: MaterialType.circle),
-                title: Text(m.nome),
-                subtitle: Text(m.sigla),
-              );
-            },
-          ),
+        PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+        Column(
+          children: [
+            for (final aula in aulasSemana)
+              ListTile(
+                onTap: () => Navigator.of(context).pop(aula.idMateria),
+                leading: MateriaColorContainer(color: Color(aula.cor), size: 32),
+                title: Text(aula.nome),
+                trailing: Text(aula.sigla, style: theme.textTheme.caption),
+              )            
+          ],
         ),
       ],
     );

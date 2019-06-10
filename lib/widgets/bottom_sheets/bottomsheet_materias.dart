@@ -1,6 +1,7 @@
 import 'package:curso/container/materias.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/widgets/dialogs/dialog_picker_materias.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +12,23 @@ class BottomSheetMaterias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Spacer(flex: 2),
               Expanded(
+                flex: 10,
                 child: Text(
                   Strings.materias,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
+                  style: CustomThemes.bottomSheetHeader,
                 ),
               ),
               IconButton(
@@ -32,15 +38,18 @@ class BottomSheetMaterias extends StatelessWidget {
             ],
           ),
         ),
-        PaddedDivider(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-        ),
+        PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
         Expanded(
-          child: PickerMaterias(
-            materias: materias,
-            onTap: (int idMateria) {
-              Navigator.of(context).pop(idMateria);
-            },
+          child: ListView(
+            children: [
+              for (final m in materias)
+                ListTile(
+                  onTap: () => Navigator.of(context).pop(m.id),
+                  leading: MateriaColorContainer(color: Color(m.cor), size: 32),
+                  title: Text(m.nome),
+                  trailing: Text(m.sigla, style: theme.textTheme.caption),
+                )
+            ],
           ),
         ),
       ],

@@ -32,4 +32,9 @@ class CustomThemes {
   static TextStyle get lightTextButton {
     return lightTheme.textTheme.button.copyWith(color: Colors.white);
   }
+
+  static TextStyle get bottomSheetHeader {
+    return transparedBackgroundTheme.textTheme.subhead
+        .copyWith(color: transparedBackgroundTheme.accentColor);
+  }
 }

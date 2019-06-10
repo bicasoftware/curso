@@ -1,6 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/view/view_calendario/widgets/calendario_strip_cell_indicator.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell_indicator.dart';
 import 'package:curso/widgets/rainbow_radial/rainbow_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -20,32 +20,44 @@ class CalendarioStripCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorList = dataDTO.colorList;
 
-    return Container(
-      color: getCellColor(context),
-      width: 70,
-      child: InkWell(
-        onTap: onTap,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 4),
-              weekDayText(context),
-              SizedBox(height: 4),
-              RainbowIndicator(
-                child: monthDayText(context),
-                lineWidth: 1.5,
-                size: Offset(25, 25),
-                colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
-              ),
-              SizedBox(height: 4),
-              CellIndicator(
-                isFalta: dataDTO.isFalta,
-                isVaga: dataDTO.isVaga,
-                hasProva: dataDTO.hasProvas,
-              ),
-              SizedBox(height: 4),
-            ],
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 250),
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeOut,
+      transitionBuilder: (Widget w, Animation<double> a) {
+        return FadeTransition(
+          opacity: a,
+          child: w,
+        );
+      },
+      child: Container(
+        key: UniqueKey(),
+        color: getCellColor(context),
+        width: 70,
+        child: InkWell(
+          onTap: onTap,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 4),
+                weekDayText(context),
+                SizedBox(height: 4),
+                RainbowIndicator(
+                  child: monthDayText(context),
+                  lineWidth: 1.5,
+                  size: Offset(25, 25),
+                  colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
+                ),
+                SizedBox(height: 4),
+                CellIndicator(
+                  isFalta: dataDTO.isFalta,
+                  isVaga: dataDTO.isVaga,
+                  hasProva: dataDTO.hasProvas,
+                ),
+                SizedBox(height: 4),
+              ],
+            ),
           ),
         ),
       ),

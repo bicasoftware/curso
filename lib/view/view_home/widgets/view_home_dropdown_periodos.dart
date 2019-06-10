@@ -1,5 +1,5 @@
 import 'package:curso/custom_themes.dart';
-import 'package:curso/view/view_calendario/widgets/dropdown_periodos_light.dart';
+import 'package:curso/view/view_calendario/widgets/dropdown_periodos.dart';
 import 'package:flutter/material.dart';
 
 class ViewHomeDropdownPeriodos extends StatelessWidget {
@@ -12,7 +12,7 @@ class ViewHomeDropdownPeriodos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: AnimatedOpacity(
-        child: DropDownPeriodos2(
+        child: DropDownPeriodos(
           theme: CustomThemes.primaryColorThemeData,
         ),
         duration: Duration(milliseconds: _animTime),
