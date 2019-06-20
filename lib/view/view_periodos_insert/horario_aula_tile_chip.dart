@@ -16,6 +16,7 @@ class HorarioAulaChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
+      elevation: 1,
       padding: EdgeInsets.symmetric(horizontal: 8),
       avatar: Icon(
         icon ?? Icons.timeline,        

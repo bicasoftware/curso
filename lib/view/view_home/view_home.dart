@@ -56,9 +56,9 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
     return Scaffold(
       backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(
-        title: StreamAwaiter<int>(
+        title: Observer<int>(
           stream: outPos,
-          widgetBuilder: (BuildContext context, int pos) {
+          onSuccess: (BuildContext context, int pos) {
             return AnimatedSwitcher(
               duration: Duration(milliseconds: 250),
               child: Text(titles[pos], key: UniqueKey()),
@@ -77,9 +77,9 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
           },
         ),
         actions: [
-          StreamAwaiter<int>(
+          Observer<int>(
             stream: outPos,
-            widgetBuilder: (BuildContext context, int pos) {
+            onSuccess: (BuildContext context, int pos) {
               return ViewHomeAppbarAction(
                 pos: pos,
                 onInsertPeriodos: (Periodos periodo) => b.insertPeriodo(periodo),
@@ -88,16 +88,16 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
           )
         ],
       ),
-      body: StreamAwaiter<int>(
+      body: Observer<int>(
         stream: outPos,
-        widgetBuilder: (BuildContext context, int pos) => MorpheusTabView(
+        onSuccess: (BuildContext context, int pos) => MorpheusTabView(
               child: pages[pos],
               duration: Duration(milliseconds: 300),
             ),
       ),
-      bottomNavigationBar: StreamAwaiter(
+      bottomNavigationBar: Observer(
         stream: _subjectPos,
-        widgetBuilder: (_, int pos) {
+        onSuccess: (_, int pos) {
           return ViewHomeBottombar(
             pos: pos,
             onChanged: (pos) => inPos.add(pos),

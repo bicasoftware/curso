@@ -69,31 +69,11 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
   void _confirmDelete(BuildContext context) async {
     final bool shouldDelete = await showConfirmationDialog(
       context: context,
-      title: Strings.desagendarProva,
+      message: Strings.desagendarProva,
     );
 
     if (shouldDelete != null && shouldDelete) {
       onDeleted(provasNotasMaterias.nota);
     }
   }
-  /* void _onItemSelected(BuildContext context, int i) async {
-    if (i == 0) {
-      _confirmDelete(context);
-    } else if (i == 1) {
-      final double novaNota = await showNotaDialog(
-        context: context,
-        nota: provasNotasMaterias.nota.nota,
-      );
-      if (novaNota != null && novaNota != provasNotasMaterias.nota.nota) {
-        onUpdateNota(provasNotasMaterias.nota..nota = novaNota);
-      }
-    }
-  }
-
-  List<PopupMenuEntry<int>> entryList() {
-    return List<PopupMenuEntry<int>>()
-      ..add(PopupMenuItem<int>(value: 0, child: Text(Strings.cancelarProva)))
-      ..add(PopupMenuItem<int>(value: 1, child: Text(Strings.adicionarNota)));
-  } */
-
 }

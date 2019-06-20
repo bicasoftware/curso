@@ -1,9 +1,8 @@
 import 'package:curso/container/materias.dart';
+import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
-import 'package:curso/widgets/bottom_save_button.dart';
 import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
@@ -41,6 +40,20 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(title: Text(Strings.materia)),
+      floatingActionButton: FloatingActionButton(
+        heroTag: ObjectKey(Strings.materias),
+        child: Icon(Icons.save),
+        onPressed: () {
+          final state = _formKey.currentState;
+          if (state.validate()) {
+            state.save();
+            widget.materia.cor = _cor;
+            widget.materia.sigla = _sigla;
+            widget.materia.nome = _materia;
+            Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, widget.materia));
+          }
+        },
+      ),
       body: Form(
         key: _formKey,
         child: Column(
@@ -85,19 +98,6 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomSaveButton(
-        title: Strings.salvar,
-        onPressed: () {
-          final state = _formKey.currentState;
-          if (state.validate()) {
-            state.save();
-            widget.materia.cor = _cor;
-            widget.materia.sigla = _sigla;
-            widget.materia.nome = _materia;
-            Navigator.of(context).pop(ViewMateriasInsertResult(widget.pos, widget.materia));
-          }
-        },
       ),
     );
   }

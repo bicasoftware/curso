@@ -18,9 +18,9 @@ class _CalendarioAulasDiaState extends State<CalendarioAulasDia>
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return StreamAwaiter<DataDTO>(
+    return Observer<DataDTO>(
       stream: b.outDataDTO,
-      widgetBuilder: (BuildContext context, DataDTO data) {
+      onSuccess: (BuildContext context, DataDTO data) {
         return AnimatedSwitcher(
           duration: Duration(milliseconds: 300),
           switchInCurve: Curves.fastOutSlowIn,

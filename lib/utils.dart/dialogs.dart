@@ -75,25 +75,29 @@ class Dialogs {
 
 Future<bool> showConfirmationDialog({
   @required BuildContext context,
-  @required String title,
+  @required String message,
+  String title,
+  String yesButtonText,
+  String noButtonText,
 }) {
   return showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        title: Text(Strings.confirmacao),
+        title: Text(title ?? Strings.confirmacao),
         actions: <Widget>[
           FlatButton(
-            child: Text("Não"),
+            child: Text(noButtonText ?? "Não"),
             onPressed: () => Navigator.of(context).pop(false),
           ),
           FlatButton(
-            child: Text("Sim"),
+            child: Text(yesButtonText ?? "Sim"),
             onPressed: () => Navigator.of(context).pop(true),
           ),
         ],
         content: Container(
-          child: Text(title),
+          child: Text(message),
         ),
       );
     },

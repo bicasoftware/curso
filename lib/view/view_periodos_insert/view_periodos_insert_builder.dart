@@ -32,6 +32,30 @@ class ViewPeriodosInsertBuilder {
       ),
     );
   }
+  static Widget qntAulasDropdownTile({
+    @required int qntAulas,
+    @required Function(int) onChanged,
+  }) {
+    return DefaultListTile(
+      icon: Icons.list,
+      leading: Text(Strings.aulasDia),
+      trailing: Theme(
+        data: CustomThemes.lightTheme,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<int>(
+            value: qntAulas,
+            onChanged: onChanged,
+            items: List.generate(12, (i) {
+              return DropdownMenuItem<int>(
+                value: i + 1,
+                child: Text("${i + 1} aulas"),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
 
   static Widget aulaDiaTileSlider({int aulasDia, Function(double) onChanged}) {
     return SliderTile(

@@ -14,7 +14,28 @@ class DropDownPeriodos extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return PairStreamAwaiter<Periodos, List<Periodos>>(
+    return MultiObserver(
+      streams: [b.outCurrentPeriodo, b.outListPeriodos],
+      onSuccess: (BuildContext context, List data) {
+        return Theme(
+          data: theme,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<Periodos>(
+              value: data[0],
+              onChanged: (Periodos p) => b.setCurrentPeriodoId(p.id),
+              items: [
+                for (final per in data[1])
+                  DropdownMenuItem<Periodos>(
+                    child: Text("${per.numPeriodo}º ${Strings.periodo} "),
+                    value: per,
+                  )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    /* return PairStreamAwaiter<Periodos, List<Periodos>>(
       stream1: b.outCurrentPeriodo,
       stream2: b.outListPeriodos,
       buildWidget: (Periodos currentPeriodo, List<Periodos> list) {
@@ -35,6 +56,6 @@ class DropDownPeriodos extends StatelessWidget {
           ),
         );
       },
-    );
+    ); */
   }
 }

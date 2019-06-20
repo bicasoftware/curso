@@ -13,9 +13,9 @@ class CalendarioStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return StreamAwaiter<CalendarioStripContainer>(
+    return Observer<CalendarioStripContainer>(
       stream: b.outCalendario,
-      widgetBuilder: (BuildContext context, CalendarioStripContainer data) {
+      onSuccess: (BuildContext context, CalendarioStripContainer data) {
         ScrollController controller = ScrollController(
           initialScrollOffset: data.initialOffset,
         );

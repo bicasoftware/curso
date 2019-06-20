@@ -16,10 +16,10 @@ class CalendarioProvasDiaList extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<BlocMain>(context);
 
-    return StreamAwaiter<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>(
+    return Observer<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>(
       stream: bloc.outProvasNotasMaterias,
-      isHappy: true,
-      widgetBuilder: (
+      onAwaiting: (context) => HappyPlaceholder(),
+      onSuccess: (
         BuildContext context,
         Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>> data,
       ) {

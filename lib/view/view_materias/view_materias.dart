@@ -1,12 +1,11 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_materias.dart';
 import 'package:curso/container/materias.dart';
+import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/view/view_materias/view_materias_appbar.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
-import 'package:curso/view/view_materias_insert/view_materias_insert_result.dart';
 import 'package:flutter/material.dart';
 
 class ViewMaterias extends StatefulWidget {
@@ -61,6 +60,28 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMaterias>(context);
 
+    void callInsertMateria() async {
+      ViewMateriasInsertResult result = await Navigator.of(context).push(
+        MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (c) {
+            return ViewMateriasInsert(
+              materia: Materias(
+                cor: Colors.indigo.value,
+                idPeriodo: idPeriodo,
+                freq: true,
+                medAprov: medAprov,
+              ),
+            );
+          },
+        ),
+      );
+
+      if (result != null) {
+        b.insertMateria(materia: result.materia);
+      }
+    }
+
     return StreamBuilder<List<Materias>>(
       initialData: [],
       stream: b.outMaterias,
@@ -71,31 +92,22 @@ class _Body extends StatelessWidget {
           },
           child: Scaffold(
             backgroundColor: ThemeData.light().canvasColor,
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: FloatingActionButton.extended(
+              label: Text(Strings.adicionar),
+              icon: Icon(Icons.add),
+              onPressed: callInsertMateria,
+              heroTag: ObjectKey(Strings.materias),
+            ),
             body: CustomScrollView(
               slivers: [
-                ViewMateriasAppBar(
-                  onClosePressed: () => Navigator.of(context).pop(snap.data),
-                  onAddPressed: () async {
-                    ViewMateriasInsertResult result = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (c) {
-                          return ViewMateriasInsert(
-                            materia: Materias(
-                              cor: Colors.indigo.value,
-                              idPeriodo: idPeriodo,
-                              freq: true,
-                              medAprov: medAprov,
-                            ),
-                          );
-                        },
-                      ),
-                    );
-
-                    if (result != null) {
-                      b.insertMateria(materia: result.materia);
-                    }
-                  },
+                SliverAppBar(
+                  title: Text(Strings.materias),
+                  floating: true,
+                  leading: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(snap.data),
+                  ),
                 ),
                 ViewMateriasList(
                   materias: snap.data,

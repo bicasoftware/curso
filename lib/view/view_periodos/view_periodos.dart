@@ -30,9 +30,9 @@ class ViewPeriodosState extends State<ViewPeriodos> {
 
     return Container(
       height: double.infinity,
-      child: StreamAwaiter<List<Periodos>>(
+      child: Observer<List<Periodos>>(
         stream: b.outPeriodos,
-        widgetBuilder: (BuildContext context, List<Periodos> periodos) {
+        onSuccess: (BuildContext context, List<Periodos> periodos) {
           return ListView.builder(
             itemCount: periodos.length,
             itemBuilder: (_, int i) {

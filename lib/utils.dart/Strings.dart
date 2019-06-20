@@ -53,8 +53,8 @@ class Strings {
   static const String semAulasHoje = 'Nenhuma aula nessa data';
   static const String parciais = 'Parciais';
   static const String dataProva = 'Data da Prova';
-  static const String valorReprovacao = "Notas, Presença e Aulas ";
   static const String horarios = "Horários";
+  static const String horariosAulas = "Aulas e Horários";
   static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
   static const String desagendarProva = "Deseja cancelar a prova?";
   static const String adicionarNota = "Alterar Nota";

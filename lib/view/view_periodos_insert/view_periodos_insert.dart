@@ -1,5 +1,6 @@
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
@@ -33,9 +34,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
 
   _setDataTermino(DateTime end) => setState(() => _periodo.termino = end);
 
-  _setAulasDiaDouble(double pos) {
+  _setAulasDiaDouble(int pos) {
     setState(() {
-      _periodo.aulasDia = pos.toInt();
+      _periodo.aulasDia = pos;
       for (var i = 0; i < _periodo.aulasDia; i++) {
         if (!_temHorarioSalvo(i)) {
           _periodo.horarios.add(
@@ -98,7 +99,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              [
+              [                
                 ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
                   numPeriodo: _periodo.numPeriodo,
                   onChanged: _setNumPeriodo,
@@ -112,18 +113,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                   initialDate: _periodo.termino,
                   title: Strings.terminoPeriodo,
                   onDateSet: _setDataTermino,
-                ),
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
-                  child: Text(
-                    Strings.valorReprovacao,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(color: Theme.of(context).accentColor),
-                  ),
-                ),
+                ),                
                 ViewPeriodosInsertBuilder.notaMinimaSliderTile(
                   nota: _periodo.medAprov,
                   onChanged: (n) => _setMedAprov(n),
@@ -131,23 +121,20 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                 ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
                   _periodo.presObrig.toDouble(),
                   (double value) => _setPresObrigDouble(value),
-                ),
-                ViewPeriodosInsertBuilder.aulaDiaTileSlider(
-                  aulasDia: _periodo.aulasDia,
-                  onChanged: (double i) {
-                    _setAulasDiaDouble(i + 1);
-                  },
-                ),
+                ),                
                 Divider(),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
                   child: Text(
-                    Strings.horarios,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(color: Theme.of(context).accentColor),
+                    Strings.horariosAulas,
+                    style: CustomThemes.bottomSheetHeader,
                   ),
+                ),
+                ViewPeriodosInsertBuilder.qntAulasDropdownTile(
+                  qntAulas: _periodo.aulasDia,
+                  onChanged: (int i) {
+                    _setAulasDiaDouble(i);
+                  },
                 ),
                 ViewPeriodosInsertBuilder.listHorarios(
                   horarios: _periodo.horarios,

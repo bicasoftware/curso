@@ -12,9 +12,9 @@ class ViewInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = BlocProvider.of<BlocMain>(context);
 
-    return StreamAwaiter<Parciais>(
+    return Observer<Parciais>(
       stream: b.outParciais,
-      widgetBuilder: (BuildContext context, Parciais data) {
+      onSuccess: (BuildContext context, Parciais data) {
         return ListView.builder(
           shrinkWrap: true,
           itemCount: data.materias.length,

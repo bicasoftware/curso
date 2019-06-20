@@ -13,9 +13,9 @@ class AnimatedStreamAwaiter<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamAwaiter<T>(
+    return Observer<T>(
       stream: stream,
-      widgetBuilder: (_, T t) {
+      onSuccess: (_, T t) {
         return AnimatedSwitcher(
           duration: Duration(milliseconds: 150),
           transitionBuilder: (w, Animation<double> a) {
