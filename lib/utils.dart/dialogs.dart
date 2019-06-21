@@ -85,7 +85,7 @@ Future<bool> showConfirmationDialog({
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        title: Text(title ?? Strings.confirmacao),
+        title: Text(title ?? ""),
         actions: <Widget>[
           FlatButton(
             child: Text(noButtonText ?? "Não"),

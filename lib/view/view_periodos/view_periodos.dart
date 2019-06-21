@@ -5,11 +5,11 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/utils.dart/dialogs.dart';
+import 'package:curso/utils.dart/observer.dart';
 import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_list_item.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
-import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodos extends StatefulWidget {

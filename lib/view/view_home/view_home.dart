@@ -2,15 +2,15 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/observer.dart';
 import 'package:curso/view/view_calendario/view_calendario.dart';
 import 'package:curso/view/view_home/widgets/view_home_appbar_action.dart';
 import 'package:curso/view/view_home/widgets/view_home_bottombar.dart';
 import 'package:curso/view/view_parciais/view_parciais.dart';
 import 'package:curso/view/view_periodos/view_periodos.dart';
-import 'package:curso/widgets/placeholders/stream_builder_child.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:morpheus/morpheus.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ViewHome extends StatefulWidget {
   final int initialPos;
@@ -103,7 +103,7 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
             onChanged: (pos) => inPos.add(pos),
           );
         },
-      ),      
+      ),
     );
   }
 }

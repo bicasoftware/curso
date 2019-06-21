@@ -1,9 +1,12 @@
-import 'package:curso/container/horarios.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
+import 'package:curso/utils.dart/multiobserver.dart';
+import 'package:curso/utils.dart/observer.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
+import 'package:curso/view/view_periodos_insert/bloc/bloc_periodo.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
@@ -22,137 +25,151 @@ class ViewPeriodosInsert extends StatefulWidget {
 }
 
 class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
-  Periodos _periodo;
+  BlocPeriodo bloc;
 
   @override
   void initState() {
     super.initState();
-    _periodo = widget.periodo;
+    bloc = BlocPeriodo(periodo: widget.periodo);
   }
 
-  _setDataIni(DateTime ini) => setState(() => _periodo.inicio = ini);
-
-  _setDataTermino(DateTime end) => setState(() => _periodo.termino = end);
-
-  _setAulasDiaDouble(int pos) {
-    setState(() {
-      _periodo.aulasDia = pos;
-      for (var i = 0; i < _periodo.aulasDia; i++) {
-        if (!_temHorarioSalvo(i)) {
-          _periodo.horarios.add(
-            Horarios(
-              id: null,
-              idPeriodo: _periodo.id,
-              inicio: _periodo.horarios.last.termino,
-              termino: _periodo.horarios.last.termino.add(Duration(minutes: 50)),
-              ordemAula: i,
-            ),
-          );
-        }
-      }
-    });
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
-  _setMedAprov(double aprov) => setState(() => _periodo.medAprov = aprov);
+  Future<bool> _canPop(BuildContext context) async {
+    if (widget.periodo.id != null && bloc.hasChanged()) {
+      final discard = await showConfirmationDialog(
+        context: context,
+        title: Strings.descartarAlteracaoes,
+        message: Strings.descartarAlteracaoesMsg,
+        yesButtonText: Strings.descartar,
+        noButtonText: Strings.cancelar,
+      );
 
-  _setPresObrigDouble(double pos) => setState(() => _periodo.presObrig = pos.toInt());
+      return discard ?? false;
+    }
 
-  _setNumPeriodo(int numero) => setState(() => _periodo.numPeriodo = numero);
-
-  _setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
-    setState(() {
-      int index = _periodo.horarios.indexWhere((h) => h.ordemAula == ordemAula);
-
-      if (index < 0) {
-        _periodo.addHorario(
-          Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula),
-        );
-      } else {
-        _periodo.horarios.removeAt(index);
-        _periodo.addHorario(
-          Horarios(
-            idPeriodo: _periodo.id,
-            inicio: inicio,
-            termino: termino,
-            ordemAula: ordemAula,
-          ),
-        );
-      }
-    });
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeData.light().canvasColor,
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            title: Text("${_periodo.numPeriodo}º ${Strings.periodo}"),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.save),
-                onPressed: () => Navigator.of(context).pop(_periodo),
+    return WillPopScope(
+      onWillPop: () {
+        return _canPop(context);
+      },
+      child: Scaffold(
+        backgroundColor: ThemeData.light().canvasColor,
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              floating: true,
+              title: Observer<int>(
+                stream: bloc.numPeriodo.get(),
+                onSuccess: (BuildContext context, int ordem) {
+                  return Text("$ordemº ${Strings.periodo}");
+                },
               ),
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [                
-                ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
-                  numPeriodo: _periodo.numPeriodo,
-                  onChanged: _setNumPeriodo,
-                ),
-                DatePickerTile(
-                  initialDate: _periodo.inicio,
-                  title: Strings.inicioPeriodo,
-                  onDateSet: _setDataIni,
-                ),
-                DatePickerTile(
-                  initialDate: _periodo.termino,
-                  title: Strings.terminoPeriodo,
-                  onDateSet: _setDataTermino,
-                ),                
-                ViewPeriodosInsertBuilder.notaMinimaSliderTile(
-                  nota: _periodo.medAprov,
-                  onChanged: (n) => _setMedAprov(n),
-                ),
-                ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
-                  _periodo.presObrig.toDouble(),
-                  (double value) => _setPresObrigDouble(value),
-                ),                
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
-                  child: Text(
-                    Strings.horariosAulas,
-                    style: CustomThemes.bottomSheetHeader,
-                  ),
-                ),
-                ViewPeriodosInsertBuilder.qntAulasDropdownTile(
-                  qntAulas: _periodo.aulasDia,
-                  onChanged: (int i) {
-                    _setAulasDiaDouble(i);
-                  },
-                ),
-                ViewPeriodosInsertBuilder.listHorarios(
-                  horarios: _periodo.horarios,
-                  aulasDia: _periodo.aulasDia,
-                  onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
-                    _showDateRangeView(ordemAula, inicio, termino);
+              actions: <Widget>[
+                FlatButton(
+                  colorBrightness: Brightness.dark,
+                  child: Text(Strings.salvar),
+                  onPressed: () {
+                    bloc.shouldUpdate = true;
+                    Navigator.of(context).pop(bloc.providePeriodo());
                   },
                 ),
               ],
             ),
-          )
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Observer<int>(
+                    stream: bloc.numPeriodo.get(),
+                    onSuccess: (context, int ordem) {
+                      return ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
+                        numPeriodo: ordem,
+                        onChanged: bloc.numPeriodo.set,
+                      );
+                    },
+                  ),
+                  Observer<DateTime>(
+                    stream: bloc.inicio.get(),
+                    onSuccess: (BuildContext context, DateTime data) {
+                      return DatePickerTile(
+                        initialDate: data,
+                        title: Strings.inicioPeriodo,
+                        onDateSet: bloc.inicio.set,
+                      );
+                    },
+                  ),
+                  Observer<DateTime>(
+                    stream: bloc.termino.get(),
+                    onSuccess: (BuildContext context, DateTime data) {
+                      return DatePickerTile(
+                        initialDate: data,
+                        title: Strings.terminoPeriodo,
+                        onDateSet: bloc.termino.set,
+                      );
+                    },
+                  ),
+                  Observer<double>(
+                    stream: bloc.medAprov.get(),
+                    onSuccess: (BuildContext context, double medAprov) {
+                      return ViewPeriodosInsertBuilder.notaMinimaSliderTile(
+                        nota: medAprov,
+                        onChanged: bloc.medAprov.set,
+                      );
+                    },
+                  ),
+                  Observer<double>(
+                    stream: bloc.presObrig.get(),
+                    onSuccess: (_, double presObrig) {
+                      return ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
+                        presObrig,
+                        bloc.presObrig.set,
+                      );
+                    },
+                  ),
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
+                    child: Text(
+                      Strings.horariosAulas,
+                      style: CustomThemes.bottomSheetHeader,
+                    ),
+                  ),
+                  Observer<int>(
+                    stream: bloc.aulasDia.get(),
+                    onSuccess: (_, int aulasDia) {
+                      return ViewPeriodosInsertBuilder.qntAulasDropdownTile(
+                        qntAulas: aulasDia,
+                        onChanged: bloc.setAulasDia,
+                      );
+                    },
+                  ),
+                  MultiObserver(
+                    streams: [bloc.aulasDia.get(), bloc.horarios.get()],
+                    onSuccess: (BuildContext context, List data) {
+                      return ViewPeriodosInsertBuilder.listHorarios(
+                        aulasDia: data[0],
+                        horarios: data[1],
+                        onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
+                          _showDateRangeView(ordemAula, inicio, termino);
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
-  }
-
-  bool _temHorarioSalvo(int i) {
-    return _periodo.horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null) != null;
   }
 
   _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
@@ -170,7 +187,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
     );
 
     if (result != null && result is ViewHorarioAulasResult) {
-      _setHoraAula(result.ordemAula, result.inicio, result.termino);
+      bloc.setHoraAula(result.ordemAula, result.inicio, result.termino);
     }
   }
 }

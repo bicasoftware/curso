@@ -1,5 +1,4 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:curso/bloc/bloc_materias.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/Strings.dart';
@@ -7,6 +6,8 @@ import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:flutter/material.dart';
+
+import 'bloc/bloc_materias.dart';
 
 class ViewMaterias extends StatefulWidget {
   final List<Materias> materias;

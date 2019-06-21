@@ -71,6 +71,9 @@ class Strings {
   static const String vagas = "Vagas";
   static const String total = "Total";
   static const String notaAtual = "Nota Atual";
+  static const String descartar = "Descartar";
+  static const String descartarAlteracaoes = "Descartar Alterações?";
+  static const String descartarAlteracaoesMsg = "Todas as alterações serão descartadas.";
 }
 
 class Arrays {

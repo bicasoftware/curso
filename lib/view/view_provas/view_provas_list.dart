@@ -1,11 +1,12 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/bloc/bloc_provas/bloc_provas.dart';
 import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_provas/view_provas_list_item.dart';
 import 'package:flutter/material.dart';
+
+import 'bloc/bloc_provas.dart';
 
 class ProvasList extends StatelessWidget {
   final int position;

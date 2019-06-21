@@ -68,4 +68,14 @@ class Horarios implements BaseTable {
   String toString() {
     return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${formatTime(this.inicio)}, termino: ${formatTime(this.termino)}";
   }
+
+  Horarios getCopy(){
+    return Horarios(
+      id: this.id,
+      idPeriodo: this.idPeriodo,
+      inicio: this.inicio,
+      termino: this.termino,
+      ordemAula: this.ordemAula,
+    );
+  }
 }

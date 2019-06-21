@@ -2,7 +2,7 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/widgets/placeholders/observer.dart';
+import 'package:curso/utils.dart/observer.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioNavigator extends StatefulWidget {
@@ -27,16 +27,32 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
             splashColor: Colors.white,
           ),
           Expanded(
-            child: AnimatedStreamAwaiter<DateTime>(
+            child: Observer<DateTime>(
               stream: b.outSelectedDate,
-              widgetBuilder: (DateTime data) {
-                return Text(
-                  formatFullDayStringAlt(data),
-                  key: UniqueKey(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Theme.of(context).primaryColor,
+              onSuccess: (_, DateTime data) {
+                return AnimatedSwitcher(
+                  duration: Duration(milliseconds: 150),
+                  transitionBuilder: (w, Animation<double> a) {
+                    final scaleTween = TweenSequence([
+                      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.9), weight: 1),
+                      TweenSequenceItem(tween: Tween(begin: 0.9, end: 1.0), weight: 1),
+                    ]);
+                    return ScaleTransition(
+                      scale: scaleTween.animate(a),
+                      child: FadeTransition(
+                        opacity: a,
+                        child: w,
+                      ),
+                    );
+                  },
+                  child: Text(
+                    formatFullDayStringAlt(data),
+                    key: UniqueKey(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 );
               },

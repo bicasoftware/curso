@@ -7,6 +7,7 @@ import 'package:curso/utils.dart/random_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:rxdart/rxdart.dart';
 
 void main() {
   test('color', () {
@@ -137,16 +138,12 @@ void main() {
       print(dayFull);
     });
   });
-}
 
-class Teste {
-  final int idade;
-  final String nome;
+  test('combineLatest', () {
+    final obs2 = Observable.just("1º Período");    
+    final obs3 = Observable.fromIterable([DateTime(2018,5,4),DateTime(2018,3,5)]);
 
-  const Teste({this.nome, this.idade});
-
-  @override
-  String toString() {
-    return "nome: $nome, idade: $idade";
-  }
+    final Observable<List<Object>> obs = Observable.combineLatestList([obs2,obs3]);
+    obs.listen(print);
+  });
 }
