@@ -188,3 +188,7 @@ List<CalendarioDTO> prepareCalendario({
 
   return calendario;
 }
+
+bool isBetween(DateTime checkableDate, DateTime initialDate, DateTime lastDate){
+  return checkableDate.isAfter(initialDate) && checkableDate.isBefore(lastDate);
+}

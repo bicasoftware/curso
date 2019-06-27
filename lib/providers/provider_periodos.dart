@@ -55,7 +55,7 @@ class ProviderPeriodos {
     for (var h in periodo.horarios) {
       h.id = await db.insert(Horarios.tableName, (h..id = null).toMap());
     }
-    await periodo.refreshCalendario();
+    periodo.refreshCalendario();
     return periodo;
   }
 

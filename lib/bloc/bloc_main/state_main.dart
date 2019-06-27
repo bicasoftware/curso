@@ -36,20 +36,6 @@ class StateMain {
 
   Periodos get currentPeriodo => periodos.firstWhere((it) => it.id == _currentId);
 
-  double get calendarStripPosition {
-    return _containsDate(currentCalendario.dates) ? (selectedDate.day - 1) * 70.0 : 0.0;
-  }
-
-  bool _containsDate(List<DataDTO> datas) {
-    final n = DateTime.now();
-    final count = datas.firstWhere(
-      (d) => isSameDay(d.date, n),
-      orElse: () => null,
-    );
-
-    return count != null;
-  }
-
   setCurrentPeriodoId(int idPeriodo) {
     _currentId = idPeriodo;
 
@@ -64,8 +50,6 @@ class StateMain {
       mes = currentPeriodo.inicio.month;
     }
   }
-
-  setMes(int mes) => this.mes = mes;
 
   incMes() {
     final n = DateTime.now();
@@ -174,6 +158,14 @@ class StateMain {
   updatePeriodo(Periodos p) {
     int index = periodos.indexWhere((it) => it.id == p.id);
     periodos[index] = p..refreshCalendario();
+
+    if (isBetween(DateTime.now(), currentPeriodo.inicio, currentPeriodo.termino)) {
+      selectedDate = DateTime.now();
+      mes = DateTime.now().month;
+    } else {
+      selectedDate = currentPeriodo.inicio;
+      mes = currentPeriodo.inicio.month;
+    }
   }
 
   _refreshCalendario(int idPeriodo) {

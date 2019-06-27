@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/calendario_strip_container.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
@@ -35,14 +34,6 @@ class BlocMain extends Bloc {
   get outListPeriodos => _subjectListPeriodos.stream;
   get inListPeriodos => _subjectListPeriodos.sink;
 
-  final _subjectPeriodos = BehaviorSubject<List<Periodos>>();
-  Stream<List<Periodos>> get outPeriodos => _subjectPeriodos.stream;
-  Sink<List<Periodos>> get inPeriodos => _subjectPeriodos.sink;
-
-  final _subCalendarioContent = BehaviorSubject<CalendarioStripContainer>();
-  Stream<CalendarioStripContainer> get outCalendario => _subCalendarioContent.stream;
-  Sink<CalendarioStripContainer> get inCalendario => _subCalendarioContent.sink;
-
   final _subProvasNotasMaterias =
       BehaviorSubject<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>();
 
@@ -61,6 +52,10 @@ class BlocMain extends Bloc {
   get outParciais => _subjectParciais.stream;
   get inParciais => _subjectParciais.sink;
 
+  BehaviorSubject<CalendarioDTO> _bhsCalendario = BehaviorSubject<CalendarioDTO>();
+  Stream<CalendarioDTO> get outCalendario => _bhsCalendario.stream;
+  Sink<CalendarioDTO> get inCalendario => _bhsCalendario.sink;
+
   BlocMain({
     List<Periodos> periodos,
     int pos,
@@ -75,8 +70,6 @@ class BlocMain extends Bloc {
 
   @override
   void dispose() {
-    _subjectPeriodos.close();
-    _subCalendarioContent.close();
     _subDataDTO.close();
     _subAulasAgendamento.close();
     _subProvasNotasMaterias.close();
@@ -84,32 +77,22 @@ class BlocMain extends Bloc {
     _subjectCurrentPeriodo.close();
     _subjectListPeriodos.close();
     _subjectParciais.close();
+    _bhsCalendario.close();
   }
 
   _sinkPeriodos() {
-    inPeriodos.add(state.periodos);
+    ///TODO - Tentar manter a data e o calendario sincronizados
+    inSelectedDate.add(state.selectedDate);
+    inCalendario.add(state.currentCalendario);
+    inParciais.add(state.provideParciais);
     inListPeriodos.add(state.periodos);
     inCurrentPeriodo.add(state.currentPeriodo);
-    inCalendario.add(
-      CalendarioStripContainer(
-        calendario: state.currentCalendario,
-        selectedDate: state.selectedDate,
-        initialOffset: state.calendarStripPosition,
-      ),
-    );
-    inParciais.add(state.provideParciais);
   }
 
   _sinkCurrentPeriodo() {
-    inCalendario.add(
-      CalendarioStripContainer(
-        calendario: state.currentCalendario,
-        selectedDate: state.selectedDate,
-        initialOffset: state.calendarStripPosition,
-      ),
-    );
     inDataDTO.add(state.aulasDia);
     inSelectedDate.add(state.selectedDate);
+    inCalendario.add(state.currentCalendario);
     inAulasAgendamento.add(state.aulasAgendaveis);
     inProvasNotasMaterias.add(Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay));
     inCurrentPeriodo.add(state.currentPeriodo);
@@ -117,13 +100,7 @@ class BlocMain extends Bloc {
   }
 
   _sinkProva() {
-    inCalendario.add(
-      CalendarioStripContainer(
-        calendario: state.currentCalendario,
-        selectedDate: state.selectedDate,
-        initialOffset: state.calendarStripPosition,
-      ),
-    );
+    inCalendario.add(state.currentCalendario);
     inProvasNotasMaterias.add(
       Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay),
     );
@@ -211,13 +188,7 @@ class BlocMain extends Bloc {
   }
 
   _sinkFalta() {
-    inCalendario.add(
-      CalendarioStripContainer(
-        calendario: state.currentCalendario,
-        selectedDate: state.selectedDate,
-        initialOffset: state.calendarStripPosition,
-      ),
-    );
+    inCalendario.add(state.currentCalendario);
     inParciais.add(state.provideParciais);
     inDataDTO.add(state.aulasDia);
   }

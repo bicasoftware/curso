@@ -31,7 +31,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
     return Container(
       height: double.infinity,
       child: Observer<List<Periodos>>(
-        stream: b.outPeriodos,
+        stream: b.outListPeriodos,
         onSuccess: (BuildContext context, List<Periodos> periodos) {
           return ListView.builder(
             itemCount: periodos.length,
