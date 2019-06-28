@@ -66,7 +66,10 @@ class ViewHomeAppbarAction extends StatelessWidget {
             axis: Axis.horizontal,
             sizeFactor: anim,
             axisAlignment: 1,
-            child: child,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: child,
+            ),
           ),
         );
       },

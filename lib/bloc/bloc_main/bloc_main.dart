@@ -81,7 +81,6 @@ class BlocMain extends Bloc {
   }
 
   _sinkPeriodos() {
-    ///TODO - Tentar manter a data e o calendario sincronizados
     inSelectedDate.add(state.selectedDate);
     inCalendario.add(state.currentCalendario);
     inParciais.add(state.provideParciais);
