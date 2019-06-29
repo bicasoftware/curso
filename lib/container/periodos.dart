@@ -292,7 +292,6 @@ class Periodos implements BaseTable {
 
       ///Soma notas da materia
       final double media = calcMedia(m.notas.where((n) => n.data.isBefore(termino)).toList());
-      print("media: $media");
 
       ///Soma faltas e aulas vagas
       final faltas = m.faltas.where((f) => f.tipo == 0).length;
