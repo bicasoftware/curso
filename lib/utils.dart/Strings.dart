@@ -64,8 +64,12 @@ class Strings {
   static const String emAndamento = "Em Andamento";
   static const String concluido = "Concluído";
   static const String aprovado = "Aprovado";
-  static const String reprovado = "Reprovado";
+  static const String reprovadoNota = "Reprovado por Nota";
+  static const String reprovadoFalta = "Reprovado por Faltas";
   static const String desconhecido = "Desconhecido";
+  static const String inconclusivo = "Informações Faltando!";
+  static const String faltandoNotas = "Valores das notas faltando!";
+  static const String faltandoIncuirNotas = "Nenhuma prova agendada no semestre";
   static const String dispensado = "Dispensado";
   static const String faltas = "Faltas";
   static const String vagas = "Vagas";

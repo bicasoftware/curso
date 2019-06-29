@@ -23,6 +23,7 @@ class Parciais {
     @required double notaAtual,
     @required int faltas,
     @required int vagas,
+    @required int presObrig,
   }) {
     materias.add(
       ParciaisMaterias(
@@ -34,6 +35,7 @@ class Parciais {
         numAulasVagas: vagas,
         numFaltas: faltas,
         terminoPeriodo: terminoPeriodo,
+        presObrig: presObrig,
       ),
     );
   }
@@ -75,6 +77,7 @@ class ParciaisMaterias {
   double notaAprovacao;
   double notaAtual;
   DateTime terminoPeriodo;
+  int presObrig;
 
   ParciaisMaterias({
     @required this.materia,
@@ -85,23 +88,27 @@ class ParciaisMaterias {
     @required this.notaAprovacao,
     @required this.notaAtual,
     @required this.terminoPeriodo,
+    @required this.presObrig,
   });
 
-  ///TODO - Considerar data da prova para efetuar calculo das notas
+  //TODO - Considerar data da prova para efetuar calculo das notas
 
   ParciaisStatus get status {
-    final now = DateTime.now();
-
     ///Se o período ainda não terminou
-    if (now.isAfter(terminoPeriodo)) {
-      ///Se já existem provas cadastradas, mostra média atual
-      if (notas.length > 0 && ((notaAtual ?? 0) < notaAprovacao)) {
-        return StatusReprovado();
-      }
+    if (DateTime.now().isAfter(terminoPeriodo)) {
+      if (notas.length == 0) {
+        return StatusFaltandoNotas();
+      } else if (notaAtual == null) {
+        return StatusFaltandoValoresNota();
+      } else if (notaAtual < notaAprovacao) {
+        return StatusReprovadoNotas();
+      } else if (!statusFaltas(presObrig, numAulasSemestre, numFaltas)) {
+        return StatusReprovadoFaltas();
+      } else
+        return StatusAprovado();
     } else {
       return StatusEmAndamento();
     }
-    return StatusEmAndamento();
   }
 
   void incFalta() => numFaltas += 1;

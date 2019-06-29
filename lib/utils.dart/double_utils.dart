@@ -12,12 +12,29 @@ String formatNota(double nota) {
   return NumberFormat("#0.##").format(nota ?? 0.0).padRight(5, " ");
 }
 
-double calcMedia(List<Notas> notas) {
-  double somaNotas = 0.0;
-  notas.where((n) => n.nota != null).map((n) => n.nota).forEach((double n) => somaNotas += n);
+double calcPorcentagemAulas(int totalAulas, int totalFaltas) {
+  return (totalFaltas / totalAulas) * 100;
+}
 
-  ///Se ainda não existem faltas, retorn null da soma
-  return notas.length > 0 ? somaNotas / notas.length : null;
+bool statusFaltas(int presObrig, int totalAulas, int totalFaltas) {
+  final double porcentagem = calcPorcentagemAulas(totalAulas, totalFaltas);
+  return porcentagem != null && porcentagem < presObrig;
+}
+
+double calcMedia(List<Notas> notas) {
+  double somaNotas;
+  final notasValidas = notas.where((n) => n.nota != null).map((n) => n.nota);
+
+  if (notasValidas.length > 0) {
+    somaNotas = 0.0;
+    notasValidas.forEach((double n) => somaNotas += n);
+  }
+
+  if (somaNotas == null || notas.length == 0) {
+    return null;
+  } else {
+    return somaNotas / notas.length;
+  }
 }
 
 int calcNumAulasSemestre({

@@ -2,13 +2,12 @@ import 'package:curso/widgets/circle.dart';
 import 'package:flutter/material.dart';
 
 class ParcialPresencaItem extends StatelessWidget {
-  final int valor;
-  final String title;
+  final String title, text;
   final Color cor;
 
   const ParcialPresencaItem({
     Key key,
-    @required this.valor,
+    @required this.text,
     @required this.title,
     @required this.cor,
   }) : super(key: key);
@@ -23,7 +22,7 @@ class ParcialPresencaItem extends StatelessWidget {
           SizedBox(width: 8),
           Text(title),
           Spacer(),
-          Text(valor.toString().padLeft(3, "0"), textAlign: TextAlign.end),
+          Text(text, textAlign: TextAlign.end),
         ],
       ),
     );

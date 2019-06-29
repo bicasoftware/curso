@@ -1,4 +1,5 @@
 import 'package:curso/view/view_parciais/parcial_status.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class ParcialHeader extends StatelessWidget {
@@ -17,28 +18,13 @@ class ParcialHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Color(cor),
-      ),
+      leading: MateriaColorContainer(color: Color(cor)),
       title: Text(materia),
       subtitle: Text(
         status.title,
         style: Theme.of(context).textTheme.subtitle.copyWith(color: status.cor),
       ),
-      trailing: trailingIcon,
+      trailing: status.icon,
     );
-  }
-
-  Widget get trailingIcon {
-    if (status is StatusAprovado) {
-      return Icon(Icons.thumb_up, color: Colors.green);
-    } else if (status is StatusReprovado) {
-      return Icon(Icons.thumb_down, color: Colors.red);
-    } else if (status is StatusEmAndamento) {
-      return Icon(Icons.warning, color: Colors.teal);
-    } else if (status is StatusDispensado) {
-      return Icon(Icons.time_to_leave, color: Colors.lightGreen);
-    } else
-      return Icon(Icons.time_to_leave, color: Colors.grey);
   }
 }

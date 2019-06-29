@@ -10,6 +10,19 @@ import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 void main() {
+
+  test('calc percent',(){
+    int total = 50, porc = 10;
+    double result = ((porc / 100)) * total;
+
+    print(result);
+  });
+
+  test('calc percent 2', () {
+    double p = calcPorcentagemAulas(68, 6);
+    print(p);
+  });
+
   test('color', () {
     print("Colors.pink: ${Colors.pink.value}, ${Colors.pink.computeLuminance()}, ${getForegroundColorByLuminance(Colors.pink)}");
     print("Colors.red: ${Colors.red.value}, ${Colors.red.computeLuminance()},  ${getForegroundColorByLuminance(Colors.red)}");

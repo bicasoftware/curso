@@ -291,7 +291,8 @@ class Periodos implements BaseTable {
       );
 
       ///Soma notas da materia
-      final media = calcMedia(m.notas.where((n) => n.data.isBefore(termino)).toList());
+      final double media = calcMedia(m.notas.where((n) => n.data.isBefore(termino)).toList());
+      print("media: $media");
 
       ///Soma faltas e aulas vagas
       final faltas = m.faltas.where((f) => f.tipo == 0).length;
@@ -302,12 +303,12 @@ class Periodos implements BaseTable {
 
         ///80 sextas-feiras, com 4 aulas, somam 320 aulas, que são o total de aulas do semestre
         numAulasSemestre: totalAulas,
-        // numAulasSemestre: totalAulasSemestre * totalAulasSemana,
         notas: m.notas,
         notaAprovacao: medAprov,
         notaAtual: media,
         faltas: faltas,
         vagas: vagas,
+        presObrig: presObrig,
       );
     }
   }
