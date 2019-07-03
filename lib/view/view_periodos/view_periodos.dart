@@ -5,7 +5,7 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/utils.dart/observer.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_list_item.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';

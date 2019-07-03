@@ -1,11 +1,11 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/utils.dart/observer.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_aulas_dia/calendario_list_aulas.dart';
 import 'package:curso/widgets/placeholders/happy_placeholder.dart';
 import 'package:curso/widgets/placeholders/widget_swapper.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
 
 class CalendarioAulasDia extends StatefulWidget {
   @override

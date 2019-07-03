@@ -11,6 +11,9 @@ dependencies:
   helper_tiles:
     git:
       url: https://github.com/bicasoftware/helper_tiles
+  lib_observer:
+    git:
+      url: https://github.com/bicasoftware/lib_observer
 
   cupertino_icons: ^0.1.2
   intl: ^0.15.8
@@ -19,6 +22,7 @@ dependencies:
   rxdart: ^0.22.0
   bloc_provider: ^0.6.1+1
   morpheus: ^0.8.0
+  pie_chart: 
 
 dev_dependencies:
   flutter_test:

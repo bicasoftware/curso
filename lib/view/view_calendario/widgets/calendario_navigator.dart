@@ -2,7 +2,7 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/utils.dart/observer.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioNavigator extends StatefulWidget {

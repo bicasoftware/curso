@@ -1,7 +1,7 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/parciais.dart';
-import 'package:curso/utils.dart/observer.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_list_item.dart';
 import 'package:flutter/material.dart';
 

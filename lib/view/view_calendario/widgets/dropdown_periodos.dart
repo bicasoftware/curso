@@ -2,7 +2,7 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/multiobserver.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:flutter/material.dart';
 
 class DropDownPeriodos extends StatelessWidget {
