@@ -1,12 +1,9 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/parciais.dart';
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/double_utils.dart';
+import 'package:curso/view/view_parciais/widgets/parciais_notas.dart';
+import 'package:curso/view/view_parciais/widgets/parcial_faltas_chart.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_header.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_notas_header.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_notas_item.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_presenca_item.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_presenca_progress.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +21,7 @@ class ParcialListItem extends StatelessWidget {
     return "${parciais.numFaltas.toString().padLeft(2, "0")} - ${calcPorcentagemAulas(parciais.numAulasSemestre, parciais.numFaltas).toStringAsFixed(2)} %";
   }
 
-  String getVagasText(){
+  String getVagasText() {
     return "${parciais.numAulasVagas.toString().padLeft(2, "0")} - ${calcPorcentagemAulas(parciais.numAulasSemestre, parciais.numAulasVagas).toStringAsFixed(2)} %";
   }
 
@@ -36,7 +33,6 @@ class ParcialListItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ///Item com [nome da matéria, sigla, cor da matéria e indicador de status]
           ParcialHeader(
             materia: m.nome,
             cor: m.cor,
@@ -44,67 +40,18 @@ class ParcialListItem extends StatelessWidget {
             status: parciais.status,
           ),
           PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
-
-          ///Item contendo [chart] de faltas, vagas e total de aulas
-          Row(
-            children: [
-              Expanded(
-                flex: 4,
-                child: Container(
-                  padding: EdgeInsets.all(16),
-
-                  ///TODO - adicionar [Chart] no lugar do [CircleAvatar]
-                  child: CircleAvatar(backgroundColor: Colors.red, maxRadius: 50),
-                ),
-              ),
-
-              ///Lista contendo número de [faltas] [vagas] e [total]
-              Expanded(
-                flex: 6,
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      ParcialPresencaItem(
-                        cor: Colors.red,
-                        title: Strings.faltas,
-                        text: getFaltasText(),
-                        // valor: parciais.numFaltas,
-                      ),
-                      ParcialPresencaItem(
-                        cor: Colors.teal,
-                        title: Strings.vagas,
-                        text: getVagasText(),
-                      ),
-                      ParcialPresencaItem(
-                        cor: Colors.indigo,
-                        title: Strings.total,
-                        text: parciais.numAulasSemestre.toString().padLeft(2,"0"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          ParcialFaltasChart(
+            totalAulas: parciais.numAulasSemestre,
+            faltas: parciais.numFaltas,
+            vagas: parciais.numAulasVagas,
+            aulasTilDate: parciais.numAulasUntilNow,
           ),
           PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
-          ParcialNotasHeader(),
-          Column(
-            children: <Widget>[
-              for (final prova in parciais.notas)
-                ParcialNotasItem(
-                  nota: prova,
-                  medAprov: parciais.notaAprovacao,
-                )
-            ],
-          ),
-          PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
-          ParcialPresencaProgress(
-            notaAtual: parciais.notaAtual,
-            notaAprov: parciais.notaAprovacao,
+          ParciaisNotas(
             status: parciais.status,
+            notaAprovacao: parciais.notaAprovacao,
+            notaAtual: parciais.notaAtual,
+            notas: parciais.notas,
           ),
         ],
       ),

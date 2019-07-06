@@ -1,4 +1,5 @@
 import 'package:curso/container/faltas.dart';
+import 'package:curso/utils.dart/calcs.dart';
 import 'package:meta/meta.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
@@ -7,9 +8,9 @@ import 'package:curso/utils.dart/double_utils.dart';
 
 class Parciais {
   List<ParciaisMaterias> materias;
-  DateTime terminoPeriodo;
+  DateTime terminoPeriodo, inicioPeriodo;
 
-  Parciais({@required this.terminoPeriodo}) {
+  Parciais({@required this.terminoPeriodo, @required this.inicioPeriodo}) {
     materias = List<ParciaisMaterias>();
   }
 
@@ -18,6 +19,7 @@ class Parciais {
   void add({
     @required Materias materia,
     @required int numAulasSemestre,
+    @required int numAulasUntilNow,
     @required List<Notas> notas,
     @required double notaAprovacao,
     @required double notaAtual,
@@ -29,12 +31,14 @@ class Parciais {
       ParciaisMaterias(
         materia: materia,
         numAulasSemestre: numAulasSemestre,
+        numAulasUntilNow: numAulasUntilNow,
         notas: notas,
         notaAprovacao: notaAprovacao,
         notaAtual: notaAtual,
         numAulasVagas: vagas,
         numFaltas: faltas,
         terminoPeriodo: terminoPeriodo,
+        inicioPeriodo: inicioPeriodo,
         presObrig: presObrig,
       ),
     );
@@ -70,31 +74,28 @@ class Parciais {
 
 class ParciaisMaterias {
   Materias materia;
-  int numAulasSemestre;
-  int numAulasVagas;
-  int numFaltas;
+  int numAulasVagas, numFaltas, numAulasSemestre, numAulasUntilNow;
   List<Notas> notas;
   double notaAprovacao;
   double notaAtual;
-  DateTime terminoPeriodo;
+  DateTime terminoPeriodo, inicioPeriodo;
   int presObrig;
 
   ParciaisMaterias({
     @required this.materia,
     @required this.numAulasSemestre,
+    @required this.numAulasUntilNow,
     @required this.numAulasVagas,
     @required this.numFaltas,
     @required this.notas,
     @required this.notaAprovacao,
     @required this.notaAtual,
     @required this.terminoPeriodo,
+    @required this.inicioPeriodo,
     @required this.presObrig,
   });
 
-  //TODO - Considerar data da prova para efetuar calculo das notas
-
   ParciaisStatus get status {
-    ///Se o período ainda não terminou
     if (DateTime.now().isAfter(terminoPeriodo)) {
       if (notas.length == 0) {
         return StatusFaltandoNotas();
@@ -102,7 +103,7 @@ class ParciaisMaterias {
         return StatusFaltandoValoresNota();
       } else if (notaAtual < notaAprovacao) {
         return StatusReprovadoNotas();
-      } else if (!statusFaltas(presObrig, numAulasSemestre, numFaltas)) {
+      } else if (!faltasEmDia(presObrig, numAulasSemestre, numFaltas)) {
         return StatusReprovadoFaltas();
       } else
         return StatusAprovado();
@@ -111,20 +112,49 @@ class ParciaisMaterias {
     }
   }
 
+  // double get percentFaltas => calcPorcentagemAulas(numAulasSemestre, numFaltas);
+  double get percentFaltas => (numFaltas / numAulasSemestre) * 100;
+
+  // double get percentVagas => calcPorcentagemAulas(numAulasSemestre, numAulasVagas);
+  double get percentVagas => (numFaltas / numAulasSemestre) * 100;
+
+  // double get percentPresenca => totalAulasRestantesSemestre - percentFaltas - percentVagas;
+  double get percentPresenca =>
+      ((numAulasUntilNow / numAulasSemestre) * 100) - percentFaltas - percentVagas;
+
+  int get totalAulasRestantesSemestre {
+    return totalAulasRestantes(
+      inicio: inicioPeriodo,
+      termino: terminoPeriodo,
+      m: materia,
+    );
+  }
+
   void incFalta() => numFaltas += 1;
 
   void decFalta() => numFaltas -= 1;
 
   void incVagas() => numAulasVagas += 1;
+
   void decVagas() => numAulasVagas -= 1;
 
   void addNota(Notas nota, int numProvas) {
     notas.add(nota);
-    notaAtual = calcMedia(notas);
+    _recalcMedia();
+    /* notaAtual = calcMedia(notas
+        .where((n) => n.nota != null && n.data.isBefore(DateTime.now()))
+        .map((n) => n.nota)
+        .toList()); */
   }
 
   void removeNota(Notas nota, int numProvas) {
     notas.removeWhere((n) => n.id == nota.id);
-    notaAtual = calcMedia(notas);
+  }
+
+  void _recalcMedia() {
+    notaAtual = calcMedia(notas
+        .where((n) => n.nota != null && n.data.isBefore(DateTime.now()))
+        .map((n) => n.nota)
+        .toList());
   }
 }

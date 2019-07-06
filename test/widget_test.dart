@@ -1,5 +1,6 @@
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
+import 'package:curso/utils.dart/calcs.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/utils.dart/pair.dart';
@@ -10,8 +11,12 @@ import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 void main() {
-
-  test('calc percent',(){
+  test('count', () {
+    final list = List.generate(7, (i) => i);
+    list.forEach(print);
+    assert(list.length == 7);
+  });
+  test('calc percent', () {
     int total = 50, porc = 10;
     double result = ((porc / 100)) * total;
 
@@ -24,8 +29,10 @@ void main() {
   });
 
   test('color', () {
-    print("Colors.pink: ${Colors.pink.value}, ${Colors.pink.computeLuminance()}, ${getForegroundColorByLuminance(Colors.pink)}");
-    print("Colors.red: ${Colors.red.value}, ${Colors.red.computeLuminance()},  ${getForegroundColorByLuminance(Colors.red)}");
+    print(
+        "Colors.pink: ${Colors.pink.value}, ${Colors.pink.computeLuminance()}, ${getForegroundColorByLuminance(Colors.pink)}");
+    print(
+        "Colors.red: ${Colors.red.value}, ${Colors.red.computeLuminance()},  ${getForegroundColorByLuminance(Colors.red)}");
   });
 
   test('contains', () {
@@ -153,10 +160,10 @@ void main() {
   });
 
   test('combineLatest', () {
-    final obs2 = Observable.just("1º Período");    
-    final obs3 = Observable.fromIterable([DateTime(2018,5,4),DateTime(2018,3,5)]);
+    final obs2 = Observable.just("1º Período");
+    final obs3 = Observable.fromIterable([DateTime(2018, 5, 4), DateTime(2018, 3, 5)]);
 
-    final Observable<List<Object>> obs = Observable.combineLatestList([obs2,obs3]);
+    final Observable<List<Object>> obs = Observable.combineLatestList([obs2, obs3]);
     obs.listen(print);
   });
 }

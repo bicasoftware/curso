@@ -23,6 +23,7 @@ class Strings {
   static const String cor = 'Cor';
   static const String provas = 'Provas';
   static const String notas = 'Notas';
+  static const String nota = 'Nota';
   static const String provasAgendar = 'Provas agendadas';
   static const String cronograma = 'Cronograma';
   static const String calendario = 'Calendário';
@@ -53,6 +54,7 @@ class Strings {
   static const String semAulasHoje = 'Nenhuma aula nessa data';
   static const String parciais = 'Parciais';
   static const String dataProva = 'Data da Prova';
+  static const String data = 'Data';
   static const String horarios = "Horários";
   static const String horariosAulas = "Aulas e Horários";
   static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
@@ -74,6 +76,9 @@ class Strings {
   static const String faltas = "Faltas";
   static const String vagas = "Vagas";
   static const String total = "Total";
+  static const String presencas = "Presenças";
+  static const String frequencia = "Frequencia";
+  static const String restantes = "Restantes";
   static const String notaAtual = "Nota Atual";
   static const String descartar = "Descartar";
   static const String descartarAlteracaoes = "Descartar Alterações?";

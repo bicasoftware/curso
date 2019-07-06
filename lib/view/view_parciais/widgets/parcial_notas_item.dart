@@ -1,4 +1,5 @@
 import 'package:curso/container/notas.dart';
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,13 @@ class ParcialNotasItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(flex: 2, child: Text(formatDate(nota.data), style: getStyle())),
-          Expanded(flex: 4, child: Text(formatNota(nota.nota), style: getStyle())),
+          Expanded(flex: 2, child: Text("${Strings.data}: ${formatDate(nota.data)}", style: getStyle())),
+          Expanded(flex: 4, child: Text("${Strings.nota}: ${formatNota(nota.nota)}", style: getStyle())),
         ],
       ),
-    );
+    );    
   }
 
   TextStyle getStyle() {

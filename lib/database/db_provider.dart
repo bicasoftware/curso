@@ -58,8 +58,8 @@ class DBProvider {
           id: 1,
           numPeriodo: 1,
           aulasDia: 4,
-          inicio: DateTime(2019, 02, 01),
-          termino: DateTime(2019, 06, 01),
+          inicio: DateTime(2019, 06, 08),
+          termino: DateTime(2019, 12, 20),
           medAprov: 7.0,
           presObrig: 75,
         ).toMap(),
@@ -154,8 +154,10 @@ class DBProvider {
       final aula13 = Aulas(id: null, idMateria: 2, idPeriodo: 1, ordem: 0, weekDay: 4);
       final aula14 = Aulas(id: null, idMateria: 2, idPeriodo: 1, ordem: 1, weekDay: 4);
 
-      final nota1 = Notas(id: null, idMateria: 1, nota: null, data: DateTime(2019,3,4));
-      final nota2 = Notas(id: null, idMateria: 2, nota: null, data: DateTime(2019,3,5));
+      final nota1 = Notas(id: null, idMateria: 1, nota: null, data: DateTime(2019,8,5));
+      final nota2 = Notas(id: null, idMateria: 2, nota: null, data: DateTime(2019,8,6));
+      final nota3 = Notas(id: null, idMateria: 3, nota: null, data: DateTime(2019,8,7));
+      final nota4 = Notas(id: null, idMateria: 4, nota: null, data: DateTime(2019,8,8));
 
       tr.insert(Horarios.tableName, hora1.toMap());
       tr.insert(Horarios.tableName, hora2.toMap());
@@ -183,6 +185,8 @@ class DBProvider {
 
       tr.insert(Notas.tableName, nota1.toMap());
       tr.insert(Notas.tableName, nota2.toMap());
+      tr.insert(Notas.tableName, nota3.toMap());
+      tr.insert(Notas.tableName, nota4.toMap());
     });
   }
 

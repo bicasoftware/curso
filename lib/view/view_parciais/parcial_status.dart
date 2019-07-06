@@ -48,7 +48,7 @@ class StatusEmAndamento implements ParciaisStatus {
   String get title => Strings.emAndamento;
 
   @override
-  Icon get icon => Icon(Icons.time_to_leave, color: Colors.teal);
+  Icon get icon => Icon(Icons.timeline, color: Colors.teal);
 }
 
 class StatusDispensado implements ParciaisStatus {

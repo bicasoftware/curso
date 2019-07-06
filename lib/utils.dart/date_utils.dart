@@ -1,7 +1,6 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/notas.dart';
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -81,20 +80,6 @@ String formatFullDayStringAlt(DateTime date) {
   //"Quarta-Feira, 02 de Março de 2018"
   initializeCountry();
   return DateFormat("EEEE, dd 'de' MMMM 'de' yyyy", "pt_BR").format(date);
-}
-
-int countWeekDayInRange(DateTime inicio, DateTime termino, int dayToCount) {
-  initializeDateFormatting("pt_BR", null);
-  if (inicio.isAfter(termino)) throw Exception(Errors.datasInvalidas);
-  int count = 0;
-  DateTime currentDay = inicio;
-  while (currentDay.isBefore(termino)) {
-    if (getWeekday(currentDay) == dayToCount) count += 1;
-    currentDay = currentDay.add(Duration(days: 1));
-  }
-  if (getWeekday(currentDay) == dayToCount) count += 1;
-
-  return count;
 }
 
 int getWeekday(DateTime date) {
@@ -189,6 +174,6 @@ List<CalendarioDTO> prepareCalendario({
   return calendario;
 }
 
-bool isBetween(DateTime checkableDate, DateTime initialDate, DateTime lastDate){
+bool isBetween(DateTime checkableDate, DateTime initialDate, DateTime lastDate) {
   return checkableDate.isAfter(initialDate) && checkableDate.isBefore(lastDate);
 }

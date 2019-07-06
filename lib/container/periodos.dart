@@ -5,6 +5,7 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/database/base_table.dart';
+import 'package:curso/utils.dart/calcs.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class Periodos implements BaseTable {
     horarios = [];
     calendario = [];
     aulasSemana = [];
-    parciais = Parciais(terminoPeriodo: termino);
+    parciais = Parciais(inicioPeriodo: inicio, terminoPeriodo: termino);
   }
 
   static const String ID = "id";
@@ -272,36 +273,33 @@ class Periodos implements BaseTable {
   }
 
   prepareParciais() {
-    parciais = Parciais(terminoPeriodo: this.termino);
-    List<int> aulasSemestre = [];
+    parciais = Parciais(inicioPeriodo: inicio, terminoPeriodo: this.termino);
 
-    for (int dia = 0; dia < 7; dia++) {
-      aulasSemestre.add(countWeekDayInRange(inicio, termino, dia));
-    }
+    final hoje = DateTime.now();
+    final aulasSemestre = countAulasInRange(inicio, termino);
+    final aulasUntilNow = countAulasInRange(inicio, hoje);
 
     for (final m in materias) {
       ///Lista com quantas vezes determinado dia da semana existem durante o período
-      final Set<int> diasComAula = m.aulas.map((m) => m.weekDay).toSet();
+      final int totalAulas = countTotalAulasSemestre(m, aulasSemestre);
 
-      final totalAulas = calcNumAulasSemestre(
-        aulas: m.aulas,
-        diasComAula: diasComAula,
-        weekDaysInRange: aulasSemestre,
-        idMateria: m.id,
-      );
+      ///Lista com quantas aulas existem até o dia atual
+      final int totalAulasUntilNow = countTotalAulasSemestre(m, aulasUntilNow);
 
       ///Soma notas da materia
-      final double media = calcMedia(m.notas.where((n) => n.data.isBefore(termino)).toList());
+      final double media = calcMedia(
+        ///Filtra notas cuja data são anteriores a [hoje] e com [nota] já adicionada
+        m.notas.where((n) => n.data.isBefore(hoje) && n.nota != null).map((n) => n.nota).toList(),
+      );
 
       ///Soma faltas e aulas vagas
       final faltas = m.faltas.where((f) => f.tipo == 0).length;
       final vagas = m.faltas.where((f) => f.tipo == 1).length;
 
       parciais.add(
-        materia: m.clone(),
-
-        ///80 sextas-feiras, com 4 aulas, somam 320 aulas, que são o total de aulas do semestre
+        materia: m,
         numAulasSemestre: totalAulas,
+        numAulasUntilNow: totalAulasUntilNow,
         notas: m.notas,
         notaAprovacao: medAprov,
         notaAtual: media,
