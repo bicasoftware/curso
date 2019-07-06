@@ -1,8 +1,8 @@
 import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_parciais/parcial_status.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_notas_item.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_presenca_progress.dart';
+import 'package:curso/view/view_parciais/widgets/notas_container/parcial_nota_progress.dart';
+import 'package:curso/view/view_parciais/widgets/notas_container/parcial_notas_item.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class ParciaisNotas extends StatelessWidget {
           ],
         ),
         PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
-        ParcialPresencaProgress(
+        ParcialNotaProgress(
           notaAtual: notaAtual,
           notaAprov: notaAprovacao,
           status: status,

@@ -2,8 +2,9 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:lib_observer/lib_observer.dart';
+import 'package:curso/utils.dart/showup.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
 
 class CalendarioNavigator extends StatefulWidget {
   const CalendarioNavigator({Key key}) : super(key: key);
@@ -30,21 +31,8 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
             child: Observer<DateTime>(
               stream: b.outSelectedDate,
               onSuccess: (_, DateTime data) {
-                return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 150),
-                  transitionBuilder: (w, Animation<double> a) {
-                    final scaleTween = TweenSequence([
-                      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.9), weight: 1),
-                      TweenSequenceItem(tween: Tween(begin: 0.9, end: 1.0), weight: 1),
-                    ]);
-                    return ScaleTransition(
-                      scale: scaleTween.animate(a),
-                      child: FadeTransition(
-                        opacity: a,
-                        child: w,
-                      ),
-                    );
-                  },
+                return ShowUp(
+                  delay: 300,
                   child: Text(
                     formatFullDayStringAlt(data),
                     key: UniqueKey(),

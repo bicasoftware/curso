@@ -1,8 +1,8 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/utils.dart/double_utils.dart';
-import 'package:curso/view/view_parciais/widgets/parciais_notas.dart';
-import 'package:curso/view/view_parciais/widgets/parcial_faltas_chart.dart';
+import 'package:curso/view/view_parciais/widgets/faltas_chart/parcial_faltas_chart.dart';
+import 'package:curso/view/view_parciais/widgets/notas_container/parciais_notas.dart';
 import 'package:curso/view/view_parciais/widgets/parcial_header.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';

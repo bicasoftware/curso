@@ -45,6 +45,15 @@ class _ShowUpState extends State<ShowUp> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(ShowUp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget!= widget){
+      controller.reset();
+      controller.forward();
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
     controller.dispose();

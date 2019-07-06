@@ -3,11 +3,11 @@ import 'package:curso/view/view_parciais/parcial_status.dart';
 import 'package:flutter/material.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 
-class ParcialPresencaProgress extends StatefulWidget {
+class ParcialNotaProgress extends StatefulWidget {
   final double notaAprov, notaAtual;
   final ParciaisStatus status;
 
-  const ParcialPresencaProgress({
+  const ParcialNotaProgress({
     Key key,
     @required this.notaAprov,
     @required this.notaAtual,
@@ -15,10 +15,10 @@ class ParcialPresencaProgress extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ParcialPresencaProgressState createState() => _ParcialPresencaProgressState();
+  _ParcialNotaProgressState createState() => _ParcialNotaProgressState();
 }
 
-class _ParcialPresencaProgressState extends State<ParcialPresencaProgress>
+class _ParcialNotaProgressState extends State<ParcialNotaProgress>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController controller;
   Animation colorAnim;
