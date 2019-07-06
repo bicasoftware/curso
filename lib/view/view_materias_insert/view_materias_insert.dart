@@ -2,9 +2,8 @@ import 'package:curso/container/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewMateriasInsert extends StatefulWidget {
@@ -32,14 +31,56 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
 
   void _setSigla(String sigla) => setState(() => _sigla = sigla);
   void _setMateria(String materia) => setState(() => _materia = materia);
-  void _setCor(int cor) => setState(() => _cor = cor);
   void _generateSigla(String nome) => _setSigla(StringUtils.geraSigla(nome));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
-      appBar: AppBar(title: Text(Strings.materia)),
+      body: Form(
+        key: _formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text(Strings.materia),
+              floating: true,
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                TextInputTile(
+                  icon: Icons.library_books,
+                  initialValue: _materia,
+                  hint: Strings.materia,
+                  label: Strings.materia,
+                  sufix: _sigla,
+                  onSaved: _setMateria,
+                  validator: (nome) {
+                    if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
+                  },
+                  onChanged: _generateSigla,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  child: Text(
+                    Strings.corMateria,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ),
+                ),
+                MaterialColorPicker(
+                  selectedColor: Color(_cor),
+                  circleSize: 36,
+                  allowShades: true,
+                  onColorChange: (Color c) => setState(() => _cor = c.value),
+                ),
+              ]),
+            )
+          ],
+        ),
+      ),
+      /* appBar: AppBar(title: Text(Strings.materia)), */
       floatingActionButton: FloatingActionButton(
         heroTag: ObjectKey(Strings.materias),
         child: Icon(Icons.save),
@@ -54,51 +95,41 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
           }
         },
       ),
-      body: Form(
+      /* body: Form(
         key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: ListView(
           children: <Widget>[
-            Card(
-              child: Column(
-                children: <Widget>[
-                  TextInputTile(
-                    icon: Icons.library_books,
-                    initialValue: _materia,
-                    hint: Strings.materia,
-                    label: Strings.materia,
-                    sufix: _sigla,
-                    onSaved: _setMateria,
-                    validator: (nome) {
-                      if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
-                    },
-                    onChanged: _generateSigla,
-                  ),
-                  SizedBox(height: 8),
-                ],
+            TextInputTile(
+              icon: Icons.library_books,
+              initialValue: _materia,
+              hint: Strings.materia,
+              label: Strings.materia,
+              sufix: _sigla,
+              onSaved: _setMateria,
+              validator: (nome) {
+                if (nome.isEmpty || nome.length < 3) return Errors.errNomeMateria;
+              },
+              onChanged: _generateSigla,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+              child: Text(
+                Strings.corMateria,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle
+                    .copyWith(color: Theme.of(context).accentColor),
               ),
             ),
-            Card(
-              child: DefaultListTile(
-                icon: Icons.color_lens,
-                leading: Text(Strings.corMateria),
-                trailing: Hero(
-                  tag: ObjectKey(widget.materia),
-                  child: MateriaColorContainer(color: Color(_cor), size: 32),
-                ),
-                onTap: () async {
-                  final cor = await Dialogs.showColorDialog(
-                    context: context,
-                    initialColor: _cor,
-                  );
-
-                  if (cor != null) _setCor(cor);
-                },
-              ),
+            MaterialColorPicker(
+              selectedColor: Color(_cor),
+              circleSize: 36,
+              allowShades: true,
+              onColorChange: (Color c) => setState(() => _cor = c.value),
             ),
           ],
         ),
-      ),
+      ), */
     );
   }
 }
