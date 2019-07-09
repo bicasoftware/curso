@@ -5,6 +5,7 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/utils.dart/dialogs.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_list_item.dart';
@@ -33,8 +34,11 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       child: Observer<List<Periodos>>(
         stream: b.outListPeriodos,
         onSuccess: (BuildContext context, List<Periodos> periodos) {
-          return ListView.builder(
+          return ListView.separated(
             itemCount: periodos.length,
+            separatorBuilder: (c, i) => PaddedDivider(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+            ),
             itemBuilder: (_, int i) {
               return ViewPeriodosListItem(
                 periodo: periodos[i],
@@ -47,16 +51,8 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                     b.updatePeriodo(result);
                   }
                 },
-                onDelete: (int idPeriodo) async {
-                  final deleteConfirmation = await Dialogs.showRemoveDialog(
-                    context: context,
-                    title: Strings.removerPeriodo,
-                  );
 
-                  if (deleteConfirmation ?? false) {
-                    b.deletePeriodo(idPeriodo);
-                  }
-                },
+                onDelete: (int idPeriodo) => b.deletePeriodo(idPeriodo),               
                 onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
                   _showViewInsertMaterias(
                       context, idPeriodo, materias, medAprov, _onRefreshMaterias);

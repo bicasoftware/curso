@@ -85,6 +85,7 @@ class Strings {
   static const String descartarAlteracaoes = "Descartar Alterações?";
   static const String descartarAlteracaoesMsg = "Todas as alterações serão descartadas.";
   static const String avisoRemoverMateria = "Ao remover a matéria, não será possível desfazer";
+  static const String avisoRemoverPeriodo = "Ao remover o período, não será possível desfazer";
 }
 
 class Arrays {

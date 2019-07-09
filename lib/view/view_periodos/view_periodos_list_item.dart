@@ -1,13 +1,13 @@
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_periodos/view_periodos_buttombar.dart';
 import 'package:curso/view/view_periodos/view_periodos_cronogr_header.dart';
 import 'package:curso/widgets/cronograma/cronograma.dart';
 import 'package:flutter/material.dart';
 
-class ViewPeriodosListItem extends StatefulWidget {
+class ViewPeriodosListItem extends StatelessWidget {
   final Periodos periodo;
   final Function(Periodos) onUpdateTap;
   final Function(int) onDelete;
@@ -26,51 +26,45 @@ class ViewPeriodosListItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ViewPeriodosListItemState createState() => _ViewPeriodosListItemState();
-}
-
-class _ViewPeriodosListItemState extends State<ViewPeriodosListItem> {
-  bool isOpen;
-
-  @override
-  void initState() {
-    super.initState();
-    isOpen = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
-
-    return Theme(
-      data: CustomThemes.lightTheme,
-      child: Card(
-        elevation: 1,
-        child: ExpansionTile(
-          onExpansionChanged: (bool status) => setState(() => isOpen = status),
-          leading: Icon(Icons.date_range),
-          title: Text(
-            "${widget.periodo.numPeriodo}º ${Strings.periodo}",
-          ),
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Column(
-                children: <Widget>[
-                  ViewPeriodosCronogramaHeader(),
-                  SizedBox(height: 2),
-                  Cronograma(periodo: widget.periodo, onCellClick: widget.onCellClick),
-                ],
-              ),
-            ),
-            ViewPeriodosButtombar(
-              periodo: widget.periodo,
-              onDelete: widget.onDelete,
-              onUpdateTap: widget.onUpdateTap,
-              onNotasTap: widget.onNotasTap,
-              onMateriasTap: widget.onMateriasTap,
-            ),
-          ],
+    return Dismissible(
+      key: ObjectKey(periodo),
+      confirmDismiss: (DismissDirection dir) async {
+        return await showConfirmationDialog(
+          context: context,
+          title: Strings.confirmarRemocao,
+          message: Strings.avisoRemoverPeriodo,
+          yesButtonText: Strings.removerPeriodo,
+          noButtonText: Strings.cancelar,
+        );
+      },
+      onDismissed: (DismissDirection dir) {
+        onDelete(periodo.id);
+      },
+      child: ExpansionTile(
+        leading: Icon(Icons.date_range),
+        title: Text(
+          "${periodo.numPeriodo}º ${Strings.periodo}",
         ),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: <Widget>[
+                ViewPeriodosCronogramaHeader(),
+                SizedBox(height: 2),
+                Cronograma(periodo: periodo, onCellClick: onCellClick),
+              ],
+            ),
+          ),
+          ViewPeriodosButtombar(
+            periodo: periodo,
+            onDelete: onDelete,
+            onUpdateTap: onUpdateTap,
+            onNotasTap: onNotasTap,
+            onMateriasTap: onMateriasTap,
+          ),
+        ],
       ),
     );
   }
