@@ -51,7 +51,7 @@ class DBProvider {
   }
 
   static Future _initializeConf(Database db) async {
-    await db.transaction((tr) {
+    await db.transaction((tr) async {
       tr.insert(
         Periodos.tableName,
         Periodos(
@@ -154,10 +154,10 @@ class DBProvider {
       final aula13 = Aulas(id: null, idMateria: 2, idPeriodo: 1, ordem: 0, weekDay: 4);
       final aula14 = Aulas(id: null, idMateria: 2, idPeriodo: 1, ordem: 1, weekDay: 4);
 
-      final nota1 = Notas(id: null, idMateria: 1, nota: null, data: DateTime(2019,8,5));
-      final nota2 = Notas(id: null, idMateria: 2, nota: null, data: DateTime(2019,8,6));
-      final nota3 = Notas(id: null, idMateria: 3, nota: null, data: DateTime(2019,8,7));
-      final nota4 = Notas(id: null, idMateria: 4, nota: null, data: DateTime(2019,8,8));
+      final nota1 = Notas(id: null, idMateria: 1, nota: null, data: DateTime(2019, 8, 5));
+      final nota2 = Notas(id: null, idMateria: 2, nota: null, data: DateTime(2019, 8, 6));
+      final nota3 = Notas(id: null, idMateria: 3, nota: null, data: DateTime(2019, 8, 7));
+      final nota4 = Notas(id: null, idMateria: 4, nota: null, data: DateTime(2019, 8, 8));
 
       tr.insert(Horarios.tableName, hora1.toMap());
       tr.insert(Horarios.tableName, hora2.toMap());

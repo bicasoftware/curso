@@ -4,7 +4,7 @@ description: Não corra mais riscos!.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2"
+  sdk: ">=2.4.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -17,12 +17,12 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   intl: ^0.15.8
-  sqflite: ^1.1.5
-  path_provider: ^1.0.0
+  sqflite: ^1.1.6+1
+  path_provider: ^1.1.2
   rxdart: ^0.22.0
-  bloc_provider: ^0.6.1+1
-  morpheus: ^0.8.0
-  pie_chart: 
+  bloc_provider: ^0.6.2+1
+  morpheus: ^1.0.2
+  pie_chart: ^1.0.0
   flutter_material_color_picker: ^1.0.0
 
 dev_dependencies:

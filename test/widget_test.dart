@@ -11,6 +11,19 @@ import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 void main() {
+
+  DateTime parseHora(int hora,int minuto, int segundo){
+    return DateFormat("HH:mm:ss").parse("$hora:$minuto:$segundo");
+  }
+
+  test('data', () {
+    final fmt = DateFormat("HH:mm:ss");
+    final DateTime hora = fmt.parse("02:10:45");
+    assert(fmt.format(hora)== "02:10:45");
+    assert(parseHora(2,10,45) == hora);
+    assert(hora is DateTime);
+  });
+
   test('count', () {
     final list = List.generate(7, (i) => i);
     list.forEach(print);

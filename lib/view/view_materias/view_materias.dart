@@ -2,7 +2,6 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:flutter/material.dart';
@@ -88,8 +87,9 @@ class _Body extends StatelessWidget {
       stream: b.outMaterias,
       builder: (BuildContext context, AsyncSnapshot<List<Materias>> snap) {
         return WillPopScope(
-          onWillPop: () {
+          onWillPop: () async {
             Navigator.of(context).pop(snap.data);
+            return true;
           },
           child: Scaffold(
             backgroundColor: ThemeData.light().canvasColor,
@@ -124,15 +124,7 @@ class _Body extends StatelessWidget {
                       b.updateMaterias(materia: result.materia, pos: result.pos);
                     }
                   },
-                  onLongTap: (materia) async {
-                    final result = await Dialogs.showRemoveDialog(
-                      context: context,
-                      title: Strings.opcoes,
-                    );
-                    if (result != null) {
-                      b.deleteMateria(materia: materia);
-                    }
-                  },
+                  onDelete: (m) => b.deleteMateria(materia: m),
                 ),
               ],
             ),

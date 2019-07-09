@@ -10,6 +10,7 @@ class Strings {
   static const String cancelarAulaVaga = 'Desfazer aula vaga';
   static const String agendarProva = 'Agendar prova';
   static const String confirmacao = 'Confirmar';
+  static const String confirmarRemocao = 'Deseja realmente remover?';
   static const String aula = 'Aula';
   static const String aulas = 'Aulas';
   static const String periodos = 'Períodos';
@@ -83,6 +84,7 @@ class Strings {
   static const String descartar = "Descartar";
   static const String descartarAlteracaoes = "Descartar Alterações?";
   static const String descartarAlteracaoesMsg = "Todas as alterações serão descartadas.";
+  static const String avisoRemoverMateria = "Ao remover a matéria, não será possível desfazer";
 }
 
 class Arrays {

@@ -8,12 +8,12 @@ class ViewMateriasList extends StatelessWidget {
     Key key,
     @required this.materias,
     @required this.onTap,
-    @required this.onLongTap,
+    @required this.onDelete,
   }) : super(key: key);
 
   final List<Materias> materias;
   final Function(Materias, int pos) onTap;
-  final Function(Materias) onLongTap;
+  final Function(Materias) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ViewMateriasList extends StatelessWidget {
                 m: materias[i],
                 pos: i,
                 onTap: onTap,
-                onLongTap: onLongTap,
+                onDelete: onDelete,
               ),
               if (i == materias.length - 1)
                 Container()
