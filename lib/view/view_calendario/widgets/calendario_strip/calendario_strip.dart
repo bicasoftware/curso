@@ -1,17 +1,17 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CalendarioStrip extends StatelessWidget {
   const CalendarioStrip({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    final b = Provider.of<BlocMain>(context);
 
     return MultiObserver(
       streams: [b.outSelectedDate, b.outCalendario],

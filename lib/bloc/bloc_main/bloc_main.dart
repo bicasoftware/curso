@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/bloc/base_bloc.dart';
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/faltas.dart';
@@ -19,7 +19,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'state_main.dart';
 
-class BlocMain extends Bloc {
+class BlocMain extends BaseBloc {
   StateMain state;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();

@@ -1,4 +1,3 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
 import 'package:curso/container/notas.dart';
@@ -10,13 +9,14 @@ import 'package:curso/view/view_calendario/widgets/calendario_content/calendario
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_prova_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/multiobserver.dart';
+import 'package:provider/provider.dart';
 
 class CalendarioAulasProvas extends StatelessWidget {
   const CalendarioAulasProvas({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final BlocMain b = BlocProvider.of<BlocMain>(context);
+    final BlocMain b = Provider.of<BlocMain>(context);
     final style = TextStyle(
       color: Colors.black54,
       fontSize: 16,

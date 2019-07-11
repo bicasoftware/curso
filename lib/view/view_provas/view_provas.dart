@@ -1,8 +1,8 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/view/view_provas/bloc/bloc_provas.dart';
 import 'package:curso/view/view_provas/view_provas_body.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ViewProvas extends StatefulWidget {
   final Periodos periodo;
@@ -17,24 +17,11 @@ class ViewProvas extends StatefulWidget {
 }
 
 class _ViewProvasState extends State<ViewProvas> {
-  BlocProvas bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    bloc = BlocProvas(widget.periodo);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    bloc.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BlocProvas>(
-      creator: (_, __) => bloc,
+    return Provider<BlocProvas>(
+      builder: (_) => BlocProvas(widget.periodo),
+      dispose: (_, BlocProvas b) => b.dispose(),
       child: ViewProvasBody(),
     );
   }

@@ -1,10 +1,10 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/falta_container.dart';
 import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_provas/view_provas_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc/bloc_provas.dart';
 
@@ -14,8 +14,8 @@ class ProvasList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocProvas = BlocProvider.of<BlocProvas>(context);
-    final blocMain = BlocProvider.of<BlocMain>(context);
+    final blocProvas = Provider.of<BlocProvas>(context);
+    final blocMain = Provider.of<BlocMain>(context);
 
     return StreamBuilder<List<NotasContainer>>(
       stream: blocProvas.outFaltas,

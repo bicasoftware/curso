@@ -1,9 +1,9 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:lib_observer/lib_observer.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
+import 'package:provider/provider.dart';
 
 class DropDownPeriodos extends StatelessWidget {
   final ThemeData theme;
@@ -12,7 +12,7 @@ class DropDownPeriodos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    final b = Provider.of<BlocMain>(context);
 
     return MultiObserver(
       streams: [b.outCurrentPeriodo, b.outListPeriodos],

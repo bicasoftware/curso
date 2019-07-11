@@ -1,10 +1,10 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc/bloc_materias.dart';
 
@@ -43,9 +43,10 @@ class ViewMateriasState extends State<ViewMaterias> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BlocMaterias>(
-      creator: (_, __) => _bloc,
+    return Provider<BlocMaterias>(
       child: _Body(idPeriodo: widget.idPeriodo, medAprov: widget.medAprov),
+      builder: (BuildContext context) => BlocMaterias(materias: []..addAll(widget.materias)),
+      dispose: (BuildContext c, BlocMaterias b) => b.dispose(),
     );
   }
 }
@@ -58,7 +59,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMaterias>(context);
+    final b = Provider.of<BlocMaterias>(context);
 
     void callInsertMateria() async {
       ViewMateriasInsertResult result = await Navigator.of(context).push(

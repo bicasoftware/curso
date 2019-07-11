@@ -1,9 +1,9 @@
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/bloc/base_bloc.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/providers/provider_materias.dart';
 import 'package:rxdart/rxdart.dart';
 
-class BlocMaterias implements Bloc {
+class BlocMaterias implements BaseBloc {
   List<Materias> materias;
 
   BehaviorSubject<List<Materias>> _subjectMaterias = BehaviorSubject<List<Materias>>();

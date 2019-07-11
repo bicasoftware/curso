@@ -1,4 +1,3 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
@@ -10,6 +9,7 @@ import 'package:curso/view/view_provas/view_provas.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
+import 'package:provider/provider.dart';
 
 class ViewPeriodos extends StatefulWidget {
   const ViewPeriodos({Key key}) : super(key: key);
@@ -21,7 +21,7 @@ class ViewPeriodos extends StatefulWidget {
 class ViewPeriodosState extends State<ViewPeriodos> {
   @override
   Widget build(BuildContext context) {
-    BlocMain b = BlocProvider.of<BlocMain>(context);
+    BlocMain b = Provider.of<BlocMain>(context);
 
     _onRefreshMaterias(int idPeriodo, List<Materias> materias) {
       b.updateMaterias(idPeriodo, materias);

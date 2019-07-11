@@ -1,11 +1,11 @@
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:curso/bloc/base_bloc.dart';
 import 'package:curso/container/horarios.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/flux.dart';
 import 'package:meta/meta.dart';
 
 
-class BlocPeriodo extends Bloc {
+class BlocPeriodo extends BaseBloc {
   Periodos _periodo;
   bool shouldUpdate = false;
 

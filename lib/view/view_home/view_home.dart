@@ -1,15 +1,15 @@
-import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
-import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_calendario/view_calendario.dart';
 import 'package:curso/view/view_home/widgets/view_home_appbar_action.dart';
 import 'package:curso/view/view_home/widgets/view_home_bottombar.dart';
 import 'package:curso/view/view_parciais/view_parciais.dart';
 import 'package:curso/view/view_periodos/view_periodos.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:morpheus/morpheus.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ViewHome extends StatefulWidget {
@@ -51,7 +51,7 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final b = BlocProvider.of<BlocMain>(context);
+    final b = Provider.of<BlocMain>(context);
 
     return Scaffold(
       backgroundColor: ThemeData.light().canvasColor,
@@ -91,9 +91,9 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
       body: Observer<int>(
         stream: outPos,
         onSuccess: (BuildContext context, int pos) => MorpheusTabView(
-              child: pages[pos],
-              duration: Duration(milliseconds: 300),
-            ),
+          child: pages[pos],
+          duration: Duration(milliseconds: 300),
+        ),
       ),
       bottomNavigationBar: Observer(
         stream: _subjectPos,
