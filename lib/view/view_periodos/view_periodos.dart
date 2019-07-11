@@ -2,16 +2,14 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/materias.dart';
 import 'package:curso/container/periodos.dart';
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
-import 'package:curso/utils.dart/dialogs.dart';
-import 'package:curso/widgets/padded_divider.dart';
-import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_list_item.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
+import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
 
 class ViewPeriodos extends StatefulWidget {
   const ViewPeriodos({Key key}) : super(key: key);
@@ -51,8 +49,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                     b.updatePeriodo(result);
                   }
                 },
-
-                onDelete: (int idPeriodo) => b.deletePeriodo(idPeriodo),               
+                onDelete: (int idPeriodo) => b.deletePeriodo(idPeriodo),
                 onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
                   _showViewInsertMaterias(
                       context, idPeriodo, materias, medAprov, _onRefreshMaterias);

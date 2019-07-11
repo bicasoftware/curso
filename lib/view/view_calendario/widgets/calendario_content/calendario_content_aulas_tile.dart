@@ -1,13 +1,13 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
-import 'package:curso/view/view_periodos_insert/horario_aula_tile_chip.dart';
+import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 typedef ListAulaAction(int selectedAction, AulasSemanaDTO aulasSemana);
 
-class CalendarioAulasDiaTile extends StatelessWidget {
-  const CalendarioAulasDiaTile({
+class CalendarioContentAulasTile extends StatelessWidget {
+  const CalendarioContentAulasTile({
     Key key,
     @required this.aulasSemana,
     @required this.ordem,
@@ -30,13 +30,15 @@ class CalendarioAulasDiaTile extends StatelessWidget {
         : Container(
             color: _getColor(),
             child: ListTile(
-              subtitle: Text("${ordem + 1}ª ${Strings.aula}"),
               dense: true,
-              title: Text(aulasSemana.nome),
-              leading: HorarioAulaChip(
-                color: Color(aulasSemana.cor),
-                text: "${formatTime(aulasSemana.horario)}",
+              subtitle: Text(
+                "${ordem + 1}ª ${Strings.aula} | ${formatTime(aulasSemana.horario)}",
               ),
+              leading: MateriaColorContainer(
+                color: Color(aulasSemana.cor),
+                size: 32,
+              ),
+              title: Text(aulasSemana.nome),
               trailing: PopupMenuButton<int>(
                 onSelected: (int i) => onOptionSelected(i, aulasSemana),
                 itemBuilder: (c) => entryList(),

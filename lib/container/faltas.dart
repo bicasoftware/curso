@@ -2,22 +2,21 @@ import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
-
 class Faltas implements BaseTable {
   int id;
   int idMateria;
   DateTime data;
   int numAula;
+
   ///Tipo pode ser 0 - Falta ou 1 - Aula Vaga
   int tipo;
 
-  Faltas({
-    @required this.id,
-    @required this.idMateria,
-    @required this.data,
-    @required this.numAula,
-    @required this.tipo
-  });
+  Faltas(
+      {@required this.id,
+      @required this.idMateria,
+      @required this.data,
+      @required this.numAula,
+      @required this.tipo});
 
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
@@ -66,7 +65,7 @@ class Faltas implements BaseTable {
   }
 
   @override
-  String toString(){
+  String toString() {
     return "id: $id, idMateria: $idMateria, data: ${formatDate(data)}, numAula: $numAula, tipo: $tipo";
   }
 }

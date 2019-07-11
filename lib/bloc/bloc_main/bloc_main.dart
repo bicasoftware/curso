@@ -23,22 +23,24 @@ class BlocMain extends Bloc {
   StateMain state;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();
-  get outDataDTO => _subDataDTO.stream;
-  get inDataDTO => _subDataDTO.sink;
+  Stream<DataDTO> get outDataDTO => _subDataDTO.stream;
+  Sink<DataDTO> get inDataDTO => _subDataDTO.sink;
 
   BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
-  get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
-  get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
+  Stream<Periodos> get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
+  Sink<Periodos> get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
 
   BehaviorSubject<List<Periodos>> _subjectListPeriodos = BehaviorSubject<List<Periodos>>();
-  get outListPeriodos => _subjectListPeriodos.stream;
-  get inListPeriodos => _subjectListPeriodos.sink;
+  Stream<List<Periodos>> get outListPeriodos => _subjectListPeriodos.stream;
+  Sink<List<Periodos>> get inListPeriodos => _subjectListPeriodos.sink;
 
   final _subProvasNotasMaterias =
       BehaviorSubject<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>>();
 
-  get outProvasNotasMaterias => _subProvasNotasMaterias.stream;
-  get inProvasNotasMaterias => _subProvasNotasMaterias.sink;
+  Stream<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>> get outProvasNotasMaterias =>
+      _subProvasNotasMaterias.stream;
+  Sink<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>> get inProvasNotasMaterias =>
+      _subProvasNotasMaterias.sink;
 
   final _subSelectedDate = BehaviorSubject<DateTime>();
   Stream<DateTime> get outSelectedDate => _subSelectedDate.stream;
@@ -169,8 +171,8 @@ class BlocMain extends Bloc {
         .whenComplete(() => _sinkPeriodos());
   }
 
-  updateAula({int idAula, int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
-    var aula = Aulas(
+  void updateAula({int idAula, int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
+    final aula = Aulas(
       idPeriodo: idPeriodo,
       idMateria: idMateria,
       weekDay: weekDay,
@@ -182,17 +184,17 @@ class BlocMain extends Bloc {
       ProviderAulas.insertAulas(aula),
     ]).then((List<Object> results) {
       state.deleteAula(idPeriodo, idAula);
-      state.insertAula(idPeriodo, idMateria, results[1]);
-    }).whenComplete(() => _sinkPeriodos());
+      state.insertAula(idPeriodo, idMateria, results[1] as Aulas);
+    }).whenComplete(_sinkPeriodos);
   }
 
-  _sinkFalta() {
+  void _sinkFalta() {
     inCalendario.add(state.currentCalendario);
     inParciais.add(state.provideParciais);
     inDataDTO.add(state.aulasDia);
   }
 
-  insertFalta({int idMateria, int ordemAula, DateTime date, int tipo}) async {
+  void insertFalta({int idMateria, int ordemAula, DateTime date, int tipo}) {
     ProviderFaltas.insertFalta(
       Faltas(
         id: null,
@@ -203,36 +205,29 @@ class BlocMain extends Bloc {
       ),
     ).then((Faltas f) {
       state.insertFalta(f);
-    }).whenComplete(() {
-      _sinkFalta();
-    });
+    }).whenComplete(_sinkFalta);
   }
 
-  deleteFalta({int idMateria, int idFalta, DateTime date, @required int tipoFalta}) {
+  void deleteFalta({int idMateria, int idFalta, DateTime date, @required int tipoFalta}) {
     ProviderFaltas.deleteFaltaById(idFalta)
         .then((_) => state.deleteFalta(idMateria, idFalta, date, tipoFalta))
-        .whenComplete(() {
-      _sinkFalta();
-      //_sinkCurrentPeriodo();
-    });
+        .whenComplete(_sinkFalta);
   }
 
-  insertNota(int idMateria) {
+  void insertNota(int idMateria) {
     final nota = Notas(id: null, nota: null, idMateria: idMateria, data: state.selectedDate);
     ProviderNotas.upsertNota(nota)
         .then((Notas nota) => state.insertNota(nota))
-        .whenComplete(() => _sinkProva());
+        .whenComplete(_sinkProva);
   }
 
-  updateNota(Notas nota) {
+  void updateNota(Notas nota) {
     ProviderNotas.upsertNota(nota)
         .then((Notas nota) => state.updateNota(nota))
-        .whenComplete(() => _sinkProva());
+        .whenComplete(_sinkProva);
   }
 
-  deleteNota(Notas nota) {
-    ProviderNotas.deleteNota(nota)
-        .then((_) => state.deleteNota(nota))
-        .whenComplete(() => _sinkProva());
+  void deleteNota(Notas nota) {
+    ProviderNotas.deleteNota(nota).then((_) => state.deleteNota(nota)).whenComplete(_sinkProva);
   }
 }

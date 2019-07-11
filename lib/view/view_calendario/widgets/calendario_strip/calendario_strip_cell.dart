@@ -19,45 +19,33 @@ class CalendarioStripCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorList = dataDTO.colorList;
-
-    return AnimatedSwitcher(
-      duration: Duration(milliseconds: 250),
-      switchInCurve: Curves.easeIn,
-      switchOutCurve: Curves.easeOut,
-      transitionBuilder: (Widget w, Animation<double> a) {
-        return FadeTransition(
-          opacity: a,
-          child: w,
-        );
-      },
-      child: Container(
-        key: UniqueKey(),
-        color: getCellColor(context),
-        width: 70,
-        child: InkWell(
-          onTap: onTap,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 4),
-                weekDayText(context),
-                SizedBox(height: 4),
-                RainbowIndicator(
-                  child: monthDayText(context),
-                  lineWidth: 1.5,
-                  size: Offset(25, 25),
-                  colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
-                ),
-                SizedBox(height: 4),
-                CellIndicator(
-                  isFalta: dataDTO.isFalta,
-                  isVaga: dataDTO.isVaga,
-                  hasProva: dataDTO.hasProvas,
-                ),
-                SizedBox(height: 4),
-              ],
-            ),
+    return Container(
+      key: ObjectKey(dataDTO),
+      color: getCellColor(context),
+      width: 70,
+      child: InkWell(
+        onTap: onTap,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 4),
+              weekDayText(context),
+              SizedBox(height: 4),
+              RainbowIndicator(
+                child: monthDayText(context),
+                lineWidth: 1.5,
+                size: Offset(25, 25),
+                colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
+              ),
+              SizedBox(height: 4),
+              CellIndicator(
+                isFalta: dataDTO.isFalta,
+                isVaga: dataDTO.isVaga,
+                hasProva: dataDTO.hasProvas,
+              ),
+              SizedBox(height: 4),
+            ],
           ),
         ),
       ),

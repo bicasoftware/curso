@@ -41,19 +41,7 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
           )
         ],
       ),      
-    );
-    /* return ListTile(
-      dense: true,
-      leading: HorarioAulaChip(
-        color: Color(provasNotasMaterias.materia.cor),
-        text: "Nota: ${formatNota(provasNotasMaterias.nota.nota)}",
-      ),
-      title: Text(provasNotasMaterias.materia.nome),
-      trailing: PopupMenuButton<int>(
-        onSelected: (i) => _onItemSelected(context, i),
-        itemBuilder: (c) => entryList(),
-      ),
-    ); */
+    );    
   }
 
   void _showUpdateNotaDialog(BuildContext context) async {
