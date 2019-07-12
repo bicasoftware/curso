@@ -4,14 +4,14 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
-typedef ListAulaAction(int selectedAction, AulasSemanaDTO aulasSemana);
+typedef ListAulaAction = Function(int selectedAction, AulasSemanaDTO aulasSemana);
 
 class CalendarioContentAulasTile extends StatelessWidget {
   const CalendarioContentAulasTile({
-    Key key,
     @required this.aulasSemana,
     @required this.ordem,
     @required this.onOptionSelected,
+    Key key,
   }) : super(key: key);
 
   final AulasSemanaDTO aulasSemana;
@@ -48,7 +48,7 @@ class CalendarioContentAulasTile extends StatelessWidget {
   }
 
   List<PopupMenuEntry<int>> entryList() {
-    final entryList = List<PopupMenuEntry<int>>();
+    final entryList = <PopupMenuEntry<int>>[];
 
     if (aulasSemana.idFalta == null) {
       entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.faltar)));

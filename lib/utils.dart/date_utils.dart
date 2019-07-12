@@ -16,11 +16,13 @@ DateTime get emptyDate => DateTime(1970, 1, 1);
 
 DateTime get lastDate => DateTime(2030, 12, 31);
 
-initializeCountry() => initializeDateFormatting("pt_BR", null);
+void initializeCountry() => initializeDateFormatting("pt_BR", null);
 
 String formatDate(DateTime date) {
   initializeCountry();
-  if (date == null) return "null";
+  if (date == null) {
+    return "null";
+  }
   return _fmt.format(date);
 }
 
@@ -45,7 +47,9 @@ DateTime parseTime(String time) {
 }
 
 DateTime parseTimeOfDay(TimeOfDay t) {
-  if (t == null) throw NullThrownError();
+  if (t == null) {
+    throw NullThrownError();
+  }
   return _timeFormat.parse("${t.hour}:${t.minute}");
 }
 
@@ -132,14 +136,14 @@ List<CalendarioDTO> prepareCalendario({
   @required List<Notas> provas,
 }) {
   final rightEnd = end.add(Duration(days: 1));
-  final calendario = List<CalendarioDTO>();
+  final calendario = <CalendarioDTO>[];
 
   for (var m = start.month; m <= rightEnd.month; m++) {
     final inCalendario = CalendarioDTO(mes: m, dates: []);
 
     while (m == start.month && start.isBefore(rightEnd)) {
       ///Cria uma nova lista de aulas
-      final aulas = List<AulasSemanaDTO>();
+      final aulas = <AulasSemanaDTO>[];
       aulasByWeekDay
           .where((AulasSemanaDTO aulas) => aulas.weekDay == getWeekday(start))
           .forEach((aula) => aulas.add(AulasSemanaDTO.copyWith(aula)));

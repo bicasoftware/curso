@@ -24,7 +24,7 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
         children: [
           IconButton(
             icon: Icon(Icons.keyboard_arrow_left),
-            onPressed: () => b.decMes(),
+            onPressed: b.decMes,
             splashColor: Colors.white,
           ),
           Expanded(
@@ -48,7 +48,7 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
           ),
           IconButton(
             icon: Icon(Icons.keyboard_arrow_right),
-            onPressed: () => b.incMes(),
+            onPressed: b.incMes,
             splashColor: Colors.white,
           ),
         ],

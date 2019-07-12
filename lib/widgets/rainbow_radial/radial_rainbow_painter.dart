@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class RadialRainbowPainter extends CustomPainter {
   List<Color> colors;
@@ -7,17 +8,17 @@ class RadialRainbowPainter extends CustomPainter {
   RadialRainbowPainter({this.colors, this.width});
   @override
   void paint(Canvas canvas, Size size) {
-    Offset center = new Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2);
+    final Offset center = Offset(size.width / 2, size.height / 2);
+    final double radius = min(size.width / 2, size.height / 2);
 
     for (var i = colors.length; i > 0; i--) {
-      Paint arc = new Paint()
-        ..color = colors[i-1]
+      final Paint arc = Paint()
+        ..color = colors[i - 1]
         ..strokeCap = StrokeCap.square
         ..style = PaintingStyle.stroke
         ..strokeWidth = width;
 
-      double arcAngle = 2 * pi * (i / colors.length);
+      final double arcAngle = 2 * pi * (i / colors.length);
 
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),

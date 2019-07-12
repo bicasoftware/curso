@@ -30,14 +30,20 @@ int calcNumAulasSemestre({
 
 int countWeekDayInRange(DateTime inicio, DateTime termino, int dayToCount) {
   initializeDateFormatting("pt_BR", null);
-  if (inicio.isAfter(termino)) throw Exception(Errors.datasInvalidas);
+  if (inicio.isAfter(termino)) {
+    throw Exception(Errors.datasInvalidas);
+  }
   int count = 0;
   DateTime currentDay = inicio;
   while (currentDay.isBefore(termino)) {
-    if (getWeekday(currentDay) == dayToCount) count += 1;
+    if (getWeekday(currentDay) == dayToCount) {
+      count += 1;
+    }
     currentDay = currentDay.add(Duration(days: 1));
   }
-  if (getWeekday(currentDay) == dayToCount) count += 1;
+  if (getWeekday(currentDay) == dayToCount) {
+    count += 1;
+  }
 
   return count;
 }

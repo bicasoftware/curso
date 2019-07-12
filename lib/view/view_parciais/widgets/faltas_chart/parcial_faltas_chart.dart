@@ -7,16 +7,16 @@ class ParcialFaltasChart extends StatelessWidget {
   final int faltas, vagas, aulasTilDate, totalAulas;
 
   const ParcialFaltasChart({
-    Key key,
     @required this.totalAulas,
     @required this.faltas,
     @required this.vagas,
     @required this.aulasTilDate,
+    Key key,
   }) : super(key: key);
 
-  int get presenca => (aulasTilDate - faltas - vagas);
+  int get presenca => aulasTilDate - faltas - vagas;
 
-  int get restantes => (totalAulas - aulasTilDate);
+  int get restantes => totalAulas - aulasTilDate;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class ParcialFaltasChart extends StatelessWidget {
       title: Text(Strings.frequencia),
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               PieChart(
-                dataMap: Map<String, double>()
-                  ..putIfAbsent("${Strings.faltas} -> $faltas", () => faltas.toDouble())
-                  ..putIfAbsent("${Strings.vagas} -> $vagas", () => vagas.toDouble())
+                dataMap: <String, double>{}
+                  ..putIfAbsent("${Strings.faltas} -> $faltas", faltas.toDouble)
+                  ..putIfAbsent("${Strings.vagas} -> $vagas", vagas.toDouble)
                   ..putIfAbsent("${Strings.presencas} -> $presenca", () => presenca.toDouble())
                   ..putIfAbsent("Restantes", () => restantes.toDouble()),
                 chartValuesColor: Colors.black,
@@ -41,7 +41,7 @@ class ParcialFaltasChart extends StatelessWidget {
                 showChartValuesOutside: true,
                 showLegends: false,
               ),
-              Divider(height: 32),
+              const Divider(height: 32),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

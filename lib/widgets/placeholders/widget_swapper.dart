@@ -5,10 +5,10 @@ class WidgetSwapper extends StatelessWidget {
   final bool Function() switchingCase;
 
   const WidgetSwapper({
-    Key key,
     @required this.realWidget,
     @required this.placeholder,
     @required this.switchingCase,
+    Key key,
   }) : super(key: key);
 
   @override

@@ -25,7 +25,7 @@ class CellIndicator extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: indicators.length > 0 ? indicators : [_indicator(Colors.transparent.value)],
+      children: indicators.isNotEmpty ? indicators : [_indicator(Colors.transparent.value)],
     );
   }
 
@@ -36,7 +36,7 @@ class CellIndicator extends StatelessWidget {
         color: cor,
         size: 5,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
     );
   }
 }

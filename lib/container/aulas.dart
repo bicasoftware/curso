@@ -27,7 +27,7 @@ class Aulas implements BaseTable {
 
   static String tableName = "aulas";
 
-  static Aulas fromMap(Map m) {
+  factory Aulas.fromMap(Map m) {
     return Aulas(
       id: m[ID],
       idMateria: m[IDMATERIA],
@@ -39,14 +39,16 @@ class Aulas implements BaseTable {
 
   @override
   Map toMap() {
-    Map<String, dynamic> m = {
+    final Map<String, dynamic> m = {
       IDPERIODO: idPeriodo,
       IDMATERIA: idMateria,
       WEEKDAY: weekDay,
       ORDEM: ordem,
     };
 
-    if (id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
     return m;
   }
 

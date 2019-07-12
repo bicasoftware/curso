@@ -74,19 +74,21 @@ class Materias implements BaseTable {
       COR: cor,
     };
 
-    if (id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
 
     return m;
   }
 
-  static Materias fromMap(Map m) {
+  factory Materias.fromMap(Map m) {
     return Materias(
       id: m[ID],
       idPeriodo: m[IDPERIODO],
       nome: m[NOME],
       sigla: m[SIGLA],
       medAprov: m[MEDAPROV],
-      freq: m[FREQ] == 1 ? true : false,
+      freq: m[FREQ] == 1,
       cor: m[COR],
     );
   }
@@ -98,33 +100,31 @@ class Materias implements BaseTable {
 
   Materias clone() {
     return Materias(
-      id: this.id,
-      idPeriodo: this.idPeriodo,
-      nome: this.nome,
-      sigla: this.sigla,
-      cor: this.cor,
+      id: id,
+      idPeriodo: idPeriodo,
+      nome: nome,
+      sigla: sigla,
+      cor: cor,
     );
   }
 
-
-
-  insertFalta(Faltas falta) {
+  void insertFalta(Faltas falta) {
     faltas.add(falta);
   }
 
-  deleteFalta(int idFalta) {
+  void deleteFalta(int idFalta) {
     faltas.removeWhere((f) => f.id == idFalta);
   }
 
-  insertNota(Notas nota) {
+  void insertNota(Notas nota) {
     notas.add(nota);
   }
 
-  deleteNota(Notas nota) {
+  void deleteNota(Notas nota) {
     notas.remove(nota);
   }
 
-  updateNota(Notas nota) {
+  void updateNota(Notas nota) {
     notas.firstWhere((n) => n.id == nota.id).updateNota(nota.nota);
   }
 }

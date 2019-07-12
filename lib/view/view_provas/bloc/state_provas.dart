@@ -8,18 +8,18 @@ class StateProvas {
   List<NotasContainer> provas;
 
   StateProvas(Periodos periodo) {
-    provas = List<NotasContainer>();
+    provas = <NotasContainer>[];
     _prepareFaltas(periodo.inicio, periodo.termino, periodo.materias);
   }
 
   List<Notas> _extractNotas(List<Materias> materias) {
-    final notas = List<Notas>();
+    final notas = <Notas>[];
     materias.forEach((m) => notas.addAll(m.notas));
     notas.sort((a, b) => a.data.compareTo(b.data));
     return notas;
   }
 
-  _prepareFaltas(DateTime inicio, DateTime termino, List<Materias> materias) {
+  void _prepareFaltas(DateTime inicio, DateTime termino, List<Materias> materias) {
     provas.clear();
     final notas = _extractNotas(materias);
     final mesesComNotas = notas.map((n) => n.data.month).toSet();

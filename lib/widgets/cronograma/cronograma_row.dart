@@ -11,17 +11,17 @@ class CronogramaRow extends StatelessWidget {
   final Periodos periodo;
 
   const CronogramaRow({
-    Key key,
     @required this.ordemAula,
     @required this.container,
     @required this.onTap,
     @required this.periodo,
+    Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 1),
+      margin: const EdgeInsets.symmetric(vertical: 1),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,

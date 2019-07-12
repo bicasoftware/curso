@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class BottomSheetMaterias extends StatelessWidget {
   final List<Materias> materias;
 
-  const BottomSheetMaterias({Key key, @required this.materias}) : super(key: key);
+  const BottomSheetMaterias({
+    @required this.materias,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +21,11 @@ class BottomSheetMaterias extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Spacer(flex: 2),
+              const Spacer(flex: 2),
               Expanded(
                 flex: 10,
                 child: Text(
@@ -38,7 +41,7 @@ class BottomSheetMaterias extends StatelessWidget {
             ],
           ),
         ),
-        PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+        const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
         Expanded(
           child: ListView(
             children: [

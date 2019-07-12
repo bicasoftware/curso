@@ -9,15 +9,15 @@ class ParcialNotasItem extends StatelessWidget {
   final double medAprov;
 
   const ParcialNotasItem({
-    Key key,
     @required this.nota,
     @required this.medAprov,
+    Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

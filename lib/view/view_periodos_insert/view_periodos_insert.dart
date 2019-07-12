@@ -15,8 +15,8 @@ class ViewPeriodosInsert extends StatefulWidget {
   final Periodos periodo;
 
   const ViewPeriodosInsert({
-    Key key,
     @required this.periodo,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -133,7 +133,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
                     child: Text(
@@ -156,9 +156,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       return ViewPeriodosInsertBuilder.listHorarios(
                         aulasDia: data[0],
                         horarios: data[1],
-                        onOrdemAulaTap: (int ordemAula, DateTime inicio, DateTime termino) {
-                          _showDateRangeView(ordemAula, inicio, termino);
-                        },
+                        onOrdemAulaTap: _showDateRangeView,
                       );
                     },
                   ),
@@ -171,8 +169,8 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
     );
   }
 
-  _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
-    ViewHorarioAulasResult result = await Navigator.of(context).push(
+  void _showDateRangeView(int ordemAula, DateTime inicio, DateTime termino) async {
+    final ViewHorarioAulasResult result = await Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (c) {

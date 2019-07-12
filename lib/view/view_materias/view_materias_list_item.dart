@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 
 class ViewMateriasListItem extends StatelessWidget {
   const ViewMateriasListItem({
-    Key key,
     @required this.context,
     @required this.m,
     @required this.pos,
     @required this.onTap,
     @required this.onDelete,
+    Key key,
   }) : super(key: key);
 
   final BuildContext context;

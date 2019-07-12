@@ -10,20 +10,21 @@ class BlocProvas implements BaseBloc {
   StateProvas state;
 
   BlocProvas(Periodos periodo) {
-    this.state = StateProvas(periodo);
+    state = StateProvas(periodo);
     inFaltas.add(state.provas);
   }
 
-  BehaviorSubject<List<NotasContainer>> _subjectFaltas = BehaviorSubject<List<NotasContainer>>();
-  get outFaltas => _subjectFaltas.stream;
-  get inFaltas => _subjectFaltas.sink;
+  final BehaviorSubject<List<NotasContainer>> _subjectFaltas =
+      BehaviorSubject<List<NotasContainer>>();
+  Stream<List<NotasContainer>> get outFaltas => _subjectFaltas.stream;
+  Sink<List<NotasContainer>> get inFaltas => _subjectFaltas.sink;
 
   @override
   void dispose() {
     _subjectFaltas.close();
   }
 
-  updateProva(Notas nota) {
+  void updateProva(Notas nota) {
     state.updateProva(nota);
     inFaltas.add(state.provas);
   }

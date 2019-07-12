@@ -15,12 +15,12 @@ double calcPorcentagemAulas(int totalAulas, int totalFaltas) {
 
 double calcMedia(List<double> notas) {
   double somaNotas;
-  if (notas.length > 0) {
+  if (notas.isNotEmpty) {
     somaNotas = 0.0;
     notas.forEach((double n) => somaNotas += n);
   }
 
-  if (somaNotas == null || notas.length == 0) {
+  if (somaNotas == null || notas.isEmpty) {
     return null;
   } else {
     return somaNotas / notas.length;

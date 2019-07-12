@@ -12,9 +12,9 @@ import 'provider_faltas.dart';
 import 'provider_notas.dart';
 
 class ProviderMaterias {
-  final providerFaltas = ProviderFaltas();
-  final providerNotas = ProviderNotas();
-  final providerAulas = ProviderAulas();
+  final ProviderFaltas providerFaltas = ProviderFaltas();
+  final ProviderNotas providerNotas = ProviderNotas();
+  final ProviderAulas providerAulas = ProviderAulas();
 
   static Future<List<Materias>> fetchMateriasByPeriodo(int idPeriodo) async {
     final db = await DBProvider.instance;
@@ -55,7 +55,9 @@ class ProviderMaterias {
   }
 
   static Future<Materias> insertMateria(Materias materia) async {
-    if (materia.idPeriodo == null) throw Exception("Faltando idPeriodo em $materia");
+    if (materia.idPeriodo == null) {
+      throw Exception("Faltando idPeriodo em $materia");
+    }
     final db = await DBProvider.instance;
     final id = await db.insert(Materias.tableName, materia.toMap());
     return materia..id = id;
@@ -98,7 +100,7 @@ class ProviderMaterias {
       batch.insert(Faltas.tableName, (falta..id = null).toMap());
     });
 
-    batch.commit();
+    await batch.commit();
     return await fetchMateriasById(materia.id);
   }
 

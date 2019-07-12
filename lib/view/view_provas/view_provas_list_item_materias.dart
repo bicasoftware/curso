@@ -9,9 +9,9 @@ class ViewProvasListItemMaterias extends StatelessWidget {
   final Function(Notas) onTap;
 
   const ViewProvasListItemMaterias({
-    Key key,
     @required this.materias,
     @required this.onTap,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class ViewProvasListItemMaterias extends StatelessWidget {
               dense: true,
               leading: MateriaColorContainer(color: Color(m.cor), size: 24),
               title: Text(m.nome),
-              trailing: Text((formatNota(m.notas.nota ?? 0.0))),
+              trailing: Text(formatNota(m.notas.nota ?? 0.0)),
             ),
           )
       ],

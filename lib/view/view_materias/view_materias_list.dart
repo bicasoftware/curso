@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class ViewMateriasList extends StatelessWidget {
   const ViewMateriasList({
-    Key key,
     @required this.materias,
     @required this.onTap,
     @required this.onDelete,
+    Key key,
   }) : super(key: key);
 
   final List<Materias> materias;
@@ -32,7 +32,7 @@ class ViewMateriasList extends StatelessWidget {
               if (i == materias.length - 1)
                 Container()
               else
-                PaddedDivider(padding: EdgeInsets.only(left: 72, right: 16))
+                const PaddedDivider(padding: EdgeInsets.only(left: 72, right: 16))
             ],
           );
         },

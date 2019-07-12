@@ -8,10 +8,10 @@ class ParcialNotaProgress extends StatefulWidget {
   final ParciaisStatus status;
 
   const ParcialNotaProgress({
-    Key key,
     @required this.notaAprov,
     @required this.notaAtual,
     @required this.status,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -56,7 +56,7 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
             backgroundColor: Colors.black12,
             value: widget.notaAprov / 10,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[

@@ -35,7 +35,7 @@ class ProviderPeriodos {
       h.id = await db.insert(Horarios.tableName, h.toMap());
     }
     periodo.id = newId;
-    await periodo.refreshCalendario();
+    periodo.refreshCalendario();
     periodo.prepareParciais();
 
     return periodo;
@@ -51,7 +51,7 @@ class ProviderPeriodos {
       whereArgs: [periodo.id],
     );
 
-    db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [periodo.id]);
+    await db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [periodo.id]);
     for (var h in periodo.horarios) {
       h.id = await db.insert(Horarios.tableName, (h..id = null).toMap());
     }

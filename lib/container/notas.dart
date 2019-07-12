@@ -31,21 +31,22 @@ class Notas implements BaseTable {
 
   @override
   Map toMap() {
-    Map<String, dynamic> m = {
+    final Map<String, dynamic> m = {
       IDMATERIA: idMateria,
       DATA: formatDbDate(data),
       NOTA: nota,
     };
 
-    if(id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
 
     return m;
   }
 
-
   static String tableName = "notas";
 
-  static Notas fromMap(Map m){
+  factory Notas.fromMap(Map m) {
     return Notas(
       id: m[ID],
       idMateria: m[IDMATERIA],
@@ -55,9 +56,9 @@ class Notas implements BaseTable {
   }
 
   @override
-  String toString(){
+  String toString() {
     return "id: $id, idMateria: $idMateria, data: $data, nota: $nota";
   }
 
-  void updateNota(double novaNota) => this.nota = novaNota;
+  void updateNota(double novaNota) => nota = novaNota;
 }

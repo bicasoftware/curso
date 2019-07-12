@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:curso/container/aulas.dart';
 import 'package:curso/container/faltas.dart';
 import 'package:curso/container/horarios.dart';
@@ -9,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:async';
 
 class DBProvider {
   static final DBProvider _instance = DBProvider._internal();
@@ -27,16 +28,14 @@ class DBProvider {
   }
 
   static Future<Database> get instance async {
-    if (_db == null) _db = await _create();
-    return _db;
+    return _db ??= await _create();
   }
 
   static Future<Database> _create() async {
-    var path = await getApplicationDocumentsDirectory();
-    var dbPath = join(path.path, _DBNAME);
+    final path = await getApplicationDocumentsDirectory();
+    final dbPath = join(path.path, _DBNAME);
 
-    _db = await openDatabase(dbPath, version: _VERSION, onCreate: _createTables);
-    return _db;
+    return _db = await openDatabase(dbPath, version: _VERSION, onCreate: _createTables);
   }
 
   static Future _createTables(Database db, int version) async {
@@ -52,7 +51,7 @@ class DBProvider {
 
   static Future _initializeConf(Database db) async {
     await db.transaction((tr) async {
-      tr.insert(
+      await tr.insert(
         Periodos.tableName,
         Periodos(
           id: 1,
@@ -159,34 +158,33 @@ class DBProvider {
       final nota3 = Notas(id: null, idMateria: 3, nota: null, data: DateTime(2019, 8, 7));
       final nota4 = Notas(id: null, idMateria: 4, nota: null, data: DateTime(2019, 8, 8));
 
-      tr.insert(Horarios.tableName, hora1.toMap());
-      tr.insert(Horarios.tableName, hora2.toMap());
-      tr.insert(Horarios.tableName, hora3.toMap());
-      tr.insert(Horarios.tableName, hora4.toMap());
-      tr.insert(Materias.tableName, m1.toMap());
-      tr.insert(Materias.tableName, m2.toMap());
-      tr.insert(Materias.tableName, m3.toMap());
-      tr.insert(Materias.tableName, m4.toMap());
-      tr.insert(Materias.tableName, m5.toMap());
-      tr.insert(Aulas.tableName, aula1.toMap());
-      tr.insert(Aulas.tableName, aula2.toMap());
-      tr.insert(Aulas.tableName, aula3.toMap());
-      tr.insert(Aulas.tableName, aula4.toMap());
-      tr.insert(Aulas.tableName, aula5.toMap());
-      tr.insert(Aulas.tableName, aula6.toMap());
-      tr.insert(Aulas.tableName, aula7.toMap());
-      tr.insert(Aulas.tableName, aula8.toMap());
-      tr.insert(Aulas.tableName, aula9.toMap());
-      tr.insert(Aulas.tableName, aula10.toMap());
-      tr.insert(Aulas.tableName, aula11.toMap());
-      tr.insert(Aulas.tableName, aula12.toMap());
-      tr.insert(Aulas.tableName, aula13.toMap());
-      tr.insert(Aulas.tableName, aula14.toMap());
-
-      tr.insert(Notas.tableName, nota1.toMap());
-      tr.insert(Notas.tableName, nota2.toMap());
-      tr.insert(Notas.tableName, nota3.toMap());
-      tr.insert(Notas.tableName, nota4.toMap());
+      await tr.insert(Horarios.tableName, hora1.toMap());
+      await tr.insert(Horarios.tableName, hora2.toMap());
+      await tr.insert(Horarios.tableName, hora3.toMap());
+      await tr.insert(Horarios.tableName, hora4.toMap());
+      await tr.insert(Materias.tableName, m1.toMap());
+      await tr.insert(Materias.tableName, m2.toMap());
+      await tr.insert(Materias.tableName, m3.toMap());
+      await tr.insert(Materias.tableName, m4.toMap());
+      await tr.insert(Materias.tableName, m5.toMap());
+      await tr.insert(Aulas.tableName, aula1.toMap());
+      await tr.insert(Aulas.tableName, aula2.toMap());
+      await tr.insert(Aulas.tableName, aula3.toMap());
+      await tr.insert(Aulas.tableName, aula4.toMap());
+      await tr.insert(Aulas.tableName, aula5.toMap());
+      await tr.insert(Aulas.tableName, aula6.toMap());
+      await tr.insert(Aulas.tableName, aula7.toMap());
+      await tr.insert(Aulas.tableName, aula8.toMap());
+      await tr.insert(Aulas.tableName, aula9.toMap());
+      await tr.insert(Aulas.tableName, aula10.toMap());
+      await tr.insert(Aulas.tableName, aula11.toMap());
+      await tr.insert(Aulas.tableName, aula12.toMap());
+      await tr.insert(Aulas.tableName, aula13.toMap());
+      await tr.insert(Aulas.tableName, aula14.toMap());
+      await tr.insert(Notas.tableName, nota1.toMap());
+      await tr.insert(Notas.tableName, nota2.toMap());
+      await tr.insert(Notas.tableName, nota3.toMap());
+      await tr.insert(Notas.tableName, nota4.toMap());
     });
   }
 

@@ -26,11 +26,11 @@ class BlocMain extends BaseBloc {
   Stream<DataDTO> get outDataDTO => _subDataDTO.stream;
   Sink<DataDTO> get inDataDTO => _subDataDTO.sink;
 
-  BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
+  final BehaviorSubject<Periodos> _subjectCurrentPeriodo = BehaviorSubject<Periodos>();
   Stream<Periodos> get outCurrentPeriodo => _subjectCurrentPeriodo.stream;
   Sink<Periodos> get inCurrentPeriodo => _subjectCurrentPeriodo.sink;
 
-  BehaviorSubject<List<Periodos>> _subjectListPeriodos = BehaviorSubject<List<Periodos>>();
+  final BehaviorSubject<List<Periodos>> _subjectListPeriodos = BehaviorSubject<List<Periodos>>();
   Stream<List<Periodos>> get outListPeriodos => _subjectListPeriodos.stream;
   Sink<List<Periodos>> get inListPeriodos => _subjectListPeriodos.sink;
 
@@ -50,19 +50,16 @@ class BlocMain extends BaseBloc {
   Stream<List<AulasSemanaDTO>> get outAulasAgendamento => _subAulasAgendamento.stream;
   Sink<List<AulasSemanaDTO>> get inAulasAgendamento => _subAulasAgendamento.sink;
 
-  BehaviorSubject<Parciais> _subjectParciais = BehaviorSubject<Parciais>();
-  get outParciais => _subjectParciais.stream;
-  get inParciais => _subjectParciais.sink;
+  final BehaviorSubject<Parciais> _subjectParciais = BehaviorSubject<Parciais>();
+  Stream<Parciais> get outParciais => _subjectParciais.stream;
+  Sink<Parciais> get inParciais => _subjectParciais.sink;
 
-  BehaviorSubject<CalendarioDTO> _bhsCalendario = BehaviorSubject<CalendarioDTO>();
+  final BehaviorSubject<CalendarioDTO> _bhsCalendario = BehaviorSubject<CalendarioDTO>();
   Stream<CalendarioDTO> get outCalendario => _bhsCalendario.stream;
   Sink<CalendarioDTO> get inCalendario => _bhsCalendario.sink;
 
-  BlocMain({
-    List<Periodos> periodos,
-    int pos,
-  }) {
-    this.state = StateMain(
+  BlocMain({List<Periodos> periodos}) {
+    state = StateMain(
       periodos: periodos,
     );
 
@@ -82,7 +79,7 @@ class BlocMain extends BaseBloc {
     _bhsCalendario.close();
   }
 
-  _sinkPeriodos() {
+  void _sinkPeriodos() {
     inSelectedDate.add(state.selectedDate);
     inCalendario.add(state.currentCalendario);
     inParciais.add(state.provideParciais);
@@ -90,7 +87,7 @@ class BlocMain extends BaseBloc {
     inCurrentPeriodo.add(state.currentPeriodo);
   }
 
-  _sinkCurrentPeriodo() {
+  void _sinkCurrentPeriodo() {
     inDataDTO.add(state.aulasDia);
     inSelectedDate.add(state.selectedDate);
     inCalendario.add(state.currentCalendario);
@@ -100,7 +97,7 @@ class BlocMain extends BaseBloc {
     inParciais.add(state.provideParciais);
   }
 
-  _sinkProva() {
+  void _sinkProva() {
     inCalendario.add(state.currentCalendario);
     inProvasNotasMaterias.add(
       Pair(first: state.provasNotasByDate, second: state.aulasByWeekDay),
@@ -109,50 +106,50 @@ class BlocMain extends BaseBloc {
     inAulasAgendamento.add(state.aulasAgendaveis);
   }
 
-  incMes() {
+  void incMes() {
     state.incMes();
     _sinkCurrentPeriodo();
   }
 
-  decMes() {
+  void decMes() {
     state.decMes();
     _sinkCurrentPeriodo();
   }
 
-  setCurrentPeriodoId(int idPeriodo) {
+  void setCurrentPeriodoId(int idPeriodo) {
     state.setCurrentPeriodoId(idPeriodo);
     _sinkCurrentPeriodo();
   }
 
-  setCurrentDate(DateTime date) {
+  void setCurrentDate(DateTime date) {
     state.setSelectedDate(date);
     _sinkCurrentPeriodo();
   }
 
-  updatePeriodo(Periodos periodo) {
+  void updatePeriodo(Periodos periodo) {
     ProviderPeriodos.updatePeriodo(periodo)
         .then((Periodos p) => state.updatePeriodo(p))
-        .whenComplete(() => _sinkPeriodos());
+        .whenComplete(_sinkPeriodos);
   }
 
-  insertPeriodo(Periodos periodo) {
+  void insertPeriodo(Periodos periodo) {
     ProviderPeriodos.insertPeriodo(periodo)
         .then((Periodos p) => state.addPeriodo(p))
-        .whenComplete(() => _sinkPeriodos());
+        .whenComplete(_sinkPeriodos);
   }
 
-  deletePeriodo(int idPeriodo) {
+  void deletePeriodo(int idPeriodo) {
     ProviderPeriodos.deletePeriodo(idPeriodo)
         .then((a) => state.removePeriodoById(idPeriodo))
-        .whenComplete(() => _sinkPeriodos());
+        .whenComplete(_sinkPeriodos);
   }
 
-  updateMaterias(int idPeriodo, List<Materias> materias) {
+  void updateMaterias(int idPeriodo, List<Materias> materias) {
     state.refreshMaterias(idPeriodo, materias);
     _sinkPeriodos();
   }
 
-  insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
+  void insertAula({int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
     final aula = Aulas(
       idPeriodo: idPeriodo,
       idMateria: idMateria,
@@ -162,13 +159,13 @@ class BlocMain extends BaseBloc {
 
     ProviderAulas.insertAulas(aula)
         .then((Aulas a) => state.insertAula(idPeriodo, idMateria, aula))
-        .whenComplete(() => _sinkPeriodos());
+        .whenComplete(_sinkPeriodos);
   }
 
-  deleteAula({int idAula, int idPeriodo}) {
+  void deleteAula({int idAula, int idPeriodo}) {
     ProviderAulas.deleteAulasById(idAula)
         .then((a) => state.deleteAula(idPeriodo, idAula))
-        .whenComplete(() => _sinkPeriodos());
+        .whenComplete(_sinkPeriodos);
   }
 
   void updateAula({int idAula, int idPeriodo, int idMateria, int weekDay, int ordemAula}) {
@@ -208,7 +205,12 @@ class BlocMain extends BaseBloc {
     }).whenComplete(_sinkFalta);
   }
 
-  void deleteFalta({int idMateria, int idFalta, DateTime date, @required int tipoFalta}) {
+  void deleteFalta({
+    @required int tipoFalta,
+    int idMateria,
+    int idFalta,
+    DateTime date,
+  }) {
     ProviderFaltas.deleteFaltaById(idFalta)
         .then((_) => state.deleteFalta(idMateria, idFalta, date, tipoFalta))
         .whenComplete(_sinkFalta);

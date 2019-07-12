@@ -27,9 +27,11 @@ class ProviderNotas {
 
   static Future<Notas> upsertNota(Notas nota) async {
     final db = await DBProvider.instance;
-    if (nota.idMateria == null) throw Exception("Faltando IDMATERIA em $nota");
+    if (nota.idMateria == null) {
+      throw Exception("Faltando IDMATERIA em $nota");
+    }
     if (nota.id == null) {
-      int id = await db.insert(Notas.tableName, nota.toMap());
+      final id = await db.insert(Notas.tableName, nota.toMap());
       nota.id = id;
     } else {
       await db.update(

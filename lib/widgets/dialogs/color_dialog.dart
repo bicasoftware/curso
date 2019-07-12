@@ -6,21 +6,21 @@ class ColorDialog extends StatelessWidget {
   final Function(int) onTap;
 
   const ColorDialog({
-    Key key,
     @required this.onTap,
+    Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Row(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   Strings.selectCor,
                   style: TextStyle(fontSize: 18),
@@ -30,13 +30,13 @@ class ColorDialog extends StatelessWidget {
           ),
           GridView.count(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 10 : 5,
             children: Arrays.materialColors.map((int cor) {
               return GestureDetector(
                 onTap: () => onTap(cor),
                 child: Container(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   child: CircleAvatar(backgroundColor: Color(cor)),
                 ),
               );

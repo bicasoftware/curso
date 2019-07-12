@@ -13,7 +13,7 @@ class Flux<T> implements Sink<T> {
   Stream<T> _outHelper;
   Sink<T> _inHelper;
 
-  ///Grava um valor de forma síncrona para leitura sem [StreamBuilder]
+  ///Grava um valor de forma síncrona para leitura sem StreamBuilder
   ///Útil em telas onde é necessário validar alterações antes de retornar valores reais
   T _value;
 
@@ -42,6 +42,7 @@ class Flux<T> implements Sink<T> {
   T get value => _value;
 
   ///Fecha a [Sink]
+  @override
   void close() => _bhsHelper.close();
 
   ///Retorna se o valor foi alterado

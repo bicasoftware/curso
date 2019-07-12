@@ -11,12 +11,12 @@ class ViewPeriodosButtombar extends StatelessWidget {
   final Function(Periodos) onNotasTap;
 
   const ViewPeriodosButtombar({
-    Key key,
     @required this.periodo,
     @required this.onUpdateTap,
     @required this.onDelete,
     @required this.onMateriasTap,
     @required this.onNotasTap,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class ViewPeriodosButtombar extends StatelessWidget {
           child: Text(Strings.materias, style: style),
           onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
       ],
     );
   }

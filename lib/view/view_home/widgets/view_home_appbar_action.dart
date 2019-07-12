@@ -10,9 +10,9 @@ class ViewHomeAppbarAction extends StatelessWidget {
   final Function(Periodos) onInsertPeriodos;
 
   const ViewHomeAppbarAction({
-    Key key,
     @required this.pos,
     @required this.onInsertPeriodos,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,9 @@ class ViewHomeAppbarAction extends StatelessWidget {
         ),
       );
 
-      if (result != null) onInsertPeriodos(result);
+      if (result != null) {
+        onInsertPeriodos(result);
+      }
     }
 
     Widget getActionByPos(int pos) {

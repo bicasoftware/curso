@@ -16,13 +16,13 @@ class ViewPeriodosListItem extends StatelessWidget {
   final Function(int, int, Periodos, int) onCellClick;
 
   const ViewPeriodosListItem({
-    Key key,
     @required this.periodo,
     @required this.onUpdateTap,
     @required this.onDelete,
     @required this.onMateriasTap,
     @required this.onNotasTap,
     @required this.onCellClick,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -52,7 +52,7 @@ class ViewPeriodosListItem extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 ViewPeriodosCronogramaHeader(),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Cronograma(periodo: periodo, onCellClick: onCellClick),
               ],
             ),

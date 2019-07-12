@@ -1,6 +1,5 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/notas.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
@@ -84,7 +83,7 @@ class CalendarioAulasProvas extends StatelessWidget {
                   },
                 ),
             ],
-            if (faltasNotasMaterias.first.length > 0) ...[
+            if (faltasNotasMaterias.first.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Text(Strings.provas, style: style),
@@ -93,21 +92,23 @@ class CalendarioAulasProvas extends StatelessWidget {
                 for (int i = 0; i < faltasNotasMaterias.first.length; i++)
                   CalendarioProvasDiaListTile(
                     provasNotasMaterias: faltasNotasMaterias.first[i],
-                    onDeleted: (Notas n) => b.deleteNota(n),
-                    onUpdateNota: (Notas nota) => b.updateNota(nota),
+                    onDeleted: b.deleteNota,
+                    onUpdateNota: b.updateNota,
                   )
               ],
             ],
-            if (aulasAgendamento.length > 0)
+            if (aulasAgendamento.isNotEmpty)
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: MaterialButton(
                   color: Theme.of(context).accentColor,
                   colorBrightness: Brightness.dark,
-                  child: Text("Agendar Prova"),
+                  child: const Text("Agendar Prova"),
                   onPressed: () {
                     BottomSheets.showBtsProvasDia(context, aulasAgendamento).then((id) {
-                      if (id != null) b.insertNota(id);
+                      if (id != null) {
+                        b.insertNota(id);
+                      }
                     });
                   },
                 ),

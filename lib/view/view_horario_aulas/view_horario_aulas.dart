@@ -8,12 +8,13 @@ class ViewHorarioAulas extends StatefulWidget {
   final TimeOfDay inicio, termino;
 
   const ViewHorarioAulas({
-    Key key,
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,
+    Key key,
   }) : super(key: key);
 
+  @override
   _ViewHorarioAulasState createState() => _ViewHorarioAulasState();
 }
 
@@ -29,13 +30,13 @@ class _ViewHorarioAulasState extends State<ViewHorarioAulas> {
     _termino = widget.termino;
   }
 
-  _setInicio(TimeOfDay time) {
+  void _setInicio(TimeOfDay time) {
     setState(() {
       _inicio = time;
     });
   }
 
-  _setTermino(TimeOfDay time) {
+  void _setTermino(TimeOfDay time) {
     setState(() {
       _termino = time;
     });
@@ -57,14 +58,14 @@ class _ViewHorarioAulasState extends State<ViewHorarioAulas> {
             child: TimePickerTile(
               initialTime: _inicio,
               title: Strings.inicioAula,
-              onTimeSet: (time) => _setInicio(time),
+              onTimeSet: _setInicio,
             ),
           ),
           Card(
             child: TimePickerTile(
               initialTime: _termino,
               title: Strings.terminoAula,
-              onTimeSet: (time) => _setTermino(time),
+              onTimeSet: _setTermino,
             ),
           )
         ],

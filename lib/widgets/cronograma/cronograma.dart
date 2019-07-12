@@ -9,16 +9,16 @@ class Cronograma extends StatelessWidget {
   final Function(int, int, Periodos, int) onCellClick;
 
   const Cronograma({
-    Key key,
     @required this.periodo,
     @required this.onCellClick,
+    Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: periodo.aulasDia,
       itemBuilder: (BuildContext c, int i) {
         return CronogramaRow(

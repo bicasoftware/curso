@@ -7,9 +7,9 @@ class ViewHomeBottombar extends StatelessWidget {
   final Function(int) onChanged;
 
   const ViewHomeBottombar({
-    Key key,
     @required this.pos,
     @required this.onChanged,
+    Key key,
   }) : super(key: key);
 
   @override

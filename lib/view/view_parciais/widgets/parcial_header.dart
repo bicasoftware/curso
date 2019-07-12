@@ -8,11 +8,11 @@ class ParcialHeader extends StatelessWidget {
   final ParciaisStatus status;
 
   const ParcialHeader({
-    Key key,
     @required this.materia,
     @required this.sigla,
     @required this.cor,
     @required this.status,
+    Key key,
   }) : super(key: key);
 
   @override

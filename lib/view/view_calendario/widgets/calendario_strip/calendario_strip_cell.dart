@@ -10,10 +10,10 @@ class CalendarioStripCell extends StatelessWidget {
   final VoidCallback onTap;
 
   const CalendarioStripCell({
-    Key key,
     @required this.dataDTO,
     @required this.onTap,
     @required this.selectedDate,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -29,22 +29,22 @@ class CalendarioStripCell extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               weekDayText(context),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               RainbowIndicator(
                 child: monthDayText(context),
                 lineWidth: 1.5,
-                size: Offset(25, 25),
-                colors: colorList.length == 0 ? [Colors.lightBlue] : colorList,
+                size: const Offset(25, 25),
+                colors: colorList.isEmpty ? [Colors.lightBlue] : colorList,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               CellIndicator(
                 isFalta: dataDTO.isFalta,
                 isVaga: dataDTO.isVaga,
                 hasProva: dataDTO.hasProvas,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
             ],
           ),
         ),
@@ -83,7 +83,8 @@ class CalendarioStripCell extends StatelessWidget {
       return Colors.orange[50];
     } else if (isToday(dataDTO.date)) {
       return Colors.lightBlue[50];
-    } else
+    } else {
       return Theme.of(context).cardColor;
+    }
   }
 }

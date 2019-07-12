@@ -7,11 +7,11 @@ class MateriaColorContainer extends StatelessWidget {
   final MaterialType type;
 
   const MateriaColorContainer({
-    Key key,
     @required this.color,
     this.child,
-    this.size: 36,
-    this.type: MaterialType.circle,
+    this.size = 36,
+    this.type = MaterialType.circle,
+    Key key,
   }) : super(key: key);
 
   @override

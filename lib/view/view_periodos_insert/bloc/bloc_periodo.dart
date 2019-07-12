@@ -59,8 +59,8 @@ class BlocPeriodo extends BaseBloc {
     }
   }
 
-  setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
-    int index = horarios.value.indexWhere((h) => h.ordemAula == ordemAula);
+  void setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
+    final int index = horarios.value.indexWhere((h) => h.ordemAula == ordemAula);
 
     if (index < 0) {
       horarios.value.add(

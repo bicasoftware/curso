@@ -18,11 +18,11 @@ class StateMain {
   StateMain({
     @required this.periodos,
   }) {
-    this._currentId = periodos.first.id;
+    _currentId = periodos.first.id;
     _positionDates();
   }
 
-  _positionDates() {
+  void _positionDates() {
     final meses = range(currentPeriodo.inicio.month, currentPeriodo.termino.month);
 
     if (!meses.contains(DateTime.now().month)) {
@@ -36,7 +36,7 @@ class StateMain {
 
   Periodos get currentPeriodo => periodos.firstWhere((it) => it.id == _currentId);
 
-  setCurrentPeriodoId(int idPeriodo) {
+  void setCurrentPeriodoId(int idPeriodo) {
     _currentId = idPeriodo;
 
     ///se hoje estiver entre o início e o término do período, seta a data selecionada como hoje
@@ -51,10 +51,10 @@ class StateMain {
     }
   }
 
-  incMes() {
+  void incMes() {
     final n = DateTime.now();
     if (mes < currentPeriodo.termino.month) {
-      this.mes++;
+      mes++;
       final d = currentCalendario.dates.firstWhere((d) => isSameDay(d.date, n), orElse: () => null);
       if (d != null) {
         selectedDate = d.date;
@@ -64,11 +64,11 @@ class StateMain {
     }
   }
 
-  decMes() {
+  void decMes() {
     final n = DateTime.now();
 
     if (mes > currentPeriodo.inicio.month) {
-      this.mes--;
+      mes--;
       final d = currentCalendario.dates.firstWhere((d) => isSameDay(d.date, n), orElse: () => null);
       if (d != null) {
         selectedDate = d.date;
@@ -79,7 +79,7 @@ class StateMain {
   }
 
   ///Data selecionada via CalendarioCellStrip
-  setSelectedDate(DateTime newDate) => selectedDate = newDate;
+  void setSelectedDate(DateTime newDate) => selectedDate = newDate;
 
   DataDTO get aulasDia {
     return currentCalendario.dates.firstWhere((d) => isSameDay(d.date, selectedDate));
@@ -89,7 +89,7 @@ class StateMain {
 
   bool hasProva() {
     final List<Notas> listNotas = [];
-    currentPeriodo.materias.forEach((m) => m.notas.forEach((n) => listNotas.add(n)));
+    currentPeriodo.materias.forEach((m) => m.notas.forEach(listNotas.add));
     return listNotas.firstWhere((l) => isSameDay(l.data, selectedDate), orElse: () => null) != null;
   }
 
@@ -146,17 +146,17 @@ class StateMain {
     return provasNotasMaterias;
   }
 
-  removePeriodoById(int idPeriodo) {
+  void removePeriodoById(int idPeriodo) {
     periodos.remove(periodos.firstWhere((it) => it.id == idPeriodo));
     setCurrentPeriodoId(periodos.first.id);
   }
 
-  addPeriodo(Periodos p) {
+  void addPeriodo(Periodos p) {
     periodos.add(p);
   }
 
-  updatePeriodo(Periodos p) {
-    int index = periodos.indexWhere((it) => it.id == p.id);
+  void updatePeriodo(Periodos p) {
+    final int index = periodos.indexWhere((it) => it.id == p.id);
     periodos[index] = p..refreshCalendario();
 
     if (isBetween(DateTime.now(), currentPeriodo.inicio, currentPeriodo.termino)) {
@@ -168,18 +168,18 @@ class StateMain {
     }
   }
 
-  _refreshCalendario(int idPeriodo) {
+  void _refreshCalendario(int idPeriodo) {
     periodos.firstWhere((it) => it.id == idPeriodo)
       ..refreshCalendario()
       ..prepareParciais();
   }
 
-  refreshMaterias(int idPeriodo, List<Materias> materias) {
+  void refreshMaterias(int idPeriodo, List<Materias> materias) {
     periodos.firstWhere((it) => it.id == idPeriodo).materias = materias;
     _refreshCalendario(idPeriodo);
   }
 
-  insertAula(int idPeriodo, int idMateria, Aulas aula) {
+  void insertAula(int idPeriodo, int idMateria, Aulas aula) {
     periodos
         .firstWhere((it) => it.id == idPeriodo)
         .materias
@@ -190,7 +190,7 @@ class StateMain {
     _refreshCalendario(idPeriodo);
   }
 
-  deleteAula(int idPeriodo, int idAula) {
+  void deleteAula(int idPeriodo, int idAula) {
     periodos
         .firstWhere((it) => it.id == idPeriodo)
         .materias
@@ -199,25 +199,25 @@ class StateMain {
     _refreshCalendario(idPeriodo);
   }
 
-  insertFalta(Faltas falta) {
+  void insertFalta(Faltas falta) {
     currentPeriodo.insertFalta(falta);
     currentCalendario.insertFalta(falta);
   }
 
-  deleteFalta(int idMateria, int idFalta, DateTime date, int tipoFalta) {
+  void deleteFalta(int idMateria, int idFalta, DateTime date, int tipoFalta) {
     currentPeriodo.deleteFalta(idMateria, idFalta, tipoFalta);
     currentCalendario.deleteFalta(date, idFalta);
   }
 
-  insertNota(Notas nota) {
+  void insertNota(Notas nota) {
     currentPeriodo.insertNota(nota);
   }
 
-  deleteNota(Notas nota) {
+  void deleteNota(Notas nota) {
     currentPeriodo.deleteNota(nota);
   }
 
-  updateNota(Notas nota) {
+  void updateNota(Notas nota) {
     currentPeriodo.updateNota(nota);
   }
 

@@ -6,9 +6,9 @@ import 'package:rxdart/rxdart.dart';
 class BlocMaterias implements BaseBloc {
   List<Materias> materias;
 
-  BehaviorSubject<List<Materias>> _subjectMaterias = BehaviorSubject<List<Materias>>();
-  get outMaterias => _subjectMaterias.stream;
-  get sinkMaterias => _subjectMaterias.sink;
+  final BehaviorSubject<List<Materias>> _subjectMaterias = BehaviorSubject<List<Materias>>();
+  Stream<List<Materias>> get outMaterias => _subjectMaterias.stream;
+  Sink<List<Materias>> get sinkMaterias => _subjectMaterias.sink;
 
   BlocMaterias({this.materias}) {
     _sinkMaterias();
@@ -19,23 +19,23 @@ class BlocMaterias implements BaseBloc {
     _subjectMaterias.close();
   }
 
-  insertMateria({Materias materia}) {
+  void insertMateria({Materias materia}) {
     ProviderMaterias.insertMateria(materia)
         .then((Materias m) => materias.add(m))
-        .whenComplete(() => _sinkMaterias());
+        .whenComplete(_sinkMaterias);
   }
 
-  deleteMateria({Materias materia}) {
+  void deleteMateria({Materias materia}) {
     ProviderMaterias.deleteMateria(materia.id)
         .then((a) => materias.remove(materia))
-        .whenComplete(() => _sinkMaterias());
+        .whenComplete(_sinkMaterias);
   }
 
-  updateMaterias({int pos, Materias materia}) {
+  void updateMaterias({int pos, Materias materia}) {
     ProviderMaterias.updateMateria(materia)
         .then((Materias m) => materias[pos] = m)
-        .whenComplete(() => _sinkMaterias());
+        .whenComplete(_sinkMaterias);
   }
 
-  _sinkMaterias() => sinkMaterias.add(materias);
+  void _sinkMaterias() => sinkMaterias.add(materias);
 }

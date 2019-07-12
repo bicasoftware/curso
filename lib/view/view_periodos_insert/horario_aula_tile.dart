@@ -9,11 +9,11 @@ class HorarioAulaTile extends StatelessWidget {
   final Function(int, DateTime, DateTime) onOrdemAulaTap;
 
   const HorarioAulaTile({
-    Key key,
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,
     @required this.onOrdemAulaTap,
+    Key key,
   }) : super(key: key);
 
   String get ini => formatTime(inicio);

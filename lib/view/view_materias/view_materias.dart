@@ -4,6 +4,7 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:flutter/material.dart';
+import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/bloc_materias.dart';
@@ -14,10 +15,10 @@ class ViewMaterias extends StatefulWidget {
   final double medAprov;
 
   const ViewMaterias({
-    Key key,
     @required this.materias,
     @required this.idPeriodo,
     @required this.medAprov,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -55,14 +56,18 @@ class _Body extends StatelessWidget {
   final int idPeriodo;
   final double medAprov;
 
-  const _Body({Key key, @required this.idPeriodo, @required this.medAprov}) : super(key: key);
+  const _Body({
+    @required this.idPeriodo,
+    @required this.medAprov,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMaterias>(context);
 
     void callInsertMateria() async {
-      ViewMateriasInsertResult result = await Navigator.of(context).push(
+      final ViewMateriasInsertResult result = await Navigator.of(context).push(
         MaterialPageRoute(
           fullscreenDialog: true,
           builder: (c) {
@@ -83,13 +88,12 @@ class _Body extends StatelessWidget {
       }
     }
 
-    return StreamBuilder<List<Materias>>(
-      initialData: [],
+    return Observer<List<Materias>>(
       stream: b.outMaterias,
-      builder: (BuildContext context, AsyncSnapshot<List<Materias>> snap) {
+      onSuccess: (BuildContext context, List<Materias> materias) {
         return WillPopScope(
           onWillPop: () async {
-            Navigator.of(context).pop(snap.data);
+            Navigator.of(context).pop(materias);
             return true;
           },
           child: Scaffold(
@@ -108,13 +112,13 @@ class _Body extends StatelessWidget {
                   floating: true,
                   leading: IconButton(
                     icon: Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(snap.data),
+                    onPressed: () => Navigator.of(context).pop(materias),
                   ),
                 ),
                 ViewMateriasList(
-                  materias: snap.data,
+                  materias: materias,
                   onTap: (Materias m, int pos) async {
-                    ViewMateriasInsertResult result = await Navigator.of(context).push(
+                    final ViewMateriasInsertResult result = await Navigator.of(context).push(
                       MaterialPageRoute(
                         fullscreenDialog: true,
                         builder: (c) => ViewMateriasInsert(materia: m, pos: pos),

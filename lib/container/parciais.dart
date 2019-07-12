@@ -11,7 +11,7 @@ class Parciais {
   DateTime terminoPeriodo, inicioPeriodo;
 
   Parciais({@required this.terminoPeriodo, @required this.inicioPeriodo}) {
-    materias = List<ParciaisMaterias>();
+    materias = <ParciaisMaterias>[];
   }
 
   void clear() => materias.clear();
@@ -97,7 +97,7 @@ class ParciaisMaterias {
 
   ParciaisStatus get status {
     if (DateTime.now().isAfter(terminoPeriodo)) {
-      if (notas.length == 0) {
+      if (notas.isEmpty) {
         return StatusFaltandoNotas();
       } else if (notaAtual == null) {
         return StatusFaltandoValoresNota();
@@ -105,8 +105,9 @@ class ParciaisMaterias {
         return StatusReprovadoNotas();
       } else if (!faltasEmDia(presObrig, numAulasSemestre, numFaltas)) {
         return StatusReprovadoFaltas();
-      } else
+      } else {
         return StatusAprovado();
+      }
     } else {
       return StatusEmAndamento();
     }

@@ -6,6 +6,6 @@ class Pair<F, S>{
 
   @override
   String toString(){
-    return "first: ${this.first}, second: ${this.second}";
+    return "first: ${first}, second: ${second}";
   }
 }

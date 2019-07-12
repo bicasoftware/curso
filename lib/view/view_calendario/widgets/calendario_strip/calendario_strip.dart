@@ -16,7 +16,7 @@ class CalendarioStrip extends StatelessWidget {
     return MultiObserver(
       streams: [b.outSelectedDate, b.outCalendario],
       onSuccess: (BuildContext context, List data) {
-        ScrollController controller = ScrollController(
+        final ScrollController controller = ScrollController(
           initialScrollOffset: getCalendarStripPosition(
             selectedDate: data[0],
             calendario: data[1],

@@ -9,12 +9,12 @@ class RainbowIndicator extends StatelessWidget {
   final double lineWidth;
 
   const RainbowIndicator({
-    Key key,
-    this.size: const Offset(3.0, 3.0),
     @required this.colors,
     @required this.child,
-    this.lineWidth: 3,
+    this.size = const Offset(3.0, 3.0),
+    this.lineWidth = 3,
     this.padding,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class RainbowIndicator extends StatelessWidget {
       height: size.dy,
       child: CustomPaint(
         child: Container(
-          padding: EdgeInsets.all(2),
+          padding: const EdgeInsets.all(2),
           child: Center(child: child),
         ),
         painter: RadialRainbowPainter(

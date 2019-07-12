@@ -10,15 +10,15 @@ class NotasContainer {
     dates = [];
   }
 
-  addDates(NotasByDate dates) {
+  void addDates(NotasByDate dates) {
     this.dates.add(dates);
   }
 
-  insertNota(DateTime selectedDate, Notas nota) {
+  void insertNota(DateTime selectedDate, Notas nota) {
     dates.firstWhere((d) => isSameDay(d.date, selectedDate)).addNota(nota);
   }
 
-  deleteNota(DateTime selectedDate, Notas nota) {
+  void deleteNota(DateTime selectedDate, Notas nota) {
     dates.firstWhere((d) => isSameDay(d.date, selectedDate)).removeNota(nota);
   }
 }
@@ -33,24 +33,24 @@ class NotasByDate {
   }
 
   NotasByDate({this.date, this.materias}) {
-    materias = List<MateriasByDate>();
+    materias = <MateriasByDate>[];
   }
 
   NotasByDate getCopy() {
-    return NotasByDate(date: this.date, materias: []..addAll(this.materias));
+    return NotasByDate(date: date, materias: []..addAll(materias));
   }
 
-  addMateria(MateriasByDate materia) {
+  void addMateria(MateriasByDate materia) {
     materias.add(materia);
   }
 
-  deleteMateria(MateriasByDate materia) {
+  void deleteMateria(MateriasByDate materia) {
     materias.remove(materia);
   }
 
-  addNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).addNota(nota);
+  void addNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).addNota(nota);
 
-  removeNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).deleteProva();
+  void removeNota(Notas nota) => materias.firstWhere((m) => m.id == nota.idMateria).deleteProva();
 }
 
 class MateriasByDate {
@@ -66,9 +66,9 @@ class MateriasByDate {
     @required this.notas,
   });
 
-  addNota(Notas nota) => notas = nota;
+  void addNota(Notas nota) => notas = nota;
 
-  deleteProva() => notas = null;
+  void deleteProva() => notas = null;
 
   @override
   String toString(){

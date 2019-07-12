@@ -7,11 +7,11 @@ class Horarios implements BaseTable {
   DateTime inicio, termino;
 
   Horarios({
-    this.id,
     @required this.idPeriodo,
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,
+    this.id,
   });
 
   static const String ID = "id";
@@ -43,18 +43,20 @@ class Horarios implements BaseTable {
   @override
   Map toMap() {
     final Map<String, dynamic> m = {
-      IDPERIODO: this.idPeriodo,
-      ORDEMAULA: this.ordemAula,
-      INICIO: formatTime(this.inicio),
-      TERMINO: formatTime(this.termino),
+      IDPERIODO: idPeriodo,
+      ORDEMAULA: ordemAula,
+      INICIO: formatTime(inicio),
+      TERMINO: formatTime(termino),
     };
 
-    if (id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
 
     return m;
   }
 
-  static Horarios fromMap(Map m) {
+  factory Horarios.fromMap(Map m) {
     return Horarios(
       id: m[ID],
       idPeriodo: m[IDPERIODO],
@@ -66,16 +68,16 @@ class Horarios implements BaseTable {
 
   @override
   String toString() {
-    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${formatTime(this.inicio)}, termino: ${formatTime(this.termino)}";
+    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${formatTime(inicio)}, termino: ${formatTime(termino)}";
   }
 
-  Horarios getCopy(){
+  Horarios getCopy() {
     return Horarios(
-      id: this.id,
-      idPeriodo: this.idPeriodo,
-      inicio: this.inicio,
-      termino: this.termino,
-      ordemAula: this.ordemAula,
+      id: id,
+      idPeriodo: idPeriodo,
+      inicio: inicio,
+      termino: termino,
+      ordemAula: ordemAula,
     );
   }
 }

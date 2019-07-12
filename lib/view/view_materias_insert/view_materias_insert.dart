@@ -55,10 +55,11 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
                   sufix: _sigla,
                   onSaved: _setMateria,
                   validator: (nome) {
-                    if (nome.isEmpty || nome.length < 3)
+                    if (nome.isEmpty || nome.length < 3) {
                       return Errors.errNomeMateria;
-                    else
+                    } else {
                       return null;
+                    }
                   },
                   onChanged: _generateSigla,
                 ),

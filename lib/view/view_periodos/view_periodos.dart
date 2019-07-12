@@ -21,9 +21,9 @@ class ViewPeriodos extends StatefulWidget {
 class ViewPeriodosState extends State<ViewPeriodos> {
   @override
   Widget build(BuildContext context) {
-    BlocMain b = Provider.of<BlocMain>(context);
+    final b = Provider.of<BlocMain>(context);
 
-    _onRefreshMaterias(int idPeriodo, List<Materias> materias) {
+    void _onRefreshMaterias(int idPeriodo, List<Materias> materias) {
       b.updateMaterias(idPeriodo, materias);
     }
 
@@ -34,9 +34,9 @@ class ViewPeriodosState extends State<ViewPeriodos> {
         onSuccess: (BuildContext context, List<Periodos> periodos) {
           return ListView.separated(
             itemCount: periodos.length,
-            separatorBuilder: (c, i) => PaddedDivider(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-            ),
+            separatorBuilder: (c, i) {
+              return const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16));
+            },
             itemBuilder: (_, int i) {
               return ViewPeriodosListItem(
                 periodo: periodos[i],
@@ -49,7 +49,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                     b.updatePeriodo(result);
                   }
                 },
-                onDelete: (int idPeriodo) => b.deletePeriodo(idPeriodo),
+                onDelete: b.deletePeriodo,
                 onMateriasTap: (List<Materias> materias, int idPeriodo, double medAprov) async {
                   _showViewInsertMaterias(
                       context, idPeriodo, materias, medAprov, _onRefreshMaterias);
@@ -64,7 +64,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                   if (result != null) {}
                 },
                 onCellClick: (int weekDay, int ordemAula, Periodos p, int idAula) async {
-                  if (p.materias.length == 0) {
+                  if (p.materias.isEmpty) {
                     _showViewInsertMaterias(
                         context, p.id, p.materias, p.medAprov, _onRefreshMaterias);
                   } else {
@@ -101,7 +101,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
     );
   }
 
-  _showViewInsertMaterias(
+  void _showViewInsertMaterias(
     BuildContext context,
     int idPeriodo,
     List<Materias> materias,

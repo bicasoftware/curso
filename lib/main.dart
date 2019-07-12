@@ -5,7 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 void main() async {
-  initializeDateFormatting("pt_BR", null);
+  await initializeDateFormatting("pt_BR", null);
   Intl.defaultLocale = "pt_BR";
   runApp(
     AppEntrance(

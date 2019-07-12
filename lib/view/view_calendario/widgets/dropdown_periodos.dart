@@ -8,7 +8,10 @@ import 'package:provider/provider.dart';
 class DropDownPeriodos extends StatelessWidget {
   final ThemeData theme;
 
-  const DropDownPeriodos({Key key, @required this.theme}) : super(key: key);
+  const DropDownPeriodos({
+    @required this.theme,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

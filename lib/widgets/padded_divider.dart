@@ -6,8 +6,8 @@ class PaddedDivider extends StatelessWidget {
 
   const PaddedDivider({
     Key key,
-    this.height: 0,
-    this.padding: const EdgeInsets.symmetric(horizontal: 8),
+    this.height = 0,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8),
   }) : super(key: key);
 
   @override

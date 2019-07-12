@@ -21,9 +21,7 @@ class Dialogs {
           children: <Widget>[
             SimpleDialogOption(
               child: Text(Strings.excluir),
-              onPressed: () {
-                return Navigator.of(context).pop(true);
-              },
+              onPressed: () => Navigator.of(context).pop(true),
             ),
           ],
         );
@@ -140,9 +138,7 @@ Future<bool> showRemoveDialog({
         children: <Widget>[
           SimpleDialogOption(
             child: Text(Strings.excluir),
-            onPressed: () {
-              return Navigator.of(context).pop(true);
-            },
+            onPressed: () => Navigator.of(context).pop(true),
           ),
         ],
       );
@@ -167,7 +163,7 @@ Future<double> showNotaDialog({
           child: TextFormField(
             initialValue: (nota ?? 0.0).toString(),
             decoration: InputDecoration(labelText: Strings.adicionarNota, hintText: "10,0"),
-            keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
             onSaved: (String n) {
               Navigator.of(context).pop(parseDoubleFromText(n));
             },
@@ -177,8 +173,9 @@ Future<double> showNotaDialog({
                 return Errors.notaInvalida;
               } else if (novaNota < 0.0 || novaNota > 10.0) {
                 return Errors.notaInvalida;
-              } else
+              } else {
                 return null;
+              }
             },
           ),
         ),
@@ -219,7 +216,7 @@ Future<int> showOptionsDialog2({
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Text(title, style: Theme.of(context).textTheme.title),
             ),
             ListView(

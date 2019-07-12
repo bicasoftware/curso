@@ -13,11 +13,11 @@ class ParciaisNotas extends StatelessWidget {
   final ParciaisStatus status;
 
   const ParciaisNotas({
-    Key key,
     @required this.notas,
     @required this.notaAprovacao,
     @required this.notaAtual,
     @required this.status,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class ParciaisNotas extends StatelessWidget {
               )
           ],
         ),
-        PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+        const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
         ParcialNotaProgress(
           notaAtual: notaAtual,
           notaAprov: notaAprovacao,

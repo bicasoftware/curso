@@ -45,7 +45,7 @@ class Periodos implements BaseTable {
   static const String MEDAPROV = "med_aprov";
   static const String AULASDIA = "aulas_dia";
 
-  static Periodos newInstance() {
+  factory Periodos.newInstance() {
     final now = DateTime.now();
     final end = now.add(Duration(days: 6 * 30));
     return Periodos(
@@ -119,12 +119,14 @@ class Periodos implements BaseTable {
       AULASDIA: aulasDia,
     };
 
-    if (id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
 
     return m;
   }
 
-  static Periodos fromMap(Map m) {
+  factory Periodos.fromMap(Map m) {
     return Periodos(
       id: m[ID],
       numPeriodo: m[NUMPERIODO],
@@ -138,12 +140,12 @@ class Periodos implements BaseTable {
 
   @override
   String toString() {
-    return "${this.id},${this.numPeriodo},${this.inicio},${this.termino},${this.presObrig},${this.medAprov},${this.materias},${this.aulasDia}";
+    return "${id},${numPeriodo},${inicio},${termino},${presObrig},${medAprov},${materias},${aulasDia}";
   }
 
-  addHorario(Horarios horario) => horarios.add(horario);
+  void addHorario(Horarios horario) => horarios.add(horario);
 
-  refreshCalendario() {
+  void refreshCalendario() {
     _refreshAulasSemana();
 
     calendario = prepareCalendario(
@@ -155,10 +157,10 @@ class Periodos implements BaseTable {
     );
   }
 
-  _refreshAulasSemana() {
+  void _refreshAulasSemana() {
     aulasSemana.clear();
-    if (materias != null && materias.length > 0) {
-      for (var ordemAula = 0; ordemAula < this.aulasDia; ordemAula++) {
+    if (materias != null && materias.isNotEmpty) {
+      for (var ordemAula = 0; ordemAula < aulasDia; ordemAula++) {
         for (int weekDay = 0; weekDay < 7; weekDay++) {
           final materia = materias.firstWhere(
             (m) => m.aulas.indexWhere((a) => a.ordem == ordemAula && a.weekDay == weekDay) >= 0,
@@ -205,17 +207,17 @@ class Periodos implements BaseTable {
     return calendario.firstWhere((it) => it.mes == month, orElse: () => null);
   }
 
-  insertFalta(Faltas falta) {
+  void insertFalta(Faltas falta) {
     materias.firstWhere((it) => it.id == falta.idMateria).insertFalta(falta);
     parciais.addFalta(falta);
   }
 
-  deleteFalta(int idMateria, int idFalta, int tipoFalta) {
+  void deleteFalta(int idMateria, int idFalta, int tipoFalta) {
     materias.firstWhere((it) => it.id == idMateria).deleteFalta(idFalta);
     parciais.removeFalta(idMateria: idMateria, tipoFalta: tipoFalta);
   }
 
-  insertNota(Notas nota) {
+  void insertNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).insertNota(nota);
     calendario
         .firstWhere((c) => c.mes == nota.data.month)
@@ -224,11 +226,11 @@ class Periodos implements BaseTable {
         ?.setHasProvas(true);
   }
 
-  updateNota(Notas nota) {
+  void updateNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).updateNota(nota);
   }
 
-  deleteNota(Notas nota) {
+  void deleteNota(Notas nota) {
     materias.firstWhere((m) => m.id == nota.idMateria).deleteNota(nota);
     calendario
         .firstWhere((c) => c.mes == nota.data.month)
@@ -240,29 +242,29 @@ class Periodos implements BaseTable {
   }
 
   List<Faltas> _getFaltas() {
-    final faltas = List<Faltas>();
+    final faltas = <Faltas>[];
     materias?.forEach(
       (materia) {
-        materia.faltas.forEach((falta) => faltas.add(falta));
+        materia.faltas.forEach(faltas.add);
       },
     );
     return faltas;
   }
 
   List<Notas> _getProvas() {
-    final provas = List<Notas>();
-    materias?.forEach((m) => m.notas.forEach((n) => provas.add(n)));
+    final provas = <Notas>[];
+    materias?.forEach((m) => m.notas.forEach(provas.add));
     return provas;
   }
 
   List<Notas> extractNotasByDate(DateTime date) {
-    final notas = List<Notas>();
+    final notas = <Notas>[];
     materias?.forEach(
       (m) => notas.addAll(
-            m.notas.where(
-              (nota) => isSameDay(nota.data, date),
-            ),
-          ),
+        m.notas.where(
+          (nota) => isSameDay(nota.data, date),
+        ),
+      ),
     );
     notas.sort((a, b) => a.data.compareTo(b.data));
     return notas;
@@ -272,8 +274,8 @@ class Periodos implements BaseTable {
     return materias.firstWhere((m) => m.id == idMateria, orElse: () => null);
   }
 
-  prepareParciais() {
-    parciais = Parciais(inicioPeriodo: inicio, terminoPeriodo: this.termino);
+  void prepareParciais() {
+    parciais = Parciais(inicioPeriodo: inicio, terminoPeriodo: termino);
 
     final hoje = DateTime.now();
     final aulasSemestre = countAulasInRange(inicio, termino);

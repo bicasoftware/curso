@@ -49,12 +49,14 @@ class Faltas implements BaseTable {
       TIPO: tipo,
     };
 
-    if (id != null) m[ID] = id;
+    if (id != null) {
+      m[ID] = id;
+    }
 
     return m;
   }
 
-  static Faltas fromMap(Map m) {
+  factory Faltas.fromMap(Map m) {
     return Faltas(
       id: m[ID],
       idMateria: m[IDMATERIA],

@@ -13,8 +13,8 @@ class ParcialListItem extends StatelessWidget {
   Materias get m => parciais.materia;
 
   const ParcialListItem({
-    Key key,
     @required this.parciais,
+    Key key,
   }) : super(key: key);
 
   String getFaltasText() {
@@ -39,14 +39,14 @@ class ParcialListItem extends StatelessWidget {
             sigla: m.sigla,
             status: parciais.status,
           ),
-          PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+          const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
           ParcialFaltasChart(
             totalAulas: parciais.numAulasSemestre,
             faltas: parciais.numFaltas,
             vagas: parciais.numAulasVagas,
             aulasTilDate: parciais.numAulasUntilNow,
           ),
-          PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+          const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
           ParciaisNotas(
             status: parciais.status,
             notaAprovacao: parciais.notaAprovacao,

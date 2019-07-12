@@ -1,10 +1,10 @@
 import 'package:curso/custom_themes.dart';
 import 'package:curso/view/view_home/view_home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc/bloc_main/bloc_main.dart';
 import 'container/periodos.dart';
-import 'package:provider/provider.dart';
 
 class AppEntrance extends StatelessWidget {
   final List<Periodos> periodos;
@@ -14,7 +14,7 @@ class AppEntrance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<BlocMain>(
-      child: MyApp(initialPosition: periodos.length > 0 ? 1 : 0),
+      child: MyApp(initialPosition: periodos.isNotEmpty ? 1 : 0),
       builder: (BuildContext context) => BlocMain(periodos: periodos),
       dispose: (BuildContext a, BlocMain b) => b.dispose(),
     );
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
   final int initialPosition;
 
   const MyApp({
-    Key key,
     @required this.initialPosition,
+    Key key,
   }) : super(key: key);
 
   @override

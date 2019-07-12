@@ -1,5 +1,4 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_calendario/view_calendario.dart';
 import 'package:curso/view/view_home/widgets/view_home_appbar_action.dart';
@@ -14,28 +13,31 @@ import 'package:rxdart/rxdart.dart';
 
 class ViewHome extends StatefulWidget {
   final int initialPos;
-  const ViewHome({Key key, @required this.initialPos}) : super(key: key);
+  const ViewHome({
+    @required this.initialPos,
+    Key key,
+  }) : super(key: key);
 
   @override
   _ViewHomeState createState() => _ViewHomeState();
 }
 
 class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin {
-  final pages = [
+  final List<Widget> pages = <Widget>[
     const ViewPeriodos(),
     const ViewCalendario(),
     const ViewInfo(),
   ];
 
-  final titles = [
+  final List<String> titles = [
     Strings.periodos,
     Strings.calendario,
     Strings.parciais,
   ];
 
-  BehaviorSubject<int> _subjectPos = BehaviorSubject<int>();
-  get outPos => _subjectPos.stream;
-  get inPos => _subjectPos.sink;
+  final BehaviorSubject<int> _subjectPos = BehaviorSubject<int>();
+  Stream<int> get outPos => _subjectPos.stream;
+  Sink<int> get inPos => _subjectPos.sink;
 
   @override
   void initState() {
@@ -82,7 +84,7 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
             onSuccess: (BuildContext context, int pos) {
               return ViewHomeAppbarAction(
                 pos: pos,
-                onInsertPeriodos: (Periodos periodo) => b.insertPeriodo(periodo),
+                onInsertPeriodos: b.insertPeriodo,
               );
             },
           )

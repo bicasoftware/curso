@@ -11,16 +11,11 @@ class _ViewProvasBodyState extends State<ViewProvasBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeData.light().canvasColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text("${Strings.provas}"),
-            floating: true,
-          ),
-          ProvasList(),
-        ],
+      appBar: AppBar(
+        title: Text("${Strings.provas}"),
       ),
+      backgroundColor: ThemeData.light().canvasColor,
+      body: ProvasList(),
     );
   }
 }

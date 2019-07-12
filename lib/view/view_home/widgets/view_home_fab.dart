@@ -8,14 +8,18 @@ class ViewHomeFab extends StatefulWidget {
   final VoidCallback onTap;
   final int pos;
 
-  const ViewHomeFab({Key key, @required this.onTap, @required this.pos}) : super(key: key);
+  const ViewHomeFab({
+    @required this.onTap,
+    @required this.pos,
+    Key key,
+  }) : super(key: key);
 
   @override
   _ViewHomeFabState createState() => _ViewHomeFabState();
 }
 
 class _ViewHomeFabState extends State<ViewHomeFab> with SingleTickerProviderStateMixin {
-  final duration = Duration(milliseconds: 400);
+  final Duration duration = Duration(milliseconds: 400);
 
   @override
   Widget build(BuildContext context) {

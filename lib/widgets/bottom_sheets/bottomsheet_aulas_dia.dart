@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class BottomSheetAulasDia extends StatelessWidget {
   final List<AulasSemanaDTO> aulasSemana;
 
-  const BottomSheetAulasDia({Key key, @required this.aulasSemana}) : super(key: key);
+  const BottomSheetAulasDia({
+    @required this.aulasSemana,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +21,14 @@ class BottomSheetAulasDia extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Text(
             Strings.selecioneMateriaProva,
             textAlign: TextAlign.center,
             style: CustomThemes.bottomSheetHeader,
           ),
         ),
-        PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
+        const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),
         Column(
           children: [
             for (final aula in aulasSemana)
@@ -34,7 +37,7 @@ class BottomSheetAulasDia extends StatelessWidget {
                 leading: MateriaColorContainer(color: Color(aula.cor), size: 32),
                 title: Text(aula.nome),
                 trailing: Text(aula.sigla, style: theme.textTheme.caption),
-              )            
+              )
           ],
         ),
       ],

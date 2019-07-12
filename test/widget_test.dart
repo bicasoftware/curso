@@ -30,14 +30,14 @@ void main() {
     assert(list.length == 7);
   });
   test('calc percent', () {
-    int total = 50, porc = 10;
-    double result = ((porc / 100)) * total;
+    const int total = 50, porc = 10;
+    const double result = (porc / 100) * total;
 
     print(result);
   });
 
   test('calc percent 2', () {
-    double p = calcPorcentagemAulas(68, 6);
+    final double p = calcPorcentagemAulas(68, 6);
     print(p);
   });
 
@@ -78,7 +78,7 @@ void main() {
   });
 
   test('formatNota', () {
-    double nota = 2;
+    const double nota = 2;
     print(formatNota(nota));
   });
 
@@ -139,7 +139,7 @@ void main() {
     });
 
     test("Horas", () {
-      final hora = "18:00";
+      const hora = "18:00";
       final DateTime dtHora = parseTime(hora);
       print(dtHora);
       print(formatTime(dtHora));
@@ -150,7 +150,7 @@ void main() {
     });
 
     test("parse TimeOfDay", () {
-      final time = TimeOfDay(hour: 20, minute: 30);
+      const time = TimeOfDay(hour: 20, minute: 30);
       final DateTime date = parseTimeOfDay(time);
 
       print(date);

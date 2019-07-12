@@ -7,10 +7,10 @@ class ParciaisFaltasChartLegenda extends StatelessWidget {
   final Color cor;
 
   const ParciaisFaltasChartLegenda({
-    Key key,
     @required this.number,
     @required this.cor,
     @required this.legenda,
+    Key key,
   })  : assert(number != null),
         assert(cor != null && cor != Colors.transparent),
         assert(legenda != null && legenda != ""),
@@ -20,13 +20,13 @@ class ParciaisFaltasChartLegenda extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           MateriaColorContainer(color: cor, size: 8),
-          SizedBox(width: 8),
-          Text(legenda, style: theme.textTheme.caption.copyWith(color: theme.accentColor) ),
+          const SizedBox(width: 8),
+          Text(legenda, style: theme.textTheme.caption.copyWith(color: theme.accentColor)),
         ],
       ),
     );

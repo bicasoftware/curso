@@ -13,7 +13,6 @@ class CronogramaCell extends StatelessWidget {
   final Function(int, int, Periodos, int) onCellTap;
 
   const CronogramaCell({
-    Key key,
     @required this.context,
     @required this.cor,
     @required this.sigla,
@@ -22,6 +21,7 @@ class CronogramaCell extends StatelessWidget {
     @required this.periodo,
     @required this.idAula,
     @required this.onCellTap,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class CronogramaCell extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onCellTap(weekDay, ordemAula, periodo, idAula),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 1),
+          margin: const EdgeInsets.symmetric(horizontal: 1),
           child: MateriaColorContainer(          
             type: MaterialType.card,
             size: 48,

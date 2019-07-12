@@ -12,10 +12,10 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
   final Function(Notas) onUpdateNota;
 
   const CalendarioProvasDiaListTile({
-    Key key,
     @required this.provasNotasMaterias,
     @required this.onDeleted,
     @required this.onUpdateNota,
+    Key key,
   }) : super(key: key);
 
   @override

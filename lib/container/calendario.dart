@@ -1,5 +1,4 @@
 import 'package:curso/container/faltas.dart';
-import 'package:curso/container/notas.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -14,18 +13,13 @@ class CalendarioDTO {
     return dates.firstWhere((dt) => isSameDay(dt.date, date));
   }
 
-  insertFalta(Faltas falta) {
+  void insertFalta(Faltas falta) {
     _findByDate(falta.data).insertFalta(falta);
   }
 
-  deleteFalta(DateTime date, int idFalta) {
+  void deleteFalta(DateTime date, int idFalta) {
     _findByDate(date).deleteFalta(idFalta);
   }
-
-  setHasProvas(Notas nota, bool hasProva) {
-    _findByDate(nota.data).setHasProvas(hasProva);
-  }
-
 }
 
 class DataDTO {
@@ -33,17 +27,17 @@ class DataDTO {
   final List<AulasSemanaDTO> aulas;
   bool hasProvas;
 
-  DataDTO({this.date, this.aulas, this.hasProvas: false});
+  DataDTO({this.date, this.aulas, this.hasProvas = false});
 
-  insertFalta(Faltas falta) {
+  void insertFalta(Faltas falta) {
     aulas.firstWhere((aula) => aula.numAula == falta.numAula).insertFalta(falta);
   }
 
-  deleteFalta(int idFalta) {
+  void deleteFalta(int idFalta) {
     aulas.firstWhere((aula) => aula.idFalta == idFalta).deleteFalta();
   }
 
-  get colorList => aulas.map((aula) => Color(aula.cor)).toList();
+  List<Color> get colorList => aulas.map((aula) => Color(aula.cor)).toList();
 
   bool get isFalta {
     final qr = aulas.firstWhere((a) => a.idFalta != null && a.tipo == 0, orElse: () => null);
@@ -55,7 +49,7 @@ class DataDTO {
     return qr != null;
   }
 
-  setHasProvas(bool hasProvas) => this.hasProvas = hasProvas;
+  void setHasProvas(bool hasProvas) => this.hasProvas = hasProvas;
 }
 
 class AulasSemanaDTO {
@@ -83,7 +77,7 @@ class AulasSemanaDTO {
     @required this.tipo,
   });
 
-  static AulasSemanaDTO copyWith(AulasSemanaDTO base) {
+  factory AulasSemanaDTO.copyWith(AulasSemanaDTO base) {
     return AulasSemanaDTO(
       idFalta: base.idFalta,
       idMateria: base.idMateria,
@@ -98,16 +92,16 @@ class AulasSemanaDTO {
     );
   }
 
-  insertFalta(Faltas falta) {
-    this.idFalta = falta.id;
-    this.tipo = falta.tipo;
+  void insertFalta(Faltas falta) {
+    idFalta = falta.id;
+    tipo = falta.tipo;
   }
 
-  deleteFalta() => this.idFalta = null;
+  void deleteFalta() => idFalta = null;
 
-  get isFalta => idFalta != null && tipo == 0;
+  bool get isFalta => idFalta != null && tipo == 0;
 
-  get isAulaVaga => isFalta != null && tipo == 1;
+  bool get isAulaVaga => isFalta != null && tipo == 1;
 
   bool isSameItem(int idMateria, int weekDay) {
     return this.idMateria == idMateria && this.weekDay == weekDay;

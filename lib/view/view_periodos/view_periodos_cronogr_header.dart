@@ -14,8 +14,8 @@ class ViewPeriodosCronogramaHeader extends StatelessWidget {
   Widget _item(BuildContext context, String d) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(2),
-        margin: EdgeInsets.symmetric(horizontal: 1),
+        padding: const EdgeInsets.all(2),
+        margin: const EdgeInsets.symmetric(horizontal: 1),
         child: Text(
           d,
           textAlign: TextAlign.center,

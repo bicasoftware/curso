@@ -12,11 +12,11 @@ class ViewProvasListItem extends StatelessWidget {
   final int pos;
 
   const ViewProvasListItem({
-    Key key,
     @required this.onNotasTap,
     @required this.dates,
     @required this.mes,
     @required this.pos,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class ViewProvasListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 ViewProvasListItemMaterias(materias: notaByDate.materias, onTap: onNotasTap)
               ],
             )
