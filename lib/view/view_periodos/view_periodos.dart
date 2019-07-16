@@ -6,7 +6,6 @@ import 'package:curso/view/view_materias/view_materias.dart';
 import 'package:curso/view/view_periodos/view_periodos_list_item.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:curso/view/view_provas/view_provas.dart';
-import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +31,8 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       child: Observer<List<Periodos>>(
         stream: b.outListPeriodos,
         onSuccess: (BuildContext context, List<Periodos> periodos) {
-          return ListView.separated(
+          return ListView.builder(
             itemCount: periodos.length,
-            separatorBuilder: (c, i) {
-              return const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16));
-            },
             itemBuilder: (_, int i) {
               return ViewPeriodosListItem(
                 periodo: periodos[i],

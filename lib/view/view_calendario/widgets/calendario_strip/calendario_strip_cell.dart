@@ -1,7 +1,7 @@
 import 'package:curso/container/calendario.dart';
+import 'package:curso/custom_colors.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell_indicator.dart';
-import 'package:curso/widgets/custom_colors.dart';
 import 'package:curso/widgets/rainbow_radial/rainbow_indicator.dart';
 import 'package:flutter/material.dart';
 

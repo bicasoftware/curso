@@ -41,30 +41,32 @@ class ViewPeriodosListItem extends StatelessWidget {
       onDismissed: (DismissDirection dir) {
         onDelete(periodo.id);
       },
-      child: ExpansionTile(
-        leading: Icon(Icons.date_range),
-        title: Text(
-          "${periodo.numPeriodo}º ${Strings.periodo}",
-        ),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Column(
-              children: <Widget>[
-                ViewPeriodosCronogramaHeader(),
-                const SizedBox(height: 2),
-                Cronograma(periodo: periodo, onCellClick: onCellClick),
-              ],
+      child: Card(
+        child: ExpansionTile(
+          leading: Icon(Icons.date_range),
+          title: Text(
+            "${periodo.numPeriodo}º ${Strings.periodo}",
+          ),
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Column(
+                children: <Widget>[
+                  ViewPeriodosCronogramaHeader(),
+                  const SizedBox(height: 2),
+                  Cronograma(periodo: periodo, onCellClick: onCellClick),
+                ],
+              ),
             ),
-          ),
-          ViewPeriodosButtombar(
-            periodo: periodo,
-            onDelete: onDelete,
-            onUpdateTap: onUpdateTap,
-            onNotasTap: onNotasTap,
-            onMateriasTap: onMateriasTap,
-          ),
-        ],
+            ViewPeriodosButtombar(
+              periodo: periodo,
+              onDelete: onDelete,
+              onUpdateTap: onUpdateTap,
+              onNotasTap: onNotasTap,
+              onMateriasTap: onMateriasTap,
+            ),
+          ],
+        ),
       ),
     );
   }

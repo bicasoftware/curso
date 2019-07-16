@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 typedef ListAulaAction = Function(int selectedAction, AulasSemanaDTO aulasSemana);
 
-class CalendarioContentAulasTile extends StatelessWidget {
+class CalendarioContentAulasTile extends StatefulWidget {
   const CalendarioContentAulasTile({
     @required this.aulasSemana,
     @required this.ordem,
@@ -19,49 +19,89 @@ class CalendarioContentAulasTile extends StatelessWidget {
   final ListAulaAction onOptionSelected;
 
   @override
+  _CalendarioContentAulasTileState createState() => _CalendarioContentAulasTileState();
+}
+
+class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> fadeAnim;
+  Animation<Offset> slideAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
+
+    final curve = CurvedAnimation(curve: Curves.decelerate, parent: controller);
+
+    slideAnim = Tween<Offset>(
+      begin: const Offset(0, .35),
+      end: Offset.zero,
+    ).animate(curve);
+
+    fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(curve);
+    controller.forward();
+  }
+
+  @override
+  void didUpdateWidget(CalendarioContentAulasTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.key != widget.key) {
+      controller.reset();
+      controller.forward();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return aulasSemana.idMateria == null
-        ? ListTile(
-            title: Icon(
-              Icons.tag_faces,
-              color: Theme.of(context).primaryColorLight,
+    return widget.aulasSemana.idMateria == null
+        ? Container()
+        : SlideTransition(
+            position: slideAnim,
+            child: FadeTransition(
+              opacity: fadeAnim,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    height: 50,
+                    width: 2,
+                    child: Container(
+                      color: _getColor(),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListTile(
+                      dense: true,
+                      subtitle: Text(
+                        "${widget.ordem + 1}ª ${Strings.aula} | ${formatTime(widget.aulasSemana.horario)} ${faltaTipo(widget.aulasSemana.tipo)}",
+                      ),
+                      leading: MateriaColorContainer(
+                        color: Color(widget.aulasSemana.cor),
+                        size: 32,
+                      ),
+                      title: Text(widget.aulasSemana.nome),
+                      trailing: PopupMenuButton<int>(
+                        onSelected: (int i) => widget.onOptionSelected(i, widget.aulasSemana),
+                        itemBuilder: (c) => entryList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
-        : Row(
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-                width: 2,
-                child: Container(
-                  color: _getColor(),
-                ),
-              ),
-              Expanded(
-                child: ListTile(
-                  dense: true,
-                  subtitle: Text(
-                    "${ordem + 1}ª ${Strings.aula} | ${formatTime(aulasSemana.horario)} ${faltaTipo(aulasSemana.tipo)}",
-                  ),
-                  leading: MateriaColorContainer(
-                    color: Color(aulasSemana.cor),
-                    size: 32,
-                  ),
-                  title: Text(aulasSemana.nome),
-                  trailing: PopupMenuButton<int>(
-                    onSelected: (int i) => onOptionSelected(i, aulasSemana),
-                    itemBuilder: (c) => entryList(),
-                  ),
-                ),
-              ),
-            ],
           );
   }
 
   String faltaTipo(int tipo) {
-    if (aulasSemana.idFalta != null) {
-      if (aulasSemana.tipo == 0) {
+    if (widget.aulasSemana.idFalta != null) {
+      if (widget.aulasSemana.tipo == 0) {
         return " | Falta!";
-      } else if (aulasSemana.tipo == 1) {
+      } else if (widget.aulasSemana.tipo == 1) {
         return " | Aula Vaga";
       }
     }
@@ -72,13 +112,13 @@ class CalendarioContentAulasTile extends StatelessWidget {
   List<PopupMenuEntry<int>> entryList() {
     final entryList = <PopupMenuEntry<int>>[];
 
-    if (aulasSemana.idFalta == null) {
+    if (widget.aulasSemana.idFalta == null) {
       entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.faltar)));
       entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.aulaVaga)));
     } else {
-      if (aulasSemana.isFalta) {
+      if (widget.aulasSemana.isFalta) {
         entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.cancelarFalta)));
-      } else if (aulasSemana.isAulaVaga) {
+      } else if (widget.aulasSemana.isAulaVaga) {
         entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.cancelarAulaVaga)));
       }
     }
@@ -87,10 +127,10 @@ class CalendarioContentAulasTile extends StatelessWidget {
   }
 
   Color _getColor() {
-    if (aulasSemana.idFalta != null) {
-      if (aulasSemana.tipo == 0) {
+    if (widget.aulasSemana.idFalta != null) {
+      if (widget.aulasSemana.tipo == 0) {
         return Colors.red;
-      } else if (aulasSemana.tipo == 1) {
+      } else if (widget.aulasSemana.tipo == 1) {
         return Colors.teal;
       }
     }

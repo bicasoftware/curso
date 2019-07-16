@@ -146,7 +146,7 @@ List<CalendarioDTO> prepareCalendario({
       final aulas = <AulasSemanaDTO>[];
       aulasByWeekDay
           .where((AulasSemanaDTO aulas) => aulas.weekDay == getWeekday(start))
-          .forEach((aula) => aulas.add(AulasSemanaDTO.copyWith(aula)));
+          .forEach((aula) => aulas.add(AulasSemanaDTO.clone(aula)));
 
       for (var aula in aulas) {
         final falta = faltas.firstWhere(
@@ -158,8 +158,7 @@ List<CalendarioDTO> prepareCalendario({
         );
 
         if (falta != null) {
-          aula.idFalta = falta.id;
-          aula.tipo = falta.tipo;
+          aula = aula.copyWith(tipoFalta: falta.tipo, idfalta: falta.tipo);
         }
       }
 

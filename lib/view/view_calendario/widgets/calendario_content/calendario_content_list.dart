@@ -67,54 +67,64 @@ class CalendarioAulasProvas extends StatelessWidget {
             data[1] as Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>;
         final aulasAgendamento = data[2] as List<AulasSemanaDTO>;
 
-        return ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(Strings.aulas, style: style),
-            ),
-            ...[
-              for (int i = 0; i < aulas.aulas.length; i++)
-                CalendarioContentAulasTile(
-                  aulasSemana: aulas.aulas[i],
-                  ordem: aulas.aulas[i].numAula,
-                  onOptionSelected: (int selected, AulasSemanaDTO aulasSemana) {
-                    onOptionSelected(selected, aulasSemana, aulas.date);
-                  },
+        return aulas.aulas.every((a) => a.idMateria == null)
+            ? Container(
+                child: Center(
+                  child: Text(Strings.semAulasHoje, style: Theme.of(context).textTheme.caption),
                 ),
-            ],
-            if (faltasNotasMaterias.first.isNotEmpty) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(Strings.provas, style: style),
-              ),
-              ...[
-                for (int i = 0; i < faltasNotasMaterias.first.length; i++)
-                  CalendarioProvasDiaListTile(
-                    provasNotasMaterias: faltasNotasMaterias.first[i],
-                    onDeleted: b.deleteNota,
-                    onUpdateNota: b.updateNota,
-                  )
-              ],
-            ],
-            if (aulasAgendamento.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: MaterialButton(
-                  color: Theme.of(context).accentColor,
-                  colorBrightness: Brightness.dark,
-                  child: const Text("Agendar Prova"),
-                  onPressed: () {
-                    BottomSheets.showBtsProvasDia(context, aulasAgendamento).then((id) {
-                      if (id != null) {
-                        b.insertNota(id);
-                      }
-                    });
-                  },
-                ),
-              ),
-          ],
-        );
+              )
+            : ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Text(Strings.aulas, style: style),
+                  ),
+                  ...[
+                    for (int i = 0; i < aulas.aulas.length; i++)
+                      CalendarioContentAulasTile(
+                        key: ObjectKey(aulas.aulas[i]),
+                        aulasSemana: aulas.aulas[i],
+                        ordem: aulas.aulas[i].numAula,
+                        onOptionSelected: (int selected, AulasSemanaDTO aulasSemana) {
+                          onOptionSelected(selected, aulasSemana, aulas.date);
+                        },
+                      ),
+                  ],
+                  if (faltasNotasMaterias.first.isNotEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Text(Strings.provas, style: style),
+                    ),
+                    ...[
+                      for (int i = 0; i < faltasNotasMaterias.first.length; i++)
+                        CalendarioProvasDiaListTile(
+                          provasNotasMaterias: faltasNotasMaterias.first[i],
+                          onDeleted: b.deleteNota,
+                          onUpdateNota: b.updateNota,
+                        )
+                    ],
+                  ],
+                  if (aulasAgendamento.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: MaterialButton(
+                        color: Theme.of(context).accentColor,
+                        colorBrightness: Brightness.dark,
+                        child: const Text("Agendar Prova"),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        onPressed: () {
+                          BottomSheets.showBtsProvasDia(context, aulasAgendamento).then((id) {
+                            if (id != null) {
+                              b.insertNota(id);
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                ],
+              );
       },
     );
   }

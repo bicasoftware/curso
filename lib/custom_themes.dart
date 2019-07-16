@@ -1,4 +1,4 @@
-import 'package:curso/widgets/custom_colors.dart';
+import 'package:curso/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomThemes {
@@ -19,9 +19,15 @@ class CustomThemes {
     return ThemeData(
       brightness: Brightness.dark,
       primaryColor: CustomColors.primary,
-      accentColor: CustomColors.accent,
-      backgroundColor: CustomColors.bgColor,
+      accentColor: CustomColors.primary,
+      backgroundColor: CustomColors.canvasColor,
+      canvasColor: CustomColors.canvasColor,
       cardColor: CustomColors.cardColor,
+      appBarTheme: const AppBarTheme(
+        brightness: Brightness.dark,
+        color: CustomColors.appBarColor,
+        elevation: 2,
+      ),
     );
   }
 

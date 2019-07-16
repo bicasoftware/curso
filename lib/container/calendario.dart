@@ -30,11 +30,13 @@ class DataDTO {
   DataDTO({this.date, this.aulas, this.hasProvas = false});
 
   void insertFalta(Faltas falta) {
-    aulas.firstWhere((aula) => aula.numAula == falta.numAula).insertFalta(falta);
+    final i = aulas.indexWhere((aula) => aula.numAula == falta.numAula);
+    aulas[i] = aulas[i].copyWith(idfalta: falta.id, tipoFalta: falta.tipo);
   }
 
   void deleteFalta(int idFalta) {
-    aulas.firstWhere((aula) => aula.idFalta == idFalta).deleteFalta();
+    final index = aulas.indexWhere((aula) => aula.idFalta == idFalta);
+    aulas[index] = aulas[index].copyWith(tipoFalta: null, idfalta: null);
   }
 
   List<Color> get colorList => aulas.map((aula) => Color(aula.cor)).toList();
@@ -61,8 +63,8 @@ class AulasSemanaDTO {
   final String nome;
   final String sigla;
   final DateTime horario;
-  int idFalta;
-  int tipo;
+  final int idFalta;
+  final int tipo;
 
   AulasSemanaDTO({
     @required this.idFalta,
@@ -77,7 +79,7 @@ class AulasSemanaDTO {
     @required this.tipo,
   });
 
-  factory AulasSemanaDTO.copyWith(AulasSemanaDTO base) {
+  factory AulasSemanaDTO.clone(AulasSemanaDTO base) {
     return AulasSemanaDTO(
       idFalta: base.idFalta,
       idMateria: base.idMateria,
@@ -92,12 +94,20 @@ class AulasSemanaDTO {
     );
   }
 
-  void insertFalta(Faltas falta) {
-    idFalta = falta.id;
-    tipo = falta.tipo;
+  AulasSemanaDTO copyWith({int idfalta, int tipoFalta}) {
+    return AulasSemanaDTO(
+      idMateria: idMateria,
+      idPeriodo: idPeriodo,
+      weekDay: weekDay,
+      numAula: numAula,
+      cor: cor,
+      nome: nome,
+      sigla: sigla,
+      horario: horario,
+      idFalta: idfalta,
+      tipo: tipoFalta,
+    );
   }
-
-  void deleteFalta() => idFalta = null;
 
   bool get isFalta => idFalta != null && tipo == 0;
 
