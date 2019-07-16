@@ -91,10 +91,10 @@ class _Body extends StatelessWidget {
     return Observer<List<Materias>>(
       stream: b.outMaterias,
       onSuccess: (BuildContext context, List<Materias> materias) {
-        return WillPopScope(
+        return WillPopScope(          
           onWillPop: () async {
-            Navigator.of(context).pop(materias);
-            return true;
+            Navigator.of(context).pop(materias);            
+            return false;
           },
           child: Scaffold(
             backgroundColor: ThemeData.light().canvasColor,
