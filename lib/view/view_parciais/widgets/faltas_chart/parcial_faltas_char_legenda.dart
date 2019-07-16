@@ -26,7 +26,10 @@ class ParciaisFaltasChartLegenda extends StatelessWidget {
         children: <Widget>[
           MateriaColorContainer(color: cor, size: 8),
           const SizedBox(width: 8),
-          Text(legenda, style: theme.textTheme.caption.copyWith(color: theme.accentColor)),
+          Text(
+            legenda,
+            style: theme.textTheme.caption,
+          ),
         ],
       ),
     );

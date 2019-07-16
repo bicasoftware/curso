@@ -17,11 +17,17 @@ class ViewCalendarioState extends State<ViewCalendario> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
-      children: const <Widget>[
-        CalendarioNavigator(),
-        PaddedDivider(height: 0, padding: EdgeInsets.symmetric(horizontal: 64)),
-        CalendarioStrip(),
-        Expanded(
+      children: <Widget>[
+        SquaredCard(
+          child: Column(
+            children: const <Widget>[
+              CalendarioNavigator(),
+              PaddedDivider(height: 0, padding: EdgeInsets.symmetric(horizontal: 64)),
+              CalendarioStrip(),
+            ],
+          ),
+        ),
+        const Expanded(
           child: SquaredCard(child: CalendarioAulasProvas()),
         ),
       ],

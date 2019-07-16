@@ -32,7 +32,7 @@ class ParcialNotasItem extends StatelessWidget {
     final style = TextStyle(fontSize: 12);
 
     if (DateTime.now().isBefore(nota.data)) {
-      return style.copyWith(color: Colors.black54);
+      return style.copyWith(color: Colors.white60);
     } else {
       if (nota.nota == null) {
         return style.copyWith(color: Colors.amber, fontWeight: FontWeight.bold);

@@ -1,3 +1,4 @@
+import 'package:curso/widgets/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomThemes {
@@ -11,6 +12,16 @@ class CustomThemes {
       splashColor: Colors.lightBlue[50],
       highlightColor: Colors.lightBlue[50],
       canvasColor: Colors.transparent,
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      brightness: Brightness.dark,
+      primaryColor: CustomColors.primary,
+      accentColor: CustomColors.accent,
+      backgroundColor: CustomColors.bgColor,
+      cardColor: CustomColors.cardColor,
     );
   }
 
@@ -36,5 +47,12 @@ class CustomThemes {
   static TextStyle get bottomSheetHeader {
     return transparedBackgroundTheme.textTheme.subhead
         .copyWith(color: transparedBackgroundTheme.accentColor);
+  }
+
+  static TextStyle get darkBottomSheetHeader {
+    return TextStyle(
+      color: CustomColors.accent,
+      fontSize: 20,
+    );
   }
 }

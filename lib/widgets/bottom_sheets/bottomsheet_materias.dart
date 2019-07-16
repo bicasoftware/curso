@@ -31,7 +31,7 @@ class BottomSheetMaterias extends StatelessWidget {
                 child: Text(
                   Strings.materias,
                   textAlign: TextAlign.center,
-                  style: CustomThemes.bottomSheetHeader,
+                  style: CustomThemes.darkBottomSheetHeader,
                 ),
               ),
               IconButton(

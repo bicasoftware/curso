@@ -1,5 +1,4 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/showup.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
     return Container(
-      color: CustomThemes.lightTheme.cardColor,
       child: Row(
         children: [
           IconButton(
@@ -37,10 +35,6 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
                     formatFullDayStringAlt(data),
                     key: UniqueKey(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Theme.of(context).primaryColor,
-                    ),
                   ),
                 );
               },

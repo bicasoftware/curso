@@ -46,12 +46,13 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
               Text(
                 Strings.notaAprovacao,
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(fontSize: 14),
               ),
               Spacer(),
               Text(formatNota(widget.notaAprov)),
             ],
           ),
+          const SizedBox(height: 4),
           LinearProgressIndicator(
             backgroundColor: Colors.black12,
             value: widget.notaAprov / 10,
@@ -63,12 +64,13 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
               Text(
                 Strings.notaAtual,
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(fontSize: 14),
               ),
               Spacer(),
               Text(formatNota(widget.notaAtual)),
             ],
           ),
+          const SizedBox(height: 4),
           LinearProgressIndicator(
             valueColor: colorAnim,
             backgroundColor: Colors.black12,

@@ -12,7 +12,7 @@ class ViewMateriasList extends StatelessWidget {
   }) : super(key: key);
 
   final List<Materias> materias;
-  final Function(Materias, int pos) onTap;
+  final Function(Materias, int pos, GlobalKey morpheusKey) onTap;
   final Function(Materias) onDelete;
 
   @override
@@ -20,9 +20,11 @@ class ViewMateriasList extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext c, int i) {
+          final morpheusKey = GlobalKey();
           return Column(
             children: <Widget>[
               ViewMateriasListItem(
+                morpheusKey: morpheusKey,
                 context: c,
                 m: materias[i],
                 pos: i,

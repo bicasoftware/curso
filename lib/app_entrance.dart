@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: CustomThemes.transparedBackgroundTheme,
+      theme: CustomThemes.darkTheme,
       home: ViewHome(
         initialPos: initialPosition,
       ),

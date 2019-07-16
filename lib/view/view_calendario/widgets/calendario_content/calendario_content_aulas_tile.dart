@@ -27,24 +27,46 @@ class CalendarioContentAulasTile extends StatelessWidget {
               color: Theme.of(context).primaryColorLight,
             ),
           )
-        : Container(
-            color: _getColor(),
-            child: ListTile(
-              dense: true,
-              subtitle: Text(
-                "${ordem + 1}ª ${Strings.aula} | ${formatTime(aulasSemana.horario)}",
+        : Row(
+            children: <Widget>[
+              SizedBox(
+                height: 50,
+                width: 2,
+                child: Container(
+                  color: _getColor(),
+                ),
               ),
-              leading: MateriaColorContainer(
-                color: Color(aulasSemana.cor),
-                size: 32,
+              Expanded(
+                child: ListTile(
+                  dense: true,
+                  subtitle: Text(
+                    "${ordem + 1}ª ${Strings.aula} | ${formatTime(aulasSemana.horario)} ${faltaTipo(aulasSemana.tipo)}",
+                  ),
+                  leading: MateriaColorContainer(
+                    color: Color(aulasSemana.cor),
+                    size: 32,
+                  ),
+                  title: Text(aulasSemana.nome),
+                  trailing: PopupMenuButton<int>(
+                    onSelected: (int i) => onOptionSelected(i, aulasSemana),
+                    itemBuilder: (c) => entryList(),
+                  ),
+                ),
               ),
-              title: Text(aulasSemana.nome),
-              trailing: PopupMenuButton<int>(
-                onSelected: (int i) => onOptionSelected(i, aulasSemana),
-                itemBuilder: (c) => entryList(),
-              ),
-            ),
+            ],
           );
+  }
+
+  String faltaTipo(int tipo) {
+    if (aulasSemana.idFalta != null) {
+      if (aulasSemana.tipo == 0) {
+        return " | Falta!";
+      } else if (aulasSemana.tipo == 1) {
+        return " | Aula Vaga";
+      }
+    }
+
+    return "";
   }
 
   List<PopupMenuEntry<int>> entryList() {
@@ -67,9 +89,9 @@ class CalendarioContentAulasTile extends StatelessWidget {
   Color _getColor() {
     if (aulasSemana.idFalta != null) {
       if (aulasSemana.tipo == 0) {
-        return Colors.red[50];
+        return Colors.red;
       } else if (aulasSemana.tipo == 1) {
-        return Colors.teal[50];
+        return Colors.teal;
       }
     }
 

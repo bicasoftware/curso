@@ -56,7 +56,6 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
     final b = Provider.of<BlocMain>(context);
 
     return Scaffold(
-      backgroundColor: ThemeData.light().canvasColor,
       appBar: AppBar(
         title: Observer<int>(
           stream: outPos,

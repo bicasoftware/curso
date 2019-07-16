@@ -1,4 +1,5 @@
 import 'package:curso/utils.dart/Strings.dart';
+import 'package:curso/widgets/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodosCronogramaHeader extends StatelessWidget {
@@ -19,9 +20,7 @@ class ViewPeriodosCronogramaHeader extends StatelessWidget {
         child: Text(
           d,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: CustomColors.accent),
         ),
       ),
     );

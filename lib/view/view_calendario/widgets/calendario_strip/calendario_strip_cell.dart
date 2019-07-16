@@ -1,6 +1,7 @@
 import 'package:curso/container/calendario.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell_indicator.dart';
+import 'package:curso/widgets/custom_colors.dart';
 import 'package:curso/widgets/rainbow_radial/rainbow_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,7 @@ class CalendarioStripCell extends StatelessWidget {
       "${dataDTO.date.day.toString().padLeft(2, '0')}",
       style: TextStyle(
         fontSize: 14,
-        color: Colors.black,
+        color: Colors.white70,
       ),
     );
   }
@@ -67,7 +68,6 @@ class CalendarioStripCell extends StatelessWidget {
       formatWeekDay(dataDTO.date),
       style: TextStyle(
         fontSize: 14,
-        color: checkToday() ? Colors.black : Theme.of(context).accentColor,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -80,9 +80,9 @@ class CalendarioStripCell extends StatelessWidget {
   ///Se for hoje, mostra em Azul, se estiver selecionado, mostra Teal, senão, mostra branco
   Color getCellColor(BuildContext context) {
     if (isSameDay(dataDTO.date, selectedDate)) {
-      return Colors.orange[50];
+      return CustomColors.accent;
     } else if (isToday(dataDTO.date)) {
-      return Colors.lightBlue[50];
+      return CustomColors.primary;
     } else {
       return Theme.of(context).cardColor;
     }

@@ -5,6 +5,7 @@ import 'package:curso/view/view_materias/view_materias_list.dart';
 import 'package:curso/view/view_materias_insert/view_materias_insert.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
+import 'package:morpheus/page_routes/morpheus_page_route.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/bloc_materias.dart';
@@ -97,7 +98,6 @@ class _Body extends StatelessWidget {
             return true;
           },
           child: Scaffold(
-            backgroundColor: ThemeData.light().canvasColor,
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton.extended(
               label: Text(Strings.adicionar),
@@ -110,6 +110,7 @@ class _Body extends StatelessWidget {
                 SliverAppBar(
                   title: Text(Strings.materias),
                   floating: true,
+                  centerTitle: true,
                   leading: IconButton(
                     icon: Icon(Icons.close),
                     onPressed: () => Navigator.of(context).pop(materias),
@@ -117,10 +118,10 @@ class _Body extends StatelessWidget {
                 ),
                 ViewMateriasList(
                   materias: materias,
-                  onTap: (Materias m, int pos) async {
+                  onTap: (Materias m, int pos, GlobalKey morpheusKey) async {
                     final ViewMateriasInsertResult result = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
+                      MorpheusPageRoute(
+                        parentKey: morpheusKey,
                         builder: (c) => ViewMateriasInsert(materia: m, pos: pos),
                       ),
                     );

@@ -17,7 +17,7 @@ class CalendarioAulasProvas extends StatelessWidget {
   Widget build(BuildContext context) {
     final BlocMain b = Provider.of<BlocMain>(context);
     final style = TextStyle(
-      color: Colors.black54,
+      color: Colors.white70,
       fontSize: 16,
     );
 

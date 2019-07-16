@@ -35,8 +35,8 @@ class ParcialFaltasChart extends StatelessWidget {
                   ..putIfAbsent("${Strings.vagas} -> $vagas", vagas.toDouble)
                   ..putIfAbsent("${Strings.presencas} -> $presenca", () => presenca.toDouble())
                   ..putIfAbsent("Restantes", () => restantes.toDouble()),
-                chartValuesColor: Colors.black,
-                colorList: [Colors.red, Colors.green, Colors.blue, Colors.grey[300]],
+                chartValuesColor: Colors.white,
+                colorList: [Colors.red, Colors.green, Colors.blue, Colors.white60],
                 fontFamily: "FiraSans",
                 showChartValuesOutside: true,
                 showLegends: false,

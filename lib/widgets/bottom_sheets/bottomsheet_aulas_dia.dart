@@ -25,7 +25,7 @@ class BottomSheetAulasDia extends StatelessWidget {
           child: Text(
             Strings.selecioneMateriaProva,
             textAlign: TextAlign.center,
-            style: CustomThemes.bottomSheetHeader,
+            style: CustomThemes.darkBottomSheetHeader,
           ),
         ),
         const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),

@@ -14,7 +14,6 @@ class _ViewProvasBodyState extends State<ViewProvasBody> {
       appBar: AppBar(
         title: Text("${Strings.provas}"),
       ),
-      backgroundColor: ThemeData.light().canvasColor,
       body: ProvasList(),
     );
   }

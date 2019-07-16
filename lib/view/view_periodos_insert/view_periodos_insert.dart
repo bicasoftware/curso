@@ -61,7 +61,6 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
         return _canPop(context);
       },
       child: Scaffold(
-        backgroundColor: ThemeData.light().canvasColor,
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(

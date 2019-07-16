@@ -8,14 +8,7 @@ class RoundedBottomSheetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(radius),
-          topRight: Radius.circular(radius),
-        ),
-      ),
+    return Container(      
       width: double.infinity,
       child: child,
     );

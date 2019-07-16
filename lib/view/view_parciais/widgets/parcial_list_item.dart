@@ -29,7 +29,6 @@ class ParcialListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     parciais.notas.sort((a, b) => a.data.compareTo(b.data));
     return Card(
-      elevation: 1,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -1,4 +1,3 @@
-import 'package:curso/custom_themes.dart';
 import 'package:curso/view/view_periodos_insert/horario_aula_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
@@ -15,23 +14,21 @@ class ViewPeriodosInsertBuilder {
     return DefaultListTile(
       icon: Icons.format_list_numbered,
       leading: Text(Strings.numPeriodo),
-      trailing: Theme(
-        data: CustomThemes.lightTheme,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<int>(
-            value: numPeriodo,
-            onChanged: onChanged,
-            items: List.generate(12, (i) {
-              return DropdownMenuItem<int>(
-                value: i + 1,
-                child: Text("${i + 1}º ${Strings.periodo}"),
-              );
-            }),
-          ),
+      trailing: DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: numPeriodo,
+          onChanged: onChanged,
+          items: List.generate(12, (i) {
+            return DropdownMenuItem<int>(
+              value: i + 1,
+              child: Text("${i + 1}º ${Strings.periodo}"),
+            );
+          }),
         ),
       ),
     );
   }
+
   static Widget qntAulasDropdownTile({
     @required int qntAulas,
     @required Function(int) onChanged,
@@ -39,19 +36,16 @@ class ViewPeriodosInsertBuilder {
     return DefaultListTile(
       icon: Icons.list,
       leading: Text(Strings.aulasDia),
-      trailing: Theme(
-        data: CustomThemes.lightTheme,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<int>(
-            value: qntAulas,
-            onChanged: onChanged,
-            items: List.generate(12, (i) {
-              return DropdownMenuItem<int>(
-                value: i + 1,
-                child: Text("${i + 1} aulas"),
-              );
-            }),
-          ),
+      trailing: DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: qntAulas,
+          onChanged: onChanged,
+          items: List.generate(12, (i) {
+            return DropdownMenuItem<int>(
+              value: i + 1,
+              child: Text("${i + 1} aulas"),
+            );
+          }),
         ),
       ),
     );
