@@ -129,23 +129,23 @@ bool isSameDay(DateTime date1, DateTime date2) {
 ///Linka Faltas e materias conforme o calendário
 ///Gerar versão otimizada assim que possível
 List<CalendarioDTO> prepareCalendario({
-  @required DateTime start,
-  @required DateTime end,
+  @required DateTime inicio,
+  @required DateTime termino,
   @required List<AulasSemanaDTO> aulasByWeekDay,
   @required List<Faltas> faltas,
   @required List<Notas> provas,
 }) {
-  final rightEnd = end.add(Duration(days: 1));
+  final rightEnd = termino.add(Duration(days: 1));
   final calendario = <CalendarioDTO>[];
 
-  for (var m = start.month; m <= rightEnd.month; m++) {
+  for (var m = inicio.month; m <= rightEnd.month; m++) {
     final inCalendario = CalendarioDTO(mes: m, dates: []);
 
-    while (m == start.month && start.isBefore(rightEnd)) {
+    while (m == inicio.month && inicio.isBefore(rightEnd)) {
       ///Cria uma nova lista de aulas
       final aulas = <AulasSemanaDTO>[];
       aulasByWeekDay
-          .where((AulasSemanaDTO aulas) => aulas.weekDay == getWeekday(start))
+          .where((AulasSemanaDTO aulas) => aulas.weekDay == getWeekday(inicio))
           .forEach((aula) => aulas.add(AulasSemanaDTO.clone(aula)));
 
       for (var aula in aulas) {
@@ -153,7 +153,7 @@ List<CalendarioDTO> prepareCalendario({
           (f) =>
               f.idMateria == aula.idMateria &&
               f.numAula == aula.numAula &&
-              isSameDay(f.data, start),
+              isSameDay(f.data, inicio),
           orElse: () => null,
         );
 
@@ -164,12 +164,12 @@ List<CalendarioDTO> prepareCalendario({
 
       inCalendario.dates.add(
         DataDTO(
-          date: start,
+          date: inicio,
           aulas: aulas,
-          hasProvas: provas.firstWhere((p) => isSameDay(p.data, start), orElse: () => null) != null,
+          hasProvas: provas.firstWhere((p) => isSameDay(p.data, inicio), orElse: () => null) != null,
         ),
       );
-      start = start.add(Duration(days: 1));
+      inicio = inicio.add(Duration(days: 1));
     }
     calendario.add(inCalendario);
   }

@@ -148,9 +148,10 @@ class Periodos implements BaseTable {
   void refreshCalendario() {
     _refreshAulasSemana();
 
+    print("start: $inicio, end: $termino");
     calendario = prepareCalendario(
-      start: inicio,
-      end: termino,
+      inicio: inicio,
+      termino: termino,
       aulasByWeekDay: aulasSemana,
       faltas: _getFaltas(),
       provas: _getProvas(),

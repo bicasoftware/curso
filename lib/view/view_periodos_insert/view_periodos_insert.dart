@@ -104,11 +104,14 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  Observer<DateTime>(
-                    stream: bloc.termino.get(),
-                    onSuccess: (BuildContext context, DateTime data) {
+                  MultiObserver(
+                    streams: [bloc.inicio.get(), bloc.termino.get()],
+                    onSuccess: (BuildContext context, List dates) {
+                      final DateTime inicio = dates[0] as DateTime;
+                      final DateTime termino = dates[1] as DateTime;
                       return DatePickerTile(
-                        initialDate: data,
+                        initialDate: termino,
+                        lastDate: DateTime(inicio.year, 12, 31),
                         title: Strings.terminoPeriodo,
                         onDateSet: bloc.termino.set,
                       );

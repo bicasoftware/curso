@@ -7,7 +7,7 @@ class CalendarioDTO {
   final int mes;
   final List<DataDTO> dates;
 
-  const CalendarioDTO({this.mes, this.dates});
+  const CalendarioDTO({@required this.mes, @required this.dates});
 
   DataDTO _findByDate(DateTime date) {
     return dates.firstWhere((dt) => isSameDay(dt.date, date));
