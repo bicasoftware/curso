@@ -13,14 +13,32 @@ import 'package:curso/providers/provider_aulas.dart';
 import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_notas.dart';
 import 'package:curso/providers/provider_periodos.dart';
+import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'state_main.dart';
 
 class BlocMain extends BaseBloc {
+  BlocMain({@required List<Periodos> periodos, @required int isLight}) {
+    state = StateMain(
+      periodos: periodos,
+    );
+
+    _isLight = isLight == 0;
+    inBrightness.add(_isLight);
+    _sinkPeriodos();
+    _sinkCurrentPeriodo();
+  }
+
   StateMain state;
+  bool _isLight;
+
+  final BehaviorSubject<bool> _bhsBrightness = BehaviorSubject<bool>();
+  Stream<bool> get outBrightness => _bhsBrightness.stream;
+  Sink<bool> get inBrightness => _bhsBrightness.sink;
 
   final _subDataDTO = BehaviorSubject<DataDTO>();
   Stream<DataDTO> get outDataDTO => _subDataDTO.stream;
@@ -58,15 +76,6 @@ class BlocMain extends BaseBloc {
   Stream<CalendarioDTO> get outCalendario => _bhsCalendario.stream;
   Sink<CalendarioDTO> get inCalendario => _bhsCalendario.sink;
 
-  BlocMain({List<Periodos> periodos}) {
-    state = StateMain(
-      periodos: periodos,
-    );
-
-    _sinkPeriodos();
-    _sinkCurrentPeriodo();
-  }
-
   @override
   void dispose() {
     _subDataDTO.close();
@@ -77,6 +86,14 @@ class BlocMain extends BaseBloc {
     _subjectListPeriodos.close();
     _subjectParciais.close();
     _bhsCalendario.close();
+    _bhsBrightness.close();
+  }
+
+  void toggleBrightness() {
+    _isLight = !_isLight;
+    SharedPreferences.getInstance()
+        .then((pref) => pref.setInt(Keys.app_brightness, _isLight ? 0 : 1))
+        .whenComplete(() => inBrightness.add(_isLight));
   }
 
   void _sinkPeriodos() {

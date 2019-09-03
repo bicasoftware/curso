@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ViewProvas extends StatefulWidget {
-  final Periodos periodo;
-
   const ViewProvas({
     @required this.periodo,
     Key key,
   }) : super(key: key);
+
+  final Periodos periodo;
 
   @override
   _ViewProvasState createState() => _ViewProvasState();

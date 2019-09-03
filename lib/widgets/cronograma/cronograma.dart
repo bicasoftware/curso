@@ -5,14 +5,14 @@ import 'package:curso/widgets/cronograma/cronograma_row.dart';
 import 'package:flutter/material.dart';
 
 class Cronograma extends StatelessWidget {
-  final Periodos periodo;
-  final Function(int, int, Periodos, int) onCellClick;
-
   const Cronograma({
     @required this.periodo,
     @required this.onCellClick,
     Key key,
   }) : super(key: key);
+
+  final Periodos periodo;
+  final Function(int, int, Periodos, int) onCellClick;
 
   @override
   Widget build(BuildContext context) {

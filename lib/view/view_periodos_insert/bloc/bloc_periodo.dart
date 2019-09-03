@@ -4,16 +4,7 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/flux.dart';
 import 'package:meta/meta.dart';
 
-
 class BlocPeriodo extends BaseBloc {
-  Periodos _periodo;
-  bool shouldUpdate = false;
-
-  Flux<int> numPeriodo, aulasDia;
-  Flux<double> medAprov, presObrig;
-  Flux<DateTime> inicio, termino;
-  Flux<List<Horarios>> horarios;
-
   BlocPeriodo({@required Periodos periodo}) {
     _periodo = periodo;
     numPeriodo = Flux(periodo.numPeriodo);
@@ -24,6 +15,14 @@ class BlocPeriodo extends BaseBloc {
     termino = Flux(periodo.termino);
     horarios = Flux([for (final h in periodo.horarios) h.getCopy()]);
   }
+
+  Periodos _periodo;
+  bool shouldUpdate = false;
+
+  Flux<int> numPeriodo, aulasDia;
+  Flux<double> medAprov, presObrig;
+  Flux<DateTime> inicio, termino;
+  Flux<List<Horarios>> horarios;
 
   @override
   void dispose() {

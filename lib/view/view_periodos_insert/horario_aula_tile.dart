@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
 class HorarioAulaTile extends StatelessWidget {
-  final int ordemAula;
-  final DateTime inicio, termino;
-  final Function(int, DateTime, DateTime) onOrdemAulaTap;
-
   const HorarioAulaTile({
     @required this.ordemAula,
     @required this.inicio,
@@ -15,6 +11,10 @@ class HorarioAulaTile extends StatelessWidget {
     @required this.onOrdemAulaTap,
     Key key,
   }) : super(key: key);
+
+  final int ordemAula;
+  final DateTime inicio, termino;
+  final Function(int, DateTime, DateTime) onOrdemAulaTap;
 
   String get ini => formatTime(inicio);
   String get end => formatTime(termino);

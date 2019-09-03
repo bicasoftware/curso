@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MateriaColorContainer extends StatelessWidget {
-  final Color color;
-  final Widget child;
-  final double size;
-  final MaterialType type;
-
   const MateriaColorContainer({
     @required this.color,
     this.child,
@@ -13,6 +8,11 @@ class MateriaColorContainer extends StatelessWidget {
     this.type = MaterialType.circle,
     Key key,
   }) : super(key: key);
+
+  final Color color;
+  final Widget child;
+  final double size;
+  final MaterialType type;
 
   @override
   Widget build(BuildContext context) {

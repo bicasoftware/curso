@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class RadialRainbowPainter extends CustomPainter {
+  RadialRainbowPainter({this.colors, this.width});
+
   List<Color> colors;
   double width;
-  RadialRainbowPainter({this.colors, this.width});
+
   @override
   void paint(Canvas canvas, Size size) {
     final Offset center = Offset(size.width / 2, size.height / 2);

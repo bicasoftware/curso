@@ -1,23 +1,22 @@
 import 'package:curso/container/periodos.dart';
-import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
-import 'package:lib_observer/lib_observer.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas_result.dart';
 import 'package:curso/view/view_periodos_insert/bloc/bloc_periodo.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
+import 'package:lib_observer/lib_observer.dart';
 
 import 'view_periodos_insert_builder.dart';
 
 class ViewPeriodosInsert extends StatefulWidget {
-  final Periodos periodo;
-
   const ViewPeriodosInsert({
     @required this.periodo,
     Key key,
   }) : super(key: key);
+
+  final Periodos periodo;
 
   @override
   _ViewPeriodosInsertState createState() => _ViewPeriodosInsertState();
@@ -74,7 +73,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
               actions: <Widget>[
                 FlatButton(
                   colorBrightness: Brightness.dark,
-                  child: Text(Strings.salvar),
+                  child: const Text(Strings.salvar),
                   onPressed: () {
                     bloc.shouldUpdate = true;
                     Navigator.of(context).pop(bloc.providePeriodo());
@@ -140,7 +139,9 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                     padding: const EdgeInsets.only(left: 16.0, right: 8, top: 8, bottom: 8),
                     child: Text(
                       Strings.horariosAulas,
-                      style: CustomThemes.bottomSheetHeader,
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                      ),
                     ),
                   ),
                   Observer<int>(

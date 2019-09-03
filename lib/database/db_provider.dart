@@ -13,12 +13,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBProvider {
-  static final DBProvider _instance = DBProvider._internal();
-
-  static const String _DBNAME = "curso_gestor";
-  static const int _VERSION = 1;
-  static Database _db;
-
   factory DBProvider() {
     return _instance;
   }
@@ -26,6 +20,12 @@ class DBProvider {
   DBProvider._internal() {
     _create().then((it) => _db = it);
   }
+
+  static final DBProvider _instance = DBProvider._internal();
+
+  static const String _DBNAME = "curso_gestor";
+  static const int _VERSION = 1;
+  static Database _db;
 
   static Future<Database> get instance async {
     return _db ??= await _create();

@@ -7,11 +7,6 @@ import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class ParciaisNotas extends StatelessWidget {
-  final List<Notas> notas;
-  final double notaAprovacao;
-  final double notaAtual;
-  final ParciaisStatus status;
-
   const ParciaisNotas({
     @required this.notas,
     @required this.notaAprovacao,
@@ -20,10 +15,15 @@ class ParciaisNotas extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  final List<Notas> notas;
+  final double notaAprovacao;
+  final double notaAtual;
+  final ParciaisStatus status;
+
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(Strings.provas),
+      title: const Text(Strings.provas),
       children: <Widget>[
         Column(
           children: <Widget>[

@@ -13,7 +13,7 @@ class ViewPeriodosInsertBuilder {
   }) {
     return DefaultListTile(
       icon: Icons.format_list_numbered,
-      leading: Text(Strings.numPeriodo),
+      leading: const Text(Strings.numPeriodo),
       trailing: DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           value: numPeriodo,

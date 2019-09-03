@@ -1,17 +1,13 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/container/periodos.dart';
+import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
 
 class DropDownPeriodos extends StatelessWidget {
-  final ThemeData theme;
-
-  const DropDownPeriodos({
-    @required this.theme,
-    Key key,
-  }) : super(key: key);
+  const DropDownPeriodos({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +16,25 @@ class DropDownPeriodos extends StatelessWidget {
     return MultiObserver(
       streams: [b.outCurrentPeriodo, b.outListPeriodos],
       onSuccess: (BuildContext context, List data) {
-        return DropdownButtonHideUnderline(
-          child: DropdownButton<Periodos>(
-            value: data[0],
-            onChanged: (Periodos p) => b.setCurrentPeriodoId(p.id),
-            items: [
-              for (final per in data[1])
-                DropdownMenuItem<Periodos>(
-                  child: Text("${per.numPeriodo}º ${Strings.periodo} "),
-                  value: per,
-                )
-            ],
+        final periodo = data[0];
+        final periodos = data[1];
+        return Theme(
+          data: CustomThemes.darkTheme,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<Periodos>(
+              value: periodo,
+              onChanged: (Periodos p) => b.setCurrentPeriodoId(p.id),
+              items: [
+                for (final per in periodos)
+                  DropdownMenuItem<Periodos>(
+                    child: Text("${per.numPeriodo}º ${Strings.periodo} "),
+                    value: per,
+                  )
+              ],
+            ),
           ),
         );
       },
-    );    
+    );
   }
 }

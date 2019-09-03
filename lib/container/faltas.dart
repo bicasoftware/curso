@@ -3,6 +3,24 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class Faltas implements BaseTable {
+  Faltas({
+    @required this.id,
+    @required this.idMateria,
+    @required this.data,
+    @required this.numAula,
+    @required this.tipo,
+  });
+
+  factory Faltas.fromMap(Map m) {
+    return Faltas(
+      id: m[ID],
+      idMateria: m[IDMATERIA],
+      data: parseDate(m[DATA]),
+      numAula: m[NUMAULA],
+      tipo: m[TIPO],
+    );
+  }
+
   int id;
   int idMateria;
   DateTime data;
@@ -10,13 +28,6 @@ class Faltas implements BaseTable {
 
   ///Tipo pode ser 0 - Falta ou 1 - Aula Vaga
   int tipo;
-
-  Faltas(
-      {@required this.id,
-      @required this.idMateria,
-      @required this.data,
-      @required this.numAula,
-      @required this.tipo});
 
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
@@ -54,16 +65,6 @@ class Faltas implements BaseTable {
     }
 
     return m;
-  }
-
-  factory Faltas.fromMap(Map m) {
-    return Faltas(
-      id: m[ID],
-      idMateria: m[IDMATERIA],
-      data: parseDate(m[DATA]),
-      numAula: m[NUMAULA],
-      tipo: m[TIPO],
-    );
   }
 
   @override

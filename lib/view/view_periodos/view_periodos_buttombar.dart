@@ -4,12 +4,6 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodosButtombar extends StatelessWidget {
-  final Periodos periodo;
-  final Function(Periodos) onUpdateTap;
-  final Function(int) onDelete;
-  final Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap;
-  final Function(Periodos) onNotasTap;
-
   const ViewPeriodosButtombar({
     @required this.periodo,
     @required this.onUpdateTap,
@@ -19,9 +13,14 @@ class ViewPeriodosButtombar extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  final Periodos periodo;
+  final Function(Periodos) onUpdateTap;
+  final Function(int) onDelete;
+  final Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap;
+  final Function(Periodos) onNotasTap;
+
   @override
   Widget build(BuildContext context) {
-
     final style = Theme.of(context).textTheme.button.copyWith(color: Theme.of(context).accentColor);
 
     return Row(

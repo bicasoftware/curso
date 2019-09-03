@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class CalendarioDTO {
+  const CalendarioDTO({@required this.mes, @required this.dates});
+
   final int mes;
   final List<DataDTO> dates;
-
-  const CalendarioDTO({@required this.mes, @required this.dates});
 
   DataDTO _findByDate(DateTime date) {
     return dates.firstWhere((dt) => isSameDay(dt.date, date));
@@ -23,11 +23,11 @@ class CalendarioDTO {
 }
 
 class DataDTO {
+  DataDTO({this.date, this.aulas, this.hasProvas = false});
+
   final DateTime date;
   final List<AulasSemanaDTO> aulas;
   bool hasProvas;
-
-  DataDTO({this.date, this.aulas, this.hasProvas = false});
 
   void insertFalta(Faltas falta) {
     final i = aulas.indexWhere((aula) => aula.numAula == falta.numAula);
@@ -55,17 +55,6 @@ class DataDTO {
 }
 
 class AulasSemanaDTO {
-  final int idPeriodo;
-  final int idMateria;
-  final int weekDay;
-  final int numAula;
-  final int cor;
-  final String nome;
-  final String sigla;
-  final DateTime horario;
-  final int idFalta;
-  final int tipo;
-
   AulasSemanaDTO({
     @required this.idFalta,
     @required this.idMateria,
@@ -93,6 +82,17 @@ class AulasSemanaDTO {
       tipo: base.tipo,
     );
   }
+
+  final int idPeriodo;
+  final int idMateria;
+  final int weekDay;
+  final int numAula;
+  final int cor;
+  final String nome;
+  final String sigla;
+  final DateTime horario;
+  final int idFalta;
+  final int tipo;
 
   AulasSemanaDTO copyWith({int idfalta, int tipoFalta}) {
     return AulasSemanaDTO(

@@ -11,15 +11,6 @@ import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
 
 class Periodos implements BaseTable {
-  int id, presObrig, aulasDia, numPeriodo;
-  DateTime inicio, termino;
-  double medAprov;
-  List<Materias> materias;
-  List<Horarios> horarios;
-  List<CalendarioDTO> calendario;
-  List<AulasSemanaDTO> aulasSemana;
-  Parciais parciais;
-
   Periodos({
     this.id,
     this.numPeriodo,
@@ -36,14 +27,6 @@ class Periodos implements BaseTable {
     aulasSemana = [];
     parciais = Parciais(inicioPeriodo: inicio, terminoPeriodo: termino);
   }
-
-  static const String ID = "id";
-  static const String NUMPERIODO = "num_periodo";
-  static const String INICIO = "inicio";
-  static const String TERMINO = "termino";
-  static const String PRESOBRIG = "pres_obrig";
-  static const String MEDAPROV = "med_aprov";
-  static const String AULASDIA = "aulas_dia";
 
   factory Periodos.newInstance() {
     final now = DateTime.now();
@@ -83,6 +66,35 @@ class Periodos implements BaseTable {
         ),
       ];
   }
+
+  factory Periodos.fromMap(Map m) {
+    return Periodos(
+      id: m[ID],
+      numPeriodo: m[NUMPERIODO],
+      inicio: parseDate(m[INICIO]),
+      termino: parseDate(m[TERMINO]),
+      presObrig: m[PRESOBRIG],
+      medAprov: m[MEDAPROV],
+      aulasDia: m[AULASDIA],
+    );
+  }
+
+  int id, presObrig, aulasDia, numPeriodo;
+  DateTime inicio, termino;
+  double medAprov;
+  List<Materias> materias;
+  List<Horarios> horarios;
+  List<CalendarioDTO> calendario;
+  List<AulasSemanaDTO> aulasSemana;
+  Parciais parciais;
+
+  static const String ID = "id";
+  static const String NUMPERIODO = "num_periodo";
+  static const String INICIO = "inicio";
+  static const String TERMINO = "termino";
+  static const String PRESOBRIG = "pres_obrig";
+  static const String MEDAPROV = "med_aprov";
+  static const String AULASDIA = "aulas_dia";
 
   static List<String> provideColumns = [
     ID,
@@ -126,18 +138,6 @@ class Periodos implements BaseTable {
     return m;
   }
 
-  factory Periodos.fromMap(Map m) {
-    return Periodos(
-      id: m[ID],
-      numPeriodo: m[NUMPERIODO],
-      inicio: parseDate(m[INICIO]),
-      termino: parseDate(m[TERMINO]),
-      presObrig: m[PRESOBRIG],
-      medAprov: m[MEDAPROV],
-      aulasDia: m[AULASDIA],
-    );
-  }
-
   @override
   String toString() {
     return "${id},${numPeriodo},${inicio},${termino},${presObrig},${medAprov},${materias},${aulasDia}";
@@ -148,7 +148,6 @@ class Periodos implements BaseTable {
   void refreshCalendario() {
     _refreshAulasSemana();
 
-    print("start: $inicio, end: $termino");
     calendario = prepareCalendario(
       inicio: inicio,
       termino: termino,

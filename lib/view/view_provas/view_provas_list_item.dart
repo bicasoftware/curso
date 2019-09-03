@@ -6,11 +6,6 @@ import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';
 import 'package:flutter/material.dart';
 
 class ViewProvasListItem extends StatelessWidget {
-  final Function(Notas) onNotasTap;
-  final List<NotasByDate> dates;
-  final int mes;
-  final int pos;
-
   const ViewProvasListItem({
     @required this.onNotasTap,
     @required this.dates,
@@ -18,6 +13,11 @@ class ViewProvasListItem extends StatelessWidget {
     @required this.pos,
     Key key,
   }) : super(key: key);
+
+  final Function(Notas) onNotasTap;
+  final List<NotasByDate> dates;
+  final int mes;
+  final int pos;
 
   @override
   Widget build(BuildContext context) {

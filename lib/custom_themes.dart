@@ -19,7 +19,7 @@ class CustomThemes {
     return ThemeData(
       brightness: Brightness.dark,
       primaryColor: CustomColors.primary,
-      accentColor: CustomColors.primary,
+      accentColor: CustomColors.accent,
       backgroundColor: CustomColors.canvasColor,
       canvasColor: CustomColors.canvasColor,
       cardColor: CustomColors.cardColor,
@@ -32,9 +32,20 @@ class CustomThemes {
   }
 
   static ThemeData get lightTheme {
-    return transparedBackgroundTheme.copyWith(
+    return ThemeData(
+      brightness: Brightness.light,
+      primaryColor: Colors.indigo,
+      accentColor: Colors.pinkAccent,
+      backgroundColor: Colors.transparent,
       canvasColor: ThemeData.light().canvasColor,
       cardColor: ThemeData.light().cardColor,
+      focusColor: Colors.indigo[50],
+      hintColor: Colors.teal[50],
+      appBarTheme: const AppBarTheme(
+        brightness: Brightness.dark,
+        color: Colors.indigo,
+        elevation: 2,
+      ),
     );
   }
 
@@ -50,15 +61,10 @@ class CustomThemes {
     return lightTheme.textTheme.button.copyWith(color: Colors.white);
   }
 
-  static TextStyle get bottomSheetHeader {
-    return transparedBackgroundTheme.textTheme.subhead
-        .copyWith(color: transparedBackgroundTheme.accentColor);
-  }
-
-  static TextStyle get darkBottomSheetHeader {
+  static TextStyle bottomSheetHeader(BuildContext context) {
     return TextStyle(
-      color: CustomColors.accent,
-      fontSize: 20,
+      color: Theme.of(context).accentColor,
+      fontSize: 18,
     );
   }
 }

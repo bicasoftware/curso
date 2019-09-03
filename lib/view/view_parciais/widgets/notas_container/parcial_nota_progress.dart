@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 
 class ParcialNotaProgress extends StatefulWidget {
-  final double notaAprov, notaAtual;
-  final ParciaisStatus status;
-
   const ParcialNotaProgress({
     @required this.notaAprov,
     @required this.notaAtual,
     @required this.status,
     Key key,
   }) : super(key: key);
+
+  final double notaAprov, notaAtual;
+  final ParciaisStatus status;
 
   @override
   _ParcialNotaProgressState createState() => _ParcialNotaProgressState();

@@ -7,10 +7,10 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewMateriasInsert extends StatefulWidget {
+  const ViewMateriasInsert({Key key, this.materia, this.pos}) : super(key: key);
+
   final Materias materia;
   final int pos;
-
-  const ViewMateriasInsert({Key key, this.materia, this.pos}) : super(key: key);
 
   @override
   _ViewMateriasInsertState createState() => _ViewMateriasInsertState();
@@ -42,7 +42,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text(Strings.materia),
+              title: const Text(Strings.materia),
               floating: true,
             ),
             SliverList(

@@ -5,11 +5,6 @@ import 'cronograma_cell.dart';
 import 'cronograma_cell_container.dart';
 
 class CronogramaRow extends StatelessWidget {
-  final int ordemAula;
-  final List<CronogramaCellContainer> container;
-  final Function(int, int, Periodos, int) onTap;
-  final Periodos periodo;
-
   const CronogramaRow({
     @required this.ordemAula,
     @required this.container,
@@ -17,6 +12,11 @@ class CronogramaRow extends StatelessWidget {
     @required this.periodo,
     Key key,
   }) : super(key: key);
+
+  final int ordemAula;
+  final List<CronogramaCellContainer> container;
+  final Function(int, int, Periodos, int) onTap;
+  final Periodos periodo;
 
   @override
   Widget build(BuildContext context) {

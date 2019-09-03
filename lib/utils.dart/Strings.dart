@@ -158,3 +158,7 @@ class Errors {
   static const datasInvalidas = "Datas inválidas";
   static const notaInvalida = "digite algo entre 0,0 e 10,0";
 }
+
+class Keys {
+  static const app_brightness = "brightness";
+}

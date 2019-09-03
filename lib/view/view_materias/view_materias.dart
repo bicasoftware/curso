@@ -11,16 +11,16 @@ import 'package:provider/provider.dart';
 import 'bloc/bloc_materias.dart';
 
 class ViewMaterias extends StatefulWidget {
-  final List<Materias> materias;
-  final int idPeriodo;
-  final double medAprov;
-
   const ViewMaterias({
     @required this.materias,
     @required this.idPeriodo,
     @required this.medAprov,
     Key key,
   }) : super(key: key);
+
+  final List<Materias> materias;
+  final int idPeriodo;
+  final double medAprov;
 
   @override
   ViewMateriasState createState() {
@@ -54,14 +54,14 @@ class ViewMateriasState extends State<ViewMaterias> {
 }
 
 class _Body extends StatelessWidget {
-  final int idPeriodo;
-  final double medAprov;
-
   const _Body({
     @required this.idPeriodo,
     @required this.medAprov,
     Key key,
   }) : super(key: key);
+
+  final int idPeriodo;
+  final double medAprov;
 
   @override
   Widget build(BuildContext context) {
@@ -92,23 +92,23 @@ class _Body extends StatelessWidget {
     return Observer<List<Materias>>(
       stream: b.outMaterias,
       onSuccess: (BuildContext context, List<Materias> materias) {
-        return WillPopScope(          
+        return WillPopScope(
           onWillPop: () async {
-            Navigator.of(context).pop(materias);            
+            Navigator.of(context).pop(materias);
             return false;
           },
           child: Scaffold(
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton.extended(
-              label: Text(Strings.adicionar),
+              label: const Text(Strings.adicionar),
               icon: Icon(Icons.add),
               onPressed: callInsertMateria,
-              heroTag: ObjectKey(Strings.materias),
+              heroTag: const ObjectKey(Strings.materias),
             ),
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  title: Text(Strings.materias),
+                  title: const Text(Strings.materias),
                   floating: true,
                   centerTitle: true,
                   leading: IconButton(

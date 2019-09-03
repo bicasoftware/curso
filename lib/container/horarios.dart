@@ -3,9 +3,6 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class Horarios implements BaseTable {
-  int id, idPeriodo, ordemAula;
-  DateTime inicio, termino;
-
   Horarios({
     @required this.idPeriodo,
     @required this.ordemAula,
@@ -13,6 +10,19 @@ class Horarios implements BaseTable {
     @required this.termino,
     this.id,
   });
+
+  factory Horarios.fromMap(Map m) {
+    return Horarios(
+      id: m[ID],
+      idPeriodo: m[IDPERIODO],
+      ordemAula: m[ORDEMAULA],
+      inicio: parseTime(m[INICIO]),
+      termino: parseTime(m[TERMINO]),
+    );
+  }
+
+  int id, idPeriodo, ordemAula;
+  DateTime inicio, termino;
 
   static const String ID = "id";
   static const String IDPERIODO = "idperiodo";
@@ -54,16 +64,6 @@ class Horarios implements BaseTable {
     }
 
     return m;
-  }
-
-  factory Horarios.fromMap(Map m) {
-    return Horarios(
-      id: m[ID],
-      idPeriodo: m[IDPERIODO],
-      ordemAula: m[ORDEMAULA],
-      inicio: parseTime(m[INICIO]),
-      termino: parseTime(m[TERMINO]),
-    );
   }
 
   @override

@@ -7,16 +7,16 @@ import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioProvasDiaListTile extends StatelessWidget {
-  final ProvasNotasMaterias provasNotasMaterias;
-  final Function(Notas) onDeleted;
-  final Function(Notas) onUpdateNota;
-
   const CalendarioProvasDiaListTile({
     @required this.provasNotasMaterias,
     @required this.onDeleted,
     @required this.onUpdateNota,
     Key key,
   }) : super(key: key);
+  
+  final ProvasNotasMaterias provasNotasMaterias;
+  final Function(Notas) onDeleted;
+  final Function(Notas) onUpdateNota;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,8 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
             onPressed: () => _confirmDelete(context),
           )
         ],
-      ),      
-    );    
+      ),
+    );
   }
 
   void _showUpdateNotaDialog(BuildContext context) async {

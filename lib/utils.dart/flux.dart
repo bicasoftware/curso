@@ -9,6 +9,12 @@ import 'package:rxdart/rxdart.dart';
 
 ///Implementa-se a partir de Sink para que ao instanciar, mostre um warning avisando para fechar a Sink
 class Flux<T> implements Sink<T> {
+  Flux(T value) : assert(value != null) {
+    _bhsHelper = _bhsHelper = BehaviorSubject<T>.seeded(value);
+    _outHelper = _bhsHelper.stream;
+    _inHelper = _bhsHelper.sink;
+    _value = value;
+  }
   BehaviorSubject<T> _bhsHelper;
   Stream<T> _outHelper;
   Sink<T> _inHelper;
@@ -18,13 +24,6 @@ class Flux<T> implements Sink<T> {
   T _value;
 
   bool _hasChanged = false;
-
-  Flux(T value) : assert(value != null) {    
-    _bhsHelper = _bhsHelper = BehaviorSubject<T>.seeded(value);
-    _outHelper = _bhsHelper.stream;
-    _inHelper = _bhsHelper.sink;
-    _value = value;
-  }
 
   ///Retorna um [Stream<T>]
   Stream<T> get() => _outHelper;

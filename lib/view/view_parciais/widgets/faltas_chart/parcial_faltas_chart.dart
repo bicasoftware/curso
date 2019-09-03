@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class ParcialFaltasChart extends StatelessWidget {
-  final int faltas, vagas, aulasTilDate, totalAulas;
-
   const ParcialFaltasChart({
     @required this.totalAulas,
     @required this.faltas,
@@ -14,6 +12,8 @@ class ParcialFaltasChart extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  final int faltas, vagas, aulasTilDate, totalAulas;
+
   int get presenca => aulasTilDate - faltas - vagas;
 
   int get restantes => totalAulas - aulasTilDate;
@@ -21,7 +21,7 @@ class ParcialFaltasChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(Strings.frequencia),
+      title: const Text(Strings.frequencia),
       children: <Widget>[
         Container(
           padding: const EdgeInsets.all(16),
@@ -35,8 +35,8 @@ class ParcialFaltasChart extends StatelessWidget {
                   ..putIfAbsent("${Strings.vagas} -> $vagas", vagas.toDouble)
                   ..putIfAbsent("${Strings.presencas} -> $presenca", () => presenca.toDouble())
                   ..putIfAbsent("Restantes", () => restantes.toDouble()),
-                chartValuesColor: Colors.white,
-                colorList: [Colors.red, Colors.green, Colors.blue, Colors.white60],
+                chartValuesColor: Theme.of(context).textTheme.caption.color,
+                colorList: [Colors.red, Colors.green, Colors.blue, Theme.of(context).unselectedWidgetColor],
                 fontFamily: "FiraSans",
                 showChartValuesOutside: true,
                 showLegends: false,
@@ -62,7 +62,7 @@ class ParcialFaltasChart extends StatelessWidget {
                     number: presenca,
                   ),
                   ParciaisFaltasChartLegenda(
-                    cor: Colors.grey[300],
+                    cor: Theme.of(context).unselectedWidgetColor,
                     legenda: Strings.restantes,
                     number: restantes,
                   ),

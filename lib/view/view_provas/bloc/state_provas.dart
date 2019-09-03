@@ -5,12 +5,12 @@ import 'package:curso/container/periodos.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 
 class StateProvas {
-  List<NotasContainer> provas;
-
   StateProvas(Periodos periodo) {
     provas = <NotasContainer>[];
     _prepareFaltas(periodo.inicio, periodo.termino, periodo.materias);
   }
+
+  List<NotasContainer> provas;
 
   List<Notas> _extractNotas(List<Materias> materias) {
     final notas = <Notas>[];

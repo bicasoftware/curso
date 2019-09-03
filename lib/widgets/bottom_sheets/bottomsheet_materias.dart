@@ -6,12 +6,12 @@ import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetMaterias extends StatelessWidget {
-  final List<Materias> materias;
-
   const BottomSheetMaterias({
     @required this.materias,
     Key key,
   }) : super(key: key);
+
+  final List<Materias> materias;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class BottomSheetMaterias extends StatelessWidget {
                 child: Text(
                   Strings.materias,
                   textAlign: TextAlign.center,
-                  style: CustomThemes.darkBottomSheetHeader,
+                  style: CustomThemes.bottomSheetHeader(context),
                 ),
               ),
               IconButton(

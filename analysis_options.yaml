@@ -6,7 +6,7 @@ analyzer:
 linter:
   rules:
     # - constant_identifier_names
-    # - sort_constructors_first
+    - sort_constructors_first
     - always_declare_return_types
     - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first

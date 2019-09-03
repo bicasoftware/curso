@@ -1,19 +1,18 @@
 import 'package:curso/container/periodos.dart';
-import 'package:curso/custom_themes.dart';
 import 'package:curso/view/view_calendario/widgets/dropdown_periodos.dart';
 import 'package:curso/view/view_periodos_insert/view_periodos_insert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ViewHomeAppbarAction extends StatelessWidget {
-  final int pos;
-  final Function(Periodos) onInsertPeriodos;
-
   const ViewHomeAppbarAction({
     @required this.pos,
     @required this.onInsertPeriodos,
     Key key,
   }) : super(key: key);
+
+  final int pos;
+  final Function(Periodos) onInsertPeriodos;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,6 @@ class ViewHomeAppbarAction extends StatelessWidget {
         case 1:
           return DropDownPeriodos(
             key: UniqueKey(),
-            theme: CustomThemes.primaryColorThemeData,
           );
           break;
         case 2:

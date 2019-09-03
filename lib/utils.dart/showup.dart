@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ShowUp extends StatefulWidget {
+  const ShowUp({Key key, this.delay, this.child}) : super(key: key);
+
   final int delay;
   final Widget child;
-
-  const ShowUp({Key key, this.delay, this.child}) : super(key: key);
 
   @override
   _ShowUpState createState() => _ShowUpState();
@@ -47,7 +47,7 @@ class _ShowUpState extends State<ShowUp> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(ShowUp oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(oldWidget!= widget){
+    if (oldWidget != widget) {
       controller.reset();
       controller.forward();
     }

@@ -2,23 +2,23 @@ import 'package:curso/widgets/circle.dart';
 import 'package:flutter/material.dart';
 
 class CellIndicator extends StatelessWidget {
-  final bool isFalta, isVaga, hasProva;
-
   const CellIndicator({Key key, this.isFalta, this.isVaga, this.hasProva}) : super(key: key);
+
+  final bool isFalta, isVaga, hasProva;
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> indicators = [];
-    
+
     if (isFalta) {
       indicators.add(_indicator(Colors.red.value));
-    } 
-    
-    if(isVaga){
+    }
+
+    if (isVaga) {
       indicators.add(_indicator(Colors.teal.value));
     }
 
-    if(hasProva) {
+    if (hasProva) {
       indicators.add(_indicator(Colors.orange.value));
     }
 

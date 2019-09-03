@@ -2,17 +2,26 @@ import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 
 class Notas implements BaseTable {
-  int id, idMateria;
-  DateTime data;
-  double nota;
-
   Notas({
     this.id,
     this.idMateria,
     this.data,
     this.nota,
   });
+  
+  factory Notas.fromMap(Map m) {
+    return Notas(
+      id: m[ID],
+      idMateria: m[IDMATERIA],
+      data: parseDate(m[DATA]),
+      nota: double.tryParse(m[NOTA].toString()),
+    );
+  }
 
+  int id, idMateria;
+  DateTime data;
+  double nota;
+  
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
   static const String DATA = "dt_prova";
@@ -45,15 +54,6 @@ class Notas implements BaseTable {
   }
 
   static String tableName = "notas";
-
-  factory Notas.fromMap(Map m) {
-    return Notas(
-      id: m[ID],
-      idMateria: m[IDMATERIA],
-      data: parseDate(m[DATA]),
-      nota: double.tryParse(m[NOTA].toString()),
-    );
-  }
 
   @override
   String toString() {

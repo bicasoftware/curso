@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SquaredCard extends StatelessWidget {
+  const SquaredCard({Key key, this.child, this.elevation, this.margin}) : super(key: key);
+
   final Widget child;
   final double elevation, margin;
-
-  const SquaredCard({Key key, this.child, this.elevation, this.margin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

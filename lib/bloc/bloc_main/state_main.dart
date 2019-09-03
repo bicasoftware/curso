@@ -11,16 +11,16 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class StateMain {
-  List<Periodos> periodos;
-  int _currentId, mes;
-  DateTime selectedDate;
-
   StateMain({
     @required this.periodos,
   }) {
     _currentId = periodos.first.id;
     _positionDates();
   }
+
+  List<Periodos> periodos;
+  int _currentId, mes;
+  DateTime selectedDate;
 
   void _positionDates() {
     final meses = range(currentPeriodo.inicio.month, currentPeriodo.termino.month);

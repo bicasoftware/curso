@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ViewHomeFab extends StatefulWidget {
-  final VoidCallback onTap;
-  final int pos;
-
   const ViewHomeFab({
     @required this.onTap,
     @required this.pos,
     Key key,
   }) : super(key: key);
+
+  final VoidCallback onTap;
+  final int pos;
 
   @override
   _ViewHomeFabState createState() => _ViewHomeFabState();

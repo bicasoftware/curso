@@ -12,11 +12,12 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ViewHome extends StatefulWidget {
-  final int initialPos;
   const ViewHome({
     @required this.initialPos,
     Key key,
   }) : super(key: key);
+
+  final int initialPos;
 
   @override
   _ViewHomeState createState() => _ViewHomeState();
@@ -86,7 +87,11 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
                 onInsertPeriodos: b.insertPeriodo,
               );
             },
-          )
+          ),
+          IconButton(
+            icon: Icon(Icons.lightbulb_outline),
+            onPressed: b.toggleBrightness,
+          ),
         ],
       ),
       body: Observer<int>(

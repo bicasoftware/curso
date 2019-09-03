@@ -4,15 +4,14 @@ import 'package:curso/providers/provider_materias.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BlocMaterias implements BaseBloc {
+  BlocMaterias({this.materias}) {
+    _sinkMaterias();
+  }
   List<Materias> materias;
 
   final BehaviorSubject<List<Materias>> _subjectMaterias = BehaviorSubject<List<Materias>>();
   Stream<List<Materias>> get outMaterias => _subjectMaterias.stream;
   Sink<List<Materias>> get sinkMaterias => _subjectMaterias.sink;
-
-  BlocMaterias({this.materias}) {
-    _sinkMaterias();
-  }
 
   @override
   void dispose() {

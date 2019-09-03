@@ -3,12 +3,12 @@ import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 
 class NotasContainer {
-  int mes;
-  List<NotasByDate> dates;
-
   NotasContainer({@required this.mes, @required this.dates}) {
     dates = [];
   }
+
+  int mes;
+  List<NotasByDate> dates;
 
   void addDates(NotasByDate dates) {
     this.dates.add(dates);
@@ -24,20 +24,20 @@ class NotasContainer {
 }
 
 class NotasByDate {
-  DateTime date;
-  List<MateriasByDate> materias;
-
-  @override
-  String toString(){
-    return "date: $date, materias: ${materias.join(',') }";
-  }
-
   NotasByDate({this.date, this.materias}) {
     materias = <MateriasByDate>[];
   }
 
+  DateTime date;
+  List<MateriasByDate> materias;
+  
   NotasByDate getCopy() {
     return NotasByDate(date: date, materias: []..addAll(materias));
+  }
+
+  @override
+  String toString() {
+    return "date: $date, materias: ${materias.join(',')}";
   }
 
   void addMateria(MateriasByDate materia) {
@@ -54,10 +54,6 @@ class NotasByDate {
 }
 
 class MateriasByDate {
-  int cor, id;
-  String nome, sigla;
-  Notas notas;
-
   MateriasByDate({
     @required this.cor,
     @required this.nome,
@@ -66,12 +62,16 @@ class MateriasByDate {
     @required this.notas,
   });
 
+  int cor, id;
+  String nome, sigla;
+  Notas notas;
+
   void addNota(Notas nota) => notas = nota;
 
   void deleteProva() => notas = null;
 
   @override
-  String toString(){
+  String toString() {
     return "id: $id, cor: $cor, nome: $nome, sigla: $sigla, nota: $notas";
   }
 }

@@ -2,10 +2,6 @@ import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 
 class ParciaisFaltasChartLegenda extends StatelessWidget {
-  final int number;
-  final String legenda;
-  final Color cor;
-
   const ParciaisFaltasChartLegenda({
     @required this.number,
     @required this.cor,
@@ -15,6 +11,10 @@ class ParciaisFaltasChartLegenda extends StatelessWidget {
         assert(cor != null && cor != Colors.transparent),
         assert(legenda != null && legenda != ""),
         super(key: key);
+
+  final int number;
+  final String legenda;
+  final Color cor;
 
   @override
   Widget build(BuildContext context) {

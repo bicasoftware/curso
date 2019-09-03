@@ -113,13 +113,13 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
     final entryList = <PopupMenuEntry<int>>[];
 
     if (widget.aulasSemana.idFalta == null) {
-      entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.faltar)));
-      entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.aulaVaga)));
+      entryList.add(PopupMenuItem<int>(value: 0, child: const Text(Strings.faltar)));
+      entryList.add(PopupMenuItem<int>(value: 1, child: const Text(Strings.aulaVaga)));
     } else {
       if (widget.aulasSemana.isFalta) {
-        entryList.add(PopupMenuItem<int>(value: 0, child: Text(Strings.cancelarFalta)));
+        entryList.add(PopupMenuItem<int>(value: 0, child: const Text(Strings.cancelarFalta)));
       } else if (widget.aulasSemana.isAulaVaga) {
-        entryList.add(PopupMenuItem<int>(value: 1, child: Text(Strings.cancelarAulaVaga)));
+        entryList.add(PopupMenuItem<int>(value: 1, child: const Text(Strings.cancelarAulaVaga)));
       }
     }
 

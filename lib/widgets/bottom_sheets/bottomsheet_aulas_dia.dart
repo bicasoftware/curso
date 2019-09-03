@@ -6,12 +6,12 @@ import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetAulasDia extends StatelessWidget {
-  final List<AulasSemanaDTO> aulasSemana;
-
   const BottomSheetAulasDia({
     @required this.aulasSemana,
     Key key,
   }) : super(key: key);
+
+  final List<AulasSemanaDTO> aulasSemana;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BottomSheetAulasDia extends StatelessWidget {
           child: Text(
             Strings.selecioneMateriaProva,
             textAlign: TextAlign.center,
-            style: CustomThemes.darkBottomSheetHeader,
+            style: CustomThemes.bottomSheetHeader(context),
           ),
         ),
         const PaddedDivider(padding: EdgeInsets.symmetric(horizontal: 16)),

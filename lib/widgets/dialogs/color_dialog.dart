@@ -1,14 +1,10 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
-
 class ColorDialog extends StatelessWidget {
-  final Function(int) onTap;
+  const ColorDialog({@required this.onTap, Key key}) : super(key: key);
 
-  const ColorDialog({
-    @required this.onTap,
-    Key key,
-  }) : super(key: key);
+  final Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {

@@ -54,8 +54,10 @@ class CalendarioStrip extends StatelessWidget {
     );
   }
 
-  double getCalendarStripPosition(
-      {@required CalendarioDTO calendario, @required DateTime selectedDate}) {
+  double getCalendarStripPosition({
+    @required CalendarioDTO calendario,
+    @required DateTime selectedDate,
+  }) {
     return _containsDate(calendario?.dates) ? (selectedDate.day - 1) * 70.0 : 0.0;
   }
 

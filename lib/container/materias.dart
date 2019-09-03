@@ -5,15 +5,6 @@ import 'faltas.dart';
 import 'notas.dart';
 
 class Materias implements BaseTable {
-  int id, idPeriodo;
-  String nome, sigla;
-  bool freq;
-  double medAprov;
-  int cor;
-  List<Faltas> faltas;
-  List<Notas> notas;
-  List<Aulas> aulas;
-
   Materias({
     this.id,
     this.idPeriodo,
@@ -30,6 +21,27 @@ class Materias implements BaseTable {
     notas = [];
     aulas = [];
   }
+
+  factory Materias.fromMap(Map m) {
+    return Materias(
+      id: m[ID],
+      idPeriodo: m[IDPERIODO],
+      nome: m[NOME],
+      sigla: m[SIGLA],
+      medAprov: m[MEDAPROV],
+      freq: m[FREQ] == 1,
+      cor: m[COR],
+    );
+  }
+
+  int id, idPeriodo;
+  String nome, sigla;
+  bool freq;
+  double medAprov;
+  int cor;
+  List<Faltas> faltas;
+  List<Notas> notas;
+  List<Aulas> aulas;
 
   static const String ID = "id";
   static const String IDPERIODO = "id_periodo";
@@ -79,18 +91,6 @@ class Materias implements BaseTable {
     }
 
     return m;
-  }
-
-  factory Materias.fromMap(Map m) {
-    return Materias(
-      id: m[ID],
-      idPeriodo: m[IDPERIODO],
-      nome: m[NOME],
-      sigla: m[SIGLA],
-      medAprov: m[MEDAPROV],
-      freq: m[FREQ] == 1,
-      cor: m[COR],
-    );
   }
 
   @override

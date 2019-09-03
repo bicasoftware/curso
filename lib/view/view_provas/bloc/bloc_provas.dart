@@ -7,12 +7,12 @@ import 'package:rxdart/rxdart.dart';
 import 'state_provas.dart';
 
 class BlocProvas implements BaseBloc {
-  StateProvas state;
-
   BlocProvas(Periodos periodo) {
     state = StateProvas(periodo);
     inFaltas.add(state.provas);
   }
+
+  StateProvas state;
 
   final BehaviorSubject<List<NotasContainer>> _subjectFaltas =
       BehaviorSubject<List<NotasContainer>>();

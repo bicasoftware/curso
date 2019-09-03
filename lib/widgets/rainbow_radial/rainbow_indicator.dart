@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:curso/widgets/rainbow_radial/radial_rainbow_painter.dart';
 
 class RainbowIndicator extends StatelessWidget {
-  final Offset size;
-  final Widget child;
-  final EdgeInsets padding;
-  final List<Color> colors;
-  final double lineWidth;
-
   const RainbowIndicator({
     @required this.colors,
     @required this.child,
@@ -17,6 +11,12 @@ class RainbowIndicator extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  final Offset size;
+  final Widget child;
+  final EdgeInsets padding;
+  final List<Color> colors;
+  final double lineWidth;
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(

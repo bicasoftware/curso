@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:helper_tiles/helper_tiles.dart';
 
 class ViewHorarioAulas extends StatefulWidget {
-  final int ordemAula;
-  final TimeOfDay inicio, termino;
-
   const ViewHorarioAulas({
     @required this.ordemAula,
     @required this.inicio,
     @required this.termino,
     Key key,
   }) : super(key: key);
+
+  final int ordemAula;
+  final TimeOfDay inicio, termino;
 
   @override
   _ViewHorarioAulasState createState() => _ViewHorarioAulasState();
@@ -71,7 +71,7 @@ class _ViewHorarioAulasState extends State<ViewHorarioAulas> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        label: Text(Strings.salvar),
+        label: const Text(Strings.salvar),
         icon: Icon(Icons.save),
         onPressed: () => validateHorarios(c: context),
       ),

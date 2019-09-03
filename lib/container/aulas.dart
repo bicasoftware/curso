@@ -1,8 +1,6 @@
 import 'package:curso/database/base_table.dart';
 
 class Aulas implements BaseTable {
-  int id, idPeriodo, idMateria, weekDay, ordem;
-
   Aulas({
     this.id,
     this.idPeriodo,
@@ -10,6 +8,18 @@ class Aulas implements BaseTable {
     this.weekDay,
     this.ordem,
   });
+
+  factory Aulas.fromMap(Map m) {
+    return Aulas(
+      id: m[ID],
+      idMateria: m[IDMATERIA],
+      idPeriodo: m[IDPERIODO],
+      weekDay: m[WEEKDAY],
+      ordem: m[ORDEM],
+    );
+  }
+  
+  int id, idPeriodo, idMateria, weekDay, ordem;
 
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
@@ -26,16 +36,6 @@ class Aulas implements BaseTable {
   ];
 
   static String tableName = "aulas";
-
-  factory Aulas.fromMap(Map m) {
-    return Aulas(
-      id: m[ID],
-      idMateria: m[IDMATERIA],
-      idPeriodo: m[IDPERIODO],
-      weekDay: m[WEEKDAY],
-      ordem: m[ORDEM],
-    );
-  }
 
   @override
   Map toMap() {

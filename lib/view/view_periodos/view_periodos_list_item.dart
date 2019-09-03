@@ -8,13 +8,6 @@ import 'package:curso/widgets/cronograma/cronograma.dart';
 import 'package:flutter/material.dart';
 
 class ViewPeriodosListItem extends StatelessWidget {
-  final Periodos periodo;
-  final Function(Periodos) onUpdateTap;
-  final Function(int) onDelete;
-  final Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap;
-  final Function(Periodos) onNotasTap;
-  final Function(int, int, Periodos, int) onCellClick;
-
   const ViewPeriodosListItem({
     @required this.periodo,
     @required this.onUpdateTap,
@@ -24,6 +17,13 @@ class ViewPeriodosListItem extends StatelessWidget {
     @required this.onCellClick,
     Key key,
   }) : super(key: key);
+
+  final Periodos periodo;
+  final Function(Periodos) onUpdateTap;
+  final Function(int) onDelete;
+  final Function(List<Materias>, int idPeriodo, double medAprov) onMateriasTap;
+  final Function(Periodos) onNotasTap;
+  final Function(int, int, Periodos, int) onCellClick;
 
   @override
   Widget build(BuildContext context) {

@@ -7,12 +7,12 @@ import 'package:curso/view/view_parciais/parcial_status.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 
 class Parciais {
-  List<ParciaisMaterias> materias;
-  DateTime terminoPeriodo, inicioPeriodo;
-
   Parciais({@required this.terminoPeriodo, @required this.inicioPeriodo}) {
     materias = <ParciaisMaterias>[];
   }
+
+  List<ParciaisMaterias> materias;
+  DateTime terminoPeriodo, inicioPeriodo;
 
   void clear() => materias.clear();
 
@@ -73,14 +73,6 @@ class Parciais {
 }
 
 class ParciaisMaterias {
-  Materias materia;
-  int numAulasVagas, numFaltas, numAulasSemestre, numAulasUntilNow;
-  List<Notas> notas;
-  double notaAprovacao;
-  double notaAtual;
-  DateTime terminoPeriodo, inicioPeriodo;
-  int presObrig;
-
   ParciaisMaterias({
     @required this.materia,
     @required this.numAulasSemestre,
@@ -94,6 +86,14 @@ class ParciaisMaterias {
     @required this.inicioPeriodo,
     @required this.presObrig,
   });
+
+  Materias materia;
+  int numAulasVagas, numFaltas, numAulasSemestre, numAulasUntilNow;
+  List<Notas> notas;
+  double notaAprovacao;
+  double notaAtual;
+  DateTime terminoPeriodo, inicioPeriodo;
+  int presObrig;
 
   ParciaisStatus get status {
     if (DateTime.now().isAfter(terminoPeriodo)) {

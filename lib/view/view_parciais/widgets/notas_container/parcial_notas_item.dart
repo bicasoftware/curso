@@ -5,14 +5,14 @@ import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
 
 class ParcialNotasItem extends StatelessWidget {
-  final Notas nota;
-  final double medAprov;
-
   const ParcialNotasItem({
     @required this.nota,
     @required this.medAprov,
     Key key,
   }) : super(key: key);
+
+  final Notas nota;
+  final double medAprov;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,13 @@ class ParcialNotasItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(flex: 2, child: Text("${Strings.data}: ${formatDate(nota.data)}", style: getStyle())),
-          Expanded(flex: 4, child: Text("${Strings.nota}: ${formatNota(nota.nota)}", style: getStyle())),
+          Expanded(
+              flex: 2, child: Text("${Strings.data}: ${formatDate(nota.data)}", style: getStyle())),
+          Expanded(
+              flex: 4, child: Text("${Strings.nota}: ${formatNota(nota.nota)}", style: getStyle())),
         ],
       ),
-    );    
+    );
   }
 
   TextStyle getStyle() {

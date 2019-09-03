@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 
 class ViewProvasListItemMaterias extends StatelessWidget {
-  final List<MateriasByDate> materias;
-  final Function(Notas) onTap;
-
   const ViewProvasListItemMaterias({
     @required this.materias,
     @required this.onTap,
     Key key,
   }) : super(key: key);
+
+  final List<MateriasByDate> materias;
+  final Function(Notas) onTap;
 
   @override
   Widget build(BuildContext context) {

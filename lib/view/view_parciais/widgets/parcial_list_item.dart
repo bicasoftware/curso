@@ -8,14 +8,13 @@ import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';
 
 class ParcialListItem extends StatelessWidget {
-  final ParciaisMaterias parciais;
-
-  Materias get m => parciais.materia;
-
   const ParcialListItem({
     @required this.parciais,
     Key key,
   }) : super(key: key);
+
+  final ParciaisMaterias parciais;
+  Materias get m => parciais.materia;
 
   String getFaltasText() {
     return "${parciais.numFaltas.toString().padLeft(2, "0")} - ${calcPorcentagemAulas(parciais.numAulasSemestre, parciais.numFaltas).toStringAsFixed(2)} %";
