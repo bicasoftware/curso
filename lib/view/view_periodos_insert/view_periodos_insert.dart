@@ -1,4 +1,4 @@
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_horario_aulas/view_horario_aulas.dart';
@@ -64,7 +64,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
           slivers: <Widget>[
             SliverAppBar(
               floating: true,
-              title: Observer<int>(
+              title: StreamObserver<int>(
                 stream: bloc.numPeriodo.get(),
                 onSuccess: (BuildContext context, int ordem) {
                   return Text("$ordemº ${Strings.periodo}");
@@ -84,7 +84,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  Observer<int>(
+                  StreamObserver<int>(
                     stream: bloc.numPeriodo.get(),
                     onSuccess: (context, int ordem) {
                       return ViewPeriodosInsertBuilder.numPeriodoDropdownTile(
@@ -93,7 +93,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  Observer<DateTime>(
+                  StreamObserver<DateTime>(
                     stream: bloc.inicio.get(),
                     onSuccess: (BuildContext context, DateTime data) {
                       return DatePickerTile(
@@ -103,7 +103,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  MultiObserver(
+                  MergedStreamObserver(
                     streams: [bloc.inicio.get(), bloc.termino.get()],
                     onSuccess: (BuildContext context, List dates) {
                       final DateTime inicio = dates[0] as DateTime;
@@ -116,7 +116,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  Observer<double>(
+                  StreamObserver<double>(
                     stream: bloc.medAprov.get(),
                     onSuccess: (BuildContext context, double medAprov) {
                       return ViewPeriodosInsertBuilder.notaMinimaSliderTile(
@@ -125,7 +125,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  Observer<double>(
+                  StreamObserver<double>(
                     stream: bloc.presObrig.get(),
                     onSuccess: (_, double presObrig) {
                       return ViewPeriodosInsertBuilder.presencaObrigatoriaSliderTile(
@@ -144,7 +144,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       ),
                     ),
                   ),
-                  Observer<int>(
+                  StreamObserver<int>(
                     stream: bloc.aulasDia.get(),
                     onSuccess: (_, int aulasDia) {
                       return ViewPeriodosInsertBuilder.qntAulasDropdownTile(
@@ -153,7 +153,7 @@ class _ViewPeriodosInsertState extends State<ViewPeriodosInsert> {
                       );
                     },
                   ),
-                  MultiObserver(
+                  MergedStreamObserver(
                     streams: [bloc.aulasDia.get(), bloc.horarios.get()],
                     onSuccess: (BuildContext context, List data) {
                       return ViewPeriodosInsertBuilder.listHorarios(

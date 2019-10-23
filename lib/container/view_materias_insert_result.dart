@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 
 class ViewMateriasInsertResult {
   ViewMateriasInsertResult(this.pos, this.materia);

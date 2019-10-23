@@ -1,5 +1,5 @@
 import 'package:curso/bloc/base_bloc.dart';
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/providers/provider_materias.dart';
 import 'package:rxdart/rxdart.dart';
 

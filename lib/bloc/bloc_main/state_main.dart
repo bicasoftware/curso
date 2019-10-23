@@ -1,10 +1,10 @@
-import 'package:curso/container/aulas.dart';
+import 'package:curso/models/aulas.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/container/parciais.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/date_utils.dart';

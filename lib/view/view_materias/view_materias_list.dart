@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/view/view_materias/view_materias_list_item.dart';
 import 'package:curso/widgets/padded_divider.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/view/view_provas/bloc/bloc_provas.dart';
 import 'package:curso/view/view_provas/view_provas_body.dart';
 import 'package:flutter/material.dart';

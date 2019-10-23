@@ -1,8 +1,8 @@
-import 'package:curso/container/aulas.dart';
+import 'package:curso/models/aulas.dart';
 import 'package:curso/database/base_table.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/notas.dart';
 
-import 'faltas.dart';
-import 'notas.dart';
 
 class Materias implements BaseTable {
   Materias({

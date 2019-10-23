@@ -1,4 +1,4 @@
-import 'package:curso/container/faltas.dart';
+import 'package:curso/models/faltas.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';

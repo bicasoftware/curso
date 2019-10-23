@@ -1,6 +1,6 @@
+import 'package:curso/models/periodos.dart';
 import 'package:flutter/material.dart';
 
-import '../../container/periodos.dart';
 import 'cronograma_cell.dart';
 import 'cronograma_cell_container.dart';
 

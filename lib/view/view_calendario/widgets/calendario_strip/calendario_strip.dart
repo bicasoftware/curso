@@ -13,7 +13,7 @@ class CalendarioStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
 
-    return MultiObserver(
+    return MergedStreamObserver(
       streams: [b.outSelectedDate, b.outCalendario],
       onSuccess: (BuildContext context, List data) {
         final ScrollController controller = ScrollController(
@@ -23,32 +23,29 @@ class CalendarioStrip extends StatelessWidget {
           ),
         );
 
-        return Column(
-          children: [
-            Container(
-              height: 70,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Expanded(
-                    child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        controller: controller,
-                        addRepaintBoundaries: true,
-                        children: [
-                          for (DataDTO date in (data[1] as CalendarioDTO).dates)
-                            CalendarioStripCell(
-                              selectedDate: data[0],
-                              dataDTO: date,
-                              onTap: () => b.setCurrentDate(date.date),
-                            )
-                        ]),
-                  ),
-                ],
+        return Container(
+          height: 70,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  controller: controller,
+                  addRepaintBoundaries: true,
+                  children: [
+                    for (DataDTO date in (data[1] as CalendarioDTO).dates)
+                      CalendarioStripCell(
+                        selectedDate: data[0],
+                        dataDTO: date,
+                        onTap: () => b.setCurrentDate(date.date),
+                      )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

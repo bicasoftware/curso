@@ -6,8 +6,9 @@ import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_aulas_tile.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_prova_tile.dart';
+import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_session_header.dart';
 import 'package:flutter/material.dart';
-import 'package:lib_observer/multiobserver.dart';
+import 'package:lib_observer/merged_stream_observer.dart';
 import 'package:provider/provider.dart';
 
 class CalendarioAulasProvas extends StatelessWidget {
@@ -16,10 +17,7 @@ class CalendarioAulasProvas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BlocMain b = Provider.of<BlocMain>(context);
-    final style = TextStyle(
-      color: Colors.white70,
-      fontSize: 16,
-    );
+    final theme = Theme.of(context);
 
     void onOptionSelected(int selectedAction, AulasSemanaDTO aulas, DateTime date) {
       ///0 - faltas
@@ -59,7 +57,7 @@ class CalendarioAulasProvas extends StatelessWidget {
       }
     }
 
-    return MultiObserver(
+    return MergedStreamObserver(
       streams: [b.outDataDTO, b.outProvasNotasMaterias, b.outAulasAgendamento],
       onSuccess: (BuildContext context, List data) {
         final aulas = data[0] as DataDTO;
@@ -68,17 +66,12 @@ class CalendarioAulasProvas extends StatelessWidget {
         final aulasAgendamento = data[2] as List<AulasSemanaDTO>;
 
         return aulas.aulas.every((a) => a.idMateria == null)
-            ? Container(
-                child: Center(
-                  child: Text(Strings.semAulasHoje, style: Theme.of(context).textTheme.caption),
-                ),
-              )
-            : ListView(
+            ? CalendarioContentSessionHeader(title: Strings.semAulasHoje)
+            : Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(Strings.aulas, style: style),
-                  ),
+                  CalendarioContentSessionHeader(title: Strings.aulas),
                   ...[
                     for (int i = 0; i < aulas.aulas.length; i++)
                       CalendarioContentAulasTile(
@@ -91,10 +84,7 @@ class CalendarioAulasProvas extends StatelessWidget {
                       ),
                   ],
                   if (faltasNotasMaterias.first.isNotEmpty) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text(Strings.provas, style: style),
-                    ),
+                    CalendarioContentSessionHeader(title: Strings.provas),
                     ...[
                       for (int i = 0; i < faltasNotasMaterias.first.length; i++)
                         CalendarioProvasDiaListTile(
@@ -108,7 +98,8 @@ class CalendarioAulasProvas extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: MaterialButton(
-                        color: Theme.of(context).accentColor,
+                        minWidth: double.maxFinite,
+                        color: theme.accentColor,
                         colorBrightness: Brightness.dark,
                         child: const Text("Agendar Prova"),
                         shape: RoundedRectangleBorder(

@@ -1,4 +1,4 @@
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
@@ -21,7 +21,6 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       leading: MateriaColorContainer(
         color: Color(provasNotasMaterias.materia.cor),
         size: 32,

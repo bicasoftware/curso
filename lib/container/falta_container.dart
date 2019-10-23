@@ -1,4 +1,4 @@
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
 

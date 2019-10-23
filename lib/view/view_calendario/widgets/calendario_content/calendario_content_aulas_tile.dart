@@ -33,7 +33,7 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
     );
 
     final curve = CurvedAnimation(curve: Curves.decelerate, parent: controller);
@@ -58,6 +58,12 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();    
+  }
+
+  @override
   Widget build(BuildContext context) {
     return widget.aulasSemana.idMateria == null
         ? Container()
@@ -76,7 +82,6 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
                   ),
                   Expanded(
                     child: ListTile(
-                      dense: true,
                       subtitle: Text(
                         "${widget.ordem + 1}ª ${Strings.aula} | ${formatTime(widget.aulasSemana.horario)} ${faltaTipo(widget.aulasSemana.tipo)}",
                       ),
@@ -113,13 +118,13 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
     final entryList = <PopupMenuEntry<int>>[];
 
     if (widget.aulasSemana.idFalta == null) {
-      entryList.add(PopupMenuItem<int>(value: 0, child: const Text(Strings.faltar)));
-      entryList.add(PopupMenuItem<int>(value: 1, child: const Text(Strings.aulaVaga)));
+      entryList.add(const PopupMenuItem<int>(value: 0, child: Text(Strings.faltar)));
+      entryList.add(const PopupMenuItem<int>(value: 1, child: Text(Strings.aulaVaga)));
     } else {
       if (widget.aulasSemana.isFalta) {
-        entryList.add(PopupMenuItem<int>(value: 0, child: const Text(Strings.cancelarFalta)));
+        entryList.add(const PopupMenuItem<int>(value: 0, child: Text(Strings.cancelarFalta)));
       } else if (widget.aulasSemana.isAulaVaga) {
-        entryList.add(PopupMenuItem<int>(value: 1, child: const Text(Strings.cancelarAulaVaga)));
+        entryList.add(const PopupMenuItem<int>(value: 1, child: Text(Strings.cancelarAulaVaga)));
       }
     }
 

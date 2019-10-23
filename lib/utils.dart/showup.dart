@@ -17,11 +17,17 @@ class _ShowUpState extends State<ShowUp> with SingleTickerProviderStateMixin {
   Animation<Offset> animation;
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
     );
 
     final curve = CurvedAnimation(
@@ -51,12 +57,6 @@ class _ShowUpState extends State<ShowUp> with SingleTickerProviderStateMixin {
       controller.reset();
       controller.forward();
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
   }
 
   @override

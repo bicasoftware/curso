@@ -1,7 +1,7 @@
 import 'package:curso/bloc/base_bloc.dart';
 import 'package:curso/container/falta_container.dart';
-import 'package:curso/container/notas.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/notas.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'state_provas.dart';

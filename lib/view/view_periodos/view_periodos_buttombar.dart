@@ -1,5 +1,5 @@
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,7 @@ class ViewPeriodosButtombar extends StatelessWidget {
           child: Text(Strings.editar, style: style),
           onPressed: () => onUpdateTap(periodo),
         ),
-        Spacer(),
+        const Spacer(),
         FlatButton(
           child: Text(Strings.provas, style: style),
           onPressed: () => onNotasTap(periodo),

@@ -17,36 +17,37 @@ class _CalendarioNavigatorState extends State<CalendarioNavigator>
   @override
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
-    return Container(
-      child: Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_left),
-            onPressed: b.decMes,
-            splashColor: Colors.white,
-          ),
-          Expanded(
-            child: Observer<DateTime>(
-              stream: b.outSelectedDate,
-              onSuccess: (_, DateTime data) {
-                return ShowUp(
-                  delay: 300,
-                  child: Text(
-                    formatFullDayStringAlt(data),
-                    key: UniqueKey(),
-                    textAlign: TextAlign.center,
+    return Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+          onPressed: b.decMes,
+          splashColor: Colors.white,
+        ),
+        Expanded(
+          child: StreamObserver<DateTime>(
+            stream: b.outSelectedDate,
+            onSuccess: (_, DateTime data) {
+              return ShowUp(
+                delay: 300,
+                child: Text(
+                  formatFullDayStringAlt(data),
+                  key: UniqueKey(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_right),
-            onPressed: b.incMes,
-            splashColor: Colors.white,
-          ),
-        ],
-      ),
+        ),
+        IconButton(
+          icon: Icon(Icons.keyboard_arrow_right, color: Colors.white),
+          onPressed: b.incMes,
+          splashColor: Colors.white,
+        ),
+      ],
     );
   }
 }

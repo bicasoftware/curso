@@ -1,6 +1,6 @@
 import 'package:curso/bloc/base_bloc.dart';
-import 'package:curso/container/horarios.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/horarios.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/utils.dart/flux.dart';
 import 'package:meta/meta.dart';
 
@@ -48,7 +48,7 @@ class BlocPeriodo extends BaseBloc {
             id: null,
             idPeriodo: _periodo.id,
             inicio: _periodo.horarios.last.termino,
-            termino: _periodo.horarios.last.termino.add(Duration(minutes: 50)),
+            termino: _periodo.horarios.last.termino.add(const Duration(minutes: 50)),
             ordemAula: i,
           ),
         );

@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_materias/view_materias_list.dart';
@@ -89,7 +89,7 @@ class _Body extends StatelessWidget {
       }
     }
 
-    return Observer<List<Materias>>(
+    return StreamObserver<List<Materias>>(
       stream: b.outMaterias,
       onSuccess: (BuildContext context, List<Materias> materias) {
         return WillPopScope(

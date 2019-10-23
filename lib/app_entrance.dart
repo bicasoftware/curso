@@ -1,27 +1,26 @@
+import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/view/view_home/view_home.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
 
-import 'bloc/bloc_main/bloc_main.dart';
-import 'container/periodos.dart';
-
 class AppEntrance extends StatelessWidget {
   const AppEntrance({
     @required this.periodos,
-    @required this.brightness,
+    @required this.isLight,
     Key key,
   }) : super(key: key);
 
   final List<Periodos> periodos;
-  final int brightness;
+  final bool isLight;
 
   @override
   Widget build(BuildContext context) {
     return Provider<BlocMain>(
       child: MyApp(initialPosition: periodos.isNotEmpty ? 1 : 0),
-      builder: (BuildContext context) => BlocMain(periodos: periodos, isLight: brightness),
+      builder: (BuildContext context) => BlocMain(periodos: periodos, isLight: isLight),
       dispose: (BuildContext a, BlocMain b) => b.dispose(),
     );
   }
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
-    return Observer<bool>(
+    return StreamObserver<bool>(
       stream: b.outBrightness,
       onSuccess: (BuildContext context, bool isLight) {
         return MaterialApp(

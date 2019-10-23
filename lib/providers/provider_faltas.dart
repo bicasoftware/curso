@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:curso/container/faltas.dart';
+import 'package:curso/models/faltas.dart';
 import 'package:curso/database/db_provider.dart';
 
 class ProviderFaltas {

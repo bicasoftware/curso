@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/widgets/materia_color_container.dart';

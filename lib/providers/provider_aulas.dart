@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:curso/container/aulas.dart';
+import 'package:curso/models/aulas.dart';
 import 'package:curso/database/db_provider.dart';
 
 class ProviderAulas {
   static Future<List<Aulas>> fetchAulasByMateria(int idMateria) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final r = await db.query(
       Aulas.tableName,
       columns: Aulas.provideColumns,
@@ -30,7 +30,7 @@ class ProviderAulas {
   }
 
   static Future<Aulas> updateAula(Aulas aula) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
 
     await db.update(
       Aulas.tableName,
@@ -47,7 +47,7 @@ class ProviderAulas {
   }
 
   static Future deleteAulasById(int idAula) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     await db.delete(
       Aulas.tableName,
       where: "id = ?",
@@ -56,7 +56,7 @@ class ProviderAulas {
   }
 
   static Future deleteAulaByOrdemDia(int idMateria, int weekDay, int ordemAula) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     await db.delete(
       Aulas.tableName,
       where: "${Aulas.IDMATERIA} = ? and ${Aulas.WEEKDAY} = ? and ${Aulas.ORDEM} = ?",

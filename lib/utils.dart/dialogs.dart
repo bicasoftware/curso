@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:curso/utils.dart/ListUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/double_utils.dart';
-import 'package:curso/widgets/dialogs/color_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:helper_tiles/helper_tiles.dart';
@@ -24,23 +23,6 @@ class Dialogs {
               onPressed: () => Navigator.of(context).pop(true),
             ),
           ],
-        );
-      },
-    );
-  }
-
-  static Future<int> showColorDialog({
-    BuildContext context,
-    int initialColor,
-  }) async {
-    return await showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (c) {
-        return Dialog(
-          child: ColorDialog(
-            onTap: (int cor) => Navigator.of(context).pop(cor),
-          ),
         );
       },
     );
@@ -187,7 +169,10 @@ Future<double> showNotaDialog({
             },
           ),
           FlatButton(
-            child: Text(Strings.salvar),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Strings.salvar),
+            ),
             onPressed: () {
               final state = _formKey.currentState;
               if (state.validate()) {

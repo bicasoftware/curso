@@ -1,8 +1,8 @@
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/horarios.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/horarios.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/calcs.dart';
@@ -30,7 +30,7 @@ class Periodos implements BaseTable {
 
   factory Periodos.newInstance() {
     final now = DateTime.now();
-    final end = now.add(Duration(days: 6 * 30));
+    final end = now.add(const Duration(days: 6 * 30));
     return Periodos(
       numPeriodo: 1,
       inicio: now,

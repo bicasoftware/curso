@@ -4,8 +4,8 @@ class AwaitingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: const CircularProgressIndicator(),
+      child: const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }

@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:curso/container/horarios.dart';
+import 'package:curso/database/db_provider.dart';
+import 'package:curso/models/horarios.dart';
+import 'package:curso/models/periodos.dart';
 
-import '../container/periodos.dart';
-import '../database/db_provider.dart';
 import 'provider_horarios.dart';
 import 'provider_materias.dart';
 
 class ProviderPeriodos {
   static Future<List<Periodos>> fetchAllPeriodos() async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
 
     final result = await db.query(Periodos.tableName, columns: Periodos.provideColumns);
     final List<Periodos> periodos = result.map((it) => Periodos.fromMap(it)).toList();
@@ -27,7 +27,7 @@ class ProviderPeriodos {
   }
 
   static Future<Periodos> insertPeriodo(Periodos periodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final newId = await db.insert(Periodos.tableName, periodo.toMap());
 
     for (var h in periodo.horarios) {
@@ -42,7 +42,7 @@ class ProviderPeriodos {
   }
 
   static Future<Periodos> updatePeriodo(Periodos periodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
 
     await db.update(
       Periodos.tableName,
@@ -60,7 +60,7 @@ class ProviderPeriodos {
   }
 
   static Future<Null> deletePeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     await ProviderMaterias.deleteMateriasByIdPeriodo(idPeriodo);
     await ProviderHorarios.deleteHorariosByPeriodo(idPeriodo);
     await db.delete(Periodos.tableName, where: "${Periodos.ID} = ?", whereArgs: [idPeriodo]);

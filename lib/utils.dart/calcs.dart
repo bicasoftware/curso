@@ -1,5 +1,5 @@
-import 'package:curso/container/aulas.dart';
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/aulas.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
@@ -39,7 +39,7 @@ int countWeekDayInRange(DateTime inicio, DateTime termino, int dayToCount) {
     if (getWeekday(currentDay) == dayToCount) {
       count += 1;
     }
-    currentDay = currentDay.add(Duration(days: 1));
+    currentDay = currentDay.add(const Duration(days: 1));
   }
   if (getWeekday(currentDay) == dayToCount) {
     count += 1;

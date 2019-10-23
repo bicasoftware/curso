@@ -1,5 +1,5 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class DropDownPeriodos extends StatelessWidget {
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
 
-    return MultiObserver(
+    return MergedStreamObserver(
       streams: [b.outCurrentPeriodo, b.outListPeriodos],
       onSuccess: (BuildContext context, List data) {
         final periodo = data[0];

@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/container/parciais.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:curso/view/view_parciais/widgets/faltas_chart/parcial_faltas_chart.dart';

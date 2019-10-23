@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/container/view_materias_insert_result.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:curso/utils.dart/Strings.dart';
@@ -41,8 +41,8 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
         key: _formKey,
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              title: const Text(Strings.materia),
+            const SliverAppBar(
+              title: Text(Strings.materia),
               floating: true,
             ),
             SliverList(

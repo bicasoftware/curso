@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/database/db_provider.dart';
 
 class ProviderNotas {

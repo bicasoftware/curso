@@ -12,7 +12,7 @@ class ViewHomeDropdownPeriodos extends StatelessWidget {
     return Container(
       child: AnimatedOpacity(
         child: const DropDownPeriodos(),
-        duration: Duration(milliseconds: _animTime),
+        duration: const Duration(milliseconds: _animTime),
         curve: pos == 1 ? Curves.fastOutSlowIn : Curves.linearToEaseOut,
         opacity: pos == 1 ? 1 : 0,
       ),

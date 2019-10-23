@@ -23,9 +23,11 @@ class CustomThemes {
       backgroundColor: CustomColors.canvasColor,
       canvasColor: CustomColors.canvasColor,
       cardColor: CustomColors.cardColor,
+      unselectedWidgetColor: Colors.white70,
+      dividerColor: Colors.white60,
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
-        color: CustomColors.appBarColor,
+        color: CustomColors.primary,
         elevation: 2,
       ),
     );
@@ -39,8 +41,9 @@ class CustomThemes {
       backgroundColor: Colors.transparent,
       canvasColor: ThemeData.light().canvasColor,
       cardColor: ThemeData.light().cardColor,
-      focusColor: Colors.indigo[50],
-      hintColor: Colors.teal[50],
+      focusColor: Colors.pinkAccent,
+      hintColor: Colors.indigo[800],
+      unselectedWidgetColor: Colors.white,
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
         color: Colors.indigo,

@@ -1,10 +1,10 @@
-import 'package:curso/container/faltas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/calcs.dart';
-import 'package:meta/meta.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
-import 'package:curso/view/view_parciais/parcial_status.dart';
 import 'package:curso/utils.dart/double_utils.dart';
+import 'package:curso/view/view_parciais/parcial_status.dart';
+import 'package:meta/meta.dart';
 
 class Parciais {
   Parciais({@required this.terminoPeriodo, @required this.inicioPeriodo}) {
@@ -44,8 +44,12 @@ class Parciais {
     );
   }
 
-  ParciaisMaterias _findMateria(int idMateria) =>
-      materias.firstWhere((m) => m.materia.id == idMateria, orElse: () => null);
+  ParciaisMaterias _findMateria(int idMateria) {
+    return materias.firstWhere(
+      (m) => m.materia.id == idMateria,
+      orElse: () => null,
+    );
+  }
 
   void addFalta(Faltas falta) {
     if (falta.tipo == 0) {

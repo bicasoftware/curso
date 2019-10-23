@@ -1,16 +1,21 @@
 import 'dart:async';
 
-import 'package:curso/container/aulas.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/horarios.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/aulas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/horarios.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
+import 'package:curso/models/periodos.dart';
+import 'package:curso/models/configuration.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+
+Future<Database> getDatabase() async {
+  return DBProvider.instance;
+}
 
 class DBProvider {
   factory DBProvider() {
@@ -45,6 +50,7 @@ class DBProvider {
     await _createAulas(db);
     await _createPeriodos(db);
     await _createHorarios(db);
+    await _createConfig(db);
 
     await _initializeConf(db);
   }
@@ -185,6 +191,11 @@ class DBProvider {
       await tr.insert(Notas.tableName, nota2.toMap());
       await tr.insert(Notas.tableName, nota3.toMap());
       await tr.insert(Notas.tableName, nota4.toMap());
+
+      await tr.insert(
+        Configuration.tableName,
+        const Configuration(id: 1, isLight: true, notify: true).toMap(),
+      );
     });
   }
 
@@ -210,5 +221,9 @@ class DBProvider {
 
   static Future _createHorarios(Database db) async {
     return await db.execute(Horarios.getCreateSQL());
+  }
+
+  static Future _createConfig(Database db) async {
+    return await db.execute(Configuration.createSQL);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:curso/container/materias.dart';
+import 'package:curso/models/materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/widgets/materia_color_container.dart';
@@ -41,7 +41,7 @@ class ViewMateriasListItem extends StatelessWidget {
       background: Container(
         color: Colors.red,
         child: Row(
-          children: [_swipeIcon, Spacer(), _swipeIcon],
+          children: [_swipeIcon, const Spacer(), _swipeIcon],
         ),
       ),
       child: ListTile(

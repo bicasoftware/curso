@@ -1,5 +1,4 @@
 import 'package:curso/container/calendario.dart';
-// import 'package:curso/custom_colors.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_strip/calendario_strip_cell_indicator.dart';
 import 'package:curso/widgets/rainbow_radial/rainbow_indicator.dart';
@@ -65,7 +64,7 @@ class CalendarioStripCell extends StatelessWidget {
     } else if (isToday(dataDTO.date)) {
       return Theme.of(context).hintColor;
     } else {
-      return Theme.of(context).cardColor;
+      return Theme.of(context).appBarTheme.color;
     }
   }
 }
@@ -82,6 +81,7 @@ class MonthDayText extends StatelessWidget {
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
+        color: Colors.white,
       ),
     );
   }

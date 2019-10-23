@@ -1,4 +1,4 @@
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_parciais/parcial_status.dart';
 import 'package:curso/view/view_parciais/widgets/notas_container/parcial_nota_progress.dart';

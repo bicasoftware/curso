@@ -1,5 +1,5 @@
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
 
 class ProvasNotasMaterias {
   ProvasNotasMaterias({this.nota, this.materia});

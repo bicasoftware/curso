@@ -1,5 +1,5 @@
 import 'package:curso/container/falta_container.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/view/view_provas/view_provas_list_item_materias.dart';

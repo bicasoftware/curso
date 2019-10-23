@@ -1,33 +1,32 @@
 import 'dart:async';
 
 import 'package:curso/bloc/base_bloc.dart';
-import 'package:curso/container/aulas.dart';
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
 import 'package:curso/container/parciais.dart';
-import 'package:curso/container/periodos.dart';
 import 'package:curso/container/provas_notas_materias.dart';
+import 'package:curso/models/aulas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/providers/provider_aulas.dart';
+import 'package:curso/providers/provider_configuration.dart';
 import 'package:curso/providers/provider_faltas.dart';
 import 'package:curso/providers/provider_notas.dart';
 import 'package:curso/providers/provider_periodos.dart';
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/pair.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'state_main.dart';
 
 class BlocMain extends BaseBloc {
-  BlocMain({@required List<Periodos> periodos, @required int isLight}) {
+  BlocMain({@required List<Periodos> periodos, @required bool isLight}) {
     state = StateMain(
       periodos: periodos,
     );
 
-    _isLight = isLight == 0;
+    _isLight = isLight;
     inBrightness.add(_isLight);
     _sinkPeriodos();
     _sinkCurrentPeriodo();
@@ -57,6 +56,7 @@ class BlocMain extends BaseBloc {
 
   Stream<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>> get outProvasNotasMaterias =>
       _subProvasNotasMaterias.stream;
+
   Sink<Pair<List<ProvasNotasMaterias>, List<AulasSemanaDTO>>> get inProvasNotasMaterias =>
       _subProvasNotasMaterias.sink;
 
@@ -89,11 +89,11 @@ class BlocMain extends BaseBloc {
     _bhsBrightness.close();
   }
 
-  void toggleBrightness() {
+  void toggleBrightness() async {
     _isLight = !_isLight;
-    SharedPreferences.getInstance()
-        .then((pref) => pref.setInt(Keys.app_brightness, _isLight ? 0 : 1))
-        .whenComplete(() => inBrightness.add(_isLight));
+    await ProviderConfiguration.putBrightness(_isLight).whenComplete(
+      () => inBrightness.add(_isLight),
+    );
   }
 
   void _sinkPeriodos() {

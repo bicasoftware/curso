@@ -14,7 +14,8 @@ dependencies:
   lib_observer:
     git:
       url: https://github.com/bicasoftware/lib_observer
-
+  
+  dio: ^3.0.3
   cupertino_icons: ^0.1.2
   intl: ^0.15.8
   sqflite: ^1.1.6+4
@@ -24,7 +25,7 @@ dependencies:
   morpheus: ^1.2.0+6
   pie_chart: ^1.2.0
   flutter_material_color_picker: ^1.0.3
-  shared_preferences: ^0.5.3+4
+  undraw: ^1.0.2
 
 
 dev_dependencies:

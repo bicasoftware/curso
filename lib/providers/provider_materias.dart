@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
+import 'package:curso/database/db_provider.dart';
+import 'package:curso/models/aulas.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../container/aulas.dart';
-import '../container/faltas.dart';
-import '../container/materias.dart';
-import '../container/notas.dart';
-import '../database/db_provider.dart';
 import 'provider_aulas.dart';
 import 'provider_faltas.dart';
 import 'provider_notas.dart';
@@ -17,7 +17,7 @@ class ProviderMaterias {
   final ProviderAulas providerAulas = ProviderAulas();
 
   static Future<List<Materias>> fetchMateriasByPeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.query(
       Materias.tableName,
       columns: Materias.provideColumns,
@@ -37,7 +37,7 @@ class ProviderMaterias {
   }
 
   static Future<Materias> fetchMateriasById(int idMateria) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.query(
       Materias.tableName,
       columns: Materias.provideColumns,
@@ -58,13 +58,13 @@ class ProviderMaterias {
     if (materia.idPeriodo == null) {
       throw Exception("Faltando idPeriodo em $materia");
     }
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final id = await db.insert(Materias.tableName, materia.toMap());
     return materia..id = id;
   }
 
   static Future deleteMateria(int idMateria) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final Batch batch = db.batch();
 
     batch.delete(Aulas.tableName, where: "${Aulas.IDMATERIA} = ?", whereArgs: [idMateria]);
@@ -75,7 +75,7 @@ class ProviderMaterias {
   }
 
   static Future<Materias> updateMateria(Materias materia) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final batch = db.batch();
     //Atualiza materia separadamente
     batch.update(
@@ -105,7 +105,7 @@ class ProviderMaterias {
   }
 
   static Future deleteMateriasByIdPeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     final batch = db.batch();
     final result = await db.query(
       Materias.tableName,

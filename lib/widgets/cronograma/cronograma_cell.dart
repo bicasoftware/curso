@@ -1,4 +1,4 @@
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 

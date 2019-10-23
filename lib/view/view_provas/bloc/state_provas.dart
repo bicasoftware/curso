@@ -1,7 +1,7 @@
 import 'package:curso/container/falta_container.dart';
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/notas.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/notas.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 
 class StateProvas {

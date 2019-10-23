@@ -1,6 +1,6 @@
 import 'package:curso/container/calendario.dart';
-import 'package:curso/container/faltas.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/faltas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -135,7 +135,7 @@ List<CalendarioDTO> prepareCalendario({
   @required List<Faltas> faltas,
   @required List<Notas> provas,
 }) {
-  final rightEnd = termino.add(Duration(days: 1));
+  final rightEnd = termino.add(const Duration(days: 1));
   final calendario = <CalendarioDTO>[];
 
   for (var m = inicio.month; m <= rightEnd.month; m++) {
@@ -169,7 +169,7 @@ List<CalendarioDTO> prepareCalendario({
           hasProvas: provas.firstWhere((p) => isSameDay(p.data, inicio), orElse: () => null) != null,
         ),
       );
-      inicio = inicio.add(Duration(days: 1));
+      inicio = inicio.add(const Duration(days: 1));
     }
     calendario.add(inCalendario);
   }

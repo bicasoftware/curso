@@ -1,5 +1,5 @@
 import 'package:curso/container/falta_container.dart';
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/widgets/materia_color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:curso/utils.dart/double_utils.dart';

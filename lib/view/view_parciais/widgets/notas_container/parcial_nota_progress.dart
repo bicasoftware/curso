@@ -26,7 +26,7 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: Duration(milliseconds: 400), vsync: this)
+    controller = AnimationController(duration: const Duration(milliseconds: 400), vsync: this)
       ..addListener(() => setState(() {}));
     colorAnim = ColorTween(begin: Colors.red, end: widget.status.cor).animate(controller);
     controller.forward();
@@ -46,9 +46,9 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
               Text(
                 Strings.notaAprovacao,
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
-              Spacer(),
+              const Spacer(),
               Text(formatNota(widget.notaAprov)),
             ],
           ),
@@ -64,9 +64,9 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
               Text(
                 Strings.notaAtual,
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
-              Spacer(),
+              const Spacer(),
               Text(formatNota(widget.notaAtual)),
             ],
           ),

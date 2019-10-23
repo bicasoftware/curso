@@ -1,14 +1,11 @@
-import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/view/view_calendario/view_calendario.dart';
-import 'package:curso/view/view_home/widgets/view_home_appbar_action.dart';
 import 'package:curso/view/view_home/widgets/view_home_bottombar.dart';
 import 'package:curso/view/view_parciais/view_parciais.dart';
 import 'package:curso/view/view_periodos/view_periodos.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:morpheus/morpheus.dart';
-import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ViewHome extends StatefulWidget {
@@ -23,7 +20,7 @@ class ViewHome extends StatefulWidget {
   _ViewHomeState createState() => _ViewHomeState();
 }
 
-class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin {
+class _ViewHomeState extends State<ViewHome> {
   final List<Widget> pages = <Widget>[
     const ViewPeriodos(),
     const ViewCalendario(),
@@ -54,54 +51,15 @@ class _ViewHomeState extends State<ViewHome> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final b = Provider.of<BlocMain>(context);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Observer<int>(
-          stream: outPos,
-          onSuccess: (BuildContext context, int pos) {
-            return AnimatedSwitcher(
-              duration: Duration(milliseconds: 250),
-              child: Text(titles[pos], key: UniqueKey()),
-              transitionBuilder: (Widget w, Animation<double> a) {
-                return SizeTransition(
-                  sizeFactor: a,
-                  axis: Axis.vertical,
-                  axisAlignment: 0,
-                  child: FadeTransition(
-                    opacity: a,
-                    child: w,
-                  ),
-                );
-              },
-            );
-          },
-        ),
-        actions: [
-          Observer<int>(
-            stream: outPos,
-            onSuccess: (BuildContext context, int pos) {
-              return ViewHomeAppbarAction(
-                pos: pos,
-                onInsertPeriodos: b.insertPeriodo,
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.lightbulb_outline),
-            onPressed: b.toggleBrightness,
-          ),
-        ],
-      ),
-      body: Observer<int>(
+      body: StreamObserver<int>(
         stream: outPos,
         onSuccess: (BuildContext context, int pos) => MorpheusTabView(
           child: pages[pos],
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
         ),
       ),
-      bottomNavigationBar: Observer(
+      bottomNavigationBar: StreamObserver(
         stream: _subjectPos,
         onSuccess: (_, int pos) {
           return ViewHomeBottombar(

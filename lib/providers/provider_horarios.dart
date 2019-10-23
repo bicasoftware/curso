@@ -1,9 +1,10 @@
-import '../container/horarios.dart';
-import '../database/db_provider.dart';
+import 'package:curso/database/db_provider.dart';
+import 'package:curso/models/horarios.dart';
+
 
 class ProviderHorarios {
   static Future<List<Horarios>> fetchHorariosByPeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
 
     final horarios = await db.query(
       Horarios.tableName,
@@ -16,7 +17,7 @@ class ProviderHorarios {
   }
 
   static Future<Horarios> fetchHorarioByOrdemAula(int idPeriodo, int ordemAula) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
 
     final horario = await db.query(
       Horarios.tableName,
@@ -30,7 +31,7 @@ class ProviderHorarios {
   }
 
   static Future<Null> deleteHorariosByPeriodo(int idPeriodo) async {
-    final db = await DBProvider.instance;
+    final db = await getDatabase();
     await db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [idPeriodo]);
   }
 }

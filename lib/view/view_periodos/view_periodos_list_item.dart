@@ -1,5 +1,5 @@
-import 'package:curso/container/materias.dart';
-import 'package:curso/container/periodos.dart';
+import 'package:curso/models/materias.dart';
+import 'package:curso/models/periodos.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/dialogs.dart';
 import 'package:curso/view/view_periodos/view_periodos_buttombar.dart';
@@ -41,32 +41,30 @@ class ViewPeriodosListItem extends StatelessWidget {
       onDismissed: (DismissDirection dir) {
         onDelete(periodo.id);
       },
-      child: Card(
-        child: ExpansionTile(
-          leading: Icon(Icons.date_range),
-          title: Text(
-            "${periodo.numPeriodo}º ${Strings.periodo}",
-          ),
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Column(
-                children: <Widget>[
-                  ViewPeriodosCronogramaHeader(),
-                  const SizedBox(height: 2),
-                  Cronograma(periodo: periodo, onCellClick: onCellClick),
-                ],
-              ),
-            ),
-            ViewPeriodosButtombar(
-              periodo: periodo,
-              onDelete: onDelete,
-              onUpdateTap: onUpdateTap,
-              onNotasTap: onNotasTap,
-              onMateriasTap: onMateriasTap,
-            ),
-          ],
+      child: ExpansionTile(
+        leading: Icon(Icons.date_range),
+        title: Text(
+          "${periodo.numPeriodo}º ${Strings.periodo}",
         ),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: <Widget>[
+                ViewPeriodosCronogramaHeader(),
+                const SizedBox(height: 2),
+                Cronograma(periodo: periodo, onCellClick: onCellClick),
+              ],
+            ),
+          ),
+          ViewPeriodosButtombar(
+            periodo: periodo,
+            onDelete: onDelete,
+            onUpdateTap: onUpdateTap,
+            onNotasTap: onNotasTap,
+            onMateriasTap: onMateriasTap,
+          ),
+        ],
       ),
     );
   }

@@ -19,7 +19,7 @@ class ViewHomeFab extends StatefulWidget {
 }
 
 class _ViewHomeFabState extends State<ViewHomeFab> with SingleTickerProviderStateMixin {
-  final Duration duration = Duration(milliseconds: 400);
+  final Duration duration = const Duration(milliseconds: 400);
 
   @override
   Widget build(BuildContext context) {

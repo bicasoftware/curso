@@ -1,4 +1,4 @@
-import 'package:curso/container/notas.dart';
+import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
@@ -31,7 +31,7 @@ class ParcialNotasItem extends StatelessWidget {
   }
 
   TextStyle getStyle() {
-    final style = TextStyle(fontSize: 12);
+    const style = TextStyle(fontSize: 12);
 
     if (DateTime.now().isBefore(nota.data)) {
       return style.copyWith(color: Colors.white60);
