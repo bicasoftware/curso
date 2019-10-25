@@ -15,7 +15,7 @@ class CellIndicator extends StatelessWidget {
     }
 
     if (isVaga) {
-      indicators.add(_indicator(Colors.teal.value));
+      indicators.add(_indicator(Colors.lightGreen.value));
     }
 
     if (hasProva) {

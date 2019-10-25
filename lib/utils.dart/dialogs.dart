@@ -133,6 +133,7 @@ Future<double> showNotaDialog({
   @required double nota,
 }) async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final theme = Theme.of(context);
 
   return await showDialog(
     context: context,
@@ -144,7 +145,13 @@ Future<double> showNotaDialog({
           key: _formKey,
           child: TextFormField(
             initialValue: (nota ?? 0.0).toString(),
-            decoration: InputDecoration(labelText: Strings.adicionarNota, hintText: "10,0"),
+            decoration: InputDecoration(
+              labelStyle: theme.textTheme.subhead.copyWith(
+                color: theme.accentColor,
+              ),
+              labelText: Strings.valorNota,
+              hintText: "10,0",
+            ),
             keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
             onSaved: (String n) {
               Navigator.of(context).pop(parseDoubleFromText(n));

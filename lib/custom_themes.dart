@@ -23,8 +23,8 @@ class CustomThemes {
       backgroundColor: CustomColors.canvasColor,
       canvasColor: CustomColors.canvasColor,
       cardColor: CustomColors.cardColor,
-      unselectedWidgetColor: Colors.white70,
-      dividerColor: Colors.white60,
+      dividerColor: Colors.white60,      
+      bottomAppBarColor: CustomColors.cardColor,
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
         color: CustomColors.primary,
@@ -41,9 +41,9 @@ class CustomThemes {
       backgroundColor: Colors.transparent,
       canvasColor: ThemeData.light().canvasColor,
       cardColor: ThemeData.light().cardColor,
-      focusColor: Colors.pinkAccent,
-      hintColor: Colors.indigo[800],
-      unselectedWidgetColor: Colors.white,
+      iconTheme: IconThemeData(
+        color: Colors.black87,
+      ),
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
         color: Colors.indigo,

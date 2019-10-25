@@ -61,6 +61,7 @@ class Strings {
   static const String todasAulasAgendadas = "Todas as aulas dessa data já foram agendadas";
   static const String desagendarProva = "Deseja cancelar a prova?";
   static const String adicionarNota = "Alterar Nota";
+  static const String valorNota = "Valor da Nota";
   static const String cancelarProva = "Cancelar Prova";
   static const String duracaoOrdemPeriodo = "Duração e Ordem do $periodo";
   static const String selecionarPeriodo = "Selecionar Periodo";

@@ -13,7 +13,7 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
     @required this.onUpdateNota,
     Key key,
   }) : super(key: key);
-  
+
   final ProvasNotasMaterias provasNotasMaterias;
   final Function(Notas) onDeleted;
   final Function(Notas) onUpdateNota;
@@ -56,6 +56,7 @@ class CalendarioProvasDiaListTile extends StatelessWidget {
   void _confirmDelete(BuildContext context) async {
     final bool shouldDelete = await showConfirmationDialog(
       context: context,
+      title: Strings.cancelar,
       message: Strings.desagendarProva,
     );
 

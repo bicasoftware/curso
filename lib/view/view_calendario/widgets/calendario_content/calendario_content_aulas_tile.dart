@@ -60,7 +60,7 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
   @override
   void dispose() {
     controller.dispose();
-    super.dispose();    
+    super.dispose();
   }
 
   @override
@@ -68,38 +68,39 @@ class _CalendarioContentAulasTileState extends State<CalendarioContentAulasTile>
     return widget.aulasSemana.idMateria == null
         ? Container()
         : SlideTransition(
-            position: slideAnim,
-            child: FadeTransition(
-              opacity: fadeAnim,
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    height: 50,
-                    width: 2,
-                    child: Container(
-                      color: _getColor(),
+          position: slideAnim,
+          child: FadeTransition(
+            opacity: fadeAnim,
+            child: Row(
+              children: <Widget>[
+                const SizedBox(width: 4),
+                SizedBox(
+                  height: 48,
+                  width: 4,
+                  child: Container(
+                    color: _getColor(),
+                  ),
+                ),
+                Expanded(
+                  child: ListTile(                        
+                    subtitle: Text(
+                      "${widget.ordem + 1}ª ${Strings.aula} | ${formatTime(widget.aulasSemana.horario)} ${faltaTipo(widget.aulasSemana.tipo)}",
+                    ),
+                    leading: MateriaColorContainer(
+                      color: Color(widget.aulasSemana.cor),
+                      size: 40,
+                    ),
+                    title: Text(widget.aulasSemana.nome),
+                    trailing: PopupMenuButton<int>(
+                      onSelected: (int i) => widget.onOptionSelected(i, widget.aulasSemana),
+                      itemBuilder: (c) => entryList(),
                     ),
                   ),
-                  Expanded(
-                    child: ListTile(
-                      subtitle: Text(
-                        "${widget.ordem + 1}ª ${Strings.aula} | ${formatTime(widget.aulasSemana.horario)} ${faltaTipo(widget.aulasSemana.tipo)}",
-                      ),
-                      leading: MateriaColorContainer(
-                        color: Color(widget.aulasSemana.cor),
-                        size: 32,
-                      ),
-                      title: Text(widget.aulasSemana.nome),
-                      trailing: PopupMenuButton<int>(
-                        onSelected: (int i) => widget.onOptionSelected(i, widget.aulasSemana),
-                        itemBuilder: (c) => entryList(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
+          ),
+        );
   }
 
   String faltaTipo(int tipo) {

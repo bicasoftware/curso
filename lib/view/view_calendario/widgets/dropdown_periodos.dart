@@ -12,6 +12,7 @@ class DropDownPeriodos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final b = Provider.of<BlocMain>(context);
+    final theme = Theme.of(context);
 
     return MergedStreamObserver(
       streams: [b.outCurrentPeriodo, b.outListPeriodos],
@@ -19,7 +20,9 @@ class DropDownPeriodos extends StatelessWidget {
         final periodo = data[0];
         final periodos = data[1];
         return Theme(
-          data: CustomThemes.darkTheme,
+          data: CustomThemes.darkTheme.copyWith(
+            canvasColor: theme.primaryColor,
+          ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<Periodos>(
               value: periodo,

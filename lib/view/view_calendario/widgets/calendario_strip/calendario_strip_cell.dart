@@ -20,33 +20,41 @@ class CalendarioStripCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorList = dataDTO.colorList;
-    return Container(
-      key: ObjectKey(dataDTO),
-      color: getCellColor(context),
-      width: 70,
-      child: InkWell(
-        onTap: onTap,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 4),
-              WeekDayText(weekDay: formatWeekDay(dataDTO.date)),
-              const SizedBox(height: 4),
-              RainbowIndicator(
-                child: MonthDayText(dataDTO: dataDTO),
-                lineWidth: 1.5,
-                size: const Offset(25, 25),
-                colors: colorList.isEmpty ? [Colors.lightBlue] : colorList,
-              ),
-              const SizedBox(height: 4),
-              CellIndicator(
-                isFalta: dataDTO.isFalta,
-                isVaga: dataDTO.isVaga,
-                hasProva: dataDTO.hasProvas,
-              ),
-              const SizedBox(height: 4),
-            ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        key: ObjectKey(dataDTO),
+        color: isSameDay(dataDTO.date, selectedDate)
+            ? Colors.white38
+            : Theme.of(context).appBarTheme.color,
+        child: AspectRatio(
+          aspectRatio: 1/1,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 2,
+                  color: isToday(dataDTO.date) ? Colors.white : Colors.transparent,
+                ),
+                const SizedBox(height: 2),
+                WeekDayText(weekDay: formatWeekDay(dataDTO.date)),
+                const SizedBox(height: 4),
+                RainbowIndicator(
+                  child: MonthDayText(dataDTO: dataDTO),
+                  lineWidth: 1.5,
+                  size: const Offset(25, 25),
+                  colors: colorList.isEmpty ? [Colors.lightBlue] : colorList,
+                ),
+                const SizedBox(height: 4),
+                CellIndicator(
+                  isFalta: dataDTO.isFalta,
+                  isVaga: dataDTO.isVaga,
+                  hasProva: dataDTO.hasProvas,
+                ),
+                const SizedBox(height: 4),
+              ],
+            ),
           ),
         ),
       ),
@@ -55,17 +63,6 @@ class CalendarioStripCell extends StatelessWidget {
 
   bool checkToday() {
     return isToday(dataDTO.date);
-  }
-
-  ///Se for hoje, mostra em primaryColor, se estiver selecionado, mostra em accentColor, senão, mostra branco
-  Color getCellColor(BuildContext context) {
-    if (isSameDay(dataDTO.date, selectedDate)) {
-      return Theme.of(context).focusColor;
-    } else if (isToday(dataDTO.date)) {
-      return Theme.of(context).hintColor;
-    } else {
-      return Theme.of(context).appBarTheme.color;
-    }
   }
 }
 

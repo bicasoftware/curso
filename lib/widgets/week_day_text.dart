@@ -17,7 +17,7 @@ class WeekDayText extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,            
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).unselectedWidgetColor,
+            color: Colors.white70,
           ),
         ),
       ),
