@@ -29,23 +29,25 @@ class CronogramaCell extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: () => onCellTap(weekDay, ordemAula, periodo, idAula),
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 1),
-          child: MateriaColorContainer(
-            type: MaterialType.card,
-            size: 48,
-            color: cor ?? Theme.of(context).cardColor,
-            child: Center(
-              child: Text(
-                sigla ?? "${ordemAula + 1}ª Aula",
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: sigla != null ? FontWeight.bold : null,
-                  color: getSiglaColor(cor, sigla, context),
-                  // color:
-                  //     (cor != null && cor.computeLuminance() < 0.5) ? Colors.white : Colors.black,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 1),
+            child: MateriaColorContainer(
+              type: MaterialType.card,
+              color: cor ?? Theme.of(context).cardColor,
+              child: Center(
+                child: Text(
+                  sigla ?? "${ordemAula + 1}ª Aula",
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: sigla != null ? FontWeight.bold : null,
+                    color: getSiglaColor(cor, sigla, context),
+                    // color:
+                    //     (cor != null && cor.computeLuminance() < 0.5) ? Colors.white : Colors.black,
+                  ),
                 ),
               ),
             ),

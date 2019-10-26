@@ -23,8 +23,11 @@ class CustomThemes {
       backgroundColor: CustomColors.canvasColor,
       canvasColor: CustomColors.canvasColor,
       cardColor: CustomColors.cardColor,
-      dividerColor: Colors.white60,      
+      dividerColor: Colors.white60,
       bottomAppBarColor: CustomColors.cardColor,
+      iconTheme: IconThemeData(
+        color: Colors.white,        
+      ),
       appBarTheme: const AppBarTheme(
         brightness: Brightness.dark,
         color: CustomColors.primary,

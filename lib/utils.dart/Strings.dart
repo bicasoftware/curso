@@ -19,6 +19,7 @@ class Strings {
   static const String materias = 'Matérias';
   static const String selecioneMateriaProva = 'Prova de: ';
   static const String materia = 'Matéria';
+  static const String nomeMateria = 'Nome da Matéria';
   static const String sigla = 'Sigla';
   static const String corMateria = 'Cor da Materia';
   static const String cor = 'Cor';

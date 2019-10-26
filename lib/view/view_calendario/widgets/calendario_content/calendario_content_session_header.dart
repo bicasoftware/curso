@@ -1,3 +1,4 @@
+import 'package:curso/text_themes.dart';
 import 'package:flutter/material.dart';
 
 class CalendarioContentSessionHeader extends StatelessWidget {
@@ -7,8 +8,6 @@ class CalendarioContentSessionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
       child: Column(
@@ -16,7 +15,7 @@ class CalendarioContentSessionHeader extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: theme.textTheme.button.copyWith(color: theme.accentColor),
+            style: TextThemes.label(context),
           ),
           const Divider(),
         ],

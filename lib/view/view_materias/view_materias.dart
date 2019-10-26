@@ -98,10 +98,8 @@ class _Body extends StatelessWidget {
             return false;
           },
           child: Scaffold(
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: FloatingActionButton.extended(
-              label: const Text(Strings.adicionar),
-              icon: Icon(Icons.add),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
               onPressed: callInsertMateria,
               heroTag: const ObjectKey(Strings.materias),
             ),
@@ -110,7 +108,6 @@ class _Body extends StatelessWidget {
                 SliverAppBar(
                   title: const Text(Strings.materias),
                   floating: true,
-                  centerTitle: true,
                   leading: IconButton(
                     icon: Icon(Icons.close),
                     onPressed: () => Navigator.of(context).pop(materias),

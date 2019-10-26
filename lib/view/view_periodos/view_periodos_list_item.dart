@@ -43,9 +43,9 @@ class ViewPeriodosListItem extends StatelessWidget {
         onDelete(periodo.id);
       },
       child: Card(
+        elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
 
-        ///Usar Theme ao redor do ExpansionTile, para esconder os dividers ao abrir
         child: ExpansionTileHideDivider(
           child: ExpansionTile(
             leading: Icon(Icons.date_range),
