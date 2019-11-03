@@ -1,12 +1,10 @@
 class StringUtils {
-
-
-  ///Gera sigla da matéria seguindo o padrão: 
+  ///Gera sigla da matéria seguindo o padrão:
   ///apenas com mais de 3 caracteres,
   ///com 1 palavras apenas, retorna 3 primeiras letras em uppercase;
   ///com 2 palavras, tendo a segunda palavra sendo 2 número, retorna 3 letras e número
   ///com 2 palavras, retorna primeira letra em uppercase e tres primeiras letras da segunda palavra
-  ///com 3 palavras ou mais, retorna a primeira letra de cada palavra;  
+  ///com 3 palavras ou mais, retorna a primeira letra de cada palavra;
   static String geraSigla(String str) {
     str = str.trim();
     if (str.length > 2) {
@@ -47,5 +45,15 @@ class StringUtils {
     } catch (e) {
       return false;
     }
+  }
+
+  static bool isValidPassword(String pass) {
+    return RegExp(r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,14}$').hasMatch(pass);
+  }
+
+  static bool isValidEmail(String email) {
+    return RegExp(
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
+    ).hasMatch(email);
   }
 }

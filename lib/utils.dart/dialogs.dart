@@ -19,7 +19,7 @@ class Dialogs {
           title: Text(title),
           children: <Widget>[
             SimpleDialogOption(
-              child: Text(Strings.excluir),
+              child: const Text(Strings.excluir),
               onPressed: () => Navigator.of(context).pop(true),
             ),
           ],
@@ -37,7 +37,7 @@ class Dialogs {
       context: context,
       builder: (c) {
         return SimpleDialog(
-          title: Text(Strings.mes),
+          title: const Text(Strings.mes),
           children: generateInRange(inicio - 1, termino - 1, (i) {
             return SimpleDialogOption(
               child: ListTile(
@@ -119,7 +119,7 @@ Future<bool> showRemoveDialog({
         title: Text(title),
         children: <Widget>[
           SimpleDialogOption(
-            child: Text(Strings.excluir),
+            child: const Text(Strings.excluir),
             onPressed: () => Navigator.of(context).pop(true),
           ),
         ],
@@ -176,9 +176,9 @@ Future<double> showNotaDialog({
             },
           ),
           FlatButton(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(Strings.salvar),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child:  Text(Strings.salvar),
             ),
             onPressed: () {
               final state = _formKey.currentState;

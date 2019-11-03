@@ -43,10 +43,10 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
           Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text(
+              const Text(
                 Strings.notaAprovacao,
                 textAlign: TextAlign.start,
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 14),
               ),
               const Spacer(),
               Text(formatNota(widget.notaAprov)),
@@ -61,10 +61,10 @@ class _ParcialNotaProgressState extends State<ParcialNotaProgress>
           Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text(
+              const Text(
                 Strings.notaAtual,
                 textAlign: TextAlign.start,
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 14),
               ),
               const Spacer(),
               Text(formatNota(widget.notaAtual)),

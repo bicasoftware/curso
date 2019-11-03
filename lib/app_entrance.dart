@@ -1,7 +1,7 @@
 import 'package:curso/bloc/bloc_main/bloc_main.dart';
 import 'package:curso/custom_themes.dart';
 import 'package:curso/models/periodos.dart';
-import 'package:curso/view/view_home/view_home.dart';
+import 'package:curso/view/view_login/view_login.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
@@ -44,9 +44,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: isLight ? CustomThemes.darkTheme : CustomThemes.lightTheme,
-          home: ViewHome(
+          home: ViewLogin(),
+          /* home: ViewHome(
             initialPos: initialPosition,
-          ),
+          ), */
         );
       },
     );

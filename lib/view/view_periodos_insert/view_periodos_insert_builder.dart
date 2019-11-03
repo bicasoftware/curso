@@ -34,7 +34,7 @@ class ViewPeriodosInsertBuilder {
   }) {
     return DefaultListTile(
       icon: Icons.list,
-      leading: Text(Strings.aulasDia),
+      leading: const Text(Strings.aulasDia),
       trailing: DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           value: qntAulas,

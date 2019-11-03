@@ -4,7 +4,6 @@ import 'package:curso/container/provas_notas_materias.dart';
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/bottomsheets.dart';
 import 'package:curso/utils.dart/pair.dart';
-import 'package:curso/utils.dart/showup.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_aulas_tile.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_prova_tile.dart';
 import 'package:curso/view/view_calendario/widgets/calendario_content/calendario_content_session_header.dart';
@@ -67,12 +66,12 @@ class CalendarioAulasProvas extends StatelessWidget {
         final aulasAgendamento = data[2] as List<AulasSemanaDTO>;
 
         return aulas.aulas.every((a) => a.idMateria == null)
-            ? CalendarioContentSessionHeader(title: Strings.semAulasHoje)
+            ? const CalendarioContentSessionHeader(title: Strings.semAulasHoje)
             : Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CalendarioContentSessionHeader(title: Strings.aulas),
+                  const CalendarioContentSessionHeader(title: Strings.aulas),
                   ...[
                     for (int i = 0; i < aulas.aulas.length; i++)
                       CalendarioContentAulasTile(
@@ -85,7 +84,7 @@ class CalendarioAulasProvas extends StatelessWidget {
                       ),
                   ],
                   if (faltasNotasMaterias.first.isNotEmpty) ...[
-                    CalendarioContentSessionHeader(title: Strings.provas),
+                    const CalendarioContentSessionHeader(title: Strings.provas),
                     ...[
                       for (int i = 0; i < faltasNotasMaterias.first.length; i++)
                         CalendarioProvasDiaListTile(

@@ -22,7 +22,7 @@ class ViewCalendarioState extends State<ViewCalendario> {
         slivers: <Widget>[
           SliverAppBar(
             elevation: 0,
-            title: Text(Strings.calendario),
+            title: const Text(Strings.calendario),
             floating: true,
             actions: const <Widget>[
               DropDownPeriodos(),

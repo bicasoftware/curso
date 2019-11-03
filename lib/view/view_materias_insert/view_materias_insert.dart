@@ -37,7 +37,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
 
     ///Aguardar alguns milisegundos antes de colocar o foco, melhora a visibilidade das animações
     focus = FocusNode();
-    Future.delayed(Duration(milliseconds: 600), () {
+    Future.delayed(const Duration(milliseconds: 600), () {
       focus.requestFocus();
     });
   }
@@ -65,7 +65,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
         actions: <Widget>[
           FlatButton(
             colorBrightness: Brightness.dark,
-            child: Text(Strings.salvar),
+            child: const Text(Strings.salvar),
             onPressed: doSave,
           )
         ],
@@ -101,7 +101,7 @@ class _ViewMateriasInsertState extends State<ViewMateriasInsert> {
                 const SizedBox(height: 16),
                 ListTile(
                   leading: Icon(Icons.palette),
-                  title: Text(Strings.corMateria),
+                  title: const Text(Strings.corMateria),
                   trailing: DropdownButtonHideUnderline(
                     child: DropdownButton<int>(
                       onChanged: (int c) => setState(() => _cor = c),

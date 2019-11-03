@@ -12,7 +12,7 @@ class BrightnessButton extends StatelessWidget {
     return StreamObserver(
       stream: b.outBrightness,
       onSuccess: (_, bool isLight) => AnimatedSwitcher(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: IconButton(
           key: UniqueKey(),
           icon: Icon(isLight ? Icons.brightness_5 : Icons.brightness_4),

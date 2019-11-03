@@ -15,7 +15,7 @@ class ViewInfo extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(title: Text(Strings.parciais), floating: true),
+          SliverAppBar(title: const Text(Strings.parciais), floating: true),
           SliverList(
             delegate: SliverChildListDelegate (
               [

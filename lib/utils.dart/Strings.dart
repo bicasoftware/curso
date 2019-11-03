@@ -88,6 +88,12 @@ class Strings {
   static const String descartarAlteracaoesMsg = "Todas as alterações serão descartadas.";
   static const String avisoRemoverMateria = "Ao remover a matéria, não será possível desfazer";
   static const String avisoRemoverPeriodo = "Ao remover o período, não será possível desfazer";
+
+  //Tela de login
+  static const String email = "Email";
+  static const String senha = "Senha";
+  static const String entrar = "Entrar";
+  static const String cadastrar = "Cadastrar";
 }
 
 class Arrays {
@@ -159,6 +165,10 @@ class Errors {
   static const horariosInvalidos = "Horários inválidos";
   static const datasInvalidas = "Datas inválidas";
   static const notaInvalida = "digite algo entre 0,0 e 10,0";
+  static const senhaPoucosCaracteres = "A senha deve conter mais que 6 caracteres";
+  static const emailInvalido = "Email inválido";
+  static const senhaInvalida = "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula e um número";
+
 }
 
 class Keys {

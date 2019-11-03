@@ -12,7 +12,7 @@ class _ViewProvasBodyState extends State<ViewProvasBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${Strings.provas}"),
+        title: const Text("${Strings.provas}"),
       ),
       body: ProvasList(),
     );
