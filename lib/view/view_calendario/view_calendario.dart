@@ -20,11 +20,11 @@ class ViewCalendarioState extends State<ViewCalendario> {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
+          const SliverAppBar(
             elevation: 0,
-            title: const Text(Strings.calendario),
+            title: Text(Strings.calendario),
             floating: true,
-            actions: const <Widget>[
+            actions: <Widget>[
               DropDownPeriodos(),
               BrightnessButton(),
             ],

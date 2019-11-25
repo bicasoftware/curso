@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: MaterialButton(
-        elevation: 2,
+        elevation: 4,
         child: Text(label),
         color: color ?? theme.accentColor,
         onPressed: onPressed,        

@@ -1,15 +1,10 @@
 import 'package:curso/custom_themes.dart';
-import 'package:curso/services/login_service.dart';
 import 'package:curso/view/view_login/login_widgets.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:curso/view/view_login/widgets/login_header.dart';
+import 'package:curso/view/view_signin/signin_area.dart';
 import 'package:flutter/material.dart';
 
-class ViewLogin extends StatefulWidget {
-  @override
-  _ViewLoginState createState() => _ViewLoginState();
-}
-
-class _ViewLoginState extends State<ViewLogin> {
+class ViewSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,10 +20,11 @@ class _ViewLoginState extends State<ViewLogin> {
               children: <Widget>[
                 const SizedBox(height: 16),
                 const LoginHeader(),
-                LoginArea(
-                  validateLogin: (String email, String pass) async {
+                SignInArea(
+                  doSignIn: (String email, String pass) async {
                     print("email: $email, pass: $pass");
-                    await LoginService.callLogin(email, pass);
+                    //TODO - Enviar cadastro servidor
+//                    await LoginService.callLogin(email, pass);
                   },
                 ),
               ],

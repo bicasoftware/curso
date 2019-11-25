@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({Key key}) : super(key: key);
@@ -6,16 +7,10 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
       width: double.maxFinite,
       height: MediaQuery.of(context).size.height * 0.2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-          Image(
-            image: AssetImage('assets/images/curso_logo.png'),
-          ),
-        ],
+      child: const Image(
+        image: AssetImage('assets/images/curso_logo2.png'),
       ),
     );
   }

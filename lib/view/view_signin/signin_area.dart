@@ -1,32 +1,29 @@
 import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/login_utils.dart';
-import 'package:curso/view/view_login/widgets/cadastro_button.dart';
-import 'package:curso/view/view_login/widgets/login_button.dart';
-import 'package:curso/view/view_signin/view_signin.dart';
+import 'package:curso/view/view_login/login_widgets.dart';
+import 'package:curso/view/view_login/view_login.dart';
 import 'package:flutter/material.dart';
 
-class LoginArea extends StatefulWidget {
-  const LoginArea({
-    @required this.validateLogin,
-    Key key,
-  }) : super(key: key);
+class SignInArea extends StatefulWidget {
+  const SignInArea({Key key, this.doSignIn}) : super(key: key);
 
-  final Function(String, String) validateLogin;
+  final Function(String, String) doSignIn;
 
   @override
-  _LoginAreaState createState() => _LoginAreaState();
+  _SignInAreaState createState() => _SignInAreaState();
 }
 
-class _LoginAreaState extends State<LoginArea> {
+class _SignInAreaState extends State<SignInArea> {
   GlobalKey<FormState> _formKey;
-  String _email, _pass;
+  TextEditingController emailCt, passCt, rtPassCt;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _email = "";
-    _pass = "";
+    emailCt = TextEditingController(text: "");
+    passCt = TextEditingController(text: "");
+    rtPassCt = TextEditingController(text: "");
   }
 
   @override
@@ -40,7 +37,7 @@ class _LoginAreaState extends State<LoginArea> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 64),
+            const SizedBox(height: 32),
             Card(
               elevation: 4,
               child: Container(
@@ -49,51 +46,53 @@ class _LoginAreaState extends State<LoginArea> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     TextFormField(
-                      initialValue: _email,
+                      controller: emailCt,
                       decoration: InputDecoration(
                         hintText: "test@test.com",
                         border: const OutlineInputBorder(),
                         prefixIcon: Icon(Icons.email),
                       ),
                       validator: LoginUtils.validaEmail,
-                      onSaved: (String email) => setState(() => _email = email),
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      initialValue: _pass,
+                      controller: passCt,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: Strings.digiteSenha,
                         prefixIcon: Icon(Icons.lock),
                         border: const OutlineInputBorder(),
-                        // labelText: Strings.senha,
                       ),
                       validator: LoginUtils.validaSenha,
-                      onSaved: (String pass) => setState(() => _pass = pass),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: rtPassCt,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: Strings.repitaASenha,
+                        prefixIcon: Icon(Icons.lock_outline),
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (s) => LoginUtils.isSamePassword(passCt.text, rtPassCt.text),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 56),
             LoginButton(
-              label: Strings.entrar,
+              label: Strings.cadastrar,
               onPressed: () {
-                final state = _formKey.currentState;
-                final bool isValidated = state.validate();
-                if (isValidated) {
-                  state.save();
-                  widget.validateLogin(_email, _pass);
-                }
+                _validateLogin(emailCt.text, passCt.text);
               },
             ),
             LinkButton(
-              label: Strings.cadastrar,
+              label: Strings.cancelar,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     fullscreenDialog: true,
-                    builder: (_) => ViewSignIn(),
+                    builder: (_) => ViewLogin(),
                   ),
                 );
               },
@@ -104,12 +103,12 @@ class _LoginAreaState extends State<LoginArea> {
     );
   }
 
-  void validateLogin(String email, String pass) {
+  void _validateLogin(String email, String pass) {
     final state = _formKey.currentState;
     final bool isValidated = state.validate();
     if (isValidated) {
       state.save();
-      widget.validateLogin(_email, _pass);
+      widget.doSignIn(email, pass);
     }
   }
 }

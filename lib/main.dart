@@ -10,10 +10,15 @@ void main() async {
   await initializeDateFormatting("pt_BR", null);
   Intl.defaultLocale = "pt_BR";
 
+  final dados = await Future.wait([
+    ProviderPeriodos.fetchAllPeriodos(),
+    ProviderConfiguration.fetchBrightness(),
+  ]);
+
   runApp(
     AppEntrance(
-      periodos: await ProviderPeriodos.fetchAllPeriodos(),
-      isLight: await ProviderConfiguration.fetchBrightness(),
+      periodos: dados[0],
+      isLight: dados[1],
     ),
   );
 }

@@ -49,8 +49,8 @@ class ViewPeriodosState extends State<ViewPeriodos> {
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            title: const Text(Strings.periodos),
+          const SliverAppBar(
+            title: Text(Strings.periodos),
           ),
           SliverList(
             delegate: SliverChildListDelegate(

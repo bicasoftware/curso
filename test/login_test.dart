@@ -1,3 +1,4 @@
+import 'package:curso/services/login_service.dart';
 import 'package:curso/utils.dart/StringUtils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,5 +15,9 @@ void main() {
   test('email', () {
     const email = "saulo@teste.com";
     assert(StringUtils.isValidEmail(email));
+  });
+
+  test('login', () async {
+    await LoginService.callLogin("saulo@test.com", "97674691");
   });
 }

@@ -94,6 +94,8 @@ class Strings {
   static const String senha = "Senha";
   static const String entrar = "Entrar";
   static const String cadastrar = "Cadastrar";
+  static const String digiteSenha = "Digite uma senha";
+  static const String repitaASenha = "Repita a senha";
 }
 
 class Arrays {
@@ -168,6 +170,7 @@ class Errors {
   static const senhaPoucosCaracteres = "A senha deve conter mais que 6 caracteres";
   static const emailInvalido = "Email inválido";
   static const senhaInvalida = "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula e um número";
+  static const senhasNaoCoincidem = "A senhas digitadas não são iguais";
 
 }
 

@@ -11,7 +11,10 @@ class ProviderPeriodos {
   static Future<List<Periodos>> fetchAllPeriodos() async {
     final db = await getDatabase();
 
-    final result = await db.query(Periodos.tableName, columns: Periodos.provideColumns);
+    final List<Map<String, dynamic>> result = await db.query(
+      Periodos.tableName,
+      columns: Periodos.provideColumns,
+    );
     final List<Periodos> periodos = result.map((it) => Periodos.fromMap(it)).toList();
 
     for (var periodo in periodos) {
@@ -51,7 +54,8 @@ class ProviderPeriodos {
       whereArgs: [periodo.id],
     );
 
-    await db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [periodo.id]);
+    await db
+        .delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [periodo.id]);
     for (var h in periodo.horarios) {
       h.id = await db.insert(Horarios.tableName, (h..id = null).toMap());
     }

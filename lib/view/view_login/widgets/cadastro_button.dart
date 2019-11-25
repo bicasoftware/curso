@@ -1,22 +1,26 @@
-import 'package:curso/utils.dart/Strings.dart';
 import 'package:flutter/material.dart';
 
-class CadastroButton extends StatelessWidget {
-  const CadastroButton({
+class LinkButton extends StatelessWidget {
+  const LinkButton({
+    @required this.label,
+    @required this.onPressed,
     Key key,
   }) : super(key: key);
+
+  final String label;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       child: Text(
-        Strings.cadastrar,
+        label,
         style: TextStyle(
           color: Colors.white70,
           decoration: TextDecoration.underline,
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
     );
   }
 }

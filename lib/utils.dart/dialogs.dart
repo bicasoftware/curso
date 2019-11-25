@@ -140,7 +140,7 @@ Future<double> showNotaDialog({
     barrierDismissible: true,
     builder: (c) {
       return AlertDialog(
-        title: Text(Strings.adicionarNota),
+        title: const Text(Strings.adicionarNota),
         content: Form(
           key: _formKey,
           child: TextFormField(
@@ -170,7 +170,7 @@ Future<double> showNotaDialog({
         ),
         actions: [
           FlatButton(
-            child: Text(Strings.cancelar),
+            child: const Text(Strings.cancelar),
             onPressed: () {
               Navigator.of(context).pop();
             },
