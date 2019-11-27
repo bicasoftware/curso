@@ -1,15 +1,19 @@
 import 'package:curso/container/calendario.dart';
+import 'package:curso/container/parciais.dart';
+import 'package:curso/database/base_table.dart';
 import 'package:curso/models/faltas.dart';
 import 'package:curso/models/horarios.dart';
 import 'package:curso/models/materias.dart';
 import 'package:curso/models/notas.dart';
-import 'package:curso/container/parciais.dart';
-import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/calcs.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'periodos.g.dart';
+
+@JsonSerializable(nullable: true)
 class Periodos implements BaseTable {
   Periodos({
     this.id,
@@ -79,13 +83,23 @@ class Periodos implements BaseTable {
     );
   }
 
+  factory Periodos.fromJson(Map<String, dynamic> json) => _$PeriodosFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PeriodosToJson(this);
+
   int id, presObrig, aulasDia, numPeriodo;
   DateTime inicio, termino;
   double medAprov;
   List<Materias> materias;
   List<Horarios> horarios;
+
+  @JsonKey(ignore: true)
   List<CalendarioDTO> calendario;
+
+  @JsonKey(ignore: true)
   List<AulasSemanaDTO> aulasSemana;
+
+  @JsonKey(ignore: true)
   Parciais parciais;
 
   static const String ID = "id";

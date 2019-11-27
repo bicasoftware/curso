@@ -1,5 +1,9 @@
 import 'package:curso/database/base_table.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'aulas.g.dart';
+
+@JsonSerializable(nullable: true)
 class Aulas implements BaseTable {
   Aulas({
     this.id,
@@ -18,7 +22,11 @@ class Aulas implements BaseTable {
       ordem: m[ORDEM],
     );
   }
-  
+
+  factory Aulas.fromJson(Map<String, dynamic> json) => _$AulasFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AulasToJson(this);
+
   int id, idPeriodo, idMateria, weekDay, ordem;
 
   static const String ID = "id";

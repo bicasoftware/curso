@@ -161,6 +161,8 @@ class Arrays {
 }
 
 class Errors {
+  static const falhaEntrar = "Falha ao entrar";
+  static const errEmailNaoEncontrado = "Login não encontrado";
   static const errNomeMateria = "Indique um nome com mais de 3 letras";
   static const errSigla = "Sigla não pode estar vazia";
   static const horariosIguaisInvalidos = "Horários iguais não são permitidos";

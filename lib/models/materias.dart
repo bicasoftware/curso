@@ -1,9 +1,13 @@
-import 'package:curso/models/aulas.dart';
 import 'package:curso/database/base_table.dart';
+import 'package:curso/models/aulas.dart';
 import 'package:curso/models/faltas.dart';
 import 'package:curso/models/notas.dart';
+import 'package:curso/utils.dart/random_utils.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'materias.g.dart';
 
+@JsonSerializable(nullable: true)
 class Materias implements BaseTable {
   Materias({
     this.id,
@@ -34,10 +38,16 @@ class Materias implements BaseTable {
     );
   }
 
+  factory Materias.fromJson(Map<String, dynamic> json) => _$MateriasFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MateriasToJson(this);
+
   int id, idPeriodo;
   String nome, sigla;
+  @JsonKey(toJson: boolToInt, fromJson: intToBool)
   bool freq;
   double medAprov;
+  @JsonKey(fromJson: strToInt)
   int cor;
   List<Faltas> faltas;
   List<Notas> notas;

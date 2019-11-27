@@ -1,7 +1,11 @@
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
 import 'package:meta/meta.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'faltas.g.dart';
+
+@JsonSerializable(nullable: true)
 class Faltas implements BaseTable {
   Faltas({
     @required this.id,
@@ -20,6 +24,10 @@ class Faltas implements BaseTable {
       tipo: m[TIPO],
     );
   }
+
+  factory Faltas.fromJson(Map<String, dynamic> json) => _$FaltasFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FaltasToJson(this);
 
   int id;
   int idMateria;

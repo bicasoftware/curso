@@ -1,6 +1,10 @@
 import 'package:curso/database/base_table.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'configuration.g.dart';
+
+@JsonSerializable(nullable: true)
 @immutable
 class Configuration implements BaseTable {
   const Configuration({
@@ -16,6 +20,10 @@ class Configuration implements BaseTable {
       id: map[Cl_Id] ?? 1,
     );
   }
+
+  factory Configuration.fromJson(Map<String, dynamic> json) => _$ConfigurationFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ConfigurationToJson(this);
 
   final bool isLight, notify;
   final int id;

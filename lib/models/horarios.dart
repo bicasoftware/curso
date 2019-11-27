@@ -1,7 +1,11 @@
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+part 'horarios.g.dart';
+
+@JsonSerializable(nullable: true)
 class Horarios implements BaseTable {
   Horarios({
     @required this.idPeriodo,
@@ -21,7 +25,14 @@ class Horarios implements BaseTable {
     );
   }
 
+  factory Horarios.fromJson(Map<String, dynamic> json) => _$HorariosFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HorariosToJson(this);
+
   int id, idPeriodo, ordemAula;
+
+  //TODO - gerar function para formatar horários
+  @JsonKey(fromJson: parseTime, toJson: formatTime)
   DateTime inicio, termino;
 
   static const String ID = "id";

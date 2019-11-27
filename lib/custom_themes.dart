@@ -40,6 +40,7 @@ class CustomThemes {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.indigo,
+      primaryColorDark: Colors.indigo[700],
       accentColor: Colors.pinkAccent,
       backgroundColor: Colors.transparent,
       canvasColor: ThemeData.light().canvasColor,

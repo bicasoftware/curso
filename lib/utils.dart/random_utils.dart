@@ -28,3 +28,13 @@ bool parseBool<T>(T value) {
     return null;
   }
 }
+
+bool intToBool(int value) => value == 1;
+
+int boolToInt(bool value) => value == true ? 1 : 0;
+
+int strToInt(String color) => int.tryParse(color) ?? Colors.grey.value;
+
+
+
+

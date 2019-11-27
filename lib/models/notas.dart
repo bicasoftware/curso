@@ -1,6 +1,10 @@
 import 'package:curso/database/base_table.dart';
 import 'package:curso/utils.dart/date_utils.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'notas.g.dart';
+
+@JsonSerializable(nullable: true)
 class Notas implements BaseTable {
   Notas({
     this.id,
@@ -8,7 +12,7 @@ class Notas implements BaseTable {
     this.data,
     this.nota,
   });
-  
+
   factory Notas.fromMap(Map m) {
     return Notas(
       id: m[ID],
@@ -18,10 +22,14 @@ class Notas implements BaseTable {
     );
   }
 
+  factory Notas.fromJson(Map<String, dynamic> json) => _$NotasFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NotasToJson(this);
+
   int id, idMateria;
   DateTime data;
   double nota;
-  
+
   static const String ID = "id";
   static const String IDMATERIA = "id_materia";
   static const String DATA = "dt_prova";
