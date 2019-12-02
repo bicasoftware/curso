@@ -7,6 +7,7 @@ import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
 
 class AppEntrance extends StatelessWidget {
+  //TODO - remover essa classe e chamar diretamente MyApp()
   const AppEntrance({
     @required this.periodos,
     @required this.isLight,
@@ -36,11 +37,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //TODO - testar se existe registro do token
+    //e testar se existem dados no banco.
+    //Se for true, true
+    // => carregar tela inicial,
+    // else
+    // => carregar tela de login
+
     final b = Provider.of<BlocMain>(context);
     return StreamObserver<bool>(
       stream: b.outBrightness,
       onSuccess: (BuildContext context, bool isLight) {
-        return MaterialApp(
+        return  MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: isLight ? CustomThemes.darkTheme : CustomThemes.lightTheme,

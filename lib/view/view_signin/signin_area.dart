@@ -2,6 +2,9 @@ import 'package:curso/utils.dart/Strings.dart';
 import 'package:curso/utils.dart/login_utils.dart';
 import 'package:curso/view/view_login/login_widgets.dart';
 import 'package:curso/view/view_login/view_login.dart';
+import 'package:curso/widgets/login_area_container.dart';
+import 'package:curso/widgets/login_textarea.dart';
+import 'package:curso/widgets/rounded_material_button.dart';
 import 'package:flutter/material.dart';
 
 class SignInArea extends StatefulWidget {
@@ -38,64 +41,37 @@ class _SignInAreaState extends State<SignInArea> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const SizedBox(height: 32),
-            Card(
-              elevation: 4,
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: emailCt,
-                      decoration: InputDecoration(
-                        hintText: "test@test.com",
-                        border: const OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      validator: LoginUtils.validaEmail,
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: passCt,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: Strings.digiteSenha,
-                        prefixIcon: Icon(Icons.lock),
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: LoginUtils.validaSenha,
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: rtPassCt,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: Strings.repitaASenha,
-                        prefixIcon: Icon(Icons.lock_outline),
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (s) => LoginUtils.isSamePassword(passCt.text, rtPassCt.text),
-                    ),
-                  ],
+            LoginAreaContainer(
+              children: <Widget>[
+                LoginTextArea(
+                  controller: emailCt,
+                  hintText: Strings.emailTest,
+                  validator: LoginUtils.validaEmail,
                 ),
-              ),
+                const SizedBox(height: 4),
+                LoginTextArea(
+                  controller: passCt,
+                  hintText: Strings.digiteSenha,
+                  isPassword: true,
+                  validator: LoginUtils.validaSenha,
+                ),
+                const SizedBox(height: 4),
+                LoginTextArea(
+                  controller: rtPassCt,
+                  isPassword: true,
+                  hintText: Strings.repitaASenha,
+                  validator: (s) => LoginUtils.isSamePassword(passCt.text, rtPassCt.text),
+                ),
+              ],
             ),
-            LoginButton(
+            RoundedButton(
+              color: Colors.white,
               label: Strings.cadastrar,
-              onPressed: () {
-                _validateLogin(emailCt.text, passCt.text);
-              },
+              onPressed: () => _validateLogin(emailCt.text, passCt.text),
             ),
             LinkButton(
               label: Strings.cancelar,
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (_) => ViewLogin(),
-                  ),
-                );
-              },
+              onPressed: _goBack,
             ),
           ],
         ),
@@ -110,5 +86,14 @@ class _SignInAreaState extends State<SignInArea> {
       state.save();
       widget.doSignIn(email, pass);
     }
+  }
+
+  void _goBack() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => ViewLogin(),
+      ),
+    );
   }
 }

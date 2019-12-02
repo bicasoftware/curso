@@ -47,7 +47,7 @@ class Materias implements BaseTable {
   @JsonKey(toJson: boolToInt, fromJson: intToBool)
   bool freq;
   double medAprov;
-  @JsonKey(fromJson: strToInt)
+  @JsonKey(fromJson: int.tryParse)
   int cor;
   List<Faltas> faltas;
   List<Notas> notas;

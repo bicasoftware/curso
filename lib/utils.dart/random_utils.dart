@@ -37,4 +37,3 @@ int strToInt(String color) => int.tryParse(color) ?? Colors.grey.value;
 
 
 
-

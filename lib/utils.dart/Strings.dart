@@ -96,6 +96,8 @@ class Strings {
   static const String cadastrar = "Cadastrar";
   static const String digiteSenha = "Digite uma senha";
   static const String repitaASenha = "Repita a senha";
+  static const String emailTest = "email@gmail.com";
+
 }
 
 class Arrays {
@@ -178,4 +180,6 @@ class Errors {
 
 class Keys {
   static const app_brightness = "brightness";
+  static const String tokenKey = "curso_tkn_key";
+  static const String email = "curso_email_key";
 }
