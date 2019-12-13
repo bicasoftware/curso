@@ -11,7 +11,7 @@ class Faltas implements BaseTable {
     @required this.id,
     @required this.idMateria,
     @required this.data,
-    @required this.numAula,
+    @required this.ordemAula,
     @required this.tipo,
   });
 
@@ -20,7 +20,7 @@ class Faltas implements BaseTable {
       id: m[ID],
       idMateria: m[IDMATERIA],
       data: parseDate(m[DATA]),
-      numAula: m[NUMAULA],
+      ordemAula: m[NUMAULA],
       tipo: m[TIPO],
     );
   }
@@ -32,15 +32,15 @@ class Faltas implements BaseTable {
   int id;
   int idMateria;
   DateTime data;
-  int numAula;
+  int ordemAula;
 
   ///Tipo pode ser 0 - Falta ou 1 - Aula Vaga
   int tipo;
 
   static const String ID = "id";
-  static const String IDMATERIA = "id_materia";
-  static const String DATA = "dt";
-  static const String NUMAULA = "num_aula";
+  static const String IDMATERIA = "materiaId";
+  static const String DATA = "data";
+  static const String NUMAULA = "ordemAula";
   static const String TIPO = "tipo";
 
   static List<String> provideColumns = [ID, IDMATERIA, DATA, NUMAULA, TIPO];
@@ -64,7 +64,7 @@ class Faltas implements BaseTable {
     final Map<String, Object> m = {
       IDMATERIA: idMateria,
       DATA: formatDbDate(data),
-      NUMAULA: numAula,
+      NUMAULA: ordemAula,
       TIPO: tipo,
     };
 
@@ -77,6 +77,6 @@ class Faltas implements BaseTable {
 
   @override
   String toString() {
-    return "id: $id, idMateria: $idMateria, data: ${formatDate(data)}, numAula: $numAula, tipo: $tipo";
+    return "id: $id, idMateria: $idMateria, data: ${formatDate(data)}, numAula: $ordemAula, tipo: $tipo";
   }
 }

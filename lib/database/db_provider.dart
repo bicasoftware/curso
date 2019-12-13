@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:curso/database/db_seeder.dart';
 import 'package:curso/models/aulas.dart';
 import 'package:curso/models/configuration.dart';
 import 'package:curso/models/faltas.dart';
@@ -50,8 +49,6 @@ class DBProvider {
     await _createPeriodos(db);
     await _createHorarios(db);
     await _createConfig(db);
-
-    await DbSeeder.applySignInSeed(db);
   }
 
   static Future _createNotas(Database db) async {

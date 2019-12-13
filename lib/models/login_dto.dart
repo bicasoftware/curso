@@ -1,3 +1,4 @@
+import 'package:curso/models/configuration.dart';
 import 'package:curso/models/periodos.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,12 +21,14 @@ class LoginDto {
     this.email,
     this.token,
     this.data,
+    this.configurations,
   });
 
   factory LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
 
   final String email, token;
   final DataDto data;
+  final Configuration configurations;
 
   Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
 }

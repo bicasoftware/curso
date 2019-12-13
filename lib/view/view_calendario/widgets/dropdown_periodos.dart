@@ -30,7 +30,7 @@ class DropDownPeriodos extends StatelessWidget {
               items: [
                 for (final per in periodos)
                   DropdownMenuItem<Periodos>(
-                    child: Text("${per.numPeriodo}º ${Strings.periodo} "),
+                    child: Text("${per.numperiodo}º ${Strings.periodo} "),
                     value: per,
                   )
               ],

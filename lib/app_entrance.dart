@@ -7,7 +7,6 @@ import 'package:lib_observer/lib_observer.dart';
 import 'package:provider/provider.dart';
 
 class AppEntrance extends StatelessWidget {
-  //TODO - remover essa classe e chamar diretamente MyApp()
   const AppEntrance({
     @required this.periodos,
     @required this.isLight,

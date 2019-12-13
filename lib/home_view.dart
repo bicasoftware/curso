@@ -12,14 +12,15 @@ import 'package:provider/provider.dart';
 
 import 'bloc/bloc_main/bloc_main.dart';
 
+///ViewCheckState, testa se já existe o token salvo
+///Se não existir, vai pra [ViewLogin],
+///se existir, vai direto para [ViewHome]
 class ViewCheckState extends StatelessWidget {
-
-  //TODO - corrigir ordem de criação e colocar no lugar correto o MaterialApp()
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: CustomThemes.lightTheme,
       home: FutureObserver<List>(
         future: Future.wait([
           StorageUtils.readToken(),
@@ -52,13 +53,8 @@ class Cursando extends StatelessWidget {
         return Provider<BlocMain>(
           builder: (BuildContext context) => BlocMain(periodos: periodos, isLight: isLight),
           dispose: (BuildContext a, BlocMain b) => b.dispose(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: isLight ? CustomThemes.darkTheme : CustomThemes.lightTheme,
-            home: ViewHome(
-              initialPos: periodos.isNotEmpty ? 1 : 0,
-            ),
+          child: ViewHome(
+            initialPos: periodos.isNotEmpty ? 1 : 0,
           ),
         );
       },

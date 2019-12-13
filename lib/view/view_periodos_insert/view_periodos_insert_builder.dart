@@ -108,9 +108,9 @@ class ViewPeriodosInsertBuilder {
           HorarioAulaTile(
             ordemAula: i,
             onOrdemAulaTap: onOrdemAulaTap,
-            inicio: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.inicio ??
+            inicio: horarios.firstWhere((h) => h.ordemaula == i, orElse: () => null)?.inicio ??
                 DateTime.now(),
-            termino: horarios.firstWhere((h) => h.ordemAula == i, orElse: () => null)?.termino ??
+            termino: horarios.firstWhere((h) => h.ordemaula == i, orElse: () => null)?.termino ??
                 DateTime.now(),
           )
       ],

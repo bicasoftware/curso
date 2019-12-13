@@ -152,7 +152,7 @@ List<CalendarioDTO> prepareCalendario({
         final falta = faltas.firstWhere(
           (f) =>
               f.idMateria == aula.idMateria &&
-              f.numAula == aula.numAula &&
+              f.ordemAula == aula.numAula &&
               isSameDay(f.data, inicio),
           orElse: () => null,
         );

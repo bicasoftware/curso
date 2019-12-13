@@ -9,7 +9,7 @@ part 'horarios.g.dart';
 class Horarios implements BaseTable {
   Horarios({
     @required this.idPeriodo,
-    @required this.ordemAula,
+    @required this.ordemaula,
     @required this.inicio,
     @required this.termino,
     this.id,
@@ -19,7 +19,7 @@ class Horarios implements BaseTable {
     return Horarios(
       id: m[ID],
       idPeriodo: m[IDPERIODO],
-      ordemAula: m[ORDEMAULA],
+      ordemaula: m[ORDEMAULA],
       inicio: parseTime(m[INICIO]),
       termino: parseTime(m[TERMINO]),
     );
@@ -29,15 +29,14 @@ class Horarios implements BaseTable {
 
   Map<String, dynamic> toJson() => _$HorariosToJson(this);
 
-  int id, idPeriodo, ordemAula;
+  int id, idPeriodo, ordemaula;
 
-  //TODO - gerar function para formatar horários
   @JsonKey(fromJson: parseTime, toJson: formatTime)
   DateTime inicio, termino;
 
   static const String ID = "id";
-  static const String IDPERIODO = "idperiodo";
-  static const String ORDEMAULA = "ordem_aula";
+  static const String IDPERIODO = "periodoId";
+  static const String ORDEMAULA = "ordemaula";
   static const String INICIO = "inicio";
   static const String TERMINO = "termino";
 
@@ -65,7 +64,7 @@ class Horarios implements BaseTable {
   Map toMap() {
     final Map<String, dynamic> m = {
       IDPERIODO: idPeriodo,
-      ORDEMAULA: ordemAula,
+      ORDEMAULA: ordemaula,
       INICIO: formatTime(inicio),
       TERMINO: formatTime(termino),
     };
@@ -79,7 +78,7 @@ class Horarios implements BaseTable {
 
   @override
   String toString() {
-    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemAula, inicio: ${formatTime(inicio)}, termino: ${formatTime(termino)}";
+    return "id: $id, idPeriodo: $idPeriodo, ordemAula: $ordemaula, inicio: ${formatTime(inicio)}, termino: ${formatTime(termino)}";
   }
 
   Horarios getCopy() {
@@ -88,7 +87,7 @@ class Horarios implements BaseTable {
       idPeriodo: idPeriodo,
       inicio: inicio,
       termino: termino,
-      ordemAula: ordemAula,
+      ordemaula: ordemaula,
     );
   }
 }

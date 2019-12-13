@@ -31,8 +31,8 @@ class Notas implements BaseTable {
   double nota;
 
   static const String ID = "id";
-  static const String IDMATERIA = "id_materia";
-  static const String DATA = "dt_prova";
+  static const String IDMATERIA = "materiaId";
+  static const String DATA = "data";
   static const String NOTA = "nota";
 
   static List<String> provideColumns = [ID, IDMATERIA, DATA, NOTA];

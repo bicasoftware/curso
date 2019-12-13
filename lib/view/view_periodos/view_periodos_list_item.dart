@@ -50,7 +50,7 @@ class ViewPeriodosListItem extends StatelessWidget {
           child: ExpansionTile(
             leading: Icon(Icons.date_range),
             title: Text(
-              "${periodo.numPeriodo}º ${Strings.periodo}",
+              "${periodo.numperiodo}º ${Strings.periodo}",
             ),
             children: <Widget>[
               Padding(

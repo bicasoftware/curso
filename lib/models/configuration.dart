@@ -59,4 +59,7 @@ class Configuration implements BaseTable {
         $Cl_Notify INTEGER NOT NULL      
       );
     """;
+
+  @override
+  String toString() => "id: $id, isLight: $isLight, notify: $notify";
 }

@@ -9,7 +9,7 @@ class Aulas implements BaseTable {
     this.id,
     this.idPeriodo,
     this.idMateria,
-    this.weekDay,
+    this.weekday,
     this.ordem,
   });
 
@@ -18,7 +18,7 @@ class Aulas implements BaseTable {
       id: m[ID],
       idMateria: m[IDMATERIA],
       idPeriodo: m[IDPERIODO],
-      weekDay: m[WEEKDAY],
+      weekday: m[WEEKDAY],
       ordem: m[ORDEM],
     );
   }
@@ -27,12 +27,12 @@ class Aulas implements BaseTable {
 
   Map<String, dynamic> toJson() => _$AulasToJson(this);
 
-  int id, idPeriodo, idMateria, weekDay, ordem;
+  int id, idPeriodo, idMateria, weekday, ordem;
 
   static const String ID = "id";
-  static const String IDMATERIA = "id_materia";
+  static const String IDMATERIA = "materiaId";
   static const String IDPERIODO = "id_periodo";
-  static const String WEEKDAY = "week_day";
+  static const String WEEKDAY = "weekday";
   static const String ORDEM = "ordem";
 
   static List<String> provideColumns = [
@@ -50,7 +50,7 @@ class Aulas implements BaseTable {
     final Map<String, dynamic> m = {
       IDPERIODO: idPeriodo,
       IDMATERIA: idMateria,
-      WEEKDAY: weekDay,
+      WEEKDAY: weekday,
       ORDEM: ordem,
     };
 
@@ -74,6 +74,6 @@ class Aulas implements BaseTable {
 
   @override
   String toString() {
-    return "id: $id, idPeriodo: $idPeriodo, idMateria: $idMateria, weekDay: $weekDay, ordem: $ordem";
+    return "id: $id, idPeriodo: $idPeriodo, idMateria: $idMateria, weekDay: $weekday, ordem: $ordem";
   }
 }

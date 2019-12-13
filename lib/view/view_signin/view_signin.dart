@@ -11,7 +11,7 @@ import 'package:curso/view/view_login/widgets/login_header.dart';
 import 'package:curso/view/view_signin/signin_area.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-
+//TODO - Testar Login e cadastro. COMMITAR
 class ViewSignIn extends StatefulWidget {
   @override
   _ViewSignInState createState() => _ViewSignInState();

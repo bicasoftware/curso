@@ -170,7 +170,7 @@ class BlocMain extends BaseBloc {
     final aula = Aulas(
       idPeriodo: idPeriodo,
       idMateria: idMateria,
-      weekDay: weekDay,
+      weekday: weekDay,
       ordem: ordemAula,
     );
 
@@ -189,7 +189,7 @@ class BlocMain extends BaseBloc {
     final aula = Aulas(
       idPeriodo: idPeriodo,
       idMateria: idMateria,
-      weekDay: weekDay,
+      weekday: weekDay,
       ordem: ordemAula,
     );
 
@@ -213,7 +213,7 @@ class BlocMain extends BaseBloc {
       Faltas(
         id: null,
         idMateria: idMateria,
-        numAula: ordemAula,
+        ordemAula: ordemAula,
         data: date,
         tipo: tipo,
       ),

@@ -18,7 +18,7 @@ class Cronograma extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        for (int i = 0; i < periodo.aulasDia; i++)
+        for (int i = 0; i < periodo.aulasdia; i++)
           CronogramaRow(
             ordemAula: i,
             container: _getRowContainer(i),
@@ -45,7 +45,7 @@ class Cronograma extends StatelessWidget {
     for (var i = 0; i < 7; i++) {
       for (final materia in periodo.materias) {
         final Aulas aula = materia.aulas.firstWhere(
-          (a) => a.ordem == ordemAula && a.weekDay == i,
+          (a) => a.ordem == ordemAula && a.weekday == i,
           orElse: () => null,
         );
 

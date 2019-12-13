@@ -3,11 +3,9 @@ import 'package:curso/models/aulas.dart';
 import 'package:curso/models/faltas.dart';
 import 'package:curso/models/notas.dart';
 import 'package:curso/utils.dart/random_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'materias.g.dart';
-
-@JsonSerializable(nullable: true)
 class Materias implements BaseTable {
   Materias({
     this.id,
@@ -15,7 +13,7 @@ class Materias implements BaseTable {
     this.nome,
     this.sigla,
     this.freq,
-    this.medAprov,
+    this.medaprov,
     this.cor,
     this.faltas,
     this.notas,
@@ -32,21 +30,65 @@ class Materias implements BaseTable {
       idPeriodo: m[IDPERIODO],
       nome: m[NOME],
       sigla: m[SIGLA],
-      medAprov: m[MEDAPROV],
+      medaprov: m[MEDAPROV],
       freq: m[FREQ] == 1,
       cor: m[COR],
     );
   }
 
-  factory Materias.fromJson(Map<String, dynamic> json) => _$MateriasFromJson(json);
+  factory Materias.fromJson(Map<String, dynamic> json) {
+    final aulas = <Aulas>[];
+    final notas = <Notas>[];
+    final faltas = <Faltas>[];
 
-  Map<String, dynamic> toJson() => _$MateriasToJson(this);
+    if (json['aulas'] != null) {
+      json['aulas'].forEach((v) => aulas.add(Aulas.fromJson(v)));
+    }
+    if (json['faltas'] != null) {
+      json['faltas'].forEach((v) => faltas.add(Faltas.fromJson(v)));
+    }
+    if (json['notas'] != null) {
+      json['notas'].forEach((v) => notas.add(Notas.fromJson(v)));
+    }
+    return Materias(
+      id: json['id'],
+      cor: int.tryParse(json['cor']) ?? Colors.indigo,
+      nome: json['nome'],
+      sigla: json['sigla'],
+      freq: json['freq'] == 1,
+      medaprov: json['medaprov'] is int ? json['medaprov'].toDouble() : (json['medaprov'] as double),
+    )
+      ..notas = notas
+      ..faltas = faltas
+      ..aulas = aulas;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['cor'] = cor;
+    data['nome'] = nome;
+    data['sigla'] = sigla;
+    data['freq'] = freq;
+    data['medaprov'] = medaprov;
+
+    if (aulas != null) {
+      data['aulas'] = this.aulas.map((v) => v.toJson()).toList();
+    }
+    if (faltas != null) {
+      data['faltas'] = this.faltas.map((v) => v.toJson()).toList();
+    }
+    if (notas != null) {
+      data['notas'] = this.notas.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 
   int id, idPeriodo;
   String nome, sigla;
   @JsonKey(toJson: boolToInt, fromJson: intToBool)
   bool freq;
-  double medAprov;
+  double medaprov;
   @JsonKey(fromJson: int.tryParse)
   int cor;
   List<Faltas> faltas;
@@ -54,11 +96,11 @@ class Materias implements BaseTable {
   List<Aulas> aulas;
 
   static const String ID = "id";
-  static const String IDPERIODO = "id_periodo";
+  static const String IDPERIODO = "periodoId";
   static const String NOME = "nome";
   static const String SIGLA = "sigla";
   static const String FREQ = "freq";
-  static const String MEDAPROV = "med_aprov";
+  static const String MEDAPROV = "medaprov";
   static const String COR = "cor";
 
   static List<String> provideColumns = [
@@ -92,7 +134,7 @@ class Materias implements BaseTable {
       NOME: nome,
       SIGLA: sigla,
       FREQ: freq,
-      MEDAPROV: medAprov,
+      MEDAPROV: medaprov,
       COR: cor,
     };
 
@@ -105,7 +147,7 @@ class Materias implements BaseTable {
 
   @override
   String toString() {
-    return "id: $id, idPeriodo: $idPeriodo, nome: $nome, sigla: $sigla,freq: $freq,medAprov: $medAprov,cor: $cor";
+    return "id: $id, idPeriodo: $idPeriodo, nome: $nome, sigla: $sigla,freq: $freq,medAprov: $medaprov,cor: $cor";
   }
 
   Materias clone() {

@@ -20,11 +20,31 @@ void main() {
   });
 
   test('login', () async {
-    final result = await LoginService.callLogin("teste1@gmail.com", "S17h05a8");
+    final result = await LoginService.callLogin("saulo@test.com", "S17h05a8");
     if (result is LoginDto) {
+      print("\n");
+      print(result.configurations.toString());
       result.data.periodos.forEach((periodo) {
-        print("numero periodo${periodo.numPeriodo}");
-        periodo.horarios.forEach((horario) => print(horario.inicio));
+        print(periodo.toString());
+        periodo.horarios.forEach((horario) => print(horario.toString()));
+        print("\n");
+        print("materias: ${periodo.materias.length}");
+        periodo.materias.forEach((m) {
+          print(m.toString());
+          print("\n");
+          m.faltas.forEach((falta) {
+            print(falta.toString());
+            print("\n");
+          });
+          m.aulas.forEach((aula) {
+            print(aula.toString());
+            print("\n");
+          });
+          m.notas.forEach((nota) {
+            print(nota.toString());
+            print("\n");
+          });
+        });
       });
     }
   });
@@ -40,9 +60,8 @@ void main() {
     }
   });
 
-  //TODO - Testar servidor, rotina de unregister!!!!
   test('unregister', () async {
-    final result = await LoginService.callUnregister("saulo5@test.com", "S17h05a8");
+    final result = await LoginService.callUnregister("teste1@gmail.com", "S17h05a8");
     if (result is ResponseError) {
       print(result.error);
     } else if (result == "ok") {

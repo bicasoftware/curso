@@ -91,7 +91,7 @@ class ViewPeriodosState extends State<ViewPeriodos> {
                                 (int weekDay, int ordemAula, Periodos p, int idAula) async {
                               if (p.materias.isEmpty) {
                                 _showViewInsertMaterias(
-                                    context, p.id, p.materias, p.medAprov, _onRefreshMaterias);
+                                    context, p.id, p.materias, p.medaprov, _onRefreshMaterias);
                               } else {
                                 final idMateria = await BottomSheets.showBtsMaterias(context, p);
                                 if (idMateria != null) {

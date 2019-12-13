@@ -84,7 +84,7 @@ class _SignInAreaState extends State<SignInArea> {
     final bool isValidated = state.validate();
     if (isValidated) {
       state.save();
-      widget.doSignIn(email, pass);
+      widget.doSignIn(email.trim(), pass.trim());
     }
   }
 

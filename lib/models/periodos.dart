@@ -11,19 +11,16 @@ import 'package:curso/utils.dart/double_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'periodos.g.dart';
-
-@JsonSerializable(nullable: true)
 class Periodos implements BaseTable {
   Periodos({
     this.id,
-    this.numPeriodo,
+    this.numperiodo,
     this.inicio,
     this.termino,
     this.presObrig,
-    this.medAprov,
+    this.medaprov,
     this.materias,
-    this.aulasDia,
+    this.aulasdia,
   }) {
     materias = [];
     horarios = [];
@@ -36,36 +33,36 @@ class Periodos implements BaseTable {
     final now = DateTime.now();
     final end = now.add(const Duration(days: 6 * 30));
     return Periodos(
-      numPeriodo: 1,
+      numperiodo: 1,
       inicio: now,
       termino: end,
       presObrig: 75,
-      aulasDia: 4,
-      medAprov: 7.0,
+      aulasdia: 4,
+      medaprov: 7.0,
       materias: [],
     )..horarios = [
         Horarios(
           inicio: DateTime(1970, 1, 1, 18, 0, 0),
           termino: DateTime(1970, 1, 1, 18, 30, 0),
-          ordemAula: 0,
+          ordemaula: 0,
           idPeriodo: null,
         ),
         Horarios(
           inicio: DateTime(1970, 1, 1, 18, 30, 0),
           termino: DateTime(1970, 1, 1, 19, 0, 0),
-          ordemAula: 1,
+          ordemaula: 1,
           idPeriodo: null,
         ),
         Horarios(
           inicio: DateTime(1970, 1, 1, 19, 0, 0),
           termino: DateTime(1970, 1, 1, 19, 30, 0),
-          ordemAula: 2,
+          ordemaula: 2,
           idPeriodo: null,
         ),
         Horarios(
           inicio: DateTime(1970, 1, 1, 19, 30, 0),
           termino: DateTime(1970, 1, 1, 20, 0, 0),
-          ordemAula: 3,
+          ordemaula: 3,
           idPeriodo: null,
         ),
       ];
@@ -74,22 +71,63 @@ class Periodos implements BaseTable {
   factory Periodos.fromMap(Map m) {
     return Periodos(
       id: m[ID],
-      numPeriodo: m[NUMPERIODO],
+      numperiodo: m[NUMPERIODO],
       inicio: parseDate(m[INICIO]),
       termino: parseDate(m[TERMINO]),
       presObrig: m[PRESOBRIG],
-      medAprov: m[MEDAPROV],
-      aulasDia: m[AULASDIA],
+      medaprov: m[MEDAPROV],
+      aulasdia: m[AULASDIA],
     );
   }
 
-  factory Periodos.fromJson(Map<String, dynamic> json) => _$PeriodosFromJson(json);
+  factory Periodos.fromJson(Map<String, dynamic> json) {
+    final horarios = <Horarios>[];
+    final materias = <Materias>[];
 
-  Map<String, dynamic> toJson() => _$PeriodosToJson(this);
+    if (json['horarios'] != null) {
+      json['horarios'].forEach((v) => horarios.add(Horarios.fromJson(v)));
+    }
 
-  int id, presObrig, aulasDia, numPeriodo;
+    if (json['materias'] != null) {
+      json['materias'].forEach((v) => materias.add(Materias.fromJson(v)));
+    }
+
+    return Periodos(
+      id: json['id'],
+      numperiodo: json['numperiodo'],
+      aulasdia: json['aulasdia'],
+      inicio: parseDate(json['inicio']),
+      termino: parseDate(json['termino']),
+      presObrig: json['presObrig'],
+      medaprov:
+          json['medaprov'] is int ? json['medaprov'].toDouble() : (json['medaprov'] as double),
+    )
+      ..horarios = horarios
+      ..materias = materias;
+  }
+
+  //Verificar se não pode gerar erros aqui
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['numperiodo'] = numperiodo;
+    data['aulasdia'] = aulasdia;
+    data['inicio'] = formatDate(inicio);
+    data['termino'] = formatDate(termino);
+    data['presObrig'] = presObrig;
+    data['medaprov'] = medaprov;
+    if (horarios != null) {
+      data['horarios'] = horarios.map((v) => v.toJson()).toList();
+    }
+    if (materias != null) {
+      data['materias'] = materias.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+
+  int id, presObrig, aulasdia, numperiodo;
   DateTime inicio, termino;
-  double medAprov;
+  double medaprov;
   List<Materias> materias;
   List<Horarios> horarios;
 
@@ -103,12 +141,12 @@ class Periodos implements BaseTable {
   Parciais parciais;
 
   static const String ID = "id";
-  static const String NUMPERIODO = "num_periodo";
+  static const String NUMPERIODO = "numperiodo";
   static const String INICIO = "inicio";
   static const String TERMINO = "termino";
-  static const String PRESOBRIG = "pres_obrig";
-  static const String MEDAPROV = "med_aprov";
-  static const String AULASDIA = "aulas_dia";
+  static const String PRESOBRIG = "presObrig";
+  static const String MEDAPROV = "medaprov";
+  static const String AULASDIA = "aulasdia";
 
   static List<String> provideColumns = [
     ID,
@@ -137,12 +175,12 @@ class Periodos implements BaseTable {
   @override
   Map toMap() {
     final Map<String, dynamic> m = {
-      NUMPERIODO: numPeriodo,
+      NUMPERIODO: numperiodo,
       INICIO: formatDbDate(inicio),
       TERMINO: formatDbDate(termino),
       PRESOBRIG: presObrig,
-      MEDAPROV: medAprov,
-      AULASDIA: aulasDia,
+      MEDAPROV: medaprov,
+      AULASDIA: aulasdia,
     };
 
     if (id != null) {
@@ -154,7 +192,7 @@ class Periodos implements BaseTable {
 
   @override
   String toString() {
-    return "${id},${numPeriodo},${inicio},${termino},${presObrig},${medAprov},${materias},${aulasDia}";
+    return "${id},${numperiodo},${inicio},${termino},${presObrig},${medaprov},${materias},${aulasdia}";
   }
 
   void addHorario(Horarios horario) => horarios.add(horario);
@@ -174,10 +212,10 @@ class Periodos implements BaseTable {
   void _refreshAulasSemana() {
     aulasSemana.clear();
     if (materias != null && materias.isNotEmpty) {
-      for (var ordemAula = 0; ordemAula < aulasDia; ordemAula++) {
+      for (var ordemAula = 0; ordemAula < aulasdia; ordemAula++) {
         for (int weekDay = 0; weekDay < 7; weekDay++) {
           final materia = materias.firstWhere(
-            (m) => m.aulas.indexWhere((a) => a.ordem == ordemAula && a.weekDay == weekDay) >= 0,
+            (m) => m.aulas.indexWhere((a) => a.ordem == ordemAula && a.weekday == weekDay) >= 0,
             orElse: () => null,
           );
 
@@ -317,7 +355,7 @@ class Periodos implements BaseTable {
         numAulasSemestre: totalAulas,
         numAulasUntilNow: totalAulasUntilNow,
         notas: m.notas,
-        notaAprovacao: medAprov,
+        notaAprovacao: medaprov,
         notaAtual: media,
         faltas: faltas,
         vagas: vagas,

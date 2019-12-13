@@ -77,7 +77,7 @@ class _Body extends StatelessWidget {
                 cor: Colors.indigo.value,
                 idPeriodo: idPeriodo,
                 freq: true,
-                medAprov: medAprov,
+                medaprov: medAprov,
               ),
             );
           },

@@ -21,7 +21,7 @@ int calcNumAulasSemestre({
 
     ///Incrementa total de aulas da semana
     totalAulasSemana +=
-        aulas.where((aula) => aula.weekDay == diaComAula && aula.idMateria == idMateria).length;
+        aulas.where((aula) => aula.weekday == diaComAula && aula.idMateria == idMateria).length;
   }
 
   ///80 sextas-feiras, com 4 aulas, somam 320 aulas, que são o total de aulas do semestre
@@ -58,7 +58,7 @@ List<int> countAulasInRange(DateTime inicio, DateTime termino) {
 }
 
 int countTotalAulasSemestre(Materias m, List<int> aulasSemestre) {
-  final Set<int> diasComAula = m.aulas.map((m) => m.weekDay).toSet();
+  final Set<int> diasComAula = m.aulas.map((m) => m.weekday).toSet();
 
   final t = calcNumAulasSemestre(
     aulas: m.aulas,

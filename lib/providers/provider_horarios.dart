@@ -34,4 +34,9 @@ class ProviderHorarios {
     final db = await getDatabase();
     await db.delete(Horarios.tableName, where: "${Horarios.IDPERIODO} = ?", whereArgs: [idPeriodo]);
   }
+
+  static Future<int> insertHorario(Horarios horario) async {
+    final db = await getDatabase();
+    return await db.insert(Horarios.tableName, horario.toMap());
+  }
 }

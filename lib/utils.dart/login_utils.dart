@@ -3,11 +3,7 @@ import 'package:curso/utils.dart/Strings.dart';
 
 class LoginUtils {
   static String validaEmail(String s) {
-    if (!StringUtils.isValidEmail(s)) {
-      return Errors.emailInvalido;
-    } else {
-      return null;
-    }
+    return !StringUtils.isValidEmail(s.trim()) ? Errors.emailInvalido : null;
   }
 
   static String validaSenha(String s) {
@@ -21,10 +17,6 @@ class LoginUtils {
   }
 
   static String isSamePassword(String password, String retypedPassword) {
-    if(password != retypedPassword) {
-      return Errors.senhasNaoCoincidem;
-    } else {
-      return null;
-    }
+    return password != retypedPassword ? Errors.senhasNaoCoincidem : null;
   }
 }

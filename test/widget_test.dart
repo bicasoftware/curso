@@ -179,4 +179,10 @@ void main() {
     final Observable<List<Object>> obs = Observable.combineLatestList([obs2, obs3]);
     obs.listen(print);
   });
+
+  test('split String', () {
+    const str =  "+5521979878071-2-02/12/2019-511";
+    final List<String> splitString = str.split("-");
+    splitString.forEach(print);
+  });
 }

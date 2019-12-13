@@ -7,9 +7,9 @@ import 'package:meta/meta.dart';
 class BlocPeriodo extends BaseBloc {
   BlocPeriodo({@required Periodos periodo}) {
     _periodo = periodo;
-    numPeriodo = Flux(periodo.numPeriodo);
-    aulasDia = Flux(periodo.aulasDia);
-    medAprov = Flux(periodo.medAprov);
+    numPeriodo = Flux(periodo.numperiodo);
+    aulasDia = Flux(periodo.aulasdia);
+    medAprov = Flux(periodo.medaprov);
     presObrig = Flux(periodo.presObrig.toDouble());
     inicio = Flux(periodo.inicio);
     termino = Flux(periodo.termino);
@@ -36,7 +36,7 @@ class BlocPeriodo extends BaseBloc {
   }
 
   bool _temHorarioSalvo(int i) {
-    return horarios.value?.firstWhere((h) => h.ordemAula == i, orElse: () => null) != null;
+    return horarios.value?.firstWhere((h) => h.ordemaula == i, orElse: () => null) != null;
   }
 
   void setAulasDia(int dia) {
@@ -49,7 +49,7 @@ class BlocPeriodo extends BaseBloc {
             idPeriodo: _periodo.id,
             inicio: _periodo.horarios.last.termino,
             termino: _periodo.horarios.last.termino.add(const Duration(minutes: 50)),
-            ordemAula: i,
+            ordemaula: i,
           ),
         );
 
@@ -59,11 +59,11 @@ class BlocPeriodo extends BaseBloc {
   }
 
   void setHoraAula(int ordemAula, DateTime inicio, DateTime termino) {
-    final int index = horarios.value.indexWhere((h) => h.ordemAula == ordemAula);
+    final int index = horarios.value.indexWhere((h) => h.ordemaula == ordemAula);
 
     if (index < 0) {
       horarios.value.add(
-        Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemAula: ordemAula),
+        Horarios(idPeriodo: _periodo.id, inicio: inicio, termino: termino, ordemaula: ordemAula),
       );
     } else {
       horarios.value
@@ -73,7 +73,7 @@ class BlocPeriodo extends BaseBloc {
             idPeriodo: _periodo.id,
             inicio: inicio,
             termino: termino,
-            ordemAula: ordemAula,
+            ordemaula: ordemAula,
           ),
         );
       horarios.set(horarios.value);
@@ -96,9 +96,9 @@ class BlocPeriodo extends BaseBloc {
   Periodos providePeriodo() {
     if (shouldUpdate) {
       _periodo
-        ..numPeriodo = numPeriodo.value
-        ..aulasDia = aulasDia.value
-        ..medAprov = medAprov.value
+        ..numperiodo = numPeriodo.value
+        ..aulasdia = aulasDia.value
+        ..medaprov = medAprov.value
         ..presObrig = presObrig.value.toInt()
         ..inicio = inicio.value
         ..termino = termino.value

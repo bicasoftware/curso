@@ -38,7 +38,7 @@ class ViewPeriodosButtombar extends StatelessWidget {
         ),
         FlatButton(
           child: Text(Strings.materias, style: style),
-          onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medAprov),
+          onPressed: () => onMateriasTap(periodo.materias, periodo.id, periodo.medaprov),
         ),
         const SizedBox(width: 8),
       ],

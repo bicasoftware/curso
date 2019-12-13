@@ -44,6 +44,11 @@ class ProviderPeriodos {
     return periodo;
   }
 
+  static Future<int> appendPeriodo(Periodos periodo) async {
+    final db = await getDatabase();
+    return await db.insert(Periodos.tableName, periodo.toMap());
+  }
+
   static Future<Periodos> updatePeriodo(Periodos periodo) async {
     final db = await getDatabase();
 

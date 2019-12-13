@@ -5,7 +5,7 @@ import 'package:curso/services/response_error.dart';
 import 'package:http/http.dart' as http;
 
 class LoginService {
-  static const String baseUrl = "http://192.168.15.64:3000";
+  static const String baseUrl = "http://192.168.15.3:3000";
 
   static Future<dynamic> callLogin(String email, String password) async {
     final response = await http.post(

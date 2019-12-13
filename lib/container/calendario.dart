@@ -30,7 +30,7 @@ class DataDTO {
   bool hasProvas;
 
   void insertFalta(Faltas falta) {
-    final i = aulas.indexWhere((aula) => aula.numAula == falta.numAula);
+    final i = aulas.indexWhere((aula) => aula.numAula == falta.ordemAula);
     aulas[i] = aulas[i].copyWith(idfalta: falta.id, tipoFalta: falta.tipo);
   }
 

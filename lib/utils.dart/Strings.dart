@@ -175,6 +175,7 @@ class Errors {
   static const emailInvalido = "Email inválido";
   static const senhaInvalida = "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula e um número";
   static const senhasNaoCoincidem = "A senhas digitadas não são iguais";
+  static const falhaLocalizarServidor = "Impossível conectar, confira seu plano de dados e tente novamente";
 
 }
 
