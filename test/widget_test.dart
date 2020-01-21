@@ -173,10 +173,10 @@ void main() {
   });
 
   test('combineLatest', () {
-    final obs2 = Observable.just("1º Período");
-    final obs3 = Observable.fromIterable([DateTime(2018, 5, 4), DateTime(2018, 3, 5)]);
+    final obs2 = Stream.value("1º Período");
+    final obs3 = Stream.fromIterable([DateTime(2018, 5, 4), DateTime(2018, 3, 5)]);
 
-    final Observable<List<Object>> obs = Observable.combineLatestList([obs2, obs3]);
+    final Stream<List<Object>> obs = Rx.combineLatestList([obs2, obs3]);
     obs.listen(print);
   });
 
